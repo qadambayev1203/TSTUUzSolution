@@ -1,0 +1,24 @@
+﻿using Entities.Model.StatusModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entities.Model.FileModel
+{
+    public class Files
+    {
+        public int id { get; set; }
+        public string? title { get; set; }
+        public string? url { get; set; }
+        public DateTime? crated_at { get; set; } = DateTime.Now;
+        public DateTime? updated_at { get; set; }
+        [ForeignKey("Status")]        public int? status_id { get; set; }
+        public Status? status_ { get; set; }
+        [ForeignKey("User")]        public int? user_id { get; set; }
+        public User? user_ { get; set; }
+
+    }
+}

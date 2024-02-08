@@ -1,0 +1,24 @@
+﻿using Entities.Model.LanguagesModel;
+using Entities.Model.StatusModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entities.Model
+{
+    public class UserTypeTranslation
+    {
+        public int id { get; set; }
+        public string? type { get; set; }
+        [ForeignKey("UserType")] public int user_types_id { get; set; }
+        public UserType? user_types_ { get; set; }
+        [ForeignKey("Language")] public int? languages_id { get; set; }
+        public Language? languages_ { get; set; }
+        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
+        public StatusTranslation? status_translation_ { get; set; }
+
+    }
+}
