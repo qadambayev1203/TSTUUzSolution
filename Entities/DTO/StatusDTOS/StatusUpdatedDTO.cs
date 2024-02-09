@@ -8,5 +8,7 @@ namespace Entities.DTO.GenderDTOS
 {
     public class StatusUpdatedDTO
     {
+        public string? status { get; set; }
+        public bool? is_deleted { get; set; }
     }
 }

@@ -8,5 +8,7 @@ namespace Entities.DTO.GenderDTOS
 {
     public class UserTypeCreatedDTO
     {
+        public string? type { get; set; }
+        public int? status_id { get; set; }
     }
 }
