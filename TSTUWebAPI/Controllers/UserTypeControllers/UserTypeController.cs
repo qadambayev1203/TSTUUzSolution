@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.UserTypesRepository;
+using Entities.DTO.GenderDTOS;
 using Entities.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +23,9 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
         // UserType CRUD
 
         [HttpPost("createusertype")]
-        public IActionResult CreateUserType(UserType userType)
+        public IActionResult CreateUserType(UserTypeCreatedDTO userType1)
         {
-
+            var userType = _mapper.Map<UserType>(userType1);
             bool check = _repository.CreateUserType(userType);
 
             if (!check)
@@ -32,25 +33,25 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
                 return BadRequest();
             }
 
-            return Created("", userType);
+            return Ok("Created");
         }
 
         [HttpGet("getallusertype")]
         public IActionResult GetAllUserType()
         {
 
-            IEnumerable<UserType> userTypees = _repository.AllUserType();
-
-            return Ok(userTypees);
+            IEnumerable<UserType> userTypes1 = _repository.AllUserType();
+            var userTypes = _mapper.Map<IEnumerable<UserTypeReadedDTO>>(userTypes1);
+            return Ok(userTypes);
         }
 
         [HttpGet("getbyidusertype/{id}")]
         public IActionResult GetByIdUserType(int id)
         {
 
-            UserType tserType = _repository.GetUserTypeById(id);
-
-            return Ok(tserType);
+            UserType userType1 = _repository.GetUserTypeById(id);
+            var userType = _mapper.Map<UserTypeReadedDTO>(userType1);
+            return Ok(userType);
         }
 
 
@@ -68,14 +69,27 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
 
 
         [HttpPut("updateusertype/{id}")]
-        public IActionResult UpdateUserType(UserType userType, int id)
+        public IActionResult UpdateUserType(UserTypeUpdatedDTO userType1, int id)
         {
-            bool check = _repository.UpdateUserType(id, userType);
-            if (!check)
+            try
+            {
+                var userType = _repository.GetUserTypeById(id);
+                if (userType == null)
+                {
+                    return NotFound();
+                }
+                _mapper.Map(userType1, userType);
+                bool check = _repository.UpdateUserType();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch 
             {
                 return BadRequest();
             }
-            return Ok("Updated");
 
         }
 
@@ -87,9 +101,9 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
 
         //UserTypeTranslation CRUD
         [HttpPost("createuseruypetranslation")]
-        public IActionResult CreateUserTypeTranslation(UserTypeTranslation userTypetranslation)
+        public IActionResult CreateUserTypeTranslation(UserTypeTranslationCreatedDTO userTypetranslation1)
         {
-
+            var userTypetranslation = _mapper.Map<UserTypeTranslation>(userTypetranslation1);
             bool check = _repository.CreateUserTypeTranslation(userTypetranslation);
 
             if (!check)
@@ -97,24 +111,24 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
                 return BadRequest();
             }
 
-            return Created("", userTypetranslation);
+            return Ok("Created");
         }
 
         [HttpGet("getalluseruypetranslation")]
         public IActionResult GetAllUserTypeTranslation()
         {
 
-            IEnumerable<UserTypeTranslation> userTypetranslationes = _repository.AllUserTypeTranslation();
-
-            return Ok(userTypetranslationes);
+            IEnumerable<UserTypeTranslation> userTypetranslations1 = _repository.AllUserTypeTranslation();
+            var userTypetranslations = _mapper.Map<IEnumerable<UserTypeTranslationReadedDTO>>(userTypetranslations1);
+            return Ok(userTypetranslations);
         }
 
         [HttpGet("getbyiduseruypetranslation/{id}")]
         public IActionResult GetByIdUserTypeTranslation(int id)
         {
 
-            UserTypeTranslation userTypetranslation = _repository.GetUserTypeTranslationById(id);
-
+            UserTypeTranslation userTypetranslation1 = _repository.GetUserTypeTranslationById(id);
+            var userTypetranslation = _mapper.Map<UserTypeTranslationReadedDTO>(userTypetranslation1);
             return Ok(userTypetranslation);
         }
 
@@ -133,14 +147,27 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
 
 
         [HttpPut("updateuseruypetranslation/{id}")]
-        public IActionResult UpdateUserTypeTranslation(UserTypeTranslation userTypetranslation, int id)
+        public IActionResult UpdateUserTypeTranslation(UserTypeTranslation userTypetranslation1, int id)
         {
-            bool check = _repository.UpdateUserTypeTranslation(id, userTypetranslation);
-            if (!check)
+            try
+            {
+                var userTypetranslation = _repository.GetUserTypeTranslationById(id);
+                if (userTypetranslation == null)
+                {
+                    return NotFound();
+                }
+                _mapper.Map(userTypetranslation1, userTypetranslation);
+                bool check = _repository.UpdateUserTypeTranslation();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch 
             {
                 return BadRequest();
             }
-            return Ok("Updated");
 
         }
 

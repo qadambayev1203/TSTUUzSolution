@@ -14,7 +14,7 @@ namespace Contracts.AllRepository.GendersRepository
         public IEnumerable<Gender> AllGender();
         public Gender GetGenderById(int id);
         public bool CreateGender(Gender gender);
-        public bool UpdateGender(int id,Gender gender);
+        public bool UpdateGender();
         public bool DeleteGender(int id);
 
 
@@ -23,7 +23,7 @@ namespace Contracts.AllRepository.GendersRepository
         public IEnumerable<GenderTranslation> AllGenderTranslation();
         public GenderTranslation GetGenderTranslationById(int id);
         public bool CreateGenderTranslation(GenderTranslation genderTranslation);
-        public bool UpdateGenderTranslation(int id, GenderTranslation genderTranslation);
+        public bool UpdateGenderTranslation();
         public bool DeleteGenderTranslation(int id);
     }
 }

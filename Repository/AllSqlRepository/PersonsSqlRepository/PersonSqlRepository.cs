@@ -1,10 +1,12 @@
 ﻿using Contracts.AllRepository.PersonsRepository;
 using Entities;
+using Entities.Model.GenderModel;
 using Entities.Model.PersonModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,53 +25,85 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
         //Person CRUD
         public IEnumerable<Person> AllPerson()
         {
-            var persons = new List<Person>();
-            persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_).ToList();
-            return persons;
+            try
+            {
+                var persons = new List<Person>();
+                persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_).ToList();
+                return persons;
+            }
+            catch 
+            {
+                return Enumerable.Empty<Person>();
+            }
         }
 
         public bool CreatePerson(Person person)
         {
-            if (person == null)
+            try
+            {
+                if (person == null)
+                {
+                    return false;
+                }
+                person.created_at = DateTime.UtcNow;
+                _context.persons_20ts24tu.Add(person);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.persons_20ts24tu.Add(person);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public bool DeletePerson(int id)
         {
-            var person = GetPersonById(id);
-            if (person == null)
+            try
+            {
+                var person = GetPersonById(id);
+                if (person == null)
+                {
+                    return false;
+                }
+                person.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.persons_20ts24tu.Update(person);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.persons_20ts24tu.Update(person);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public Person GetPersonById(int id)
         {
-            var person = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_).FirstOrDefault(x => x.id.Equals(id));
-            return person;
+            try
+            {
+                var person = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_).FirstOrDefault(x => x.id.Equals(id));
+                return person;
+            }
+            catch 
+            {
+                return null;
+            }
         }
 
-        public bool UpdatePerson(int id, Person person)
+        public bool UpdatePerson()
         {
-            var personCheck = GetPersonById(id);
-            if (personCheck == null)
+
+            try
+            {
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.persons_20ts24tu.Update(person);
-            _context.SaveChanges();
-
-            return true;
         }
 
 
@@ -80,53 +114,84 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
         //PersonTranslation CRUD
         public IEnumerable<PersonTranslation> AllPersonTranslation()
         {
-            var personsTranslation = new List<PersonTranslation>();
-            personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_).ToList();
-            return personsTranslation;
+            try
+            {
+                var personsTranslation = new List<PersonTranslation>();
+                personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_).ToList();
+                return personsTranslation;
+            }
+            catch 
+            {
+                return Enumerable.Empty<PersonTranslation>();
+            }
         }
 
         public bool CreatePersonTranslation(PersonTranslation personTranslation)
         {
-            if (personTranslation == null)
+            try
+            {
+                if (personTranslation == null)
+                {
+                    return false;
+                }
+                _context.persons_translations_20ts24tu.Add(personTranslation);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.persons_translations_20ts24tu.Add(personTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public bool DeletePersonTranslation(int id)
         {
-            var personTranslation = GetPersonTranslationById(id);
-            if (personTranslation == null)
+            try
+            {
+                var personTranslation = GetPersonTranslationById(id);
+                if (personTranslation == null)
+                {
+                    return false;
+                }
+                personTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.persons_translations_20ts24tu.Update(personTranslation);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.persons_translations_20ts24tu.Update(personTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public PersonTranslation GetPersonTranslationById(int id)
         {
-            var personTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
-            return personTranslation;
+            try
+            {
+                var personTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
+                return personTranslation;
+            }
+            catch 
+            {
+                return null;
+            }
         }
 
-        public bool UpdatePersonTranslation(int id, PersonTranslation personTranslation)
+        public bool UpdatePersonTranslation()
         {
-            var personTranslationCheck = GetPersonTranslationById(id);
-            if (personTranslationCheck == null)
+
+            try
+            {
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.persons_translations_20ts24tu.Update(personTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
     }

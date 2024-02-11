@@ -39,6 +39,7 @@ namespace TSTUWebAPI.Controllers
             {
                 return BadRequest("No data");
             }
+            credentials.Password = ((credentials.Login+credentials.Password).GetHashCode()).ToString();
             var user = await repositoryManager.User.LoginAsync(credentials.Login, credentials.Password, false, cancelationToken);
             if (user != null)
             {

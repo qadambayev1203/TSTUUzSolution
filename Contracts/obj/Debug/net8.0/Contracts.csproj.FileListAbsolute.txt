@@ -39,6 +39,7 @@ D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\Contracts.GeneratedMS
 D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\Contracts.AssemblyInfoInputs.cache
 D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\Contracts.AssemblyInfo.cs
 D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\Contracts.csproj.CoreCompileInputs.cache
+D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\Contracts.sourcelink.json
 D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\Contracts.csproj.CopyComplete
 D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\Contracts.dll
 D:\TSTUUzProject\TSTUUzSolution\Contracts\obj\Debug\net8.0\refint\Contracts.dll

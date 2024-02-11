@@ -1,5 +1,6 @@
 ﻿using Contracts.AllRepository.LanguagesRepository;
 using Entities;
+using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,53 +22,83 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
 
         public IEnumerable<Language> AllLanguage()
         {
-            var languages = new List<Language>();
-            languages = _context.languages_20ts24tu.Include(x=>x.status_).ToList();
-            return languages;
+            try
+            {
+                var languages = new List<Language>();
+                languages = _context.languages_20ts24tu.Include(x => x.status_).ToList();
+                return languages;
+            }
+            catch 
+            {
+                return null;
+            }
         }
 
         public bool CreateLanguage(Language language)
         {
-            if (language == null)
+            try
+            {
+                if (language == null)
+                {
+                    return false;
+                }
+                _context.languages_20ts24tu.Add(language);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.languages_20ts24tu.Add(language);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public bool DeleteLanguage(int id)
         {
-            var language = GetLanguageById(id);
-            if (language == null)
+            try
+            {
+                var language = GetLanguageById(id);
+                if (language == null)
+                {
+                    return false;
+                }
+                language.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.languages_20ts24tu.Update(language);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.languages_20ts24tu.Update(language);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public Language GetLanguageById(int id)
         {
-            var language = _context.languages_20ts24tu.Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
-            return language;
+            try
+            {
+                var language = _context.languages_20ts24tu.Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                return language;
+            }
+            catch 
+            {
+                return null;
+            }
         }
 
-        public bool UpdateLanguage(int id, Language language)
+        public bool UpdateLanguage()
         {
-            var languageCheck = GetLanguageById(id);
-            if (languageCheck == null)
+
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.languages_20ts24tu.Update(language);
-            _context.SaveChanges();
-
-            return true;
         }
     }
 }

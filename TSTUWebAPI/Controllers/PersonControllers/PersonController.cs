@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.PersonsRepository;
+using Entities.DTO.GenderDTOS;
 using Entities.Model.PersonModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +23,9 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         // person CRUD
 
         [HttpPost("createperson")]
-        public IActionResult Createperson(Person person)
+        public IActionResult Createperson(PersonCreatedDTO person1)
         {
-
+            var person = _mapper.Map<Person>(person1);
             bool check = _repository.CreatePerson(person);
 
             if (!check)
@@ -32,24 +33,24 @@ namespace TSTUWebAPI.Controllers.PersonControllers
                 return BadRequest();
             }
 
-            return Created("", person);
+            return Ok("Created");
         }
 
         [HttpGet("getallperson")]
         public IActionResult GetAllperson()
         {
 
-            IEnumerable<Person> persones = _repository.AllPerson();
-
-            return Ok(persones);
+            IEnumerable<Person> persons1 = _repository.AllPerson();
+            var persons = _mapper.Map<IEnumerable<PersonReadedDTO>>(persons1);
+            return Ok(persons);
         }
 
         [HttpGet("getbyidperson/{id}")]
         public IActionResult GetByIdperson(int id)
         {
 
-            Person person = _repository.GetPersonById(id);
-
+            Person person1 = _repository.GetPersonById(id);
+            var person = _mapper.Map<PersonReadedDTO>(person1);
             return Ok(person);
         }
 
@@ -68,14 +69,28 @@ namespace TSTUWebAPI.Controllers.PersonControllers
 
 
         [HttpPut("updateperson/{id}")]
-        public IActionResult Updateperson(Person person, int id)
+        public IActionResult Updateperson(PersonUpdatedDTO person1, int id)
         {
-            bool check = _repository.UpdatePerson(id, person);
-            if (!check)
+            try
+            {
+                var person = _repository.GetPersonById(id);
+                if (person == null)
+                {
+                    return NotFound();
+                }
+                _mapper.Map(person1, person);
+                bool check = _repository.UpdatePerson();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+
+            }
+            catch 
             {
                 return BadRequest();
             }
-            return Ok("Updated");
 
         }
 
@@ -87,9 +102,9 @@ namespace TSTUWebAPI.Controllers.PersonControllers
 
         //personTranslation CRUD
         [HttpPost("createpersontranslation")]
-        public IActionResult CreatepersonTranslation(PersonTranslation persontranslation)
+        public IActionResult CreatepersonTranslation(PersonTranslationCreatedDTO persontranslation1)
         {
-
+            var persontranslation = _mapper.Map<PersonTranslation>(persontranslation1);
             bool check = _repository.CreatePersonTranslation(persontranslation);
 
             if (!check)
@@ -97,24 +112,23 @@ namespace TSTUWebAPI.Controllers.PersonControllers
                 return BadRequest();
             }
 
-            return Created("", persontranslation);
+            return Ok("Created");
         }
 
         [HttpGet("getallpersontranslation")]
         public IActionResult GetAllpersonTranslation()
         {
 
-            IEnumerable<PersonTranslation> persontranslationes = _repository.AllPersonTranslation();
-
+            IEnumerable<PersonTranslation> persontranslationes1 = _repository.AllPersonTranslation();
+            var persontranslationes = _mapper.Map<IEnumerable<PersonTranslationReadedDTO>>(persontranslationes1);
             return Ok(persontranslationes);
         }
 
         [HttpGet("getbyidpersontranslation/{id}")]
         public IActionResult GetByIdpersonTranslation(int id)
         {
-
-            PersonTranslation persontranslation = _repository.GetPersonTranslationById(id);
-
+            PersonTranslation persontranslation1 = _repository.GetPersonTranslationById(id);
+            var persontranslation = _mapper.Map<PersonTranslationReadedDTO>(persontranslation1);
             return Ok(persontranslation);
         }
 
@@ -133,14 +147,27 @@ namespace TSTUWebAPI.Controllers.PersonControllers
 
 
         [HttpPut("updatepersontranslation/{id}")]
-        public IActionResult UpdatepersonTranslation(PersonTranslation persontranslation, int id)
+        public IActionResult UpdatepersonTranslation(PersonTranslation persontranslation1, int id)
         {
-            bool check = _repository.UpdatePersonTranslation(id, persontranslation);
-            if (!check)
+            try
+            {
+                var persontranslation = _repository.GetPersonTranslationById(id);
+                if (persontranslation == null)
+                {
+                    return NotFound();
+                }
+                _mapper.Map(persontranslation1, persontranslation);
+                bool check = _repository.UpdatePersonTranslation();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch 
             {
                 return BadRequest();
             }
-            return Ok("Updated");
 
         }
     }

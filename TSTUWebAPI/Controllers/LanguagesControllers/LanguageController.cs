@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.LanguagesRepository;
+using Entities.DTO.LanguageDTOS;
 using Entities.Model.LanguagesModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +23,9 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
         // language CRUD
 
         [HttpPost("createlanguage")]
-        public IActionResult Createlanguage(Language language)
+        public IActionResult Createlanguage(LanguageCreatedDTO language1)
         {
-
+            var language = _mapper.Map<Language>(language1);
             bool check = _repository.CreateLanguage(language);
 
             if (!check)
@@ -32,24 +33,24 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
                 return BadRequest();
             }
 
-            return Created("", language);
+            return Ok("Created");
         }
 
         [HttpGet("getalllanguage")]
         public IActionResult GetAlllanguage()
         {
 
-            IEnumerable<Language> languagees = _repository.AllLanguage();
-
-            return Ok(languagees);
+            IEnumerable<Language> languages1 = _repository.AllLanguage();
+            var languages = _mapper.Map<IEnumerable<LanguageReadedDTO>>(languages1);  
+            return Ok(languages);
         }
 
         [HttpGet("getbyidlanguage/{id}")]
         public IActionResult GetByIdlanguage(int id)
         {
 
-            Language language = _repository.GetLanguageById(id);
-
+            Language language1= _repository.GetLanguageById(id);
+            var language = _mapper.Map<LanguageReadedDTO>(language1);
             return Ok(language);
         }
 
@@ -68,14 +69,27 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
 
 
         [HttpPut("updatelanguage/{id}")]
-        public IActionResult Updatelanguage(Language language, int id)
+        public IActionResult Updatelanguage(Language language1, int id)
         {
-            bool check = _repository.UpdateLanguage(id, language);
-            if (!check)
+            try
+            {
+                var language = _repository.GetLanguageById(id);
+                if (language == null)
+                {
+                    return NotFound();
+                }
+                _mapper.Map(language1, language);
+                bool check = _repository.UpdateLanguage();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch 
             {
                 return BadRequest();
             }
-            return Ok("Updated");
 
         }
 

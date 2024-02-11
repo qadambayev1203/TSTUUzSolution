@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.UsersRepository;
+using Entities.DTO.GenderDTOS;
 using Entities.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace TSTUWebAPI.Controllers.UserCrudControllers
 {
@@ -22,9 +24,11 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
         // user CRUD
 
         [HttpPost("createuser")]
-        public IActionResult Createuser(User user)
+        public IActionResult Createuser(UserCrudCreatedDTO user1)
         {
-
+            string passwordhash = (user1.login + user1.password).GetHashCode().ToString();
+            var user = _mapper.Map<User>(user1);
+            user.password = passwordhash;
             bool check = _repository.CreateUser(user);
 
             if (!check)
@@ -32,24 +36,24 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
                 return BadRequest();
             }
 
-            return Created("", user);
+            return Ok("Created");
         }
 
         [HttpGet("getalluser")]
         public IActionResult GetAlluser()
         {
 
-            IEnumerable<User> useres = _repository.AllUser();
-
-            return Ok(useres);
+            IEnumerable<User> users1= _repository.AllUser();
+            var users = _mapper.Map<IEnumerable<UserCrudReadedDTO>>(users1);
+            return Ok(users);
         }
 
         [HttpGet("getbyiduser/{id}")]
         public IActionResult GetByIduser(int id)
         {
 
-            User user = _repository.GetUserById(id);
-
+            User user1 = _repository.GetUserById(id);
+            var user = _mapper.Map<UserCrudReadedDTO>(user1);
             return Ok(user);
         }
 
@@ -68,9 +72,16 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
 
 
         [HttpPut("updateuser/{id}")]
-        public IActionResult Updateuser(User user, int id)
+        public IActionResult Updateuser(UserCrudUpdatedDTO user1, int id)
         {
-            bool check = _repository.UpdateUser(id, user);
+            var user = _repository.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user1.password= ((user1.login + user1.password).GetHashCode()).ToString();
+            _mapper.Map(user1, user);
+            bool check = _repository.UpdateUser();
             if (!check)
             {
                 return BadRequest();

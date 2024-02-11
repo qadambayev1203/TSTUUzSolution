@@ -13,7 +13,7 @@ namespace Contracts.AllRepository.UsersRepository
         public IEnumerable<User> AllUser();
         public User GetUserById(int id);
         public bool CreateUser(User user);
-        public bool UpdateUser(int id, User user);
+        public bool UpdateUser();
         public bool DeleteUser(int id);
 
     }

@@ -13,7 +13,7 @@ namespace Contracts.AllRepository.PersonsRepository
         public IEnumerable<Person> AllPerson();
         public Person GetPersonById(int id);
         public bool CreatePerson(Person person);
-        public bool UpdatePerson(int id, Person person);
+        public bool UpdatePerson();
         public bool DeletePerson(int id);
 
 
@@ -22,7 +22,7 @@ namespace Contracts.AllRepository.PersonsRepository
         public IEnumerable<PersonTranslation> AllPersonTranslation();
         public PersonTranslation GetPersonTranslationById(int id);
         public bool CreatePersonTranslation(PersonTranslation personTranslation);
-        public bool UpdatePersonTranslation(int id, PersonTranslation personTranslation);
+        public bool UpdatePersonTranslation();
         public bool DeletePersonTranslation(int id);
     }
 }

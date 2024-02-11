@@ -348,6 +348,7 @@ D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\TSTUWebAPI.AssemblyI
 D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\TSTUWebAPI.csproj.CoreCompileInputs.cache
 D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\TSTUWebAPI.MvcApplicationPartsAssemblyInfo.cs
 D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\TSTUWebAPI.MvcApplicationPartsAssemblyInfo.cache
+D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\TSTUWebAPI.sourcelink.json
 D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\staticwebassets.build.json
 D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\staticwebassets.development.json
 D:\TSTUUzProject\TSTUUzSolution\TSTUWebAPI\obj\Debug\net8.0\staticwebassets\msbuild.TSTUWebAPI.Microsoft.AspNetCore.StaticWebAssets.props

@@ -13,7 +13,7 @@ namespace Contracts.AllRepository.UserTypesRepository
         public IEnumerable<UserType> AllUserType();
         public UserType GetUserTypeById(int id);
         public bool CreateUserType(UserType userType);
-        public bool UpdateUserType(int id, UserType userType);
+        public bool UpdateUserType();
         public bool DeleteUserType(int id);
 
 
@@ -21,7 +21,7 @@ namespace Contracts.AllRepository.UserTypesRepository
         public IEnumerable<UserTypeTranslation> AllUserTypeTranslation();
         public UserTypeTranslation GetUserTypeTranslationById(int id);
         public bool CreateUserTypeTranslation(UserTypeTranslation userTypeTranslation);
-        public bool UpdateUserTypeTranslation(int id, UserTypeTranslation userTypeTranslation);
+        public bool UpdateUserTypeTranslation();
         public bool DeleteUserTypeTranslation(int id);
 
 

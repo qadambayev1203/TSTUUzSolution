@@ -13,7 +13,7 @@ namespace Contracts.AllRepository.LanguagesRepository
         public IEnumerable<Language> AllLanguage();
         public Language GetLanguageById(int id);
         public bool CreateLanguage(Language language);
-        public bool UpdateLanguage(int id, Language language);
+        public bool UpdateLanguage();
         public bool DeleteLanguage(int id);
 
 

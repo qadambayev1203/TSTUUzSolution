@@ -24,7 +24,7 @@ namespace Entities.Model.PersonModel
         public string? passport_number { get; set; }
         [ForeignKey("Status")] public int? status_id { get; set; }
         public Status? status_ { get; set; }
-        public DateTime? created_at { get; set; } = DateTime.Now;
+        public DateTime? created_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
         [ForeignKey("Files")] public int? files_id { get; set; }
         public Files? img_ { get; set; }

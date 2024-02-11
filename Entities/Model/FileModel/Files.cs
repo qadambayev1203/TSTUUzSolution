@@ -13,7 +13,7 @@ namespace Entities.Model.FileModel
         public int id { get; set; }
         public string? title { get; set; }
         public string? url { get; set; }
-        public DateTime? crated_at { get; set; } = DateTime.Now;
+        public DateTime? crated_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
         [ForeignKey("Status")]        public int? status_id { get; set; }
         public Status? status_ { get; set; }

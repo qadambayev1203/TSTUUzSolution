@@ -13,7 +13,7 @@ namespace Contracts.AllRepository.FilesRepository
         public IEnumerable<Files> AllFile();
         public Files GetFilesById(int id);
         public bool CreateFiles(Files file);
-        public bool UpdateFiles(int id, Files file);
+        public bool UpdateFiles();
         public bool DeleteFiles(int id);
 
 
@@ -22,7 +22,7 @@ namespace Contracts.AllRepository.FilesRepository
         public IEnumerable<FilesTranslation> AllFilesTranslation();
         public FilesTranslation GetFilesTranslationById(int id);
         public bool CreateFilesTranslation(FilesTranslation fileTranslation);
-        public bool UpdateFilesTranslation(int id, FilesTranslation fileTranslation);
+        public bool UpdateFilesTranslation();
         public bool DeleteFilesTranslation(int id);
     }
 }

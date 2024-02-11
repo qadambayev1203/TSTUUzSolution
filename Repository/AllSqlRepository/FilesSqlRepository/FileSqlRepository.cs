@@ -23,53 +23,85 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
         //File CRUD
         public IEnumerable<Files> AllFile()
         {
-            var files = new List<Files>();
-            files = _context.files_20ts24tu.Include(x=>x.user_).Include(x=>x.status_).ToList();
-            return files;
+            try
+            {
+                var files = new List<Files>();
+                files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).ToList();
+                return files;
+            }
+            catch 
+            {
+                return Enumerable.Empty<Files>();
+            }
         }
 
         public bool CreateFiles(Files file)
         {
-            if (file == null)
+            try
+            {
+                if (file == null)
+                {
+                    return false;
+                }
+                file.crated_at= DateTime.UtcNow;
+                _context.files_20ts24tu.Add(file);
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.files_20ts24tu.Add(file);
-            _context.SaveChanges();
-            return true;
 
         }
 
         public bool DeleteFiles(int id)
         {
-            var file = GetFilesById(id);
-            if (file == null)
+            try
+            {
+                var file = GetFilesById(id);
+                if (file == null)
+                {
+                    return false;
+                }
+                file.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.files_20ts24tu.Update(file);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.files_20ts24tu.Update(file);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public Files GetFilesById(int id)
         {
-            var file = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
-            return file;
+            try
+            {
+                var file = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                return file;
+            }
+            catch 
+            {
+                return null;
+            }
         }
 
-        public bool UpdateFiles(int id, Files file)
+        public bool UpdateFiles()
         {
-            var fileCheck = GetFilesById(id);
-            if (fileCheck == null)
+
+            try
+            {
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.files_20ts24tu.Update(file);
-            _context.SaveChanges();
-
-            return true;
         }
 
 
@@ -79,53 +111,84 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
         //FileTranslations CRUD
         public IEnumerable<FilesTranslation> AllFilesTranslation()
         {
-            var filesTranslations = new List<FilesTranslation>();
-            filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).ToList();
-            return filesTranslations;
+            try
+            {
+                var filesTranslations = new List<FilesTranslation>();
+                filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).ToList();
+                return filesTranslations;
+            }
+            catch 
+            {
+                return new List<FilesTranslation>();
+            }
         }
 
         public bool CreateFilesTranslation(FilesTranslation fileTranslation)
         {
-            if (fileTranslation == null)
+            try
+            {
+                if (fileTranslation == null)
+                {
+                    return false;
+                }
+                _context.files_translations_20ts24tu.Add(fileTranslation);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.files_translations_20ts24tu.Add(fileTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public bool DeleteFilesTranslation(int id)
         {
-            var fileTranslation = GetFilesTranslationById(id);
-            if (fileTranslation == null)
+            try
+            {
+                var fileTranslation = GetFilesTranslationById(id);
+                if (fileTranslation == null)
+                {
+                    return false;
+                }
+                fileTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.files_translations_20ts24tu.Update(fileTranslation);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.files_translations_20ts24tu.Update(fileTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public FilesTranslation GetFilesTranslationById(int id)
         {
-            var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).FirstOrDefault(x => x.id.Equals(id));
-            return fileTranslation;
+            try
+            {
+                var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).FirstOrDefault(x => x.id.Equals(id));
+                return fileTranslation;
+            }
+            catch 
+            {
+                return null;
+            }
         }
 
-        public bool UpdateFilesTranslation(int id, FilesTranslation fileTranslation)
+        public bool UpdateFilesTranslation()
         {
-            var fileTranslationCheck = GetFilesTranslationById(id);
-            if (fileTranslationCheck == null)
+            try
+            {
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch 
             {
                 return false;
             }
-            _context.files_translations_20ts24tu.Update(fileTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
     }

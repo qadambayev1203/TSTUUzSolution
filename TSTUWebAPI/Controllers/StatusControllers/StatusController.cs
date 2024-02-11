@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.StatusesRepository;
+using Entities.DTO.GenderDTOS;
 using Entities.Model;
 using Entities.Model.StatusModel;
 using Microsoft.AspNetCore.Authorization;
@@ -25,25 +26,24 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         // Status CRUD
 
         [HttpPost("createstatus")]
-        public IActionResult CreateStatus(Status status)
+        public IActionResult CreateStatus(StatusCreatedDTO status1)
         {
-
-            bool check=_repository.CreateStatus(status);
+            var status = _mapper.Map<Status>(status1);
+            bool check = _repository.CreateStatus(status);
 
             if (!check)
             {
                 return BadRequest();
             }
 
-            return Created("", status);
+            return Ok("Created");
         }
 
         [HttpGet("getallstatus")]
         public IActionResult GetAllStatus()
         {
-
-            IEnumerable<Status> statuses = _repository.AllStatus();
-
+            IEnumerable<Status> statuses1 = _repository.AllStatus();
+            var statuses = _mapper.Map<IEnumerable<StatusReadedDTO>>(statuses1);
             return Ok(statuses);
         }
 
@@ -51,8 +51,12 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         public IActionResult GetByIdStatus(int id)
         {
 
-            Status status = _repository.GetStatusById(id);
-
+            Status status1 = _repository.GetStatusById(id);
+            if (status1 == null)
+            {
+                return NotFound();
+            }
+            var status = _mapper.Map<StatusReadedDTO>(status1);
             return Ok(status);
         }
 
@@ -71,14 +75,28 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 
 
         [HttpPut("updatestatus/{id}")]
-        public IActionResult UpdateStatus(Status status, int id)
+        public IActionResult UpdateStatus(StatusUpdatedDTO status1, int id)
         {
-            bool check = _repository.UpdateStatus(id,status);
-            if (!check)
+
+            try
+            {
+                Status status = _repository.GetStatusById(id);
+                if(status == null)
+                {
+                    return NotFound();
+                }
+                _mapper.Map(status1, status);
+                var a = _repository.UpdateStatus();
+                if (a)
+                {
+                    return BadRequest(a);
+                }
+                return Ok("Updated");
+            }
+            catch 
             {
                 return BadRequest();
             }
-            return Ok("Updated");
 
         }
 
@@ -90,9 +108,9 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 
         //StatusTranslation CRUD
         [HttpPost("createstatustranslation")]
-        public IActionResult CreateStatusTranslation(StatusTranslation statustranslation)
+        public IActionResult CreateStatusTranslation(StatusTranslationCreatedDTO statustranslation1)
         {
-
+            var statustranslation = _mapper.Map<StatusTranslation>(statustranslation1);
             bool check = _repository.CreateStatusTranslation(statustranslation);
 
             if (!check)
@@ -100,15 +118,15 @@ namespace TSTUWebAPI.Controllers.StatusControllers
                 return BadRequest();
             }
 
-            return Created("", statustranslation);
+            return Ok("Created");
         }
 
         [HttpGet("getallstatustranslation")]
         public IActionResult GetAllStatusTranslation()
         {
 
-            IEnumerable<StatusTranslation> statustranslationes = _repository.AllStatusTranslation();
-
+            IEnumerable<StatusTranslation> statustranslationes1 = _repository.AllStatusTranslation();
+            var statustranslationes = _mapper.Map<IEnumerable<StatusTranslationReadedDTO>>(statustranslationes1);
             return Ok(statustranslationes);
         }
 
@@ -116,8 +134,12 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         public IActionResult GetByIdStatusTranslation(int id)
         {
 
-            StatusTranslation statustranslation = _repository.GetStatusTranslationById(id);
-
+            StatusTranslation statustranslation1 = _repository.GetStatusTranslationById(id);
+            if (statustranslation1 == null)
+            {
+                return NotFound();
+            }
+            var statustranslation = _mapper.Map<StatusTranslationReadedDTO>(statustranslation1);
             return Ok(statustranslation);
         }
 
@@ -136,14 +158,27 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 
 
         [HttpPut("updatestatustranslation/{id}")]
-        public IActionResult UpdateStatusTranslation(StatusTranslation statustranslation, int id)
+        public IActionResult UpdateStatusTranslation(StatusTranslationUpdatedDTO statustranslation1, int id)
         {
-            bool check = _repository.UpdateStatusTranslation(id, statustranslation);
-            if (!check)
+            try
+            {
+                var status = _repository.GetStatusTranslationById(id);
+                if (status == null)
+                {
+                    return NotFound();
+                }
+                _mapper.Map(statustranslation1, status);
+                bool check = _repository.UpdateStatusTranslation();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch 
             {
                 return BadRequest();
             }
-            return Ok("Updated");
 
         }
 

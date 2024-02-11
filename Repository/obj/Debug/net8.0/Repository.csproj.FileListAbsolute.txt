@@ -45,6 +45,7 @@ D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.Generated
 D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.AssemblyInfoInputs.cache
 D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.AssemblyInfo.cs
 D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.CoreCompileInputs.cache
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.sourcelink.json
 D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.CopyComplete
 D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.dll
 D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\refint\Repository.dll

@@ -22,54 +22,84 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
         //Status CRUD
         public IEnumerable<Status> AllStatus()
         {
-            var statuses = new List<Status>();
-            statuses = _context.statuses_20ts24tu.ToList();
-            return statuses;
+            try
+            {
+                var statuses = new List<Status>();
+                statuses = _context.statuses_20ts24tu.ToList();
+                return statuses;
+
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public bool CreateStatus(Status status)
         {
-            if (status == null)
+            try
+            {
+                if (status == null)
+                {
+                    return false;
+                }
+                _context.statuses_20ts24tu.Add(status);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch
             {
                 return false;
             }
-            _context.statuses_20ts24tu.Add(status);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public bool DeleteStatus(int id)
         {
-            var status = GetStatusById(id);
-            if (status == null)
+            try
             {
+                var status = GetStatusById(id);
+                if (status == null)
+                {
+                    return false;
+                }
+                status.is_deleted = true;
+                _context.statuses_20ts24tu.Update(status);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch
+            {
+
                 return false;
             }
-            status.is_deleted = false;
-            _context.statuses_20ts24tu.Update(status);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public Status GetStatusById(int id)
         {
-            var status = _context.statuses_20ts24tu.FirstOrDefault(x => x.id.Equals(id));
-            return status;
+            try
+            {
+                var status = _context.statuses_20ts24tu.FirstOrDefault(x => x.id.Equals(id));
+                return status;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public bool UpdateStatus(int id, Status status)
+        public bool UpdateStatus()
         {
-            var statusCheck = GetStatusById(id);
-            if (statusCheck == null)
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch
             {
                 return false;
             }
-            statusCheck=status;
-            _context.statuses_20ts24tu.Update(statusCheck);
-            _context.SaveChanges();
-            return true;
         }
 
 
@@ -80,53 +110,83 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
         //StatusTranslation CRUD
         public IEnumerable<StatusTranslation> AllStatusTranslation()
         {
-            var statusesTranslation = new List<StatusTranslation>();
-            statusesTranslation = _context.statuses_translations_20ts24tu.Include(x=>x.status_).Include(x => x.languages_).ToList();
-            return statusesTranslation;
+            try
+            {
+                var statusesTranslation = new List<StatusTranslation>();
+                statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_).Include(x => x.languages_).ToList();
+                return statusesTranslation;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public bool CreateStatusTranslation(StatusTranslation statusTranslation)
         {
-            if (statusTranslation == null)
+            try
+            {
+                if (statusTranslation == null)
+                {
+                    return false;
+                }
+                _context.statuses_translations_20ts24tu.Add(statusTranslation);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch
             {
                 return false;
             }
-            _context.statuses_translations_20ts24tu.Add(statusTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public bool DeleteStatusTranslation(int id)
         {
-            var statusTranslation = GetStatusTranslationById(id);
-            if (statusTranslation == null)
+            try
+            {
+                var statusTranslation = GetStatusTranslationById(id);
+                if (statusTranslation == null)
+                {
+                    return false;
+                }
+                _context.statuses_translations_20ts24tu.Update(statusTranslation);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch
             {
                 return false;
             }
-            _context.statuses_translations_20ts24tu.Update(statusTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
 
         public StatusTranslation GetStatusTranslationById(int id)
         {
-            var status = _context.statuses_translations_20ts24tu.Include(x => x.status_).Include(x => x.languages_).FirstOrDefault(x => x.id.Equals(id));
-            return status;
+            try
+            {
+                var status = _context.statuses_translations_20ts24tu.Include(x => x.status_).Include(x => x.languages_).FirstOrDefault(x => x.id.Equals(id));
+                return status;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public bool UpdateStatusTranslation(int id, StatusTranslation statusTranslation)
+        public bool UpdateStatusTranslation()
         {
-            var statusTranslationCheck = GetStatusTranslationById(id);
-            if (statusTranslationCheck == null)
+            try
+            {
+                
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch
             {
                 return false;
             }
-            _context.statuses_translations_20ts24tu.Update(statusTranslation);
-            _context.SaveChanges();
-
-            return true;
         }
     }
 }
