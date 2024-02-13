@@ -20,12 +20,27 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
 
 
         //UserType CRUD
-        public IEnumerable<UserType> AllUserType()
+        public IEnumerable<UserType> AllUserType(int queryNum,int pageNum)
         {
             try
             {
                 var userTypes = new List<UserType>();
-                userTypes = _context.user_types_20ts24tu.Include(x => x.status_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    userTypes = _context.user_types_20ts24tu.Include(x => x.status_).Skip(10*(pageNum-1)).Take(10).ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    userTypes = _context.user_types_20ts24tu.Include(x => x.status_).Take(queryNum).ToList();
+
+                }
+                else
+                {
+                    userTypes = _context.user_types_20ts24tu.Include(x => x.status_).Take(200).ToList();
+
+                }
                 return userTypes;
             }
             catch 
@@ -108,12 +123,33 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
 
 
         //UserTypeTranslation CRUD
-        public IEnumerable<UserTypeTranslation> AllUserTypeTranslation()
+        public IEnumerable<UserTypeTranslation> AllUserTypeTranslation(int queryNum,int pageNum)
         {
             try
             {
                 var userTypesTranslation = new List<UserTypeTranslation>();
-                userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_).Include(x => x.languages_).Include(x => x.status_translation_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
+                        .Include(x => x.languages_).Include(x => x.status_translation_)
+                        .Skip(10*(queryNum-1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
+                        .Include(x => x.languages_).Include(x => x.status_translation_).Take(queryNum).ToList();
+
+                }
+                else
+                {
+                    userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
+                        .Include(x => x.languages_).Include(x => x.status_translation_).Take(200).ToList();
+
+                }
                 return userTypesTranslation;
             }
             catch 

@@ -37,10 +37,11 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
         [HttpGet("getallfiles")]
-        public IActionResult GetAllfiles()
+        public IActionResult GetAllfiles( int queryNum, int pageNum)
         {
-
-            IEnumerable<Files> files1 = _repository.AllFile();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<Files> files1 = _repository.AllFile(queryNum, pageNum);
             var files = _mapper.Map<IEnumerable<FilesReadedDTO>>(files1); 
             return Ok(files);
         }
@@ -119,10 +120,11 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
         [HttpGet("getallfilestranslation")]
-        public IActionResult GetAllfilesTranslation()
+        public IActionResult GetAllfilesTranslation(int queryNum, int pageNum)
         {
-
-            IEnumerable<FilesTranslation> filestranslationes1 = _repository.AllFilesTranslation();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<FilesTranslation> filestranslationes1 = _repository.AllFilesTranslation(queryNum, pageNum);
             var filestranslationes = _mapper.Map<IEnumerable<FilesTranslationReadedDTO>>(filestranslationes1);
             return Ok(filestranslationes);
         }

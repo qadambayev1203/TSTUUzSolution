@@ -20,12 +20,27 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
 
 
         //Status CRUD
-        public IEnumerable<Status> AllStatus()
+        public IEnumerable<Status> AllStatus(int queryNum,int pageNum)
         {
             try
             {
                 var statuses = new List<Status>();
-                statuses = _context.statuses_20ts24tu.ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    statuses = _context.statuses_20ts24tu.Skip(10*(pageNum-1)).Take(10).ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    statuses = _context.statuses_20ts24tu.Take(queryNum).ToList();
+
+                }
+                else
+                {
+                    statuses = _context.statuses_20ts24tu.Take(200).ToList();
+
+                }
                 return statuses;
 
             }
@@ -108,12 +123,37 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
 
 
         //StatusTranslation CRUD
-        public IEnumerable<StatusTranslation> AllStatusTranslation()
+        public IEnumerable<StatusTranslation> AllStatusTranslation(int queryNum, int pageNum)
         {
             try
             {
                 var statusesTranslation = new List<StatusTranslation>();
-                statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_).Include(x => x.languages_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
+                        .Include(x => x.languages_)
+                        .Skip(10*(pageNum-1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
+                        .Include(x => x.languages_)
+                        .Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
+                        .Include(x => x.languages_)
+                        .Take(200)
+                        .ToList();
+
+                }
                 return statusesTranslation;
             }
             catch

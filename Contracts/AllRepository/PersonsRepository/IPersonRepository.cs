@@ -10,7 +10,7 @@ namespace Contracts.AllRepository.PersonsRepository
     public interface IPersonRepository
     {
         //Person CRUD
-        public IEnumerable<Person> AllPerson();
+        public IEnumerable<Person> AllPerson(int queryNum, int pageNum);
         public Person GetPersonById(int id);
         public bool CreatePerson(Person person);
         public bool UpdatePerson();
@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.PersonsRepository
 
 
         //PersonTranslation CRUD
-        public IEnumerable<PersonTranslation> AllPersonTranslation();
+        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum, int pageNum);
         public PersonTranslation GetPersonTranslationById(int id);
         public bool CreatePersonTranslation(PersonTranslation personTranslation);
         public bool UpdatePersonTranslation();

@@ -21,15 +21,30 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
 
         //File CRUD
-        public IEnumerable<Files> AllFile()
+        public IEnumerable<Files> AllFile(int queryNum, int pageNum)
         {
             try
             {
                 var files = new List<Files>();
-                files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).Skip(10 * (pageNum-1)).Take(10).ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).Take(queryNum).ToList();
+
+                }
+                else
+                {
+                    files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).Take(200).ToList();
+
+                }
                 return files;
             }
-            catch 
+            catch
             {
                 return Enumerable.Empty<Files>();
             }
@@ -43,12 +58,12 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 {
                     return false;
                 }
-                file.crated_at= DateTime.UtcNow;
+                file.crated_at = DateTime.UtcNow;
                 _context.files_20ts24tu.Add(file);
                 _context.SaveChanges();
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -70,7 +85,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -83,7 +98,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 var file = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
                 return file;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -98,7 +113,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -109,15 +124,30 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
 
         //FileTranslations CRUD
-        public IEnumerable<FilesTranslation> AllFilesTranslation()
+        public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum)
         {
             try
             {
                 var filesTranslations = new List<FilesTranslation>();
-                filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).Skip(10*(pageNum-1)).Take(10).ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).Take(queryNum).ToList();
+
+                }
+                else
+                {
+                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).Take(200).ToList();
+
+                }
                 return filesTranslations;
             }
-            catch 
+            catch
             {
                 return new List<FilesTranslation>();
             }
@@ -136,7 +166,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -157,7 +187,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -170,7 +200,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.languages_).FirstOrDefault(x => x.id.Equals(id));
                 return fileTranslation;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -185,7 +215,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }

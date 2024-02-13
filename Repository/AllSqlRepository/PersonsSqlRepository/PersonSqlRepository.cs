@@ -23,12 +23,34 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
 
         //Person CRUD
-        public IEnumerable<Person> AllPerson()
+        public IEnumerable<Person> AllPerson(int queryNum, int pageNum)
         {
             try
             {
                 var persons = new List<Person>();
-                persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_)
+                        .Skip(10*(pageNum-1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_)
+                        .Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_)
+                        .Take(200)
+                        .ToList();
+
+                }
                 return persons;
             }
             catch 
@@ -112,12 +134,37 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
 
         //PersonTranslation CRUD
-        public IEnumerable<PersonTranslation> AllPersonTranslation()
+        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum,int pageNum)
         {
             try
             {
                 var personsTranslation = new List<PersonTranslation>();
-                personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_)
+                        .Include(x => x.persons_).Include(x => x.status_translation_)
+                        .Skip(10*(pageNum-1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).
+                        Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_)
+                        .Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_)
+                        .Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_)
+                        .Take(200)
+                        .ToList();
+
+                }
                 return personsTranslation;
             }
             catch 

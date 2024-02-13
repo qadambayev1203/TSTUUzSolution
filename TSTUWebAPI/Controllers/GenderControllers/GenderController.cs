@@ -37,10 +37,11 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         }
 
         [HttpGet("getallgender")]
-        public IActionResult GetAllgender()
+        public IActionResult GetAllgender(int queryNum, int pageNum)
         {
-
-            IEnumerable<Gender> genders1 = _repository.AllGender();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<Gender> genders1 = _repository.AllGender(queryNum, pageNum);
             var genders = _mapper.Map<IEnumerable<GenderReadedDTO>>(genders1);
             return Ok(genders);
         }
@@ -120,10 +121,11 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         }
 
         [HttpGet("getallgendertranslation")]
-        public IActionResult GetAllgenderTranslation()
+        public IActionResult GetAllgenderTranslation(int queryNum, int pageNum)
         {
-
-            IEnumerable<GenderTranslation> gendertranslations1 = _repository.AllGenderTranslation();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<GenderTranslation> gendertranslations1 = _repository.AllGenderTranslation(queryNum, pageNum);
             var gendertranslations = _mapper.Map<IEnumerable<GenderTranslationReadedDTO>>(gendertranslations1);
             return Ok(gendertranslations);
         }

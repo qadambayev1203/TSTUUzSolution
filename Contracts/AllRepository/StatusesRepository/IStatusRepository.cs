@@ -10,7 +10,7 @@ namespace Contracts.AllRepository.StatusesRepository
     public interface IStatusRepository
     {
         //Status CRUD
-        public IEnumerable<Status> AllStatus();
+        public IEnumerable<Status> AllStatus(int queryNum, int pageNum);
         public Status GetStatusById(int id);
         public bool CreateStatus(Status status);
         public bool UpdateStatus();
@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.StatusesRepository
 
 
         //StatusTranslation CRUD
-        public IEnumerable<StatusTranslation> AllStatusTranslation();
+        public IEnumerable<StatusTranslation> AllStatusTranslation(int queryNum, int pageNum);
         public StatusTranslation GetStatusTranslationById(int id);
         public bool CreateStatusTranslation(StatusTranslation statusTranslation);
         public bool UpdateStatusTranslation();

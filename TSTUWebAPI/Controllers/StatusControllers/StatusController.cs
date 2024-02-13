@@ -40,9 +40,11 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         }
 
         [HttpGet("getallstatus")]
-        public IActionResult GetAllStatus()
+        public IActionResult GetAllStatus(int queryNum, int pageNum)
         {
-            IEnumerable<Status> statuses1 = _repository.AllStatus();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<Status> statuses1 = _repository.AllStatus(queryNum, pageNum);
             var statuses = _mapper.Map<IEnumerable<StatusReadedDTO>>(statuses1);
             return Ok(statuses);
         }
@@ -122,10 +124,11 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         }
 
         [HttpGet("getallstatustranslation")]
-        public IActionResult GetAllStatusTranslation()
+        public IActionResult GetAllStatusTranslation(int queryNum, int pageNum)
         {
-
-            IEnumerable<StatusTranslation> statustranslationes1 = _repository.AllStatusTranslation();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<StatusTranslation> statustranslationes1 = _repository.AllStatusTranslation(queryNum, pageNum);
             var statustranslationes = _mapper.Map<IEnumerable<StatusTranslationReadedDTO>>(statustranslationes1);
             return Ok(statustranslationes);
         }

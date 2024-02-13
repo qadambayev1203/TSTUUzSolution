@@ -11,7 +11,7 @@ namespace Contracts.AllRepository.GendersRepository
     {
 
         //Gender CRUD
-        public IEnumerable<Gender> AllGender();
+        public IEnumerable<Gender> AllGender(int queryNum, int pageNum);
         public Gender GetGenderById(int id);
         public bool CreateGender(Gender gender);
         public bool UpdateGender();
@@ -20,7 +20,7 @@ namespace Contracts.AllRepository.GendersRepository
 
 
         //GenderTranslation CRUD
-        public IEnumerable<GenderTranslation> AllGenderTranslation();
+        public IEnumerable<GenderTranslation> AllGenderTranslation(int queryNum, int pageNum);
         public GenderTranslation GetGenderTranslationById(int id);
         public bool CreateGenderTranslation(GenderTranslation genderTranslation);
         public bool UpdateGenderTranslation();

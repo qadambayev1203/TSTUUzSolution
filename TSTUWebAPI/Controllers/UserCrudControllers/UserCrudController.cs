@@ -40,10 +40,11 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
         }
 
         [HttpGet("getalluser")]
-        public IActionResult GetAlluser()
+        public IActionResult GetAlluser(int queryNum, int pageNum)
         {
-
-            IEnumerable<User> users1= _repository.AllUser();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<User> users1= _repository.AllUser(queryNum, pageNum);
             var users = _mapper.Map<IEnumerable<UserCrudReadedDTO>>(users1);
             return Ok(users);
         }

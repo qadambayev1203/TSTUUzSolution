@@ -37,10 +37,11 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         }
 
         [HttpGet("getallperson")]
-        public IActionResult GetAllperson()
+        public IActionResult GetAllperson(int queryNum, int pageNum)
         {
-
-            IEnumerable<Person> persons1 = _repository.AllPerson();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<Person> persons1 = _repository.AllPerson(queryNum, pageNum);
             var persons = _mapper.Map<IEnumerable<PersonReadedDTO>>(persons1);
             return Ok(persons);
         }
@@ -117,10 +118,11 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         }
 
         [HttpGet("getallpersontranslation")]
-        public IActionResult GetAllpersonTranslation()
+        public IActionResult GetAllpersonTranslation(int queryNum, int pageNum)
         {
-
-            IEnumerable<PersonTranslation> persontranslationes1 = _repository.AllPersonTranslation();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<PersonTranslation> persontranslationes1 = _repository.AllPersonTranslation(queryNum, pageNum);
             var persontranslationes = _mapper.Map<IEnumerable<PersonTranslationReadedDTO>>(persontranslationes1);
             return Ok(persontranslationes);
         }

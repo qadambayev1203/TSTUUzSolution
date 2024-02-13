@@ -22,12 +22,27 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
 
 
         //Gender CRUD
-        public IEnumerable<Gender> AllGender()
+        public IEnumerable<Gender> AllGender(int queryNum, int pageNum)
         {
             try
             {
                 var genders = new List<Gender>();
-                genders = _context.genders_20ts24tu.Include(x => x.status_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    genders = _context.genders_20ts24tu.Include(x => x.status_).Skip(10*(pageNum-1)).Take(10).ToList();
+
+                }
+                if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    genders = _context.genders_20ts24tu.Include(x => x.status_).Take(queryNum).ToList();
+
+                }
+                else
+                {
+                    genders = _context.genders_20ts24tu.Include(x => x.status_).Take(200).ToList();
+
+                }
                 return genders;
             }
             catch 
@@ -111,12 +126,35 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
 
 
         //GenderTranslation CRUD
-        public IEnumerable<GenderTranslation> AllGenderTranslation()
+        public IEnumerable<GenderTranslation> AllGenderTranslation(int queryNum, int pageNum)
         {
             try
             {
                 var genderTranslations = new List<GenderTranslation>();
-                genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.genders_).Include(x => x.status_translation_).Include(x => x.languages_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.genders_).
+                        Include(x => x.status_translation_).Include(x => x.languages_)
+                        .Skip(10*(queryNum - 1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.genders_).
+                        Include(x => x.status_translation_).Include(x => x.languages_)
+                        .Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.genders_).
+                        Include(x => x.status_translation_).Include(x => x.languages_).Take(200).ToList();
+
+                }
                 return genderTranslations;
             }
             catch 

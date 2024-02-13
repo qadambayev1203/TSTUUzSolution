@@ -20,12 +20,37 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
         }
 
 
-        public IEnumerable<User> AllUser()
+        public IEnumerable<User> AllUser(int queryNum,int pageNum)
         {
             try
             {
                 var users = new List<User>();
-                users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).Include(x => x.status_).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                        .Include(x => x.status_)
+                        .Skip(10*(pageNum-1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                else if (queryNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                        .Include(x => x.status_)
+                        .Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                        .Include(x => x.status_)
+                        .Take(200)
+                        .ToList();
+
+                }
                 return users;
             }
             catch 

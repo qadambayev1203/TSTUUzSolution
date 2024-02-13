@@ -10,7 +10,7 @@ namespace Contracts.AllRepository.FilesRepository
     public interface IFileRepository
     {
         //File CRUD
-        public IEnumerable<Files> AllFile();
+        public IEnumerable<Files> AllFile(int queryNum, int pageNum);
         public Files GetFilesById(int id);
         public bool CreateFiles(Files file);
         public bool UpdateFiles();
@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.FilesRepository
 
 
         //FileTranslation CRUD
-        public IEnumerable<FilesTranslation> AllFilesTranslation();
+        public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum);
         public FilesTranslation GetFilesTranslationById(int id);
         public bool CreateFilesTranslation(FilesTranslation fileTranslation);
         public bool UpdateFilesTranslation();

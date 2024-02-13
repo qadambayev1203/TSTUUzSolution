@@ -37,10 +37,11 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
         }
 
         [HttpGet("getalllanguage")]
-        public IActionResult GetAlllanguage()
+        public IActionResult GetAlllanguage(int queryNum, int pageNum)
         {
-
-            IEnumerable<Language> languages1 = _repository.AllLanguage();
+            queryNum = Math.Abs(queryNum);
+            pageNum = Math.Abs(pageNum);
+            IEnumerable<Language> languages1 = _repository.AllLanguage(queryNum, pageNum);
             var languages = _mapper.Map<IEnumerable<LanguageReadedDTO>>(languages1);  
             return Ok(languages);
         }

@@ -10,7 +10,7 @@ namespace Contracts.AllRepository.LanguagesRepository
     public interface ILanguageRepository
     {
         //Language CRUD
-        public IEnumerable<Language> AllLanguage();
+        public IEnumerable<Language> AllLanguage(int queryNum, int pageNum);
         public Language GetLanguageById(int id);
         public bool CreateLanguage(Language language);
         public bool UpdateLanguage();
