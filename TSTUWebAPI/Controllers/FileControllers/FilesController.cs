@@ -81,6 +81,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 {
                     return NotFound();
                 }
+                file.updated_at = DateTime.UtcNow;
                 _mapper.Map(files, file);
                 bool check = _repository.UpdateFiles();
                 if (!check)

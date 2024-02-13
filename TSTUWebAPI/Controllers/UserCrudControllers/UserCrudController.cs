@@ -80,6 +80,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
                 return NotFound();
             }
             user1.password= ((user1.login + user1.password).GetHashCode()).ToString();
+            user.updated_at= DateTime.UtcNow;
             _mapper.Map(user1, user);
             bool check = _repository.UpdateUser();
             if (!check)

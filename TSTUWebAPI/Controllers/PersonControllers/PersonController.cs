@@ -78,6 +78,7 @@ namespace TSTUWebAPI.Controllers.PersonControllers
                 {
                     return NotFound();
                 }
+                person.updated_at = DateTime.UtcNow;
                 _mapper.Map(person1, person);
                 bool check = _repository.UpdatePerson();
                 if (!check)
