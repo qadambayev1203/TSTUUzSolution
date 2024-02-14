@@ -23,6 +23,7 @@ using Repository.AllSqlRepository.StatusesSqlRepository;
 using Repository.AllSqlRepository.UsersSqlRepository;
 using Repository.AllSqlRepository.UserTypesSqlRepository;
 using System.Text;
+using TSTUWebAPI.Controllers.FileControllers;
 
 var builder = WebApplication.CreateBuilder(args);
 var Configuration = new ConfigurationBuilder()
@@ -150,7 +151,7 @@ builder.Services.AddScoped<IUserRepository, UserSqlRepository>();
 
 
 
-
+builder.Services.AddScoped<FileUploadRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddCors(opt =>

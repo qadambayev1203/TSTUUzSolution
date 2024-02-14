@@ -22,10 +22,25 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
         // files CRUD
 
-        [HttpPost("createfiles")]
-        public IActionResult Createfiles(FilesCreatedDTO files1)
+        [HttpPost("uploadfiles")]
+        public IActionResult UploadFiles(FilesCreatedDTO files1)
         {
             var files = _mapper.Map<Files>(files1);
+            FileUploadRepository fileUpload = new FileUploadRepository();
+            var Url = fileUpload.SaveFileAsync(files1.url);
+            if (Url == "File not found or empty!")
+            {
+                return BadRequest("File not found or empty!");
+            }
+            if (Url == "Invalid file extension!")
+            {
+                return BadRequest("Invalid file extension!");
+            }
+            if (Url == "Error!")
+            {
+                return BadRequest("File Upload Error!");
+            }
+            files.url = Url;
             bool check = _repository.CreateFiles(files);
 
             if (!check)
@@ -37,12 +52,12 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
         [HttpGet("getallfiles")]
-        public IActionResult GetAllfiles( int queryNum, int pageNum)
+        public IActionResult GetAllfiles(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<Files> files1 = _repository.AllFile(queryNum, pageNum);
-            var files = _mapper.Map<IEnumerable<FilesReadedDTO>>(files1); 
+            var files = _mapper.Map<IEnumerable<FilesReadedDTO>>(files1);
             return Ok(files);
         }
 
@@ -51,7 +66,8 @@ namespace TSTUWebAPI.Controllers.FileControllers
         {
 
             Files files1 = _repository.GetFilesById(id);
-            if(files1 == null){
+            if (files1 == null)
+            {
                 return NotFound();
             }
             var files = _mapper.Map<FilesReadedDTO>(files1);
@@ -91,7 +107,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 }
                 return Ok("Updated");
             }
-            catch 
+            catch
             {
                 return BadRequest();
             }
@@ -105,10 +121,25 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
 
         //filesTranslation CRUD
-        [HttpPost("createfilestranslation")]
-        public IActionResult CreatefilesTranslation(FilesTranslationCreatedDTO filestranslation1)
+        [HttpPost("uploadfilestranslation")]
+        public IActionResult UploadFilesTranslation(FilesTranslationCreatedDTO filestranslation1)
         {
             var filestranslation = _mapper.Map<FilesTranslation>(filestranslation1);
+            FileUploadRepository fileUpload = new FileUploadRepository();
+            string Url = fileUpload.SaveFileAsync(filestranslation1.url);
+            if (Url == "File not found or empty!")
+            {
+                return BadRequest("File not found or empty!");
+            }
+            if (Url == "Invalid file extension!")
+            {
+                return BadRequest("Invalid file extension!");
+            }
+            if (Url == "Error!")
+            {
+                return BadRequest("File Upload Error!");
+            }
+            filestranslation.url = Url;
             bool check = _repository.CreateFilesTranslation(filestranslation);
 
             if (!check)
@@ -134,7 +165,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
         {
 
             FilesTranslation filestranslation1 = _repository.GetFilesTranslationById(id);
-            if(filestranslation1 == null)
+            if (filestranslation1 == null)
             {
                 return NotFound();
             }
@@ -161,11 +192,11 @@ namespace TSTUWebAPI.Controllers.FileControllers
         public IActionResult UpdatefilesTranslation(FilesTranslationUpdatedDTO filestranslation1, int id)
         {
             var filestranslation = _repository.GetFilesTranslationById(id);
-            if(filestranslation == null)
+            if (filestranslation == null)
             {
                 return NotFound();
             }
-            _mapper.Map(filestranslation1,filestranslation);
+            _mapper.Map(filestranslation1, filestranslation);
             bool check = _repository.UpdateFilesTranslation();
             if (!check)
             {
