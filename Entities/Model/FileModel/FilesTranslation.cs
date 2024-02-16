@@ -18,7 +18,7 @@ namespace Entities.Model.FileModel
         [ForeignKey("Files")]        public int? files_id { get; set; }
         public Files? files_ { get; set; }
         [ForeignKey("Language")]        public int? language_id { get; set; }
-        public Language? languages_ { get; set; }
+        public Language? language_ { get; set; }
         [ForeignKey("StatusTranslation")]        public int? status_translation_id { get; set; }
         public StatusTranslation? status_translation_ { get; set; }
     }

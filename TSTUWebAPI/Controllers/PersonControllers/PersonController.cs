@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.PersonsRepository;
-using Entities.DTO.GenderDTOS;
+using Entities.DTO.PersonDTOS;
+using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,8 @@ namespace TSTUWebAPI.Controllers.PersonControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<Person> persons1 = _repository.AllPerson(queryNum, pageNum);
             var persons = _mapper.Map<IEnumerable<PersonReadedDTO>>(persons1);
+            if (persons == null) { return NotFound(); }
+
             return Ok(persons);
         }
 
@@ -52,6 +55,7 @@ namespace TSTUWebAPI.Controllers.PersonControllers
 
             Person person1 = _repository.GetPersonById(id);
             var person = _mapper.Map<PersonReadedDTO>(person1);
+            if (person == null) { return NotFound(); }
             return Ok(person);
         }
 
@@ -124,6 +128,8 @@ namespace TSTUWebAPI.Controllers.PersonControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<PersonTranslation> persontranslationes1 = _repository.AllPersonTranslation(queryNum, pageNum);
             var persontranslationes = _mapper.Map<IEnumerable<PersonTranslationReadedDTO>>(persontranslationes1);
+            if (persontranslationes == null) { return NotFound(); }
+
             return Ok(persontranslationes);
         }
 
@@ -132,6 +138,7 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         {
             PersonTranslation persontranslation1 = _repository.GetPersonTranslationById(id);
             var persontranslation = _mapper.Map<PersonTranslationReadedDTO>(persontranslation1);
+            if (persontranslation == null) { return NotFound(); }
             return Ok(persontranslation);
         }
 

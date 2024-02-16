@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.LanguagesRepository;
 using Entities.DTO.LanguageDTOS;
+using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,9 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<Language> languages1 = _repository.AllLanguage(queryNum, pageNum);
-            var languages = _mapper.Map<IEnumerable<LanguageReadedDTO>>(languages1);  
+            var languages = _mapper.Map<IEnumerable<LanguageReadedDTO>>(languages1);
+            if (languages == null) { return NotFound(); }
+
             return Ok(languages);
         }
 
@@ -52,6 +55,8 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
 
             Language language1= _repository.GetLanguageById(id);
             var language = _mapper.Map<LanguageReadedDTO>(language1);
+            if (language == null) { return NotFound(); }
+
             return Ok(language);
         }
 

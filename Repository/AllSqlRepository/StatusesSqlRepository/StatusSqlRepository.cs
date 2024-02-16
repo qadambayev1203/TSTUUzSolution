@@ -131,7 +131,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
-                        .Include(x => x.languages_)
+                        .Include(x => x.language_)
                         .Skip(10*(pageNum-1))
                         .Take(10)
                         .ToList();
@@ -141,7 +141,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
-                        .Include(x => x.languages_)
+                        .Include(x => x.language_)
                         .Take(queryNum)
                         .ToList();
 
@@ -149,7 +149,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 else
                 {
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
-                        .Include(x => x.languages_)
+                        .Include(x => x.language_)
                         .Take(200)
                         .ToList();
 
@@ -205,7 +205,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
         {
             try
             {
-                var status = _context.statuses_translations_20ts24tu.Include(x => x.status_).Include(x => x.languages_).FirstOrDefault(x => x.id.Equals(id));
+                var status = _context.statuses_translations_20ts24tu.Include(x => x.status_).Include(x => x.language_).FirstOrDefault(x => x.id.Equals(id));
                 return status;
             }
             catch

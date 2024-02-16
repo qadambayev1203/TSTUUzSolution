@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.StatusesRepository;
-using Entities.DTO.GenderDTOS;
+using Entities.DTO.StatusDTOS;
 using Entities.Model;
 using Entities.Model.StatusModel;
 using Microsoft.AspNetCore.Authorization;
@@ -46,6 +46,7 @@ namespace TSTUWebAPI.Controllers.StatusControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<Status> statuses1 = _repository.AllStatus(queryNum, pageNum);
             var statuses = _mapper.Map<IEnumerable<StatusReadedDTO>>(statuses1);
+            if (statuses == null) { return NotFound(); }
             return Ok(statuses);
         }
 
@@ -59,6 +60,7 @@ namespace TSTUWebAPI.Controllers.StatusControllers
                 return NotFound();
             }
             var status = _mapper.Map<StatusReadedDTO>(status1);
+            if (status == null) { return NotFound(); }
             return Ok(status);
         }
 
@@ -130,6 +132,7 @@ namespace TSTUWebAPI.Controllers.StatusControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<StatusTranslation> statustranslationes1 = _repository.AllStatusTranslation(queryNum, pageNum);
             var statustranslationes = _mapper.Map<IEnumerable<StatusTranslationReadedDTO>>(statustranslationes1);
+            if (statustranslationes == null) { return NotFound(); }
             return Ok(statustranslationes);
         }
 
@@ -143,6 +146,7 @@ namespace TSTUWebAPI.Controllers.StatusControllers
                 return NotFound();
             }
             var statustranslation = _mapper.Map<StatusTranslationReadedDTO>(statustranslation1);
+            if (statustranslation == null) { return NotFound(); }
             return Ok(statustranslation);
         }
 

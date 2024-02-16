@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.UserTypesRepository;
-using Entities.DTO.GenderDTOS;
+using Entities.DTO.UserTypeDTOS;
 using Entities.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +43,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
             pageNum=Math.Abs(pageNum);
             IEnumerable<UserType> userTypes1 = _repository.AllUserType(queryNum, pageNum);
             var userTypes = _mapper.Map<IEnumerable<UserTypeReadedDTO>>(userTypes1);
+            if (userTypes == null) { return NotFound(); }
             return Ok(userTypes);
         }
 
@@ -52,6 +53,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
 
             UserType userType1 = _repository.GetUserTypeById(id);
             var userType = _mapper.Map<UserTypeReadedDTO>(userType1);
+            if (userType == null) { return NotFound(); }
             return Ok(userType);
         }
 
@@ -122,6 +124,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<UserTypeTranslation> userTypetranslations1 = _repository.AllUserTypeTranslation(queryNum,pageNum);
             var userTypetranslations = _mapper.Map<IEnumerable<UserTypeTranslationReadedDTO>>(userTypetranslations1);
+            if (userTypetranslations == null) { return NotFound(); }
             return Ok(userTypetranslations);
         }
 
@@ -131,6 +134,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
 
             UserTypeTranslation userTypetranslation1 = _repository.GetUserTypeTranslationById(id);
             var userTypetranslation = _mapper.Map<UserTypeTranslationReadedDTO>(userTypetranslation1);
+            if (userTypetranslation == null) { return NotFound(); }
             return Ok(userTypetranslation);
         }
 

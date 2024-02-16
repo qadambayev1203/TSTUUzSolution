@@ -15,8 +15,8 @@ namespace Entities.Model.StatusModel
         public string? status { get; set; }
         [ForeignKey("Status")] public int? status_id { get; set; }
         public Status? status_ { get; set; }
-        [ForeignKey("Language")] public int? languages_id { get; set; }
-        public Language? languages_ { get; set; }
+        [ForeignKey("Language")] public int? language_id { get; set; }
+        public Language? language_ { get; set; }
         public bool? is_deleted { get; set; }
 
     }

@@ -26,7 +26,7 @@ namespace Entities.Model.PersonModel
         public Status? status_ { get; set; }
         public DateTime? created_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
-        [ForeignKey("Files")] public int? files_id { get; set; }
+        [ForeignKey("Files")] public int? img_id { get; set; }
         public Files? img_ { get; set; }
 
     }

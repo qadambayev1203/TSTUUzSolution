@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.DTO.GenderDTOS
+namespace Entities.DTO.UserTypeDTOS
 {
     public class UserTypeUpdatedDTO
     {

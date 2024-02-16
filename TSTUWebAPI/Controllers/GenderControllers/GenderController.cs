@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.GendersRepository;
 using Entities.DTO.GenderDTOS;
+using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace TSTUWebAPI.Controllers.GenderControllers
 {
@@ -43,6 +45,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<Gender> genders1 = _repository.AllGender(queryNum, pageNum);
             var genders = _mapper.Map<IEnumerable<GenderReadedDTO>>(genders1);
+            if (genders == null) { return NotFound(); }
+
             return Ok(genders);
         }
 
@@ -56,7 +60,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
                 return NotFound();
             }
             var gender=_mapper.Map<GenderReadedDTO>(gender1);
-
+            if (gender == null) { return NotFound(); }
             return Ok(gender);
         }
 
@@ -127,6 +131,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<GenderTranslation> gendertranslations1 = _repository.AllGenderTranslation(queryNum, pageNum);
             var gendertranslations = _mapper.Map<IEnumerable<GenderTranslationReadedDTO>>(gendertranslations1);
+            if (gendertranslations == null) { return NotFound(); }
+
             return Ok(gendertranslations);
         }
 
@@ -136,6 +142,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
             GenderTranslation gendertranslation1 = _repository.GetGenderTranslationById(id);
             var gendertranslation = _mapper.Map<GenderTranslationReadedDTO>(gendertranslation1);
+            if (gendertranslation == null) { return NotFound(); }
+
             return Ok(gendertranslation);
         }
 

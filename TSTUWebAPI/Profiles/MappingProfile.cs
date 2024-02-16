@@ -1,12 +1,24 @@
 ﻿using AutoMapper;
 using Entities.DTO;
+using Entities.DTO.DepartamentDetailsDTOS;
+using Entities.DTO.DepartamentDTOS;
+using Entities.DTO.DepartamentTypeDTOS;
 using Entities.DTO.FilesDTOS;
 using Entities.DTO.GenderDTOS;
 using Entities.DTO.LanguageDTOS;
+using Entities.DTO.PageDTOS;
+using Entities.DTO.PersonDTOS;
+using Entities.DTO.StatusDTOS;
+using Entities.DTO.UserCrudDTOS;
+using Entities.DTO.UserTypeDTOS;
 using Entities.Model;
+using Entities.Model.DepartamentDetailsModel;
+using Entities.Model.DepartamentsModel;
+using Entities.Model.DepartamentsTypeModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
 using Entities.Model.StatusModel;
 
@@ -82,6 +94,50 @@ namespace TSTUWebAPI.Profiles
             CreateMap<UserTypeTranslationCreatedDTO, UserTypeTranslation>();
             CreateMap<UserTypeTranslationUpdatedDTO, UserTypeTranslation>();
             CreateMap<UserTypeTranslation, UserTypeTranslationReadedDTO>();
+
+
+            //DepartamentDetail DTOS
+            CreateMap<DepartamentDetailCreatedDTO, DepartamentDetail>();
+            CreateMap<DepartamentDetailUpdatedDTO, DepartamentDetail>();
+            CreateMap<DepartamentDetail, DepartamentDetailReadedDTO>();
+
+
+            CreateMap<DepartamentDetailTranslationCreatedDTO, DepartamentDetailTranslation>();
+            CreateMap<DepartamentDetailTranslationUpdatedDTO, DepartamentDetailTranslation>();
+            CreateMap<DepartamentDetailTranslation, DepartamentDetailTranslationReadedDTO>();
+
+
+            //Departament DTOS
+            CreateMap<DepartamentCreatedDTO, Departament>();
+            CreateMap<DepartamentUpdatedDTO, Departament>();
+            CreateMap<Departament, DepartamentReadedDTO>();
+
+
+            CreateMap<DepartamentTranslationCreatedDTO, DepartamentTranslation>();
+            CreateMap<DepartamentTranslationUpdatedDTO, DepartamentTranslation>();
+            CreateMap<DepartamentTranslation, DepartamentTranslationReadedDTO>();
+
+
+            //DepartamentType DTOS
+            CreateMap<DepartamentTypeCreatedDTO, DepartamentType>();
+            CreateMap<DepartamentTypeUpdatedDTO, DepartamentType>();
+            CreateMap<DepartamentType, DepartamentTypeReadedDTO>();
+
+
+            CreateMap<DepartamentTypeTranslationCreatedDTO, DepartamentTypeTranslation>();
+            CreateMap<DepartamentTypeTranslationUpdatedDTO, DepartamentTypeTranslation>();
+            CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationReadedDTO>();
+
+
+            //Page DTOS
+            CreateMap<PageCreatedDTO, Pages>();
+            CreateMap<PageUpdatedDTO, Pages>();
+            CreateMap<Pages, PageReadedDTO>();
+
+
+            CreateMap<PageTranslationCreatedDTO, PageTranslation>();
+            CreateMap<PageTranslationUpdatedDTO, PageTranslation>();
+            CreateMap<PageTranslation, PageTranslationReadedDTO>();
         }
     }
 }

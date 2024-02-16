@@ -141,7 +141,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 var personsTranslation = new List<PersonTranslation>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_)
+                    personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.language_)
                         .Include(x => x.persons_).Include(x => x.status_translation_)
                         .Skip(10*(pageNum-1))
                         .Take(10)
@@ -152,7 +152,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).
-                        Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_)
+                        Include(x => x.language_).Include(x => x.persons_).Include(x => x.status_translation_)
                         .Take(queryNum)
                         .ToList();
 
@@ -160,7 +160,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 else
                 {
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_)
-                        .Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_)
+                        .Include(x => x.language_).Include(x => x.persons_).Include(x => x.status_translation_)
                         .Take(200)
                         .ToList();
 
@@ -217,7 +217,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
         {
             try
             {
-                var personTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.languages_).Include(x => x.persons_).Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
+                var personTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.language_).Include(x => x.persons_).Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
                 return personTranslation;
             }
             catch 

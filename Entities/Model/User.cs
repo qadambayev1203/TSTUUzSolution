@@ -1,4 +1,5 @@
-﻿using Entities.Model.PersonModel;
+﻿using Entities.Model.DepartamentsModel;
+using Entities.Model.PersonModel;
 using Entities.Model.StatusModel;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,6 +25,8 @@ namespace Entities.Model
         public Person? person_ { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
+        [ForeignKey("Departament")] public required int? departament_id { get; set; }
+        public Departament? departament_ { get; set; }
         [ForeignKey("Status")] public required int? status_id { get; set; }
         public Status? status_ { get; set; }
         public bool? removed { get; set; }

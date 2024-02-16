@@ -21,10 +21,12 @@ namespace Entities.Model.PersonModel
         public GenderTranslation? gender_ { get; set; }
         [ForeignKey("Person")] public int? persons_id { get; set; }
         public Person? persons_ { get; set; }
-        [ForeignKey("Language")] public int? languages_id { get; set; }
-        public Language? languages_ { get; set; }
+        [ForeignKey("Language")] public int? language_id { get; set; }
+        public Language? language_ { get; set; }
         [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
         public StatusTranslation? status_translation_ { get; set; }
+        [ForeignKey("FilesTranslation")] public int? img_id { get; set; }
+        public FilesTranslation? img_ { get; set; }
 
     }
 }

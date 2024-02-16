@@ -1,7 +1,11 @@
 ﻿using Entities.Model;
+using Entities.Model.DepartamentDetailsModel;
+using Entities.Model.DepartamentsModel;
+using Entities.Model.DepartamentsTypeModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
 using Entities.Model.StatusModel;
 using Microsoft.EntityFrameworkCore;
@@ -23,8 +27,20 @@ namespace Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasIndex(u=>u.login)
+                .HasIndex(u => u.login)
                 .IsUnique();
+            modelBuilder.Entity<User>()
+        .HasOne(u => u.departament_)
+        .WithOne(d => d.user_)
+        .HasForeignKey<Departament>(d => d.user_id);
+
+            modelBuilder.Entity<Departament>()
+         .HasOne(d => d.user_)
+         .WithOne(u => u.departament_)
+         .HasForeignKey<User>(u => u.departament_id);
+
+
+            base.OnModelCreating(modelBuilder);
         }
 
 
@@ -39,6 +55,14 @@ namespace Entities
         public DbSet<PersonTranslation> persons_translations_20ts24tu { get; set; }
         public DbSet<Status> statuses_20ts24tu { get; set; }
         public DbSet<StatusTranslation> statuses_translations_20ts24tu { get; set; }
+        public DbSet<DepartamentDetail> departament_details_20ts24tu { get; set; }
+        public DbSet<DepartamentDetailTranslation> departament_details_translations_20ts24tu { get; set; }
+        public DbSet<Departament> departament_20ts24tu { get; set; }
+        public DbSet<DepartamentTranslation> departament_translations_20ts24tu { get; set; }
+        public DbSet<DepartamentType> departament_types_20ts24tu { get; set; }
+        public DbSet<DepartamentTypeTranslation> departament_types_translations_20ts24tu { get; set; }
+        public DbSet<Pages> pages_20ts24tu { get; set; }
+        public DbSet<PageTranslation> pages_translations_20ts24tu { get; set; }
         public DbSet<User> users_20ts24tu { get; set; }
         public DbSet<UserType> user_types_20ts24tu { get; set; }
         public DbSet<UserTypeTranslation> user_types_translations_20ts24tu { get; set; }

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.DTO.GenderDTOS
+namespace Entities.DTO.PersonDTOS
 {
     public class PersonTranslationReadedDTO
     {

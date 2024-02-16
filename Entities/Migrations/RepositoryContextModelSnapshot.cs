@@ -22,6 +22,246 @@ namespace Entities.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Entities.Model.DepartamentDetailsModel.DepartamentDetail", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("departament_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("text_json")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("departament_id");
+
+                    b.HasIndex("status_id");
+
+                    b.ToTable("departament_details_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentDetailsModel.DepartamentDetailTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("departament_detail_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("departament_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("text_json")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("departament_detail_id");
+
+                    b.HasIndex("departament_translation_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.ToTable("departament_details_translations_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsModel.Departament", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("crated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("departament_type_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("favorite")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("img_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("parent_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("position")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title_short")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("departament_type_id");
+
+                    b.HasIndex("img_id");
+
+                    b.HasIndex("status_id");
+
+                    b.ToTable("departament_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsModel.DepartamentTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("crated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("departament_translation_type_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("departament_type_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("favorite")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("img_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("parent_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("position")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title_short")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("departament_translation_type_id");
+
+                    b.HasIndex("img_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("departament_translations_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsTypeModel.DepartamentType", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("type")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("status_id");
+
+                    b.ToTable("departament_types_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsTypeModel.DepartamentTypeTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("departament_type_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("type")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("departament_type_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.ToTable("departament_types_translations_20ts24tu");
+                });
+
             modelBuilder.Entity("Entities.Model.FileModel.Files", b =>
                 {
                     b.Property<int>("id")
@@ -71,20 +311,20 @@ namespace Entities.Migrations
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("languages_id")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("status_translation_id")
                         .HasColumnType("integer");
 
                     b.Property<string>("title")
                         .HasColumnType("text");
 
+                    b.Property<string>("url")
+                        .HasColumnType("text");
+
                     b.HasKey("id");
 
                     b.HasIndex("files_id");
 
-                    b.HasIndex("languages_id");
+                    b.HasIndex("language_id");
 
                     b.HasIndex("status_translation_id");
 
@@ -126,13 +366,7 @@ namespace Entities.Migrations
                     b.Property<int?>("gender_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("genders_id")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("language_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("languages_id")
                         .HasColumnType("integer");
 
                     b.Property<int?>("status_translation_id")
@@ -140,9 +374,9 @@ namespace Entities.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("genders_id");
+                    b.HasIndex("gender_id");
 
-                    b.HasIndex("languages_id");
+                    b.HasIndex("language_id");
 
                     b.HasIndex("status_translation_id");
 
@@ -170,6 +404,120 @@ namespace Entities.Migrations
                     b.ToTable("languages_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.PagesModel.PageTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("crated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("favorite")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("img_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("page_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("position")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title_short")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("img_translation_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("page_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("pages_translations_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.PagesModel.Pages", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("crated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("favorite")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("img_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("position")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("text")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("title_short")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("img_id");
+
+                    b.HasIndex("status_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("pages_20ts24tu");
+                });
+
             modelBuilder.Entity("Entities.Model.PersonModel.Person", b =>
                 {
                     b.Property<int>("id")
@@ -186,9 +534,6 @@ namespace Entities.Migrations
 
                     b.Property<string>("fathers_name")
                         .HasColumnType("text");
-
-                    b.Property<int?>("files_id")
-                        .HasColumnType("integer");
 
                     b.Property<string>("firstName")
                         .HasColumnType("text");
@@ -245,7 +590,10 @@ namespace Entities.Migrations
                     b.Property<int?>("gender_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("languages_id")
+                    b.Property<int?>("img_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
                     b.Property<string>("lastName")
@@ -261,7 +609,9 @@ namespace Entities.Migrations
 
                     b.HasIndex("gender_id");
 
-                    b.HasIndex("languages_id");
+                    b.HasIndex("img_id");
+
+                    b.HasIndex("language_id");
 
                     b.HasIndex("persons_id");
 
@@ -300,7 +650,7 @@ namespace Entities.Migrations
                     b.Property<bool?>("is_deleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("languages_id")
+                    b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
                     b.Property<string>("status")
@@ -311,7 +661,7 @@ namespace Entities.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("languages_id");
+                    b.HasIndex("language_id");
 
                     b.HasIndex("status_id");
 
@@ -331,6 +681,9 @@ namespace Entities.Migrations
 
                     b.Property<DateTime?>("created_at")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("departament_id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("email")
                         .HasColumnType("text");
@@ -362,6 +715,9 @@ namespace Entities.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("id");
+
+                    b.HasIndex("departament_id")
+                        .IsUnique();
 
                     b.HasIndex("login")
                         .IsUnique();
@@ -404,7 +760,7 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<int?>("languages_id")
+                    b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
                     b.Property<int?>("status_translation_id")
@@ -418,13 +774,139 @@ namespace Entities.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("languages_id");
+                    b.HasIndex("language_id");
 
                     b.HasIndex("status_translation_id");
 
                     b.HasIndex("user_types_id");
 
                     b.ToTable("user_types_translations_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentDetailsModel.DepartamentDetail", b =>
+                {
+                    b.HasOne("Entities.Model.DepartamentsModel.Departament", "departament_")
+                        .WithMany()
+                        .HasForeignKey("departament_id");
+
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("departament_");
+
+                    b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentDetailsModel.DepartamentDetailTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.DepartamentDetailsModel.DepartamentDetail", "departament_detail_")
+                        .WithMany()
+                        .HasForeignKey("departament_detail_id");
+
+                    b.HasOne("Entities.Model.DepartamentsModel.DepartamentTranslation", "departament_translation_")
+                        .WithMany()
+                        .HasForeignKey("departament_translation_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.Navigation("departament_detail_");
+
+                    b.Navigation("departament_translation_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("status_translation_");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsModel.Departament", b =>
+                {
+                    b.HasOne("Entities.Model.DepartamentsTypeModel.DepartamentType", "departament_type_")
+                        .WithMany()
+                        .HasForeignKey("departament_type_id");
+
+                    b.HasOne("Entities.Model.FileModel.Files", "img_")
+                        .WithMany()
+                        .HasForeignKey("img_id");
+
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("departament_type_");
+
+                    b.Navigation("img_");
+
+                    b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsModel.DepartamentTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.DepartamentsTypeModel.DepartamentTypeTranslation", "departament_translation_type_")
+                        .WithMany()
+                        .HasForeignKey("departament_translation_type_id");
+
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "img_")
+                        .WithMany()
+                        .HasForeignKey("img_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
+                    b.Navigation("departament_translation_type_");
+
+                    b.Navigation("img_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("status_translation_");
+
+                    b.Navigation("user_");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsTypeModel.DepartamentType", b =>
+                {
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsTypeModel.DepartamentTypeTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.DepartamentsTypeModel.DepartamentType", "departament_type_")
+                        .WithMany()
+                        .HasForeignKey("departament_type_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.Navigation("departament_type_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("status_translation_");
                 });
 
             modelBuilder.Entity("Entities.Model.FileModel.Files", b =>
@@ -448,9 +930,9 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("files_id");
 
-                    b.HasOne("Entities.Model.LanguagesModel.Language", "languages_")
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
                         .WithMany()
-                        .HasForeignKey("languages_id");
+                        .HasForeignKey("language_id");
 
                     b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
                         .WithMany()
@@ -458,7 +940,7 @@ namespace Entities.Migrations
 
                     b.Navigation("files_");
 
-                    b.Navigation("languages_");
+                    b.Navigation("language_");
 
                     b.Navigation("status_translation_");
                 });
@@ -474,21 +956,21 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Model.GenderModel.GenderTranslation", b =>
                 {
-                    b.HasOne("Entities.Model.GenderModel.Gender", "genders_")
+                    b.HasOne("Entities.Model.GenderModel.Gender", "gender_")
                         .WithMany()
-                        .HasForeignKey("genders_id");
+                        .HasForeignKey("gender_id");
 
-                    b.HasOne("Entities.Model.LanguagesModel.Language", "languages_")
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
                         .WithMany()
-                        .HasForeignKey("languages_id");
+                        .HasForeignKey("language_id");
 
                     b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
                         .WithMany()
                         .HasForeignKey("status_translation_id");
 
-                    b.Navigation("genders_");
+                    b.Navigation("gender_");
 
-                    b.Navigation("languages_");
+                    b.Navigation("language_");
 
                     b.Navigation("status_translation_");
                 });
@@ -500,6 +982,60 @@ namespace Entities.Migrations
                         .HasForeignKey("status_id");
 
                     b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.PagesModel.PageTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "img_translation_")
+                        .WithMany()
+                        .HasForeignKey("img_translation_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.PagesModel.Pages", "page_")
+                        .WithMany()
+                        .HasForeignKey("page_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
+                    b.Navigation("img_translation_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("page_");
+
+                    b.Navigation("status_translation_");
+
+                    b.Navigation("user_");
+                });
+
+            modelBuilder.Entity("Entities.Model.PagesModel.Pages", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.Files", "img_")
+                        .WithMany()
+                        .HasForeignKey("img_id");
+
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
+                    b.Navigation("img_");
+
+                    b.Navigation("status_");
+
+                    b.Navigation("user_");
                 });
 
             modelBuilder.Entity("Entities.Model.PersonModel.Person", b =>
@@ -529,9 +1065,13 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("gender_id");
 
-                    b.HasOne("Entities.Model.LanguagesModel.Language", "languages_")
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "img_")
                         .WithMany()
-                        .HasForeignKey("languages_id");
+                        .HasForeignKey("img_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
 
                     b.HasOne("Entities.Model.PersonModel.Person", "persons_")
                         .WithMany()
@@ -543,7 +1083,9 @@ namespace Entities.Migrations
 
                     b.Navigation("gender_");
 
-                    b.Navigation("languages_");
+                    b.Navigation("img_");
+
+                    b.Navigation("language_");
 
                     b.Navigation("persons_");
 
@@ -552,21 +1094,25 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Model.StatusModel.StatusTranslation", b =>
                 {
-                    b.HasOne("Entities.Model.LanguagesModel.Language", "languages_")
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
                         .WithMany()
-                        .HasForeignKey("languages_id");
+                        .HasForeignKey("language_id");
 
                     b.HasOne("Entities.Model.StatusModel.Status", "status_")
                         .WithMany()
                         .HasForeignKey("status_id");
 
-                    b.Navigation("languages_");
+                    b.Navigation("language_");
 
                     b.Navigation("status_");
                 });
 
             modelBuilder.Entity("Entities.Model.User", b =>
                 {
+                    b.HasOne("Entities.Model.DepartamentsModel.Departament", "departament_")
+                        .WithOne("user_")
+                        .HasForeignKey("Entities.Model.User", "departament_id");
+
                     b.HasOne("Entities.Model.PersonModel.Person", "person_")
                         .WithMany()
                         .HasForeignKey("person_id");
@@ -578,6 +1124,8 @@ namespace Entities.Migrations
                     b.HasOne("Entities.Model.UserType", "user_type_")
                         .WithMany()
                         .HasForeignKey("user_type_id");
+
+                    b.Navigation("departament_");
 
                     b.Navigation("person_");
 
@@ -597,9 +1145,9 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Model.UserTypeTranslation", b =>
                 {
-                    b.HasOne("Entities.Model.LanguagesModel.Language", "languages_")
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
                         .WithMany()
-                        .HasForeignKey("languages_id");
+                        .HasForeignKey("language_id");
 
                     b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
                         .WithMany()
@@ -611,11 +1159,16 @@ namespace Entities.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("languages_");
+                    b.Navigation("language_");
 
                     b.Navigation("status_translation_");
 
                     b.Navigation("user_types_");
+                });
+
+            modelBuilder.Entity("Entities.Model.DepartamentsModel.Departament", b =>
+                {
+                    b.Navigation("user_");
                 });
 #pragma warning restore 612, 618
         }

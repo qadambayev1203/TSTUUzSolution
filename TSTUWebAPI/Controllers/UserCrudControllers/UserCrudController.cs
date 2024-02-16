@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.UsersRepository;
-using Entities.DTO.GenderDTOS;
+using Entities.DTO.UserCrudDTOS;
 using Entities.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,6 +46,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<User> users1= _repository.AllUser(queryNum, pageNum);
             var users = _mapper.Map<IEnumerable<UserCrudReadedDTO>>(users1);
+            if (users == null) { return NotFound(); }
             return Ok(users);
         }
 
@@ -55,6 +56,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
 
             User user1 = _repository.GetUserById(id);
             var user = _mapper.Map<UserCrudReadedDTO>(user1);
+            if (user == null) { return NotFound(); }
             return Ok(user);
         }
 

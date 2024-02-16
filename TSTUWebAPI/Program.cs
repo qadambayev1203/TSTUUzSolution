@@ -1,7 +1,11 @@
 using Contracts;
+using Contracts.AllRepository.DepartamentDetailsRepository;
+using Contracts.AllRepository.DepartamentsRepository;
+using Contracts.AllRepository.DepartamentsTypeRepository;
 using Contracts.AllRepository.FilesRepository;
 using Contracts.AllRepository.GendersRepository;
 using Contracts.AllRepository.LanguagesRepository;
+using Contracts.AllRepository.PagesRepository;
 using Contracts.AllRepository.PersonsRepository;
 using Contracts.AllRepository.StatusesRepository;
 using Contracts.AllRepository.UsersRepository;
@@ -15,9 +19,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repository;
+using Repository.AllSqlRepository.DepartamentsDetailSqlRepository;
+using Repository.AllSqlRepository.DepartamentsSqlRepository;
+using Repository.AllSqlRepository.DepartamentsTypeSqlRepository;
 using Repository.AllSqlRepository.FilesSqlRepository;
 using Repository.AllSqlRepository.GendersSqlRepository;
 using Repository.AllSqlRepository.LanguagesSqlRepository;
+using Repository.AllSqlRepository.PagesSqlRepository;
 using Repository.AllSqlRepository.PersonsSqlRepository;
 using Repository.AllSqlRepository.StatusesSqlRepository;
 using Repository.AllSqlRepository.UsersSqlRepository;
@@ -86,6 +94,18 @@ builder.Services.AddScoped<IUserTypeRepository, UserTypeSqlRepository>();
 
 //User AND UserTranslation
 builder.Services.AddScoped<IUserRepository, UserSqlRepository>();
+
+//Departament AND DepartamentTranslation
+builder.Services.AddScoped<IDepartamentRepository, DepartamentSqlRepository>();
+
+//DepartamentType AND DepartamentTypeTranslation
+builder.Services.AddScoped<IDepartamentTypeRepository, DepartamentTypeSqlRepository>();
+
+//DepartamentDetail AND DepartamentDetailTranslation
+builder.Services.AddScoped<IDepartamentDetailRepository, DepartamentDetailSqlRepository>();
+
+//Page AND PageTranslation
+builder.Services.AddScoped<IPageRepository, PageSqlRepository>();
 
 
 
