@@ -28,18 +28,18 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 var departaments = new List<Departament>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).Take(queryNum).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).Take(200).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).Take(200).ToList();
 
                 }
                 return departaments;
@@ -94,7 +94,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
         {
             try
             {
-                var departament = _context.departament_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                var departament = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.departament_type_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
 
                 return departament;
             }

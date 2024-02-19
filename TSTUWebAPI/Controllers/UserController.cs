@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TSTUWebAPI.Controllers.AnyClasses;
 
 namespace TSTUWebAPI.Controllers
 {
@@ -17,6 +18,8 @@ namespace TSTUWebAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private static string TokenCheck;
+        private static int UserId;
         private readonly IRepositoryManager repositoryManager;
         private readonly IOptions<AppSettings> appSettings;
         private readonly IMapper mapper;
@@ -39,7 +42,7 @@ namespace TSTUWebAPI.Controllers
             {
                 return BadRequest("No data");
             }
-            credentials.Password = ((credentials.Login+credentials.Password).GetHashCode()).ToString();
+            credentials.Password = PasswordManager.EncryptPassword((credentials.Login+credentials.Password).ToString());
             var user = await repositoryManager.User.LoginAsync(credentials.Login, credentials.Password, false, cancelationToken);
             if (user != null)
             {
@@ -59,14 +62,50 @@ namespace TSTUWebAPI.Controllers
                 var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
                 authInfo.Token = securityTokenHandler.WriteToken(securityToken);
                 authInfo.UserDetails = mapper.Map<UserDTO>(user);
+                try
+                {
+                    authInfo.UserDetails.UserType = user.user_type_.type;
+                }
+                catch                 {                }
             }
             if (string.IsNullOrEmpty(authInfo?.Token))
             {
                 return Unauthorized("Error login or password");
             }
+            TokenCheck=authInfo.Token;
+            UserId = authInfo.UserDetails.Id;
             return Ok(authInfo);
         }
 
 
+        [AllowAnonymous]
+        [HttpPost("verification/{token}")]
+        public IActionResult TokenChexk(string token)
+        {
+            try
+            {
+                if (token == TokenCheck)
+                {
+                    TokenVerify verify = new TokenVerify()
+                    {
+                        user_id = UserId,
+                        verification=true
+                    };
+                    
+                    return Ok(verify);
+                }
+                return StatusCode(404);
+            }
+            catch 
+            {
+                return StatusCode(404);
+            }
+        }
+
+
+
+       
+
     }
+   
 }

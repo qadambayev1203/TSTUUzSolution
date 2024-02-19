@@ -5,6 +5,7 @@ using Entities.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using TSTUWebAPI.Controllers.AnyClasses;
 
 namespace TSTUWebAPI.Controllers.UserCrudControllers
 {
@@ -26,7 +27,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
         [HttpPost("createuser")]
         public IActionResult Createuser(UserCrudCreatedDTO user1)
         {
-            string passwordhash = (user1.login + user1.password).GetHashCode().ToString();
+            string passwordhash = PasswordManager.EncryptPassword((user1.login + user1.password).ToString());
             var user = _mapper.Map<User>(user1);
             user.password = passwordhash;
             bool check = _repository.CreateUser(user);
@@ -82,7 +83,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
             {
                 return NotFound();
             }
-            user1.password= ((user1.login + user1.password).GetHashCode()).ToString();
+            user1.password= PasswordManager.EncryptPassword((user1.login + user1.password).ToString());
             user.updated_at= DateTime.UtcNow;
             _mapper.Map(user1, user);
             bool check = _repository.UpdateUser();

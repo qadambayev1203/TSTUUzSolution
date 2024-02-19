@@ -28,7 +28,7 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
-                        .Include(x => x.status_)
+                        .Include(x => x.status_) 
                         .Skip(10*(pageNum-1))
                         .Take(10)
                         .ToList();
@@ -104,7 +104,8 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
         {
             try
             {
-                var user = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                var user = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                        .Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
                 return user;
             }
             catch 

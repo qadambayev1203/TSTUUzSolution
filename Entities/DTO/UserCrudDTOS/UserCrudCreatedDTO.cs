@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Entities.Model.DepartamentsModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +19,6 @@ namespace Entities.DTO.UserCrudDTOS
         public required int? status_id { get; set; }
         public bool? removed { get; set; }
         public bool? active { get; set; }
+        public required int? departament_id { get; set; }
     }
 }
