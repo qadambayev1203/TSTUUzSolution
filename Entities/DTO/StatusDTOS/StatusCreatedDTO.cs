@@ -9,6 +9,5 @@ namespace Entities.DTO.StatusDTOS
     public class StatusCreatedDTO
     {
         public string? status { get; set; }
-        public bool? is_deleted { get; set; }
     }
 }

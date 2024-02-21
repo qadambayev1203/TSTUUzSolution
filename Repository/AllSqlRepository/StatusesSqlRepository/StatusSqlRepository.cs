@@ -20,14 +20,14 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
 
 
         //Status CRUD
-        public IEnumerable<Status> AllStatus(int queryNum,int pageNum)
+        public IEnumerable<Status> AllStatus(int queryNum, int pageNum)
         {
             try
             {
                 var statuses = new List<Status>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    statuses = _context.statuses_20ts24tu.Skip(10*(pageNum-1)).Take(10).ToList();
+                    statuses = _context.statuses_20ts24tu.Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
@@ -58,6 +58,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 {
                     return false;
                 }
+                status.is_deleted = false;
                 _context.statuses_20ts24tu.Add(status);
                 _context.SaveChanges();
 
@@ -132,7 +133,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 {
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
                         .Include(x => x.language_)
-                        .Skip(10*(pageNum-1))
+                        .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
 
@@ -170,6 +171,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 {
                     return false;
                 }
+                statusTranslation.is_deleted = false;
                 _context.statuses_translations_20ts24tu.Add(statusTranslation);
                 _context.SaveChanges();
 
@@ -190,6 +192,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 {
                     return false;
                 }
+                statusTranslation.is_deleted = true;
                 _context.statuses_translations_20ts24tu.Update(statusTranslation);
                 _context.SaveChanges();
 
@@ -218,7 +221,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
         {
             try
             {
-                
+
                 _context.SaveChanges();
 
                 return true;

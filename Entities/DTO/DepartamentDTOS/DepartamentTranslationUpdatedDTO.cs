@@ -19,14 +19,12 @@ namespace Entities.DTO.DepartamentDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public int? parent_id { get; set; }
-        [ForeignKey("Language")] public int? language_id { get; set; }
-        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
-        public DateTime? crated_at { get; set; } = DateTime.UtcNow;
-        public DateTime? updated_at { get; set; }
-        [ForeignKey("FilesTranslation")] public int? files_translation_id { get; set; }
+        public int? language_id { get; set; }
+        public int? status_translation_id { get; set; }
+        public int? files_translation_id { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        [ForeignKey("User")] public int? user_id { get; set; }
-        [ForeignKey("DepartamentTypeTranslation")] public int? departament_type_translation_id { get; set; }
+        public int? user_id { get; set; }
+        public int? departament_type_translation_id { get; set; }
     }
 }

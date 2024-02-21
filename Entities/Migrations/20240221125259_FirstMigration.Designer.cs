@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240221091648_FirstMigration")]
+    [Migration("20240221125259_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -777,9 +777,6 @@ namespace Entities.Migrations
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("site_id")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("site_type_id")
                         .HasColumnType("integer");
 
@@ -793,7 +790,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("language_id");
 
-                    b.HasIndex("site_id");
+                    b.HasIndex("site_type_id");
 
                     b.HasIndex("status_translation_id");
 
@@ -1457,9 +1454,9 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("language_id");
 
-                    b.HasOne("Entities.Model.SiteTypesModel.SiteType", "site_")
+                    b.HasOne("Entities.Model.SiteTypesModel.SiteType", "site_type_")
                         .WithMany()
-                        .HasForeignKey("site_id");
+                        .HasForeignKey("site_type_id");
 
                     b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
                         .WithMany()
@@ -1467,7 +1464,7 @@ namespace Entities.Migrations
 
                     b.Navigation("language_");
 
-                    b.Navigation("site_");
+                    b.Navigation("site_type_");
 
                     b.Navigation("status_translation_");
                 });

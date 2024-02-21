@@ -14,6 +14,5 @@ namespace Entities.DTO.StatusDTOS
         public string? status { get; set; }
         public int? status_id { get; set; }
         public int? languages_id { get; set; }
-        public bool? is_deleted { get; set; }
     }
 }

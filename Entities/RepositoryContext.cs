@@ -14,6 +14,7 @@ using Entities.Model.StatusModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,35 @@ namespace Entities
 
 
             base.OnModelCreating(modelBuilder);
+        }
+        public void BackupDatabase()
+        {
+            try
+            {
+                string server = "localhost";
+                string port = "5432";
+                string user = "postgres";
+                string password = "1203";
+                string dbname = "TSTUUzDB";
+                string backupCommandDir = "C:\\Program Files\\PostgreSQL\\16\\bin";
+                Environment.SetEnvironmentVariable("PGPASSWORD", password);
+                string backupFile = "C:\\Users\\Admin\\Desktop\\TSTUz-BAZA\\bazaBackup.backup";
+                string BackupString = " -f \"" + backupFile + "\" -F c" + " -h " + server + " -U " + user + " -p " + port + " -d " + dbname;
+                Process proc = new Process();
+                proc.StartInfo.FileName = backupCommandDir + "\\pg_dump.exe";
+                proc.StartInfo.Arguments = BackupString;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.StartInfo.RedirectStandardError = true;
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.CreateNoWindow = true;
+                proc.Start();
+                proc.WaitForExit();
+                proc.Close();
+            }
+            catch
+            {
+
+            }
         }
 
 

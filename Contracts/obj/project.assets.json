@@ -1117,25 +1117,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\TSTUUzProject\\TSTUUzSolution\\Contracts\\Contracts.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\TSTUUzSolution\\Contracts\\Contracts.csproj",
       "projectName": "Contracts",
-      "projectPath": "D:\\TSTUUzProject\\TSTUUzSolution\\Contracts\\Contracts.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\TSTUUzProject\\TSTUUzSolution\\Contracts\\obj\\",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\TSTUUzSolution\\Contracts\\Contracts.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\TSTUUzSolution\\Contracts\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -1149,8 +1152,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\TSTUUzProject\\TSTUUzSolution\\Entities\\Entities.csproj": {
-              "projectPath": "D:\\TSTUUzProject\\TSTUUzSolution\\Entities\\Entities.csproj"
+            "C:\\Users\\Admin\\Desktop\\TSTUUzSolution\\Entities\\Entities.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\TSTUUzSolution\\Entities\\Entities.csproj"
             }
           }
         }

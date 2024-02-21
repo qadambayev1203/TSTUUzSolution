@@ -20,14 +20,12 @@ namespace Entities.Model.SiteDetailsModel
         public Language? language_ { get; set; }
         public string? title { get; set; }
         public string? description { get; set; }
-
         [ForeignKey("FilesTranslation")] public int? logo_w_id { get; set; }
         public FilesTranslation? logo_w_ { get; set; }
         [ForeignKey("FilesTranslation")] public int? logo_b_id { get; set; }
         public FilesTranslation? logo_b_ { get; set; }
         [ForeignKey("FilesTranslation")] public int? favicon_id { get; set; }
         public FilesTranslation? favicon_ { get; set; }
-
         public string? socials { get; set; }
         public string? details { get; set; }
         public DateTime? created_at { get; set; } = DateTime.UtcNow;

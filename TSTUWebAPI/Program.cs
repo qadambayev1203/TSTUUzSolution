@@ -7,6 +7,9 @@ using Contracts.AllRepository.GendersRepository;
 using Contracts.AllRepository.LanguagesRepository;
 using Contracts.AllRepository.PagesRepository;
 using Contracts.AllRepository.PersonsRepository;
+using Contracts.AllRepository.SiteDetailsRepository;
+using Contracts.AllRepository.SitesRepository;
+using Contracts.AllRepository.SiteTypesRepository;
 using Contracts.AllRepository.StatusesRepository;
 using Contracts.AllRepository.UsersRepository;
 using Contracts.AllRepository.UserTypesRepository;
@@ -27,6 +30,9 @@ using Repository.AllSqlRepository.GendersSqlRepository;
 using Repository.AllSqlRepository.LanguagesSqlRepository;
 using Repository.AllSqlRepository.PagesSqlRepository;
 using Repository.AllSqlRepository.PersonsSqlRepository;
+using Repository.AllSqlRepository.SiteDetailsSqlRepository;
+using Repository.AllSqlRepository.SitesSqlRepository;
+using Repository.AllSqlRepository.SiteTypesSqlRepository;
 using Repository.AllSqlRepository.StatusesSqlRepository;
 using Repository.AllSqlRepository.UsersSqlRepository;
 using Repository.AllSqlRepository.UserTypesSqlRepository;
@@ -106,6 +112,15 @@ builder.Services.AddScoped<IDepartamentDetailRepository, DepartamentDetailSqlRep
 
 //Page AND PageTranslation
 builder.Services.AddScoped<IPageRepository, PageSqlRepository>();
+
+//Site AND SiteTranslation
+builder.Services.AddScoped<ISiteRepository, SiteSqlRepository>();
+
+//SiteType AND SiteTypeTranslation
+builder.Services.AddScoped<ISiteTypeRepository, SiteTypeRepository>();
+
+//SiteDetail AND SiteDetailTranslation
+builder.Services.AddScoped<ISiteDetailRepository, SiteDetailSqlRepository>();
 
 
 

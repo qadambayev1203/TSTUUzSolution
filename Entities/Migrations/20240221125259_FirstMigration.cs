@@ -216,7 +216,6 @@ namespace Entities.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     site_type_id = table.Column<int>(type: "integer", nullable: true),
-                    site_id = table.Column<int>(type: "integer", nullable: true),
                     language_id = table.Column<int>(type: "integer", nullable: true),
                     status_translation_id = table.Column<int>(type: "integer", nullable: true),
                     type = table.Column<string>(type: "text", nullable: true)
@@ -230,8 +229,8 @@ namespace Entities.Migrations
                         principalTable: "languages_20ts24tu",
                         principalColumn: "id");
                     table.ForeignKey(
-                        name: "FK_site_types_translations_20ts24tu_site_types_20ts24tu_site_id",
-                        column: x => x.site_id,
+                        name: "FK_site_types_translations_20ts24tu_site_types_20ts24tu_site_t~",
+                        column: x => x.site_type_id,
                         principalTable: "site_types_20ts24tu",
                         principalColumn: "id");
                     table.ForeignKey(
@@ -1157,9 +1156,9 @@ namespace Entities.Migrations
                 column: "language_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_site_types_translations_20ts24tu_site_id",
+                name: "IX_site_types_translations_20ts24tu_site_type_id",
                 table: "site_types_translations_20ts24tu",
-                column: "site_id");
+                column: "site_type_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_site_types_translations_20ts24tu_status_translation_id",

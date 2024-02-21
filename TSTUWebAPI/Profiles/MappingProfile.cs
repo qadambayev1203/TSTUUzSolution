@@ -8,6 +8,9 @@ using Entities.DTO.GenderDTOS;
 using Entities.DTO.LanguageDTOS;
 using Entities.DTO.PageDTOS;
 using Entities.DTO.PersonDTOS;
+using Entities.DTO.SiteDetailDTOS;
+using Entities.DTO.SiteDTOS;
+using Entities.DTO.SiteTypeDTOS;
 using Entities.DTO.StatusDTOS;
 using Entities.DTO.UserCrudDTOS;
 using Entities.DTO.UserTypeDTOS;
@@ -20,6 +23,9 @@ using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
+using Entities.Model.SiteDetailsModel;
+using Entities.Model.SitesModel;
+using Entities.Model.SiteTypesModel;
 using Entities.Model.StatusModel;
 
 namespace TSTUWebAPI.Profiles
@@ -138,6 +144,42 @@ namespace TSTUWebAPI.Profiles
             CreateMap<PageTranslationCreatedDTO, PageTranslation>();
             CreateMap<PageTranslationUpdatedDTO, PageTranslation>();
             CreateMap<PageTranslation, PageTranslationReadedDTO>();
+
+
+            //Site DTOS
+            CreateMap<SiteCreatedDTO, Site>();
+            CreateMap<SiteUpdatedDTO, Site>();
+            CreateMap<Site, SiteReadedDTO>();
+
+
+            CreateMap<SiteTranslationCreatedDTO, SiteTranslation>();
+            CreateMap<SiteTranslationUpdatedDTO, SiteTranslation>();
+            CreateMap<SiteTranslation, SiteTranslationReadedDTO>();
+
+
+
+
+            //SiteDetail DTOS
+            CreateMap<SiteDetailCreatedDTO, SiteDetail>();
+            CreateMap<SiteDetailUpdatedDTO, SiteDetail>();
+            CreateMap<SiteDetail, SiteDetailReadedDTO>();
+
+
+            CreateMap<SiteDetailTranslationCreatedDTO, SiteDetailTranslation>();
+            CreateMap<SiteDetailTranslationUpdatedDTO, SiteDetailTranslation>();
+            CreateMap<SiteDetailTranslation, SiteDetailTranslationReadedDTO>();
+
+
+
+            //SiteType DTOS
+            CreateMap<SiteTypeCreatedDTO, SiteType>();
+            CreateMap<SiteTypeUpdatedDTO, SiteType>();
+            CreateMap<SiteType, SiteTypeReadedDTO>();
+
+
+            CreateMap<SiteTypeTranslationCreatedDTO, SiteTypeTranslation>();
+            CreateMap<SiteTypeTranslationUpdatedDTO, SiteTypeTranslation>();
+            CreateMap<SiteTypeTranslation, SiteTypeTranslationReadedDTO>();
         }
     }
 }

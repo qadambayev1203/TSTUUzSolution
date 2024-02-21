@@ -10,6 +10,6 @@ namespace Entities.DTO.DepartamentTypeDTOS
     public class DepartamentTypeUpdatedDTO
     {
         public string? type { get; set; }
-        [ForeignKey("Status")] public int? status_id { get; set; }
+        public int? status_id { get; set; }
     }
 }

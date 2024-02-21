@@ -18,14 +18,12 @@ namespace Entities.DTO.DepartamentDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public int? parent_id { get; set; }
-        [ForeignKey("Status")] public int? status_id { get; set; }
-        public DateTime? crated_at { get; set; } = DateTime.UtcNow;
-        public DateTime? updated_at { get; set; }
-        [ForeignKey("Files")] public int? img_id { get; set; }
+        public int? status_id { get; set; }
+        public int? img_id { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        [ForeignKey("User")] public int? user_id { get; set; }
-        [ForeignKey("DepartamentType")] public int? departament_type_id { get; set; }
+        public int? user_id { get; set; }
+        public int? departament_type_id { get; set; }
 
     }
 }
