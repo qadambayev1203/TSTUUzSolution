@@ -57,7 +57,7 @@ namespace Entities
                 string dbname = "TSTUUzDB";
                 string backupCommandDir = "C:\\Program Files\\PostgreSQL\\16\\bin";
                 Environment.SetEnvironmentVariable("PGPASSWORD", password);
-                string backupFile = "C:\\Users\\Admin\\Desktop\\TSTUz-BAZA\\bazaBackup.backup";
+                string backupFile = "D:\\TSTUUzProject\\TSTUUzDB\\bazaBackup.backup";
                 string BackupString = " -f \"" + backupFile + "\" -F c" + " -h " + server + " -U " + user + " -p " + port + " -d " + dbname;
                 Process proc = new Process();
                 proc.StartInfo.FileName = backupCommandDir + "\\pg_dump.exe";

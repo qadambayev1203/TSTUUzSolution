@@ -103,7 +103,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
 
 
         //UserTypeTranslation CRUD
-        [HttpPost("createuseruypetranslation")]
+        [HttpPost("createusertypetranslation")]
         public IActionResult CreateUserTypeTranslation(UserTypeTranslationCreatedDTO userTypetranslation1)
         {
             var userTypetranslation = _mapper.Map<UserTypeTranslation>(userTypetranslation1);
@@ -117,7 +117,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
             return Ok("Created");
         }
 
-        [HttpGet("getalluseruypetranslation")]
+        [HttpGet("getallusertypetranslation")]
         public IActionResult GetAllUserTypeTranslation(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -128,7 +128,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
             return Ok(userTypetranslations);
         }
 
-        [HttpGet("getbyiduseruypetranslation/{id}")]
+        [HttpGet("getbyidusertypetranslation/{id}")]
         public IActionResult GetByIdUserTypeTranslation(int id)
         {
 
@@ -152,7 +152,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
 
 
 
-        [HttpPut("updateuseruypetranslation/{id}")]
+        [HttpPut("updateusertypetranslation/{id}")]
         public IActionResult UpdateUserTypeTranslation(UserTypeTranslation userTypetranslation1, int id)
         {
             try

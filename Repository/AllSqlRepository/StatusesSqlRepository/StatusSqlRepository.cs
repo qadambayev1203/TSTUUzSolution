@@ -54,6 +54,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
         {
             try
             {
+                _context.BackupDatabase();
                 if (status == null)
                 {
                     return false;
