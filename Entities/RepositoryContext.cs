@@ -7,6 +7,9 @@ using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
+using Entities.Model.SiteDetailsModel;
+using Entities.Model.SitesModel;
+using Entities.Model.SiteTypesModel;
 using Entities.Model.StatusModel;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -63,8 +66,15 @@ namespace Entities
         public DbSet<DepartamentTypeTranslation> departament_types_translations_20ts24tu { get; set; }
         public DbSet<Pages> pages_20ts24tu { get; set; }
         public DbSet<PageTranslation> pages_translations_20ts24tu { get; set; }
+        public DbSet<SiteDetail> site_details_20ts24tu { get; set; }
+        public DbSet<SiteDetailTranslation> site_details_translations_20ts24tu { get; set; }
+        public DbSet<Site> sites_20ts24tu { get; set; }
+        public DbSet<SiteTranslation> sites_translations_20ts24tu { get; set; }
+        public DbSet<SiteType> site_types_20ts24tu { get; set; }
+        public DbSet<SiteTypeTranslation> site_types_translations_20ts24tu { get; set; }
         public DbSet<User> users_20ts24tu { get; set; }
         public DbSet<UserType> user_types_20ts24tu { get; set; }
         public DbSet<UserTypeTranslation> user_types_translations_20ts24tu { get; set; }
+
     }
 }

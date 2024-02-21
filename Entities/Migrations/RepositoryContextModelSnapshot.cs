@@ -620,6 +620,273 @@ namespace Entities.Migrations
                     b.ToTable("persons_translations_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.SiteDetailsModel.SiteDetail", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("details")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("favicon_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("logo_b_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("logo_w_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("site_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("socials")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("update_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("favicon_id");
+
+                    b.HasIndex("logo_b_id");
+
+                    b.HasIndex("logo_w_id");
+
+                    b.HasIndex("site_id");
+
+                    b.HasIndex("status_id");
+
+                    b.ToTable("site_details_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.SiteDetailsModel.SiteDetailTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("details")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("favicon_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("logo_b_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("logo_w_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("site_detail_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("site_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("socials")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("update_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("favicon_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("logo_b_id");
+
+                    b.HasIndex("logo_w_id");
+
+                    b.HasIndex("site_detail_id");
+
+                    b.HasIndex("site_translation_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.ToTable("site_details_translations_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.SiteTypesModel.SiteType", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("type")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("status_id");
+
+                    b.ToTable("site_types_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.SiteTypesModel.SiteTypeTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("site_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("site_type_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("type")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("site_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.ToTable("site_types_translations_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.SitesModel.Site", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("site_type_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("site_type_id");
+
+                    b.HasIndex("status_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("sites_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.SitesModel.SiteTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("site_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("site_type_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("site_id");
+
+                    b.HasIndex("site_type_translation_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("sites_translations_20ts24tu");
+                });
+
             modelBuilder.Entity("Entities.Model.StatusModel.Status", b =>
                 {
                     b.Property<int>("id")
@@ -1090,6 +1357,170 @@ namespace Entities.Migrations
                     b.Navigation("persons_");
 
                     b.Navigation("status_translation_");
+                });
+
+            modelBuilder.Entity("Entities.Model.SiteDetailsModel.SiteDetail", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.Files", "favicon_")
+                        .WithMany()
+                        .HasForeignKey("favicon_id");
+
+                    b.HasOne("Entities.Model.FileModel.Files", "logo_b_")
+                        .WithMany()
+                        .HasForeignKey("logo_b_id");
+
+                    b.HasOne("Entities.Model.FileModel.Files", "logo_w_")
+                        .WithMany()
+                        .HasForeignKey("logo_w_id");
+
+                    b.HasOne("Entities.Model.SitesModel.Site", "site_")
+                        .WithMany()
+                        .HasForeignKey("site_id");
+
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("favicon_");
+
+                    b.Navigation("logo_b_");
+
+                    b.Navigation("logo_w_");
+
+                    b.Navigation("site_");
+
+                    b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.SiteDetailsModel.SiteDetailTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "favicon_")
+                        .WithMany()
+                        .HasForeignKey("favicon_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "logo_b_")
+                        .WithMany()
+                        .HasForeignKey("logo_b_id")
+                        .HasConstraintName("FK_site_details_translations_20ts24tu_files_translations_20ts~1");
+
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "logo_w_")
+                        .WithMany()
+                        .HasForeignKey("logo_w_id")
+                        .HasConstraintName("FK_site_details_translations_20ts24tu_files_translations_20ts~2");
+
+                    b.HasOne("Entities.Model.SiteDetailsModel.SiteDetail", "site_detail_")
+                        .WithMany()
+                        .HasForeignKey("site_detail_id");
+
+                    b.HasOne("Entities.Model.SitesModel.SiteTranslation", "site_translation_")
+                        .WithMany()
+                        .HasForeignKey("site_translation_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.Navigation("favicon_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("logo_b_");
+
+                    b.Navigation("logo_w_");
+
+                    b.Navigation("site_detail_");
+
+                    b.Navigation("site_translation_");
+
+                    b.Navigation("status_translation_");
+                });
+
+            modelBuilder.Entity("Entities.Model.SiteTypesModel.SiteType", b =>
+                {
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.SiteTypesModel.SiteTypeTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.SiteTypesModel.SiteType", "site_")
+                        .WithMany()
+                        .HasForeignKey("site_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("site_");
+
+                    b.Navigation("status_translation_");
+                });
+
+            modelBuilder.Entity("Entities.Model.SitesModel.Site", b =>
+                {
+                    b.HasOne("Entities.Model.SiteTypesModel.SiteType", "site_type_")
+                        .WithMany()
+                        .HasForeignKey("site_type_id");
+
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
+                    b.Navigation("site_type_");
+
+                    b.Navigation("status_");
+
+                    b.Navigation("user_");
+                });
+
+            modelBuilder.Entity("Entities.Model.SitesModel.SiteTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.SitesModel.Site", "site_")
+                        .WithMany()
+                        .HasForeignKey("site_id");
+
+                    b.HasOne("Entities.Model.SiteTypesModel.SiteTypeTranslation", "site_type_translation_")
+                        .WithMany()
+                        .HasForeignKey("site_type_translation_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("site_");
+
+                    b.Navigation("site_type_translation_");
+
+                    b.Navigation("status_translation_");
+
+                    b.Navigation("user_");
                 });
 
             modelBuilder.Entity("Entities.Model.StatusModel.StatusTranslation", b =>
