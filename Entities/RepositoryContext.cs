@@ -1,4 +1,6 @@
 ﻿using Entities.Model;
+using Entities.Model.BlogsCategoryModel;
+using Entities.Model.BlogsModel;
 using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
@@ -33,20 +35,11 @@ namespace Entities
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.login)
                 .IsUnique();
-            modelBuilder.Entity<User>()
-        .HasOne(u => u.departament_)
-        .WithOne(d => d.user_)
-        .HasForeignKey<Departament>(d => d.user_id);
-
-            modelBuilder.Entity<Departament>()
-         .HasOne(d => d.user_)
-         .WithOne(u => u.departament_)
-         .HasForeignKey<User>(u => u.departament_id);
-
 
             base.OnModelCreating(modelBuilder);
         }
-        public void BackupDatabase()
+        public void BackupDatabase(/*string server,string port,string user,string password,string dbname,string backupCommandDir,string backupFile*/)
+
         {
             try
             {
@@ -57,7 +50,7 @@ namespace Entities
                 string dbname = "TSTUUzDB";
                 string backupCommandDir = "C:\\Program Files\\PostgreSQL\\16\\bin";
                 Environment.SetEnvironmentVariable("PGPASSWORD", password);
-                string backupFile = "D:\\TSTUUzProject\\TSTUUzDB\\bazaBackup.backup";
+                string backupFile = "C:\\Users\\Admin\\Desktop\\TSTUz-BAZA\\bazaBackup.backup";
                 string BackupString = " -f \"" + backupFile + "\" -F c" + " -h " + server + " -U " + user + " -p " + port + " -d " + dbname;
                 Process proc = new Process();
                 proc.StartInfo.FileName = backupCommandDir + "\\pg_dump.exe";
@@ -102,6 +95,10 @@ namespace Entities
         public DbSet<SiteTranslation> sites_translations_20ts24tu { get; set; }
         public DbSet<SiteType> site_types_20ts24tu { get; set; }
         public DbSet<SiteTypeTranslation> site_types_translations_20ts24tu { get; set; }
+        public DbSet<BlogCategory> blogs_category_20ts24tu { get; set; }
+        public DbSet<BlogCategoryTranslation> blogs_category_translations_20ts24tu { get; set; }
+        public DbSet<Blog> blogs_20ts24tu { get; set; }
+        public DbSet<BlogTranslation> blogs_translations_20ts24tu { get; set; }
         public DbSet<User> users_20ts24tu { get; set; }
         public DbSet<UserType> user_types_20ts24tu { get; set; }
         public DbSet<UserTypeTranslation> user_types_translations_20ts24tu { get; set; }

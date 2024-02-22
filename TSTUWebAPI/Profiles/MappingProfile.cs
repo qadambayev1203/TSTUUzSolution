@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Entities.DTO;
+using Entities.DTO.BlogsCategoryDTOS;
+using Entities.DTO.BlogsDTOS;
 using Entities.DTO.DepartamentDetailsDTOS;
 using Entities.DTO.DepartamentDTOS;
 using Entities.DTO.DepartamentTypeDTOS;
@@ -15,6 +17,8 @@ using Entities.DTO.StatusDTOS;
 using Entities.DTO.UserCrudDTOS;
 using Entities.DTO.UserTypeDTOS;
 using Entities.Model;
+using Entities.Model.BlogsCategoryModel;
+using Entities.Model.BlogsModel;
 using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
@@ -180,6 +184,27 @@ namespace TSTUWebAPI.Profiles
             CreateMap<SiteTypeTranslationCreatedDTO, SiteTypeTranslation>();
             CreateMap<SiteTypeTranslationUpdatedDTO, SiteTypeTranslation>();
             CreateMap<SiteTypeTranslation, SiteTypeTranslationReadedDTO>();
+
+            //BlogCategory DTOS
+            CreateMap<BlogCategoryCreatedDTO, BlogCategory>();
+            CreateMap<BlogCategoryUpdatedDTO, BlogCategory>();
+            CreateMap<BlogCategory, BlogCategoryReadedDTO>();
+
+
+            CreateMap<BlogCategoryTranslationCreatedDTO, BlogCategoryTranslation>();
+            CreateMap<BlogCategoryTranslationUpdatedDTO, BlogCategoryTranslation>();
+            CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedDTO>();
+
+
+            //Blog DTOS
+            CreateMap<BlogCreatedDTO, Blog>();
+            CreateMap<BlogUpdatedDTO, Blog>();
+            CreateMap<Blog, BlogReadedDTO>();
+
+
+            CreateMap<BlogTranslationCreatedDTO, BlogTranslation>();
+            CreateMap<BlogTranslationUpdatedDTO, BlogTranslation>();
+            CreateMap<BlogTranslation, BlogTranslationReadedDTO>();
         }
     }
 }

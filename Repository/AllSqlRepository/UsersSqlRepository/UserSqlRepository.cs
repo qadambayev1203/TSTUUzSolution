@@ -63,6 +63,7 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
         {
             try
             {
+                _context.BackupDatabase();
                 if (user == null)
                 {
                     return false;

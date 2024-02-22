@@ -46,6 +46,8 @@ namespace TSTUWebAPI.Controllers
             var user = await repositoryManager.User.LoginAsync(credentials.Login, credentials.Password, false, cancelationToken);
             if (user != null)
             {
+                try
+                {
                 var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
                 var tokenDescriptoir = new SecurityTokenDescriptor()
                 {
@@ -62,8 +64,7 @@ namespace TSTUWebAPI.Controllers
                 var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
                 authInfo.Token = securityTokenHandler.WriteToken(securityToken);
                 authInfo.UserDetails = mapper.Map<UserDTO>(user);
-                try
-                {
+                
                     authInfo.UserDetails.UserType = user.user_type_.type;
                 }
                 catch                 {                }

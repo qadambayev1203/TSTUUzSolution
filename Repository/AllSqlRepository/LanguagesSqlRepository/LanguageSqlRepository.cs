@@ -27,18 +27,18 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
                 var languages = new List<Language>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    languages = _context.languages_20ts24tu.Include(x => x.status_).Skip(10*(pageNum-1)).Take(10).ToList();
+                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x=>x.img_).Skip(10*(pageNum-1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    languages = _context.languages_20ts24tu.Include(x => x.status_).Take(queryNum).ToList();
+                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    languages = _context.languages_20ts24tu.Include(x => x.status_).Take(200).ToList();
+                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).Take(200).ToList();
 
                 }
                 return languages;
@@ -93,7 +93,7 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
         {
             try
             {
-                var language = _context.languages_20ts24tu.Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                var language = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).FirstOrDefault(x => x.id.Equals(id));
                 return language;
             }
             catch 

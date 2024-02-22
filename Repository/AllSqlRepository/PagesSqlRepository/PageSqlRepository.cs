@@ -28,18 +28,18 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 var pages = new List<Pages>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    pages = _context.pages_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    pages = _context.pages_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.status_).Take(queryNum).ToList();
+                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.status_).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    pages = _context.pages_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.status_).Take(200).ToList();
+                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.status_).Take(200).ToList();
 
                 }
                 return pages;
@@ -94,7 +94,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
         {
             try
             {
-                var page = _context.pages_20ts24tu.Include(x => x.img_id).Include(x => x.user_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                var page = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
 
                 return page;
             }
@@ -142,10 +142,10 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                     pageTranslations = _context.pages_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.img_translation_id)
+                        .Include(x => x.img_translation_)
                         .Include(x => x.user_)
                         .Include(x => x.page_)
-                        .Skip(10 * (queryNum - 1))
+                        .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
 
@@ -156,7 +156,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                     pageTranslations = _context.pages_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.img_translation_id)
+                        .Include(x => x.img_translation_)
                         .Include(x => x.user_)
                         .Include(x => x.page_)
                         .Take(queryNum)
@@ -168,7 +168,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                     pageTranslations = _context.pages_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.img_translation_id)
+                        .Include(x => x.img_translation_)
                         .Include(x => x.user_)
                         .Include(x => x.page_).Take(200).ToList();
 
@@ -228,7 +228,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 var pageTranslation = _context.pages_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.img_translation_id)
+                        .Include(x => x.img_translation_)
                         .Include(x => x.user_)
                         .Include(x => x.page_).FirstOrDefault(x => x.id.Equals(id));
                 return pageTranslation;

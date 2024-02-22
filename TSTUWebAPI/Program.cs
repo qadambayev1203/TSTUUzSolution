@@ -1,4 +1,6 @@
 using Contracts;
+using Contracts.AllRepository.BlogsCategoryRepository;
+using Contracts.AllRepository.BlogsRepository;
 using Contracts.AllRepository.DepartamentDetailsRepository;
 using Contracts.AllRepository.DepartamentsRepository;
 using Contracts.AllRepository.DepartamentsTypeRepository;
@@ -22,6 +24,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repository;
+using Repository.AllSqlRepository.BlogsCategorySqlRepository;
+using Repository.AllSqlRepository.BlogsSqlRepository;
 using Repository.AllSqlRepository.DepartamentsDetailSqlRepository;
 using Repository.AllSqlRepository.DepartamentsSqlRepository;
 using Repository.AllSqlRepository.DepartamentsTypeSqlRepository;
@@ -121,6 +125,14 @@ builder.Services.AddScoped<ISiteTypeRepository, SiteTypeRepository>();
 
 //SiteDetail AND SiteDetailTranslation
 builder.Services.AddScoped<ISiteDetailRepository, SiteDetailSqlRepository>();
+
+//BlogCategory AND BlogCategoryTranslation
+builder.Services.AddScoped<IBlogCategoryRepository, BlogCategorySqlRepository>();
+
+//Blog AND BlogTranslation
+builder.Services.AddScoped<IBlogRepository, BlogSqlRepository>();
+
+
 
 
 

@@ -29,8 +29,6 @@ namespace Entities.Model.DepartamentsModel
         public FilesTranslation? img_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        [ForeignKey("User")] public int? user_id { get; set; }
-        public User? user_ { get; set; }
         [ForeignKey("DepartamentTypeTranslation")] public int? departament_type_translation_id { get; set; }
         public DepartamentTypeTranslation? departament_translation_type_ { get; set; }
     }

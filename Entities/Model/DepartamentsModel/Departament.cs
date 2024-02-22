@@ -26,8 +26,6 @@ namespace Entities.Model.DepartamentsModel
         public Files? img_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        [ForeignKey("User")] public int? user_id { get; set; }
-        public User? user_ { get; set; }
         [ForeignKey("DepartamentType")] public int? departament_type_id { get; set; }
         public DepartamentType? departament_type_ { get; set; }
     }

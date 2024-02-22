@@ -25,7 +25,6 @@ namespace Entities.DTO.DepartamentDTOS
         public Files? img_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        public User? user_ { get; set; }
         public DepartamentType? departament_type_ { get; set; }
 
     }

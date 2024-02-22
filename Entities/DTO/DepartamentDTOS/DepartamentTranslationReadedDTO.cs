@@ -27,7 +27,6 @@ namespace Entities.DTO.DepartamentDTOS
         public FilesTranslation? img_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        public User? user_ { get; set; }
         public DepartamentTypeTranslation? departament_translation_type_ { get; set; }
     }
 }

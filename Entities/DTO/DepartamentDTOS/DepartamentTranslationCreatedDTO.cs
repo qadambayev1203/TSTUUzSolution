@@ -19,7 +19,6 @@ namespace Entities.DTO.DepartamentDTOS
         public int? files_translation_id { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        public int? user_id { get; set; }
         public int? departament_type_translation_id { get; set; }
 
     }

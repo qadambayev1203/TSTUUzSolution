@@ -1,4 +1,5 @@
-﻿using Entities.Model.StatusModel;
+﻿using Entities.Model.FileModel;
+using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,12 @@ namespace Entities.DTO.LanguageDTOS
     public class LanguageReadedDTO
     {
         public int id { get; set; }
-        public string? languages { get; set; }
-        public Status? status_ { get; set; }
+        public string? title { get; set; }
+        public string? title_short { get; set; }
+        public string? description { get; set; }
+        public string? code { get; set; }
+        public string? details { get; set; }
+        public Files? img_ { get; set; }
+        [ForeignKey("Status")] public int? status_id { get; set; }
     }
 }
