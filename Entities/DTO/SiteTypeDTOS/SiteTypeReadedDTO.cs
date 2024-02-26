@@ -1,4 +1,5 @@
-﻿using Entities.Model.StatusModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,6 +13,6 @@ namespace Entities.DTO.SiteTypeDTOS
     {
         public int id { get; set; }
         public string? type { get; set; }
-        public Status? status_ { get; set; }
+        public StatusConfReadedDTO? status_ { get; set; }
     }
 }

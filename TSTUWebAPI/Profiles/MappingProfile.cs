@@ -10,6 +10,22 @@ using Entities.DTO.GenderDTOS;
 using Entities.DTO.LanguageDTOS;
 using Entities.DTO.PageDTOS;
 using Entities.DTO.PersonDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.BlogCategoryConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.BlogConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DepartamentConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DepartamentDetailConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DepartamentTypeConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.GenderConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.PageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.PersonsConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.SiteConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.SiteDeatilConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.SiteTypeConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.UsersConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.UserTypeConfDTOS;
 using Entities.DTO.SiteDetailDTOS;
 using Entities.DTO.SiteDTOS;
 using Entities.DTO.SiteTypeDTOS;
@@ -46,34 +62,41 @@ namespace TSTUWebAPI.Profiles
             CreateMap<FilesCreatedDTO, Files>();
             CreateMap<FilesUpdatedDTO, Files>();
             CreateMap<Files, FilesReadedDTO>();
+            CreateMap<Files, FileConfReadedDTO>();
 
             CreateMap<FilesTranslationCreatedDTO, FilesTranslation>();
             CreateMap<FilesTranslationUpdatedDTO, FilesTranslation>();
             CreateMap<FilesTranslation, FilesTranslationReadedDTO>();
+            CreateMap<FilesTranslation, FileTranslationConfReadedDTO>();
 
 
             //Gender DTOS
             CreateMap<GenderCreatedDTO, Gender>();
             CreateMap<GenderUpdatedDTO, Gender>();
             CreateMap<Gender, GenderReadedDTO>();
+            CreateMap<Gender, GenderConfReadedDTO>();
 
 
 
             CreateMap<GenderTranslationCreatedDTO, GenderTranslation>();
             CreateMap<GenderTranslationUpdatedDTO, GenderTranslation>();
             CreateMap<GenderTranslation, GenderTranslationReadedDTO>();
+            CreateMap<GenderTranslation, GenderTranslationConfReadedDTO>();
 
 
             //Language DTOS
             CreateMap<LanguageCreatedDTO, Language>();
             CreateMap<LanguageUpdatedDTO, Language>();
             CreateMap<Language, LanguageReadedDTO>();
+            CreateMap<Language, LanguageConfReadedDTO>();
 
 
             //Person DTOS
             CreateMap<PersonCreatedDTO, Person>();
             CreateMap<PersonUpdatedDTO, Person>();
             CreateMap<Person, PersonReadedDTO>();
+            CreateMap<Person, PersonConfReadedDTO>();
+            CreateMap<Person, PersonReadedConfigurDTO>();
 
 
             CreateMap<PersonTranslationCreatedDTO, PersonTranslation>();
@@ -84,21 +107,26 @@ namespace TSTUWebAPI.Profiles
             CreateMap<StatusCreatedDTO, Status>();
             CreateMap<StatusUpdatedDTO, Status>();
             CreateMap<Status, StatusReadedDTO>();
+            CreateMap<Status, StatusConfReadedDTO>();
+            
 
 
             CreateMap<StatusTranslationCreatedDTO, StatusTranslation>();
             CreateMap<StatusTranslationUpdatedDTO, StatusTranslation>();
             CreateMap<StatusTranslation, StatusTranslationReadedDTO>();
+            CreateMap<StatusTranslation, StatusTranslationConfReadedDTO>();
 
             //User CRUD DTOS
             CreateMap<UserCrudCreatedDTO, User>();
             CreateMap<UserCrudUpdatedDTO, User>();
             CreateMap<User, UserCrudReadedDTO>();
+            CreateMap<User, UserConfReadedDTO>();
 
             //UserType DTOS
             CreateMap<UserTypeCreatedDTO, UserType>();
             CreateMap<UserTypeUpdatedDTO, UserType>();
             CreateMap<UserType, UserTypeReadedDTO>();
+            CreateMap<UserType, UserTypeConfReadedDTO>();
 
 
             CreateMap<UserTypeTranslationCreatedDTO, UserTypeTranslation>();
@@ -110,6 +138,7 @@ namespace TSTUWebAPI.Profiles
             CreateMap<DepartamentDetailCreatedDTO, DepartamentDetail>();
             CreateMap<DepartamentDetailUpdatedDTO, DepartamentDetail>();
             CreateMap<DepartamentDetail, DepartamentDetailReadedDTO>();
+            CreateMap<DepartamentDetail, DepartamentDetailConfRededDTO>();
 
 
             CreateMap<DepartamentDetailTranslationCreatedDTO, DepartamentDetailTranslation>();
@@ -121,28 +150,33 @@ namespace TSTUWebAPI.Profiles
             CreateMap<DepartamentCreatedDTO, Departament>();
             CreateMap<DepartamentUpdatedDTO, Departament>();
             CreateMap<Departament, DepartamentReadedDTO>();
+            CreateMap<Departament, DepartamentConfReadedDTO>();
 
 
             CreateMap<DepartamentTranslationCreatedDTO, DepartamentTranslation>();
             CreateMap<DepartamentTranslationUpdatedDTO, DepartamentTranslation>();
             CreateMap<DepartamentTranslation, DepartamentTranslationReadedDTO>();
+            CreateMap<DepartamentTranslation, DepartamentTranslationConfReadedDTO>();
 
 
             //DepartamentType DTOS
             CreateMap<DepartamentTypeCreatedDTO, DepartamentType>();
             CreateMap<DepartamentTypeUpdatedDTO, DepartamentType>();
             CreateMap<DepartamentType, DepartamentTypeReadedDTO>();
+            CreateMap<DepartamentType, DepartamentTypeConfReadedDTO>();
 
 
             CreateMap<DepartamentTypeTranslationCreatedDTO, DepartamentTypeTranslation>();
             CreateMap<DepartamentTypeTranslationUpdatedDTO, DepartamentTypeTranslation>();
             CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationReadedDTO>();
+            CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationConfReadedDTO>();
 
 
             //Page DTOS
             CreateMap<PageCreatedDTO, Pages>();
             CreateMap<PageUpdatedDTO, Pages>();
             CreateMap<Pages, PageReadedDTO>();
+            CreateMap<Pages, PageConfReadDTO>();
 
 
             CreateMap<PageTranslationCreatedDTO, PageTranslation>();
@@ -154,11 +188,13 @@ namespace TSTUWebAPI.Profiles
             CreateMap<SiteCreatedDTO, Site>();
             CreateMap<SiteUpdatedDTO, Site>();
             CreateMap<Site, SiteReadedDTO>();
+            CreateMap<Site, SiteConfReadedDTO>();
 
 
             CreateMap<SiteTranslationCreatedDTO, SiteTranslation>();
             CreateMap<SiteTranslationUpdatedDTO, SiteTranslation>();
             CreateMap<SiteTranslation, SiteTranslationReadedDTO>();
+            CreateMap<SiteTranslation, SiteTranslationConfReadedDTO>();
 
 
 
@@ -167,6 +203,7 @@ namespace TSTUWebAPI.Profiles
             CreateMap<SiteDetailCreatedDTO, SiteDetail>();
             CreateMap<SiteDetailUpdatedDTO, SiteDetail>();
             CreateMap<SiteDetail, SiteDetailReadedDTO>();
+            CreateMap<SiteDetail, SiteDetailConfreadedDTO>();
 
 
             CreateMap<SiteDetailTranslationCreatedDTO, SiteDetailTranslation>();
@@ -179,27 +216,32 @@ namespace TSTUWebAPI.Profiles
             CreateMap<SiteTypeCreatedDTO, SiteType>();
             CreateMap<SiteTypeUpdatedDTO, SiteType>();
             CreateMap<SiteType, SiteTypeReadedDTO>();
+            CreateMap<SiteType, SiteTypeConfReadedDTO>();
 
 
             CreateMap<SiteTypeTranslationCreatedDTO, SiteTypeTranslation>();
             CreateMap<SiteTypeTranslationUpdatedDTO, SiteTypeTranslation>();
             CreateMap<SiteTypeTranslation, SiteTypeTranslationReadedDTO>();
+            CreateMap<SiteTypeTranslation, SiteTypeTranslationConfDTO>();
 
             //BlogCategory DTOS
             CreateMap<BlogCategoryCreatedDTO, BlogCategory>();
             CreateMap<BlogCategoryUpdatedDTO, BlogCategory>();
             CreateMap<BlogCategory, BlogCategoryReadedDTO>();
+            CreateMap<BlogCategory, BlogCategoryReadedConfDTO>();
 
 
             CreateMap<BlogCategoryTranslationCreatedDTO, BlogCategoryTranslation>();
             CreateMap<BlogCategoryTranslationUpdatedDTO, BlogCategoryTranslation>();
             CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedDTO>();
+            CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedConfDTO>();
 
 
             //Blog DTOS
             CreateMap<BlogCreatedDTO, Blog>();
             CreateMap<BlogUpdatedDTO, Blog>();
             CreateMap<Blog, BlogReadedDTO>();
+            CreateMap<Blog, BlogConfRededDTO>();
 
 
             CreateMap<BlogTranslationCreatedDTO, BlogTranslation>();

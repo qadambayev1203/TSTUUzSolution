@@ -1,4 +1,8 @@
-﻿using Entities.Model.GenderModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.GenderConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.PersonsConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.PersonModel;
 using Entities.Model.StatusModel;
@@ -17,9 +21,9 @@ namespace Entities.DTO.PersonDTOS
         public string? firstName { get; set; }
         public string? lastName { get; set; }
         public string? fathers_name { get; set; }
-        public GenderTranslation? gender_ { get; set; }
-        public Person? persons_ { get; set; }
-        public Language? languages_ { get; set; }
-        public StatusTranslation? status_translation_ { get; set; }
+        public GenderTranslationConfReadedDTO? gender_ { get; set; }
+        public PersonReadedConfigurDTO? persons_ { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
+        public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
     }
 }

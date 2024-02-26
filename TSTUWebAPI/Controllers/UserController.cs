@@ -80,7 +80,7 @@ namespace TSTUWebAPI.Controllers
 
 
         [AllowAnonymous]
-        [HttpPost("verification/{token}")]
+        [HttpGet("verification/{token}")]
         public IActionResult TokenChexk(string token)
         {
             try

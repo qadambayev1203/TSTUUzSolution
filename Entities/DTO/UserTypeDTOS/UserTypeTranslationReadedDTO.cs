@@ -7,6 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTO.ReadedDTOSConfigurations.UserTypeConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
 
 namespace Entities.DTO.UserTypeDTOS
 {
@@ -14,8 +17,8 @@ namespace Entities.DTO.UserTypeDTOS
     {
         public int id { get; set; }
         public string? type { get; set; }
-        public UserType? user_types_ { get; set; }
-        public Language? languages_ { get; set; }
-        public StatusTranslation? status_translation_ { get; set; }
+        public UserTypeConfReadedDTO? user_types_ { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
+        public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
     }
 }

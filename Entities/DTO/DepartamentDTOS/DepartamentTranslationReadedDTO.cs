@@ -9,6 +9,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.DTO.FilesDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DepartamentTypeConfDTOS;
 
 namespace Entities.DTO.DepartamentDTOS
 {
@@ -20,13 +25,13 @@ namespace Entities.DTO.DepartamentDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public int? parent_id { get; set; }
-        public Language? languages_ { get; set; }
-        public StatusTranslation? status_translation_ { get; set; }
+        public LanguageConfReadedDTO? languages_ { get; set; }
+        public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
         public DateTime? crated_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
-        public FilesTranslation? img_ { get; set; }
+        public FileTranslationConfReadedDTO? img_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        public DepartamentTypeTranslation? departament_translation_type_ { get; set; }
+        public DepartamentTypeTranslationConfReadedDTO? departament_translation_type_ { get; set; }
     }
 }

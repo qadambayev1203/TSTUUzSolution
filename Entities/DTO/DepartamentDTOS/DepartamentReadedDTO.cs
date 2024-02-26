@@ -8,6 +8,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DepartamentTypeConfDTOS;
 
 namespace Entities.DTO.DepartamentDTOS
 {
@@ -19,13 +22,13 @@ namespace Entities.DTO.DepartamentDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public int? parent_id { get; set; }
-        public Status? status_ { get; set; }
+        public StatusConfReadedDTO? status_ { get; set; }
         public DateTime? crated_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
-        public Files? img_ { get; set; }
+        public FileConfReadedDTO? img_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        public DepartamentType? departament_type_ { get; set; }
+        public DepartamentTypeConfReadedDTO? departament_type_ { get; set; }
 
     }
 }

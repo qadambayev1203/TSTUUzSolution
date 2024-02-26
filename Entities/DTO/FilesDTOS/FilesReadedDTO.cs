@@ -6,6 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.UsersConfDTOS;
 
 namespace Entities.DTO.FilesDTOS
 {
@@ -16,7 +18,7 @@ namespace Entities.DTO.FilesDTOS
         public string? url { get; set; }
         public DateTime? crated_at { get; set; } = DateTime.Now;
         public DateTime? updated_at { get; set; }
-        public Status? status_ { get; set; }
-        public User? user_ { get; set; }
+        public StatusConfReadedDTO? status_ { get; set; }
+        public UserConfReadedDTO? user_ { get; set; }
     }
 }

@@ -28,18 +28,25 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
                 var departamentDetails = new List<DepartamentDetail>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    departamentDetails = _context.departament_details_20ts24tu.Include(x => x.departament_).Include(x=>x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    departamentDetails = _context.departament_details_20ts24tu
+                        .Include(x => x.departament_).ThenInclude(y=>y.departament_type_)
+                        .Include(x=>x.status_)
+                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departamentDetails = _context.departament_details_20ts24tu.Include(x => x.departament_).Include(x => x.status_).Take(queryNum).ToList();
+                    departamentDetails = _context.departament_details_20ts24tu
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.status_).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    departamentDetails = _context.departament_details_20ts24tu.Include(x => x.departament_).Include(x => x.status_).Take(200).ToList();
+                    departamentDetails = _context.departament_details_20ts24tu
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.status_).Take(200).ToList();
 
                 }
                 return departamentDetails;
@@ -94,7 +101,9 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
         {
             try
             {
-                var departamentDetail = _context.departament_details_20ts24tu.Include(x => x.departament_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                var departamentDetail = _context.departament_details_20ts24tu
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
 
                 return departamentDetail;
             }
@@ -140,7 +149,8 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     departamentDetailTranslations = _context.departament_details_translations_20ts24tu.Include(x => x.language_)
-                        .Include(x => x.departament_translation_).Include(x => x.departament_detail_)
+                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_translation_type_)
+                        .Include(x => x.departament_detail_)
                         .Include(x => x.status_translation_)
                         .Skip(10 * (queryNum - 1))
                         .Take(10)
@@ -151,7 +161,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     departamentDetailTranslations = _context.departament_details_translations_20ts24tu.Include(x => x.language_)
-                        .Include(x => x.departament_translation_).Include(x => x.departament_detail_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_translation_type_).Include(x => x.departament_detail_)
                         .Include(x => x.status_translation_)
                         .Take(queryNum)
                         .ToList();
@@ -160,7 +170,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
                 else
                 {
                     departamentDetailTranslations = _context.departament_details_translations_20ts24tu.Include(x => x.language_)
-                        .Include(x => x.departament_translation_).Include(x => x.departament_detail_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_translation_type_).Include(x => x.departament_detail_)
                         .Include(x => x.status_translation_).Take(200).ToList();
 
                 }
@@ -217,7 +227,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
             try
             {
                 var departamentDetailTranslation = _context.departament_details_translations_20ts24tu.Include(x => x.language_)
-                        .Include(x => x.departament_translation_).Include(x => x.departament_detail_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_translation_type_).Include(x => x.departament_detail_)
                         .Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
                 return departamentDetailTranslation;
             }

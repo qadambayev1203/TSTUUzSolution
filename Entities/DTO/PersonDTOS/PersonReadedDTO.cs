@@ -1,4 +1,7 @@
-﻿using Entities.Model.FileModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.GenderConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.StatusModel;
 using System;
@@ -17,13 +20,13 @@ namespace Entities.DTO.PersonDTOS
         public string? lastName { get; set; }
         public string? fathers_name { get; set; }
         public string? email { get; set; }
-        public Gender? gender_ { get; set; }
+        public GenderConfReadedDTO? gender_ { get; set; }
         public string? pinfl { get; set; }
         public string? passport_text { get; set; }
         public string? passport_number { get; set; }
-        public Status? status_ { get; set; }
-        public DateTime? created_at { get; set; } = DateTime.Now;
+        public StatusConfReadedDTO? status_ { get; set; }
+        public DateTime? created_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
-        public Files? img_ { get; set; }
+        public FileConfReadedDTO? img_ { get; set; }
     }
 }

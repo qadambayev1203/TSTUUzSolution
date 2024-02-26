@@ -1,4 +1,6 @@
-﻿using Entities.Model.LanguagesModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.LanguagesModel;
 using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
@@ -13,8 +15,8 @@ namespace Entities.DTO.StatusDTOS
     {
         public int id { get; set; }
         public string? status { get; set; }
-        public Status? status_ { get; set; }
-        public Language? languages_ { get; set; }
+        public StatusConfReadedDTO? status_ { get; set; }
+        public LanguageConfReadedDTO? languages_ { get; set; }
         public bool? is_deleted { get; set; }
     }
 }

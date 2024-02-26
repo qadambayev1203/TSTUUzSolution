@@ -16,6 +16,7 @@ namespace Entities.DTO.PageDTOS
         public string? title { get; set; }
         public string? description { get; set; }
         public string? text { get; set; }
+        public int? page_id { get; set; }
         public int? status_translation_id { get; set; }
         public int? img_translation_id { get; set; }
         public int? position { get; set; }

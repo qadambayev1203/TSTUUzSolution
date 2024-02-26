@@ -1,4 +1,6 @@
-﻿using Entities.Model.FileModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.FileModel;
 using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace Entities.DTO.LanguageDTOS
         public string? description { get; set; }
         public string? code { get; set; }
         public string? details { get; set; }
-        public Files? img_ { get; set; }
-        [ForeignKey("Status")] public int? status_id { get; set; }
+        public FileConfReadedDTO? img_ { get; set; }
+        public StatusConfReadedDTO? status_ { get; set; }
     }
 }

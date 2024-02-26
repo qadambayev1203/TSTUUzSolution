@@ -1,4 +1,7 @@
-﻿using Entities.Model.GenderModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.GenderConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.StatusModel;
 using System;
@@ -14,8 +17,8 @@ namespace Entities.DTO.GenderDTOS
     {
         public int id { get; set; }
         public string? gender { get; set; }
-        public Gender? genders_ { get; set; }
-        public Language? languages_ { get; set; }
-        public StatusTranslation status_translation_ { get; set; }
+        public GenderConfReadedDTO? genders_ { get; set; }
+        public LanguageConfReadedDTO? languages_ { get; set; }
+        public StatusTranslationConfReadedDTO status_translation_ { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Entities.Model.BlogsCategoryModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.BlogCategoryConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.BlogsCategoryModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.StatusModel;
 using System;
@@ -14,9 +17,9 @@ namespace Entities.DTO.BlogsCategoryDTOS
     {
         public int id { get; set; }
         public string? title { get; set; }
-        public StatusTranslation? status_translation_ { get; set; }
-        public Language? language_ { get; set; }
-        public BlogCategory? blog_category_ { get; set; }
+        public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
+        public BlogCategoryReadedConfDTO? blog_category_ { get; set; }
     }
 
 }

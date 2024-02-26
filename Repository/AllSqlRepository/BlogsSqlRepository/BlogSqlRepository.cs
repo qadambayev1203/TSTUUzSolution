@@ -32,7 +32,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_)
-                        .Include(x => x.user_)
+                        .Include(x => x.user_).ThenInclude(y=>y.user_type_)
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
@@ -43,7 +43,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_)
-                        .Include(x => x.user_).Take(queryNum).ToList();
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_).Take(queryNum).ToList();
 
                 }
                 else
@@ -52,7 +52,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_)
-                        .Include(x => x.user_).Take(200).ToList();
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_).Take(200).ToList();
 
                 }
                 return blogs;
@@ -111,7 +111,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_)
-                        .Include(x => x.user_).FirstOrDefault(x => x.id.Equals(id));
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_).FirstOrDefault(x => x.id.Equals(id));
 
                 return blog;
             }
@@ -162,7 +162,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
-                        .Include(x => x.user_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
@@ -177,7 +177,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
-                        .Include(x => x.user_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Take(queryNum)
                         .ToList();
 
@@ -190,7 +190,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
-                        .Include(x => x.user_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Take(200).ToList();
 
                 }
@@ -252,7 +252,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
-                        .Include(x => x.user_).FirstOrDefault(x => x.id.Equals(id));
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_).FirstOrDefault(x => x.id.Equals(id));
                 return blogTranslation;
             }
             catch

@@ -1,4 +1,9 @@
-﻿using Entities.Model.DepartamentDetailsModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.DepartamentConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DepartamentDetailConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DepartamentTypeConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.StatusModel;
@@ -15,10 +20,10 @@ namespace Entities.DTO.DepartamentDetailsDTOS
     {
         public int id { get; set; }
         public string? text_json { get; set; }
-        public Language? languages_ { get; set; }
-        public DepartamentTranslation? departament_translation_ { get; set; }
-        public DepartamentDetail? departament_detail_ { get; set; }
-        public StatusTranslation? status_translation_ { get; set; }
+        public LanguageConfReadedDTO? languages_ { get; set; }
+        public DepartamentTranslationConfReadedDTO? departament_translation_ { get; set; }
+        public DepartamentDetailConfRededDTO? departament_detail_ { get; set; }
+        public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
 
     }
 }

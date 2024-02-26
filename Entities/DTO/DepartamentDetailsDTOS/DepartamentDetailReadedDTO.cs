@@ -1,4 +1,6 @@
-﻿using Entities.Model.DepartamentsModel;
+﻿using Entities.DTO.ReadedDTOSConfigurations.DepartamentConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.Model.DepartamentsModel;
 using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ namespace Entities.DTO.DepartamentDetailsDTOS
     {
         public int id { get; set; }
         public string? text_json { get; set; }
-        public Departament? departament_ { get; set; }
-        public Status? status_ { get; set; }
+        public DepartamentConfReadedDTO? departament_ { get; set; }
+        public StatusConfReadedDTO? status_ { get; set; }
     }
 }

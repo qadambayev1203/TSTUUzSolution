@@ -18,7 +18,7 @@ namespace Entities.DTO.PersonDTOS
         public string? fathers_name { get; set; }
         public int? gender_id { get; set; }
         public int? persons_id { get; set; }
-        public int? languages_id { get; set; }
+        public int? language_id { get; set; }
         public int? status_translation_id { get; set; }
     }
 }
