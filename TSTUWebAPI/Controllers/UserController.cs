@@ -78,10 +78,10 @@ namespace TSTUWebAPI.Controllers
             return Ok(authInfo);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [AllowAnonymous]
         [HttpGet("verification/{token}")]
-        public IActionResult TokenChexk(string token)
+        public IActionResult TokenCheckModel(string token)
         {
             try
             {

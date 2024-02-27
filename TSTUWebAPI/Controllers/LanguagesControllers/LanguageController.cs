@@ -75,7 +75,7 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
 
 
         [HttpPut("updatelanguage/{id}")]
-        public IActionResult Updatelanguage(Language language1, int id)
+        public IActionResult Updatelanguage(LanguageUpdatedDTO language1, int id)
         {
             try
             {
