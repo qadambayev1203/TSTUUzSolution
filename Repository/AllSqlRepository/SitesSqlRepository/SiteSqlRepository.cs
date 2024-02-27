@@ -27,20 +27,20 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                 var sitees = new List<Site>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    sitees = _context.sites_20ts24tu.Include(x=>x.status_).Include(x=>x.site_type_).Include(x=>x.user_)
+                    sitees = _context.sites_20ts24tu.Include(x=>x.status_).Include(x=>x.site_type_).Include(x=>x.user_).ThenInclude(y=>y.user_type_)
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_)
+                    sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).Take(200).ToList();
+                    sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).ThenInclude(y => y.user_type_).Take(200).ToList();
 
                 }
                 return sitees;
@@ -98,7 +98,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
         {
             try
             {
-                var site = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).FirstOrDefault(x => x.id.Equals(id));
+                var site = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).ThenInclude(y => y.user_type_).FirstOrDefault(x => x.id.Equals(id));
                 return site;
             }
             catch
@@ -146,7 +146,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.site_type_translation_)
-                        .Include(x => x.user_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
@@ -160,7 +160,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.site_type_translation_)
-                        .Include(x => x.user_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Take(queryNum)
                         .ToList();
 
@@ -171,7 +171,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.site_type_translation_)
-                        .Include(x => x.user_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Take(200)
                         .ToList();
 
@@ -233,7 +233,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.site_type_translation_)
-                        .Include(x => x.user_).FirstOrDefault(x => x.id.Equals(id));
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_).FirstOrDefault(x => x.id.Equals(id));
                 return site;
             }
             catch

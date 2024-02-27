@@ -1,4 +1,5 @@
-﻿using Entities.Model.FileModel;
+﻿using Entities.Model;
+using Entities.Model.FileModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.StatusModel;
 using Microsoft.AspNetCore.Http;
@@ -18,5 +19,6 @@ namespace Entities.DTO.FilesDTOS
         public int? files_id { get; set; }
         public int? language_id { get; set; }
         public int? status_translation_id { get; set; }
+        public int? user_id { get; set; }
     }
 }

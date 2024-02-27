@@ -488,6 +488,9 @@ namespace Entities.Migrations
                     b.Property<string>("url")
                         .HasColumnType("text");
 
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
                     b.HasKey("id");
 
                     b.HasIndex("files_id");
@@ -495,6 +498,8 @@ namespace Entities.Migrations
                     b.HasIndex("language_id");
 
                     b.HasIndex("status_translation_id");
+
+                    b.HasIndex("user_id");
 
                     b.ToTable("files_translations_20ts24tu");
                 });
@@ -1476,11 +1481,17 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("status_translation_id");
 
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
                     b.Navigation("files_");
 
                     b.Navigation("language_");
 
                     b.Navigation("status_translation_");
+
+                    b.Navigation("user_");
                 });
 
             modelBuilder.Entity("Entities.Model.GenderModel.Gender", b =>

@@ -28,18 +28,19 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 var files = new List<Files>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).Skip(10 * (pageNum-1)).Take(10).ToList();
+                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x => x.status_).Skip(10 * (pageNum-1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).Take(queryNum).ToList();
+                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    files = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).Take(200).ToList();
+                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Take(200).ToList();
 
                 }
                 return files;
@@ -95,7 +96,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
         {
             try
             {
-                var file = _context.files_20ts24tu.Include(x => x.user_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                var file = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
                 return file;
             }
             catch
@@ -131,18 +132,24 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 var filesTranslations = new List<FilesTranslation>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_).Skip(10*(pageNum-1)).Take(10).ToList();
+                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
+                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Skip(10*(pageNum-1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_).Take(queryNum).ToList();
+                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_)
+                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x => x.language_).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_).Take(200).ToList();
+                    filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
+                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Take(200).ToList();
 
                 }
                 return filesTranslations;
@@ -197,7 +204,9 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
         {
             try
             {
-                var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_).FirstOrDefault(x => x.id.Equals(id));
+                var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
+                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                    .FirstOrDefault(x => x.id.Equals(id));
                 return fileTranslation;
             }
             catch

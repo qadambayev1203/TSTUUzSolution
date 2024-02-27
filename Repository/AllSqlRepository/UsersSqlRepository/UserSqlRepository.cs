@@ -27,7 +27,8 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 var users = new List<User>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y=>y.img_)
+                        .Include(x=>x.departament_).ThenInclude(y=>y.departament_type_)
                         .Include(x => x.status_) 
                         .Skip(10*(pageNum-1))
                         .Take(10)
@@ -37,7 +38,8 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 else if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.status_)
                         .Take(queryNum)
                         .ToList();
@@ -45,7 +47,8 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 }
                 else
                 {
-                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.status_)
                         .Take(200)
                         .ToList();
@@ -105,7 +108,8 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
         {
             try
             {
-                var user = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_)
+                var user = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
                 return user;
             }

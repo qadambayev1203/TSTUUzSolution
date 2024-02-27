@@ -1,6 +1,7 @@
 ﻿using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.UsersConfDTOS;
 using Entities.Model.FileModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.StatusModel;
@@ -20,5 +21,6 @@ namespace Entities.DTO.FilesDTOS
         public FileConfReadedDTO? files_ { get; set; }
         public LanguageConfReadedDTO? languages_ { get; set; }
         public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
+        public UserConfReadedDTO? user_ { get; set; }
     }
 }
