@@ -134,7 +134,8 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.gender_).
-                        Include(x => x.status_translation_).Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
+                        Include(x => x.status_translation_).Include(x => x.language_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(10*(queryNum - 1))
                         .Take(10)
                         .ToList();
@@ -144,7 +145,8 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.gender_).
-                        Include(x => x.status_translation_).Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
+                        Include(x => x.status_translation_).Include(x => x.language_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(queryNum)
                         .ToList();
 
@@ -152,7 +154,8 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 else
                 {
                     genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.gender_).
-                        Include(x => x.status_translation_).Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
+                        Include(x => x.status_translation_).Include(x => x.language_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200).ToList();
 
                 }

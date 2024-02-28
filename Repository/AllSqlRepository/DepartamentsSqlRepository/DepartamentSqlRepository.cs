@@ -143,7 +143,8 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x=>x.language_)
                         .Include(x=>x.status_translation_)
                         .Include(x=>x.img_)
-                        .Include(x=>x.departament_translation_type_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x=>x.departament_translation_type_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(10 * (queryNum - 1))
                         .Take(10)
                         .ToList();
@@ -156,7 +157,8 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.img_)
-                        .Include(x => x.departament_translation_type_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.departament_translation_type_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(queryNum)
                         .ToList();
 
@@ -167,7 +169,8 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.img_)
-                        .Include(x => x.departament_translation_type_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.departament_translation_type_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200).ToList();
 
                 }

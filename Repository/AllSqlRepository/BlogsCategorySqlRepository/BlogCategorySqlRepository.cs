@@ -20,7 +20,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
 
 
 
-        //BlogCategory CRUD
+        #region BlogCategory CRUD
         public IEnumerable<BlogCategory> AllBlogCategory(int queryNum, int pageNum)
         {
             try
@@ -125,13 +125,13 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
             }
         }
 
+        #endregion
 
 
 
 
 
-
-        //BlogCategoryTranslation CRUD
+        #region BlogCategoryTranslation CRUD
         public IEnumerable<BlogCategoryTranslation> AllBlogCategoryTranslation(int queryNum, int pageNum, string language_code)
         {
             try
@@ -142,7 +142,8 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                     blogCategoryTranslations = _context.blogs_category_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_).Where(x=>x.language_.code.Equals(language_code))
+                        .Include(x => x.blog_category_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
@@ -154,7 +155,8 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                     blogCategoryTranslations = _context.blogs_category_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.blog_category_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(queryNum)
                         .ToList();
 
@@ -164,7 +166,8 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                     blogCategoryTranslations = _context.blogs_category_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.blog_category_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200).ToList();
 
                 }
@@ -252,5 +255,6 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                 return false;
             }
         }
+        #endregion
     }
 }

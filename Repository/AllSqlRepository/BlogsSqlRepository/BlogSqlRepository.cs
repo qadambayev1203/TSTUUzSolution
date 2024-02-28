@@ -11,7 +11,7 @@ using Contracts.AllRepository.BlogsRepository;
 namespace Repository.AllSqlRepository.BlogsSqlRepository
 {
     public class BlogSqlRepository : IBlogRepository
-    { 
+    {
         private readonly RepositoryContext _context;
         public BlogSqlRepository(RepositoryContext repositoryContext)
         {
@@ -20,7 +20,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
 
 
-        //Blog CRUD
+        #region Blog CRUD
         public IEnumerable<Blog> AllBlog(int queryNum, int pageNum)
         {
             try
@@ -32,7 +32,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_)
-                        .Include(x => x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
@@ -143,12 +143,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
         }
 
 
+        #endregion
 
 
 
 
-
-        //BlogTranslation CRUD
+        #region BlogTranslation CRUD
         public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code)
         {
             try
@@ -164,7 +164,8 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.img_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(10 * (pageNum - 1))
-                        .Take(10).Where(x => x.language_.code.Equals(language_code))
+                        .Take(10)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .ToList();
 
                 }
@@ -177,7 +178,8 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(queryNum)
                         .ToList();
 
@@ -190,13 +192,14 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((language_code!=null)? x => x.language_.code.Equals(language_code):x=>x.language_.code!=null)
                         .Take(200).ToList();
 
                 }
                 return blogTranslations;
             }
-            catch(Exception ex) 
+            catch 
             {
                 return null;
             }
@@ -281,5 +284,6 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 return false;
             }
         }
+        #endregion
     }
 }

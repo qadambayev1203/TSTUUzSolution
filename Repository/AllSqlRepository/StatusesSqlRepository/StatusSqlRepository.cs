@@ -133,7 +133,8 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
-                        .Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.language_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
@@ -143,7 +144,8 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
-                        .Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.language_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(queryNum)
                         .ToList();
 
@@ -151,7 +153,8 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 else
                 {
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
-                        .Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.language_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200)
                         .ToList();
 

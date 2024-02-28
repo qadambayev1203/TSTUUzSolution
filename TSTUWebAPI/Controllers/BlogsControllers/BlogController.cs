@@ -20,7 +20,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         }
 
 
-        // Blog CRUD
+        #region Blog CRUD
 
         [HttpPost("createblog")]
         public IActionResult CreateBlog(BlogCreatedDTO blog1)
@@ -100,13 +100,14 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         }
 
+        #endregion
 
 
 
 
 
+        #region BlogTranslation CRUD
 
-        //BlogTranslation CRUD
         [HttpPost("createblogtranslation")]
         public IActionResult CreateBlogTranslation(BlogTranslationCreatedDTO blogtranslation1)
         {
@@ -122,7 +123,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         }
 
         [HttpGet("getallblogtranslation")]
-        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string language_code)
+        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
@@ -179,5 +180,6 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             }
 
         }
+        #endregion
     }
 }

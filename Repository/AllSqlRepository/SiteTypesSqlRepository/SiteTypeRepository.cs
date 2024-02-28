@@ -146,7 +146,8 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                     siteTypeesTranslation = _context.site_types_translations_20ts24tu
                         .Include(x => x.site_type_)
                         .Include(x => x.language_)
-                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.status_translation_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
@@ -158,7 +159,8 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                     siteTypeesTranslation = _context.site_types_translations_20ts24tu
                         .Include(x => x.site_type_)
                         .Include(x => x.language_)
-                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.status_translation_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(queryNum)
                         .ToList();
 
@@ -168,7 +170,8 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                     siteTypeesTranslation = _context.site_types_translations_20ts24tu
                         .Include(x => x.site_type_)
                         .Include(x => x.language_)
-                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.status_translation_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200)
                         .ToList();
 

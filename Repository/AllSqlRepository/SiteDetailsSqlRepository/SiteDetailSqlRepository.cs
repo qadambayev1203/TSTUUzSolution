@@ -168,8 +168,8 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                         .Include(x => x.logo_b_)
                         .Include(x => x.favicon_)
                         .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
-                        .Skip(10 * (pageNum - 1))
+                        .Include(x => x.status_translation_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(10)
                         .ToList();
 
@@ -184,7 +184,8 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                         .Include(x => x.logo_b_)
                         .Include(x => x.favicon_)
                         .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.status_translation_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(queryNum)
                         .ToList();
 
@@ -198,7 +199,8 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                         .Include(x => x.logo_b_)
                         .Include(x => x.favicon_)
                         .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
+                        .Include(x => x.status_translation_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200)
                         .ToList();
 
