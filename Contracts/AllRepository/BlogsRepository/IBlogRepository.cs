@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.BlogsRepository
 
 
         //BlogTranslation CRUD
-        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum);
+        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code);
         public BlogTranslation GetBlogTranslationById(int id);
         public bool CreateBlogTranslation(BlogTranslation blogTranslation);
         public bool UpdateBlogTranslation(int id, BlogTranslation blogTranslation);

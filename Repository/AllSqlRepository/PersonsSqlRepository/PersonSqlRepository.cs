@@ -134,7 +134,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
 
         //PersonTranslation CRUD
-        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum,int pageNum)
+        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum,int pageNum, string language_code)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 {
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.language_)
                         .Include(x => x.persons_).ThenInclude(y=>y.img_)
-                        .Include(x => x.status_translation_)
+                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
                         .Skip(10*(pageNum-1))
                         .Take(10)
                         .ToList();
@@ -154,6 +154,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                     if (queryNum > 200) { queryNum = 200; }
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).
                         Include(x => x.language_).Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.status_translation_)
+                        .Where(x => x.language_.code.Equals(language_code))
                         .Take(queryNum)
                         .ToList();
 
@@ -162,6 +163,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 {
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_)
                         .Include(x => x.language_).Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.status_translation_)
+                        .Where(x => x.language_.code.Equals(language_code))
                         .Take(200)
                         .ToList();
 

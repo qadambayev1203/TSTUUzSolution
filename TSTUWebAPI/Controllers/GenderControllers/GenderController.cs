@@ -125,11 +125,11 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         }
 
         [HttpGet("getallgendertranslation")]
-        public IActionResult GetAllgenderTranslation(int queryNum, int pageNum)
+        public IActionResult GetAllgenderTranslation(int queryNum, int pageNum, string language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<GenderTranslation> gendertranslations1 = _repository.AllGenderTranslation(queryNum, pageNum);
+            IEnumerable<GenderTranslation> gendertranslations1 = _repository.AllGenderTranslation(queryNum, pageNum, language_code);
             var gendertranslations = _mapper.Map<IEnumerable<GenderTranslationReadedDTO>>(gendertranslations1);
             if (gendertranslations == null) { return NotFound(); }
 

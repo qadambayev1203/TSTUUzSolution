@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.DepartamentsTypeRepository
 
 
         //DepartamentTypeTranslation CRUD
-        public IEnumerable<DepartamentTypeTranslation> AllDepartamentTypeTranslation(int queryNum, int pageNum);
+        public IEnumerable<DepartamentTypeTranslation> AllDepartamentTypeTranslation(int queryNum, int pageNum, string language_code);
         public DepartamentTypeTranslation GetDepartamentTypeTranslationById(int id);
         public bool CreateDepartamentTypeTranslation(DepartamentTypeTranslation departamentTypeTranslation);
         public bool UpdateDepartamentTypeTranslation(int id, DepartamentTypeTranslation departamentTypeTranslation);

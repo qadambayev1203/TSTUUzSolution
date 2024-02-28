@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TSTUWebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a65af6baad36293c8959ab785ad0e87f6e222be")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1aaf3594f6f2f17dff885d0ecaf740ed12d3e807")]
 [assembly: System.Reflection.AssemblyProductAttribute("TSTUWebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TSTUWebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

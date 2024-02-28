@@ -20,7 +20,7 @@ namespace Contracts.AllRepository.GendersRepository
 
 
         //GenderTranslation CRUD
-        public IEnumerable<GenderTranslation> AllGenderTranslation(int queryNum, int pageNum);
+        public IEnumerable<GenderTranslation> AllGenderTranslation(int queryNum, int pageNum, string language_code);
         public GenderTranslation GetGenderTranslationById(int id);
         public bool CreateGenderTranslation(GenderTranslation genderTranslation);
         public bool UpdateGenderTranslation();

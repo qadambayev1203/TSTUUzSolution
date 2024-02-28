@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.PagesRepository
 
 
         //PageTranslation CRUD
-        public IEnumerable<PageTranslation> AllPageTranslation(int queryNum, int pageNum);
+        public IEnumerable<PageTranslation> AllPageTranslation(int queryNum, int pageNum, string language_code);
         public PageTranslation GetPageTranslationById(int id);
         public bool CreatePageTranslation(PageTranslation pageTranslation);
         public bool UpdatePageTranslation(int id,PageTranslation pageTranslation);

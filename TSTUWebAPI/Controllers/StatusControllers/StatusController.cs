@@ -126,11 +126,11 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         }
 
         [HttpGet("getallstatustranslation")]
-        public IActionResult GetAllStatusTranslation(int queryNum, int pageNum)
+        public IActionResult GetAllStatusTranslation(int queryNum, int pageNum, string language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<StatusTranslation> statustranslationes1 = _repository.AllStatusTranslation(queryNum, pageNum);
+            IEnumerable<StatusTranslation> statustranslationes1 = _repository.AllStatusTranslation(queryNum, pageNum, language_code);
             var statustranslationes = _mapper.Map<IEnumerable<StatusTranslationReadedDTO>>(statustranslationes1);
             if (statustranslationes == null) { return NotFound(); }
             return Ok(statustranslationes);

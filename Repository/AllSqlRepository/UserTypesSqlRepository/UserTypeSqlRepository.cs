@@ -123,7 +123,7 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
 
 
         //UserTypeTranslation CRUD
-        public IEnumerable<UserTypeTranslation> AllUserTypeTranslation(int queryNum,int pageNum)
+        public IEnumerable<UserTypeTranslation> AllUserTypeTranslation(int queryNum,int pageNum, string language_code)
         {
             try
             {
@@ -132,6 +132,7 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                 {
                     userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
                         .Include(x => x.language_).Include(x => x.status_translation_)
+                        .Where(x => x.language_.code.Equals(language_code))
                         .Skip(10*(queryNum-1))
                         .Take(10)
                         .ToList();
@@ -141,13 +142,15 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
-                        .Include(x => x.language_).Include(x => x.status_translation_).Take(queryNum).ToList();
+                        .Include(x => x.language_).Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
+                        .Take(queryNum).ToList();
 
                 }
                 else
                 {
                     userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
-                        .Include(x => x.language_).Include(x => x.status_translation_).Take(200).ToList();
+                        .Include(x => x.language_).Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
+                        .Take(200).ToList();
 
                 }
                 return userTypesTranslation;

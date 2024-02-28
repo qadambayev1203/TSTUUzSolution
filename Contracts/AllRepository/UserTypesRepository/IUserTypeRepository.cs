@@ -18,7 +18,7 @@ namespace Contracts.AllRepository.UserTypesRepository
 
 
         //UserTypeTranslation CRUD
-        public IEnumerable<UserTypeTranslation> AllUserTypeTranslation(int queryNum, int pageNum);
+        public IEnumerable<UserTypeTranslation> AllUserTypeTranslation(int queryNum, int pageNum, string language_code);
         public UserTypeTranslation GetUserTypeTranslationById(int id);
         public bool CreateUserTypeTranslation(UserTypeTranslation userTypeTranslation);
         public bool UpdateUserTypeTranslation();

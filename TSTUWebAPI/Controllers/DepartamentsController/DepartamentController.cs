@@ -122,11 +122,11 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         }
 
         [HttpGet("getalldepartamenttranslation")]
-        public IActionResult GetAllDepartamentTranslation(int queryNum, int pageNum)
+        public IActionResult GetAllDepartamentTranslation(int queryNum, int pageNum, string language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslation(queryNum, pageNum);
+            IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslation(queryNum, pageNum, language_code);
             var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedDTO>>(departamenttranslations1);
             if (departamenttranslations == null) { return NotFound(); }
             return Ok(departamenttranslations);

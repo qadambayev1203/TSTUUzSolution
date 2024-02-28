@@ -125,7 +125,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
 
         //FileTranslations CRUD
-        public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum)
+        public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum, string language_code)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
-                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_).Where(x => x.language_.code.Equals(language_code))
                         .Skip(10*(pageNum-1)).Take(10).ToList();
 
                 }
@@ -141,14 +141,14 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_)
-                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_).Where(x => x.language_.code.Equals(language_code))
                         .Include(x => x.language_).Take(queryNum).ToList();
 
                 }
                 else
                 {
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
-                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_).Where(x => x.language_.code.Equals(language_code))
                         .Take(200).ToList();
 
                 }

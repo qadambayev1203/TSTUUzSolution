@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.FilesRepository
 
 
         //FileTranslation CRUD
-        public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum);
+        public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum, string language_code);
         public FilesTranslation GetFilesTranslationById(int id);
         public bool CreateFilesTranslation(FilesTranslation fileTranslation);
         public bool UpdateFilesTranslation();

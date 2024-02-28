@@ -132,7 +132,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 
 
         //DepartamentTranslation CRUD
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslation(int queryNum, int pageNum)
+        public IEnumerable<DepartamentTranslation> AllDepartamentTranslation(int queryNum, int pageNum, string language_code)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x=>x.language_)
                         .Include(x=>x.status_translation_)
                         .Include(x=>x.img_)
-                        .Include(x=>x.departament_translation_type_)
+                        .Include(x=>x.departament_translation_type_).Where(x => x.language_.code.Equals(language_code))
                         .Skip(10 * (queryNum - 1))
                         .Take(10)
                         .ToList();
@@ -156,7 +156,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.img_)
-                        .Include(x => x.departament_translation_type_)
+                        .Include(x => x.departament_translation_type_).Where(x => x.language_.code.Equals(language_code))
                         .Take(queryNum)
                         .ToList();
 
@@ -167,7 +167,8 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.img_)
-                        .Include(x => x.departament_translation_type_).Take(200).ToList();
+                        .Include(x => x.departament_translation_type_).Where(x => x.language_.code.Equals(language_code))
+                        .Take(200).ToList();
 
                 }
                 return departamentTranslations;

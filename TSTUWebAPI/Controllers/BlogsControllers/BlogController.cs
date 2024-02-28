@@ -122,11 +122,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         }
 
         [HttpGet("getallblogtranslation")]
-        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum)
+        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum);
+            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum, language_code);
             var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedDTO>>(blogtranslations1);
             if (blogtranslations == null) { return NotFound(); }
             return Ok(blogtranslations);

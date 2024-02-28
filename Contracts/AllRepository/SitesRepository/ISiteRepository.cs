@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.SitesRepository
 
 
         //SiteTranslation CRUD
-        public IEnumerable<SiteTranslation> AllSiteTranslation(int queryNum, int pageNum);
+        public IEnumerable<SiteTranslation> AllSiteTranslation(int queryNum, int pageNum, string language_code);
         public SiteTranslation GetSiteTranslationById(int id);
         public bool CreateSiteTranslation(SiteTranslation siteTranslation);
         public bool UpdateSiteTranslation(SiteTranslation siteTranslation, int id);

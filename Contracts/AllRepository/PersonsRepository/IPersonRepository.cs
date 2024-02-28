@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.PersonsRepository
 
 
         //PersonTranslation CRUD
-        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum, int pageNum);
+        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum, int pageNum, string language_code);
         public PersonTranslation GetPersonTranslationById(int id);
         public bool CreatePersonTranslation(PersonTranslation personTranslation);
         public bool UpdatePersonTranslation();

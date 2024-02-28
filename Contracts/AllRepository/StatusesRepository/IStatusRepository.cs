@@ -19,7 +19,7 @@ namespace Contracts.AllRepository.StatusesRepository
 
 
         //StatusTranslation CRUD
-        public IEnumerable<StatusTranslation> AllStatusTranslation(int queryNum, int pageNum);
+        public IEnumerable<StatusTranslation> AllStatusTranslation(int queryNum, int pageNum, string language_code);
         public StatusTranslation GetStatusTranslationById(int id);
         public bool CreateStatusTranslation(StatusTranslation statusTranslation);
         public bool UpdateStatusTranslation();

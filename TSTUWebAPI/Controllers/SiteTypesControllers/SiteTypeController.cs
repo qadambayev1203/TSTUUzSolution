@@ -123,11 +123,11 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
         }
 
         [HttpGet("getallsitetypetranslation")]
-        public IActionResult GetAllSiteTypeTranslation(int queryNum, int pageNum)
+        public IActionResult GetAllSiteTypeTranslation(int queryNum, int pageNum, string language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<SiteTypeTranslation> siteTypetranslationes1 = _repository.AllSiteTypeTranslation(queryNum, pageNum);
+            IEnumerable<SiteTypeTranslation> siteTypetranslationes1 = _repository.AllSiteTypeTranslation(queryNum, pageNum, language_code);
             var siteTypetranslationes = _mapper.Map<IEnumerable<SiteTypeTranslationReadedDTO>>(siteTypetranslationes1);
             if (siteTypetranslationes == null) { return NotFound(); }
             return Ok(siteTypetranslationes);

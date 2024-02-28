@@ -122,11 +122,11 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         }
 
         [HttpGet("getallpersontranslation")]
-        public IActionResult GetAllpersonTranslation(int queryNum, int pageNum)
+        public IActionResult GetAllpersonTranslation(int queryNum, int pageNum, string language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<PersonTranslation> persontranslationes1 = _repository.AllPersonTranslation(queryNum, pageNum);
+            IEnumerable<PersonTranslation> persontranslationes1 = _repository.AllPersonTranslation(queryNum, pageNum, language_code);
             var persontranslationes = _mapper.Map<IEnumerable<PersonTranslationReadedDTO>>(persontranslationes1);
             if (persontranslationes == null) { return NotFound(); }
 

@@ -173,11 +173,11 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
         [HttpGet("getallfilestranslation")]
-        public IActionResult GetAllfilesTranslation(int queryNum, int pageNum)
+        public IActionResult GetAllfilesTranslation(int queryNum, int pageNum, string  language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<FilesTranslation> filestranslationes1 = _repository.AllFilesTranslation(queryNum, pageNum);
+            IEnumerable<FilesTranslation> filestranslationes1 = _repository.AllFilesTranslation(queryNum, pageNum, language_code);
             var filestranslationes = _mapper.Map<IEnumerable<FilesTranslationReadedDTO>>(filestranslationes1);
             if (filestranslationes == null)
             {

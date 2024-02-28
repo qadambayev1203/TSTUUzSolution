@@ -154,7 +154,7 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
 
 
         //SiteDetailTranslation CRUD
-        public IEnumerable<SiteDetailTranslation> AllSiteDetailTranslation(int queryNum, int pageNum)
+        public IEnumerable<SiteDetailTranslation> AllSiteDetailTranslation(int queryNum, int pageNum, string language_code)
         {
             try
             {
@@ -168,7 +168,7 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                         .Include(x => x.logo_b_)
                         .Include(x => x.favicon_)
                         .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
+                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
@@ -184,7 +184,7 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                         .Include(x => x.logo_b_)
                         .Include(x => x.favicon_)
                         .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
+                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
                         .Take(queryNum)
                         .ToList();
 
@@ -198,7 +198,7 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                         .Include(x => x.logo_b_)
                         .Include(x => x.favicon_)
                         .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
+                        .Include(x => x.status_translation_).Where(x => x.language_.code.Equals(language_code))
                         .Take(200)
                         .ToList();
 

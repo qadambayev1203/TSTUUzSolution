@@ -126,7 +126,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
 
 
         //GenderTranslation CRUD
-        public IEnumerable<GenderTranslation> AllGenderTranslation(int queryNum, int pageNum)
+        public IEnumerable<GenderTranslation> AllGenderTranslation(int queryNum, int pageNum, string language_code)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.gender_).
-                        Include(x => x.status_translation_).Include(x => x.language_)
+                        Include(x => x.status_translation_).Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
                         .Skip(10*(queryNum - 1))
                         .Take(10)
                         .ToList();
@@ -144,7 +144,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.gender_).
-                        Include(x => x.status_translation_).Include(x => x.language_)
+                        Include(x => x.status_translation_).Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
                         .Take(queryNum)
                         .ToList();
 
@@ -152,7 +152,8 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 else
                 {
                     genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.gender_).
-                        Include(x => x.status_translation_).Include(x => x.language_).Take(200).ToList();
+                        Include(x => x.status_translation_).Include(x => x.language_).Where(x => x.language_.code.Equals(language_code))
+                        .Take(200).ToList();
 
                 }
                 return genderTranslations;
