@@ -44,7 +44,7 @@ namespace TSTUWebAPI.Controllers.PersonControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<Person> persons1 = _repository.AllPerson(queryNum, pageNum);
             var persons = _mapper.Map<IEnumerable<PersonReadedDTO>>(persons1);
-            if (persons == null) { return NotFound(); }
+            if (persons == null||persons.Count() == 0) { return NotFound(); }
 
             return Ok(persons);
         }
@@ -122,13 +122,13 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         }
 
         [HttpGet("getallpersontranslation")]
-        public IActionResult GetAllpersonTranslation(int queryNum, int pageNum, string language_code)
+        public IActionResult GetAllpersonTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<PersonTranslation> persontranslationes1 = _repository.AllPersonTranslation(queryNum, pageNum, language_code);
             var persontranslationes = _mapper.Map<IEnumerable<PersonTranslationReadedDTO>>(persontranslationes1);
-            if (persontranslationes == null) { return NotFound(); }
+            if (persontranslationes == null||persontranslationes.Count() == 0) { return NotFound(); }
 
             return Ok(persontranslationes);
         }

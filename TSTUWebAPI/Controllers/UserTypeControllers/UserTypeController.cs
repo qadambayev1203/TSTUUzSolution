@@ -43,7 +43,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
             pageNum=Math.Abs(pageNum);
             IEnumerable<UserType> userTypes1 = _repository.AllUserType(queryNum, pageNum);
             var userTypes = _mapper.Map<IEnumerable<UserTypeReadedDTO>>(userTypes1);
-            if (userTypes == null) { return NotFound(); }
+            if (userTypes == null|| userTypes.Count()==0) { return NotFound(); }
             return Ok(userTypes);
         }
 
@@ -118,13 +118,13 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
         }
 
         [HttpGet("getallusertypetranslation")]
-        public IActionResult GetAllUserTypeTranslation(int queryNum, int pageNum, string language_code)
+        public IActionResult GetAllUserTypeTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<UserTypeTranslation> userTypetranslations1 = _repository.AllUserTypeTranslation(queryNum,pageNum, language_code);
             var userTypetranslations = _mapper.Map<IEnumerable<UserTypeTranslationReadedDTO>>(userTypetranslations1);
-            if (userTypetranslations == null) { return NotFound(); }
+            if (userTypetranslations == null|| userTypetranslations.Count()==0) { return NotFound(); }
             return Ok(userTypetranslations);
         }
 

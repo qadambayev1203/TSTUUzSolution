@@ -44,7 +44,7 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<Language> languages1 = _repository.AllLanguage(queryNum, pageNum);
             var languages = _mapper.Map<IEnumerable<LanguageReadedDTO>>(languages1);
-            if (languages == null) { return NotFound(); }
+            if (languages == null||languages.Count() == 0) { return NotFound(); }
 
             return Ok(languages);
         }

@@ -56,7 +56,9 @@ var Configuration = new ConfigurationBuilder()
 //JWT**************************************************
 IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 var secretKey = Encoding.ASCII.GetBytes(appSettings.SecretKey);
 
 builder.Services.AddAuthentication(x =>

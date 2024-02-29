@@ -47,7 +47,7 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
             pageNum = Math.Abs(pageNum);
             IEnumerable<DepartamentDetail> departamentDetails1 = _repository.AllDepartamentDetail(queryNum, pageNum);
             var departamentDetails = _mapper.Map<IEnumerable<DepartamentDetailReadedDTO>>(departamentDetails1);
-            if (departamentDetails == null)
+            if (departamentDetails == null||departamentDetails.Count() == 0)
             {
                 return NotFound();
             }
@@ -134,13 +134,13 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
         }
 
         [HttpGet("getalldepartamentDetailtranslation")]
-        public IActionResult GetAllDepartamentDetailTranslation(int queryNum, int pageNum, string language_code)
+        public IActionResult GetAllDepartamentDetailTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<DepartamentDetailTranslation> departamentDetailtranslations1 = _repository.AllDepartamentDetailTranslation(queryNum, pageNum, language_code);
             var departamentDetailtranslations = _mapper.Map<IEnumerable<DepartamentDetailTranslationReadedDTO>>(departamentDetailtranslations1);
-            if(departamentDetailtranslations == null)
+            if (departamentDetailtranslations == null || departamentDetailtranslations.Count() == 0)
             {
                 return NotFound();
             }

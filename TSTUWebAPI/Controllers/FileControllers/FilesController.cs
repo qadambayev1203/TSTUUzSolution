@@ -59,7 +59,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<Files> files1 = _repository.AllFile(queryNum, pageNum);
             var files = _mapper.Map<IEnumerable<FilesReadedDTO>>(files1);
-            if (files == null) { return NotFound(); }
+            if (files == null||files.Count() == 0) { return NotFound(); }
 
             return Ok(files);
         }
@@ -173,13 +173,13 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
         [HttpGet("getallfilestranslation")]
-        public IActionResult GetAllfilesTranslation(int queryNum, int pageNum, string  language_code)
+        public IActionResult GetAllfilesTranslation(int queryNum, int pageNum, string?  language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<FilesTranslation> filestranslationes1 = _repository.AllFilesTranslation(queryNum, pageNum, language_code);
             var filestranslationes = _mapper.Map<IEnumerable<FilesTranslationReadedDTO>>(filestranslationes1);
-            if (filestranslationes == null)
+            if (filestranslationes == null||filestranslationes.Count() == 0)
             {
                 return NotFound();
             }

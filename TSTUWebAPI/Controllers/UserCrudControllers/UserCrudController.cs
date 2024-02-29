@@ -47,7 +47,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<User> users1= _repository.AllUser(queryNum, pageNum);
             var users = _mapper.Map<IEnumerable<UserCrudReadedDTO>>(users1);
-            if (users == null) { return NotFound(); }
+            if (users == null||users.Count()==0) { return NotFound(); }
             return Ok(users);
         }
 

@@ -43,7 +43,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<BlogCategory> blogCategorys1 = _repository.AllBlogCategory(queryNum, pageNum);
             var blogCategorys = _mapper.Map<IEnumerable<BlogCategoryReadedDTO>>(blogCategorys1);
-            if (blogCategorys == null) { return NotFound(); }
+            if (blogCategorys == null || blogCategorys.Count() == 0) { return NotFound(); }
             return Ok(blogCategorys);
         }
 
@@ -122,13 +122,13 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
         }
 
         [HttpGet("getallblogcategorytranslation")]
-        public IActionResult GetAllBlogCategoryTranslation(int queryNum, int pageNum, string language_code )
+        public IActionResult GetAllBlogCategoryTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<BlogCategoryTranslation> blogCategorytranslations1 = _repository.AllBlogCategoryTranslation(queryNum, pageNum, language_code);
             var blogCategorytranslations = _mapper.Map<IEnumerable<BlogCategoryTranslationReadedDTO>>(blogCategorytranslations1);
-            if (blogCategorytranslations == null) { return NotFound(); }
+            if (blogCategorytranslations == null || blogCategorytranslations.Count() == 0) { return NotFound(); }
             return Ok(blogCategorytranslations);
         }
 

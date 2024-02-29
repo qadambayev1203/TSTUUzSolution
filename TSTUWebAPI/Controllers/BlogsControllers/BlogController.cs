@@ -43,7 +43,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<Blog> blogs1 = _repository.AllBlog(queryNum, pageNum);
             var blogs = _mapper.Map<IEnumerable<BlogReadedDTO>>(blogs1);
-            if (blogs == null) { return NotFound(); }
+            if (blogs == null||blogs.Count() == 0) { return NotFound(); }
             return Ok(blogs);
         }
 
@@ -129,7 +129,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum, language_code);
             var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedDTO>>(blogtranslations1);
-            if (blogtranslations == null) { return NotFound(); }
+            if (blogtranslations == null||blogtranslations.Count() == 0) { return NotFound(); }
             return Ok(blogtranslations);
         }
 

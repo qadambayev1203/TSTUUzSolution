@@ -44,7 +44,7 @@ namespace TSTUWebAPI.Controllers.PagesController
             pageNum = Math.Abs(pageNum);
             IEnumerable<Pages> pages1 = _repository.AllPage(queryNum, pageNum);
             var pages = _mapper.Map<IEnumerable<PageReadedDTO>>(pages1);
-            if (pages == null) { return NotFound(); }
+            if (pages == null||pages.Count() == 0) { return NotFound(); }
 
             return Ok(pages);
         }
@@ -120,13 +120,13 @@ namespace TSTUWebAPI.Controllers.PagesController
         }
 
         [HttpGet("getallpagetranslation")]
-        public IActionResult GetAllpageTranslation(int queryNum, int pageNum, string language_code)
+        public IActionResult GetAllpageTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<PageTranslation> pagetranslationes1 = _repository.AllPageTranslation(queryNum, pageNum, language_code);
             var pagetranslationes = _mapper.Map<IEnumerable<PageTranslationReadedDTO>>(pagetranslationes1);
-            if (pagetranslationes == null) { return NotFound(); }
+            if (pagetranslationes == null||pagetranslationes.Count() == 0) { return NotFound(); }
             return Ok(pagetranslationes);
         }
 

@@ -43,7 +43,7 @@ namespace TSTUWebAPI.Controllers.SiteDetailDetailsControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<SiteDetail> siteDetailes1 = _repository.AllSiteDetail(queryNum, pageNum);
             var siteDetailes = _mapper.Map<IEnumerable<SiteDetailReadedDTO>>(siteDetailes1);
-            if (siteDetailes == null) { return NotFound(); }
+            if (siteDetailes == null||siteDetailes.Count() == 0) { return NotFound(); }
             return Ok(siteDetailes);
         }
 
@@ -123,13 +123,13 @@ namespace TSTUWebAPI.Controllers.SiteDetailDetailsControllers
         }
 
         [HttpGet("getallsitedetailtranslation")]
-        public IActionResult GetAllSiteDetailTranslation(int queryNum, int pageNum, string language_code)
+        public IActionResult GetAllSiteDetailTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<SiteDetailTranslation> siteDetailtranslationes1 = _repository.AllSiteDetailTranslation(queryNum, pageNum, language_code);
             var siteDetailtranslationes = _mapper.Map<IEnumerable<SiteDetailTranslationReadedDTO>>(siteDetailtranslationes1);
-            if (siteDetailtranslationes == null) { return NotFound(); }
+            if (siteDetailtranslationes == null||siteDetailtranslationes.Count() == 0) { return NotFound(); }
             return Ok(siteDetailtranslationes);
         }
 

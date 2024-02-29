@@ -33,24 +33,6 @@ C:\Users\Admin\Desktop\TSTUz backend\TSTUUzSolution\Repository\obj\Debug\net8.0\
 C:\Users\Admin\Desktop\TSTUz backend\TSTUUzSolution\Repository\obj\Debug\net8.0\refint\Repository.dll
 C:\Users\Admin\Desktop\TSTUz backend\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.pdb
 C:\Users\Admin\Desktop\TSTUz backend\TSTUUzSolution\Repository\obj\Debug\net8.0\ref\Repository.dll
-D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.deps.json
-D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.dll
-D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.pdb
-D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Contracts.dll
-D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Entities.dll
-D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Contracts.pdb
-D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Entities.pdb
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.AssemblyReference.cache
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.AssemblyInfoInputs.cache
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.AssemblyInfo.cs
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.CoreCompileInputs.cache
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.sourcelink.json
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.CopyComplete
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.dll
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\refint\Repository.dll
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.pdb
-D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\ref\Repository.dll
 C:\Users\Admin\Desktop\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.deps.json
 C:\Users\Admin\Desktop\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.dll
 C:\Users\Admin\Desktop\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.pdb
@@ -69,3 +51,21 @@ C:\Users\Admin\Desktop\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.dll
 C:\Users\Admin\Desktop\TSTUUzSolution\Repository\obj\Debug\net8.0\refint\Repository.dll
 C:\Users\Admin\Desktop\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.pdb
 C:\Users\Admin\Desktop\TSTUUzSolution\Repository\obj\Debug\net8.0\ref\Repository.dll
+D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.deps.json
+D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.dll
+D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Repository.pdb
+D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Contracts.dll
+D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Entities.dll
+D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Contracts.pdb
+D:\TSTUUzProject\TSTUUzSolution\Repository\bin\Debug\net8.0\Entities.pdb
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.AssemblyReference.cache
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.AssemblyInfoInputs.cache
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.AssemblyInfo.cs
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.CoreCompileInputs.cache
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.sourcelink.json
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.csproj.CopyComplete
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.dll
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\refint\Repository.dll
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\Repository.pdb
+D:\TSTUUzProject\TSTUUzSolution\Repository\obj\Debug\net8.0\ref\Repository.dll

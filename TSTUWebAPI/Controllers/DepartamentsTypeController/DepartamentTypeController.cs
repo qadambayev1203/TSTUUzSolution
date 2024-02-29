@@ -44,7 +44,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
             pageNum = Math.Abs(pageNum);
             IEnumerable<DepartamentType> departamentTypes1 = _repository.AllDepartamentType(queryNum, pageNum);
             var departamentTypes = _mapper.Map<IEnumerable<DepartamentTypeReadedDTO>>(departamentTypes1);
-            if (departamentTypes == null) { return NotFound(); }
+            if (departamentTypes == null||departamentTypes.Count() == 0) { return NotFound(); }
             return Ok(departamentTypes);
         }
 
@@ -123,13 +123,13 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [HttpGet("getalldepartamentTypetranslation")]
-        public IActionResult GetAllDepartamentTypeTranslation(int queryNum, int pageNum, string language_code)
+        public IActionResult GetAllDepartamentTypeTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<DepartamentTypeTranslation> departamentTypetranslations1 = _repository.AllDepartamentTypeTranslation(queryNum, pageNum, language_code);
             var departamentTypetranslations = _mapper.Map<IEnumerable<DepartamentTypeTranslationReadedDTO>>(departamentTypetranslations1);
-            if (departamentTypetranslations == null) { return NotFound(); }
+            if (departamentTypetranslations == null||departamentTypetranslations.Count() == 0) { return NotFound(); }
 
             return Ok(departamentTypetranslations);
         }

@@ -27,7 +27,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                 var sitees = new List<Site>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    sitees = _context.sites_20ts24tu.Include(x=>x.status_).Include(x=>x.site_type_).Include(x=>x.user_).ThenInclude(y=>y.user_type_)
+                    sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
@@ -48,7 +48,9 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
             catch
             {
+#pragma warning disable CS8603 // Possible null reference return.
                 return null;
+#pragma warning restore CS8603 // Possible null reference return.
             }
         }
 
@@ -111,12 +113,12 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
         {
             try
             {
-                var sitecheck=GetSiteById(id);
+                var sitecheck = GetSiteById(id);
                 if (sitecheck == null)
                 {
                     return false;
                 }
-                site.id= sitecheck.id;
+                site.id = sitecheck.id;
                 site.updated_at = DateTime.UtcNow;
                 _context.sites_20ts24tu.Update(site);
                 _context.SaveChanges();
@@ -183,7 +185,9 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
             catch
             {
+#pragma warning disable CS8603 // Possible null reference return.
                 return null;
+#pragma warning restore CS8603 // Possible null reference return.
             }
         }
 
@@ -256,7 +260,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                 }
                 siteTranslation.id = siteTranslationCheck.id;
                 siteTranslation.updated_at = DateTime.UtcNow;
-                _context.sites_translations_20ts24tu.Update(siteTranslation );
+                _context.sites_translations_20ts24tu.Update(siteTranslation);
                 _context.SaveChanges();
 
                 return true;
