@@ -1,0 +1,18 @@
+﻿using Entities.Model.DistrictsModel;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entities.Model.NeighborhoodsModel
+{
+    public class Neighborhood
+    {
+        public int id { get; set; }
+        [ForeignKey("District")] public int? district_id { get; set; }
+        public District? district_ { get; set; }
+        public string? title { get; set; }
+    }
+}

@@ -2,10 +2,10 @@
 using Contracts.AllRepository.UsersRepository;
 using Entities.DTO.UserCrudDTOS;
 using Entities.Model;
+using Entities.Model.AnyClasses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using TSTUWebAPI.Controllers.AnyClasses;
 
 namespace TSTUWebAPI.Controllers.UserCrudControllers
 {

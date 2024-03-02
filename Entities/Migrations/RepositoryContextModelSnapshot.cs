@@ -430,6 +430,1280 @@ namespace Entities.Migrations
                     b.ToTable("departament_types_translations_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.DistrictsModel.District", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("territorie_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("territorie_id");
+
+                    b.ToTable("districts_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            territorie_id = 8,
+                            title = "Boʻzatov tumani"
+                        },
+                        new
+                        {
+                            id = 3,
+                            territorie_id = 14,
+                            title = "Bandixon tumani"
+                        },
+                        new
+                        {
+                            id = 4,
+                            territorie_id = 16,
+                            title = "Tuproqqal''a tumani"
+                        },
+                        new
+                        {
+                            id = 10,
+                            territorie_id = 8,
+                            title = "Nukus shahar"
+                        },
+                        new
+                        {
+                            id = 12,
+                            territorie_id = 8,
+                            title = "Amudaryo tumani"
+                        },
+                        new
+                        {
+                            id = 13,
+                            territorie_id = 8,
+                            title = "Beruniy tumani"
+                        },
+                        new
+                        {
+                            id = 14,
+                            territorie_id = 8,
+                            title = "Qonlikoʻl tumani"
+                        },
+                        new
+                        {
+                            id = 15,
+                            territorie_id = 8,
+                            title = "Qoraoʻzak tumani"
+                        },
+                        new
+                        {
+                            id = 16,
+                            territorie_id = 8,
+                            title = "Kegeyli tumani"
+                        },
+                        new
+                        {
+                            id = 17,
+                            territorie_id = 8,
+                            title = "Qoʻngʻirot tumani"
+                        },
+                        new
+                        {
+                            id = 18,
+                            territorie_id = 8,
+                            title = "Muynoq tumani"
+                        },
+                        new
+                        {
+                            id = 19,
+                            territorie_id = 8,
+                            title = "Nukus tumani"
+                        },
+                        new
+                        {
+                            id = 20,
+                            territorie_id = 8,
+                            title = "Taxtakoʻprik tumani"
+                        },
+                        new
+                        {
+                            id = 21,
+                            territorie_id = 8,
+                            title = "Toʻrtkoʻl tumani"
+                        },
+                        new
+                        {
+                            id = 22,
+                            territorie_id = 8,
+                            title = "Xoʻjayli tumani"
+                        },
+                        new
+                        {
+                            id = 23,
+                            territorie_id = 8,
+                            title = "Chimboy tumani"
+                        },
+                        new
+                        {
+                            id = 24,
+                            territorie_id = 8,
+                            title = "Shoʻmanay tumani"
+                        },
+                        new
+                        {
+                            id = 25,
+                            territorie_id = 8,
+                            title = "Ellikqal''a tumani"
+                        },
+                        new
+                        {
+                            id = 26,
+                            territorie_id = 9,
+                            title = "Buxoro shahar"
+                        },
+                        new
+                        {
+                            id = 27,
+                            territorie_id = 9,
+                            title = "Buxoro tuman"
+                        },
+                        new
+                        {
+                            id = 28,
+                            territorie_id = 9,
+                            title = "Vobkent tuman"
+                        },
+                        new
+                        {
+                            id = 29,
+                            territorie_id = 9,
+                            title = "Gʻijduvon tuman"
+                        },
+                        new
+                        {
+                            id = 30,
+                            territorie_id = 9,
+                            title = "Jondor tuman"
+                        },
+                        new
+                        {
+                            id = 32,
+                            territorie_id = 9,
+                            title = "Kogon tuman"
+                        },
+                        new
+                        {
+                            id = 33,
+                            territorie_id = 9,
+                            title = "Olot tuman"
+                        },
+                        new
+                        {
+                            id = 34,
+                            territorie_id = 9,
+                            title = "Peshku tuman"
+                        },
+                        new
+                        {
+                            id = 35,
+                            territorie_id = 9,
+                            title = "Romitan tuman"
+                        },
+                        new
+                        {
+                            id = 36,
+                            territorie_id = 9,
+                            title = "Shofirkon tuman"
+                        },
+                        new
+                        {
+                            id = 37,
+                            territorie_id = 9,
+                            title = "Qorakoʻl tuman"
+                        },
+                        new
+                        {
+                            id = 38,
+                            territorie_id = 9,
+                            title = "Qorovulbozor tuman"
+                        },
+                        new
+                        {
+                            id = 39,
+                            territorie_id = 10,
+                            title = "Samarqand shahar"
+                        },
+                        new
+                        {
+                            id = 40,
+                            territorie_id = 10,
+                            title = "Oqdaryo tumani"
+                        },
+                        new
+                        {
+                            id = 41,
+                            territorie_id = 10,
+                            title = "Bulungʻur tumani"
+                        },
+                        new
+                        {
+                            id = 42,
+                            territorie_id = 10,
+                            title = "Jomboy tumani"
+                        },
+                        new
+                        {
+                            id = 43,
+                            territorie_id = 10,
+                            title = "Kattaqoʻrgʻon tumani"
+                        },
+                        new
+                        {
+                            id = 44,
+                            territorie_id = 10,
+                            title = "Kattaqoʻrgʻon shahar"
+                        },
+                        new
+                        {
+                            id = 45,
+                            territorie_id = 10,
+                            title = "Qoʻshrabod tumani"
+                        },
+                        new
+                        {
+                            id = 46,
+                            territorie_id = 10,
+                            title = "Narpay tumani"
+                        },
+                        new
+                        {
+                            id = 47,
+                            territorie_id = 10,
+                            title = "Nurobod tumani"
+                        },
+                        new
+                        {
+                            id = 48,
+                            territorie_id = 10,
+                            title = "Payariq tumani"
+                        },
+                        new
+                        {
+                            id = 49,
+                            territorie_id = 10,
+                            title = "Pastdargʻom tumani"
+                        },
+                        new
+                        {
+                            id = 50,
+                            territorie_id = 10,
+                            title = "Paxtachi tumani"
+                        },
+                        new
+                        {
+                            id = 51,
+                            territorie_id = 10,
+                            title = "Samarqand tumani"
+                        },
+                        new
+                        {
+                            id = 53,
+                            territorie_id = 10,
+                            title = "Tayloq tumani"
+                        },
+                        new
+                        {
+                            id = 54,
+                            territorie_id = 10,
+                            title = "Urgut tumani"
+                        },
+                        new
+                        {
+                            id = 55,
+                            territorie_id = 11,
+                            title = "Navoiy shahar"
+                        },
+                        new
+                        {
+                            id = 56,
+                            territorie_id = 11,
+                            title = "Karmana tumani"
+                        },
+                        new
+                        {
+                            id = 57,
+                            territorie_id = 11,
+                            title = "Navbaxor tumani"
+                        },
+                        new
+                        {
+                            id = 58,
+                            territorie_id = 11,
+                            title = "Nurota tumani - Gʻozgʻon shahri"
+                        },
+                        new
+                        {
+                            id = 59,
+                            territorie_id = 11,
+                            title = "Xatirchi tumani"
+                        },
+                        new
+                        {
+                            id = 60,
+                            territorie_id = 11,
+                            title = "Qiziltepa tumani"
+                        },
+                        new
+                        {
+                            id = 61,
+                            territorie_id = 11,
+                            title = "Konimex tumani"
+                        },
+                        new
+                        {
+                            id = 62,
+                            territorie_id = 11,
+                            title = "Uchquduq tumani"
+                        },
+                        new
+                        {
+                            id = 63,
+                            territorie_id = 11,
+                            title = "Zarafshon shahar"
+                        },
+                        new
+                        {
+                            id = 64,
+                            territorie_id = 11,
+                            title = "Tomdi tumani"
+                        },
+                        new
+                        {
+                            id = 65,
+                            territorie_id = 12,
+                            title = "Andijon shahar"
+                        },
+                        new
+                        {
+                            id = 66,
+                            territorie_id = 12,
+                            title = "Xonobod shahar"
+                        },
+                        new
+                        {
+                            id = 67,
+                            territorie_id = 12,
+                            title = "Andijon tumani"
+                        },
+                        new
+                        {
+                            id = 68,
+                            territorie_id = 12,
+                            title = "Asaka tumani"
+                        },
+                        new
+                        {
+                            id = 69,
+                            territorie_id = 12,
+                            title = "Baliqchi tumani"
+                        },
+                        new
+                        {
+                            id = 70,
+                            territorie_id = 12,
+                            title = "Boʻz tumani"
+                        },
+                        new
+                        {
+                            id = 71,
+                            territorie_id = 12,
+                            title = "Buloqboshi tumani"
+                        },
+                        new
+                        {
+                            id = 72,
+                            territorie_id = 12,
+                            title = "Jalolquduq tumani"
+                        },
+                        new
+                        {
+                            id = 73,
+                            territorie_id = 12,
+                            title = "Izboskan tumani"
+                        },
+                        new
+                        {
+                            id = 74,
+                            territorie_id = 12,
+                            title = "Ulugʻnor tumani"
+                        },
+                        new
+                        {
+                            id = 75,
+                            territorie_id = 12,
+                            title = "Qoʻrgʻontepa tumani"
+                        },
+                        new
+                        {
+                            id = 76,
+                            territorie_id = 12,
+                            title = "Marxamat tumani"
+                        },
+                        new
+                        {
+                            id = 77,
+                            territorie_id = 12,
+                            title = "Oltinkoʻl tumani"
+                        },
+                        new
+                        {
+                            id = 78,
+                            territorie_id = 12,
+                            title = "Paxtaobod tumani"
+                        },
+                        new
+                        {
+                            id = 79,
+                            territorie_id = 12,
+                            title = "Hoʻjaobod tumani"
+                        },
+                        new
+                        {
+                            id = 80,
+                            territorie_id = 12,
+                            title = "Shaxrixon tumani"
+                        },
+                        new
+                        {
+                            id = 82,
+                            territorie_id = 13,
+                            title = "Margʻilon shahar"
+                        },
+                        new
+                        {
+                            id = 83,
+                            territorie_id = 13,
+                            title = "Fargʻona shahar"
+                        },
+                        new
+                        {
+                            id = 84,
+                            territorie_id = 13,
+                            title = "Quvasoy shahar"
+                        },
+                        new
+                        {
+                            id = 85,
+                            territorie_id = 13,
+                            title = "Qoʻqon shahar"
+                        },
+                        new
+                        {
+                            id = 86,
+                            territorie_id = 13,
+                            title = "Bogʻdod tumani"
+                        },
+                        new
+                        {
+                            id = 87,
+                            territorie_id = 13,
+                            title = "Beshariq tumani"
+                        },
+                        new
+                        {
+                            id = 88,
+                            territorie_id = 13,
+                            title = "Buvayda tumani"
+                        },
+                        new
+                        {
+                            id = 89,
+                            territorie_id = 13,
+                            title = "Dangʻara tumani"
+                        },
+                        new
+                        {
+                            id = 90,
+                            territorie_id = 13,
+                            title = "Yozyovon tumani"
+                        },
+                        new
+                        {
+                            id = 91,
+                            territorie_id = 13,
+                            title = "Oltiariq tumani"
+                        },
+                        new
+                        {
+                            id = 92,
+                            territorie_id = 13,
+                            title = "Qoʻshtepa tumani"
+                        },
+                        new
+                        {
+                            id = 93,
+                            territorie_id = 13,
+                            title = "Rishton tumani"
+                        },
+                        new
+                        {
+                            id = 94,
+                            territorie_id = 13,
+                            title = "Soʻx tumani"
+                        },
+                        new
+                        {
+                            id = 95,
+                            territorie_id = 13,
+                            title = "Toshloq tumani"
+                        },
+                        new
+                        {
+                            id = 96,
+                            territorie_id = 13,
+                            title = "Uchkoʻprik tumani"
+                        },
+                        new
+                        {
+                            id = 97,
+                            territorie_id = 13,
+                            title = "Fargʻona tumani"
+                        },
+                        new
+                        {
+                            id = 98,
+                            territorie_id = 13,
+                            title = "Furqat tumani"
+                        },
+                        new
+                        {
+                            id = 99,
+                            territorie_id = 13,
+                            title = "Oʻzbekiston tumani"
+                        },
+                        new
+                        {
+                            id = 100,
+                            territorie_id = 13,
+                            title = "Quva tumani"
+                        },
+                        new
+                        {
+                            id = 101,
+                            territorie_id = 14,
+                            title = "Angor tumani"
+                        },
+                        new
+                        {
+                            id = 102,
+                            territorie_id = 14,
+                            title = "Boysun tumani"
+                        },
+                        new
+                        {
+                            id = 103,
+                            territorie_id = 14,
+                            title = "Denov tumani"
+                        },
+                        new
+                        {
+                            id = 104,
+                            territorie_id = 14,
+                            title = "Jarqoʻrgʻon tumani"
+                        },
+                        new
+                        {
+                            id = 105,
+                            territorie_id = 14,
+                            title = "Qiziriq tumani"
+                        },
+                        new
+                        {
+                            id = 106,
+                            territorie_id = 14,
+                            title = "Qumqoʻrgʻon tumani"
+                        },
+                        new
+                        {
+                            id = 107,
+                            territorie_id = 14,
+                            title = "Muzrabot tumani"
+                        },
+                        new
+                        {
+                            id = 108,
+                            territorie_id = 14,
+                            title = "Oltinsoy tumani"
+                        },
+                        new
+                        {
+                            id = 109,
+                            territorie_id = 14,
+                            title = "Sariosiyo tumani"
+                        },
+                        new
+                        {
+                            id = 110,
+                            territorie_id = 14,
+                            title = "Termiz tumani"
+                        },
+                        new
+                        {
+                            id = 111,
+                            territorie_id = 14,
+                            title = "Termiz shahar"
+                        },
+                        new
+                        {
+                            id = 112,
+                            territorie_id = 14,
+                            title = "Uzun tumani"
+                        },
+                        new
+                        {
+                            id = 113,
+                            territorie_id = 14,
+                            title = "Sherobod tumani"
+                        },
+                        new
+                        {
+                            id = 114,
+                            territorie_id = 14,
+                            title = "Shoʻrchi tumani"
+                        },
+                        new
+                        {
+                            id = 115,
+                            territorie_id = 15,
+                            title = "Oqoltin tumani"
+                        },
+                        new
+                        {
+                            id = 116,
+                            territorie_id = 15,
+                            title = "Boyovut tumani"
+                        },
+                        new
+                        {
+                            id = 117,
+                            territorie_id = 15,
+                            title = "Guliston tumani"
+                        },
+                        new
+                        {
+                            id = 118,
+                            territorie_id = 15,
+                            title = "Mirzaobod tumani"
+                        },
+                        new
+                        {
+                            id = 119,
+                            territorie_id = 15,
+                            title = "Sayxunobod tumani"
+                        },
+                        new
+                        {
+                            id = 120,
+                            territorie_id = 15,
+                            title = "Sirdaryo tumani"
+                        },
+                        new
+                        {
+                            id = 121,
+                            territorie_id = 15,
+                            title = "Sardoba tumani"
+                        },
+                        new
+                        {
+                            id = 122,
+                            territorie_id = 15,
+                            title = "Xovos tumani"
+                        },
+                        new
+                        {
+                            id = 123,
+                            territorie_id = 15,
+                            title = "Guliston shahar"
+                        },
+                        new
+                        {
+                            id = 124,
+                            territorie_id = 15,
+                            title = "Shirin shahar"
+                        },
+                        new
+                        {
+                            id = 126,
+                            territorie_id = 15,
+                            title = "Yangier shahar"
+                        },
+                        new
+                        {
+                            id = 127,
+                            territorie_id = 16,
+                            title = "Urganch shahar"
+                        },
+                        new
+                        {
+                            id = 128,
+                            territorie_id = 16,
+                            title = "Bogʻot tumani"
+                        },
+                        new
+                        {
+                            id = 129,
+                            territorie_id = 16,
+                            title = "Gurlan tumani"
+                        },
+                        new
+                        {
+                            id = 130,
+                            territorie_id = 16,
+                            title = "Xozarasp tumani"
+                        },
+                        new
+                        {
+                            id = 131,
+                            territorie_id = 16,
+                            title = "Xiva tumani"
+                        },
+                        new
+                        {
+                            id = 132,
+                            territorie_id = 16,
+                            title = "Xonqa tumani"
+                        },
+                        new
+                        {
+                            id = 133,
+                            territorie_id = 16,
+                            title = "Urganch tumani"
+                        },
+                        new
+                        {
+                            id = 134,
+                            territorie_id = 16,
+                            title = "Qoʻshkoʻpir tumani"
+                        },
+                        new
+                        {
+                            id = 135,
+                            territorie_id = 16,
+                            title = "Shovot tumani"
+                        },
+                        new
+                        {
+                            id = 136,
+                            territorie_id = 16,
+                            title = "Yangiariq tumani"
+                        },
+                        new
+                        {
+                            id = 137,
+                            territorie_id = 16,
+                            title = "Yangibozor tumani"
+                        },
+                        new
+                        {
+                            id = 138,
+                            territorie_id = 17,
+                            title = "Angren shahar"
+                        },
+                        new
+                        {
+                            id = 139,
+                            territorie_id = 17,
+                            title = "Bekobod shahar"
+                        },
+                        new
+                        {
+                            id = 140,
+                            territorie_id = 17,
+                            title = "Olmaliq shahar"
+                        },
+                        new
+                        {
+                            id = 141,
+                            territorie_id = 17,
+                            title = "Chirchiq shahar"
+                        },
+                        new
+                        {
+                            id = 142,
+                            territorie_id = 17,
+                            title = "Bekobod tumani"
+                        },
+                        new
+                        {
+                            id = 143,
+                            territorie_id = 17,
+                            title = "Boʻka tumani"
+                        },
+                        new
+                        {
+                            id = 144,
+                            territorie_id = 17,
+                            title = "Boʻstonliq tumani"
+                        },
+                        new
+                        {
+                            id = 145,
+                            territorie_id = 17,
+                            title = "Qibray tumani"
+                        },
+                        new
+                        {
+                            id = 146,
+                            territorie_id = 17,
+                            title = "Zangiota tumani"
+                        },
+                        new
+                        {
+                            id = 148,
+                            territorie_id = 17,
+                            title = "Quyichirchiq tumani"
+                        },
+                        new
+                        {
+                            id = 149,
+                            territorie_id = 17,
+                            title = "Oqqoʻrgʻon tumani"
+                        },
+                        new
+                        {
+                            id = 150,
+                            territorie_id = 17,
+                            title = "Oxongaron tumani"
+                        },
+                        new
+                        {
+                            id = 151,
+                            territorie_id = 17,
+                            title = "Parkent tumani"
+                        },
+                        new
+                        {
+                            id = 152,
+                            territorie_id = 17,
+                            title = "Pskent tumani"
+                        },
+                        new
+                        {
+                            id = 153,
+                            territorie_id = 17,
+                            title = "Oʻrtachirchiq tumani - Yangihayot tumani"
+                        },
+                        new
+                        {
+                            id = 154,
+                            territorie_id = 17,
+                            title = "Chinoz tumani"
+                        },
+                        new
+                        {
+                            id = 155,
+                            territorie_id = 17,
+                            title = "Yuqorichirchiq tumani"
+                        },
+                        new
+                        {
+                            id = 156,
+                            territorie_id = 17,
+                            title = "Yangiyoʻl tumani - Yangihayot tumani"
+                        },
+                        new
+                        {
+                            id = 158,
+                            territorie_id = 18,
+                            title = "Qarshi shahar"
+                        },
+                        new
+                        {
+                            id = 159,
+                            territorie_id = 18,
+                            title = "Gʻuzor tumani"
+                        },
+                        new
+                        {
+                            id = 160,
+                            territorie_id = 18,
+                            title = "Qarshi tumani"
+                        },
+                        new
+                        {
+                            id = 161,
+                            territorie_id = 18,
+                            title = "Kasbi tumani"
+                        },
+                        new
+                        {
+                            id = 162,
+                            territorie_id = 18,
+                            title = "Koson tumani"
+                        },
+                        new
+                        {
+                            id = 163,
+                            territorie_id = 18,
+                            title = "Kitob tumani"
+                        },
+                        new
+                        {
+                            id = 164,
+                            territorie_id = 18,
+                            title = "Mirishkor tumani"
+                        },
+                        new
+                        {
+                            id = 165,
+                            territorie_id = 18,
+                            title = "Muborak tumani"
+                        },
+                        new
+                        {
+                            id = 166,
+                            territorie_id = 18,
+                            title = "Nishon tumani"
+                        },
+                        new
+                        {
+                            id = 167,
+                            territorie_id = 18,
+                            title = "Chiroqchi tumani"
+                        },
+                        new
+                        {
+                            id = 168,
+                            territorie_id = 18,
+                            title = "Shaxrisabz tumani"
+                        },
+                        new
+                        {
+                            id = 170,
+                            territorie_id = 18,
+                            title = "Qamashi tumani"
+                        },
+                        new
+                        {
+                            id = 171,
+                            territorie_id = 18,
+                            title = "Dexqonobod tumani"
+                        },
+                        new
+                        {
+                            id = 172,
+                            territorie_id = 18,
+                            title = "Yakkabogʻ tumani"
+                        },
+                        new
+                        {
+                            id = 173,
+                            territorie_id = 19,
+                            title = "Jizzax shahar"
+                        },
+                        new
+                        {
+                            id = 174,
+                            territorie_id = 19,
+                            title = "Baxmal tumani"
+                        },
+                        new
+                        {
+                            id = 175,
+                            territorie_id = 19,
+                            title = "Doʻstlik tumani"
+                        },
+                        new
+                        {
+                            id = 176,
+                            territorie_id = 19,
+                            title = "Gʻallaorol tumani"
+                        },
+                        new
+                        {
+                            id = 177,
+                            territorie_id = 19,
+                            title = "Sh.Rashidov tumani"
+                        },
+                        new
+                        {
+                            id = 178,
+                            territorie_id = 19,
+                            title = "Zarbdor tumani"
+                        },
+                        new
+                        {
+                            id = 179,
+                            territorie_id = 19,
+                            title = "Zafarobod tumani"
+                        },
+                        new
+                        {
+                            id = 180,
+                            territorie_id = 19,
+                            title = "Zomin tumani"
+                        },
+                        new
+                        {
+                            id = 181,
+                            territorie_id = 19,
+                            title = "Paxtakor tumani"
+                        },
+                        new
+                        {
+                            id = 182,
+                            territorie_id = 19,
+                            title = "Mirzachoʻl tumani"
+                        },
+                        new
+                        {
+                            id = 183,
+                            territorie_id = 19,
+                            title = "Forish tumani"
+                        },
+                        new
+                        {
+                            id = 184,
+                            territorie_id = 19,
+                            title = "Yangiobod tumani"
+                        },
+                        new
+                        {
+                            id = 185,
+                            territorie_id = 21,
+                            title = "Namangan shahar"
+                        },
+                        new
+                        {
+                            id = 186,
+                            territorie_id = 21,
+                            title = "Mingbuloq tumani"
+                        },
+                        new
+                        {
+                            id = 189,
+                            territorie_id = 21,
+                            title = "Pop tumani"
+                        },
+                        new
+                        {
+                            id = 190,
+                            territorie_id = 21,
+                            title = "Norin tumani"
+                        },
+                        new
+                        {
+                            id = 191,
+                            territorie_id = 21,
+                            title = "Toʻraqoʻrgʻon tumani"
+                        },
+                        new
+                        {
+                            id = 192,
+                            territorie_id = 21,
+                            title = "Uychi tumani"
+                        },
+                        new
+                        {
+                            id = 194,
+                            territorie_id = 21,
+                            title = "Chortoq tumani"
+                        },
+                        new
+                        {
+                            id = 195,
+                            territorie_id = 21,
+                            title = "Chust tumani"
+                        },
+                        new
+                        {
+                            id = 196,
+                            territorie_id = 21,
+                            title = "Yangiqoʻrgʻon tumani"
+                        },
+                        new
+                        {
+                            id = 198,
+                            territorie_id = 22,
+                            title = "Yunusobod tumani"
+                        },
+                        new
+                        {
+                            id = 199,
+                            territorie_id = 22,
+                            title = "Mirobod tumani"
+                        },
+                        new
+                        {
+                            id = 200,
+                            territorie_id = 22,
+                            title = "Yakkasaroy tumani"
+                        },
+                        new
+                        {
+                            id = 201,
+                            territorie_id = 22,
+                            title = "Olmazor tumani"
+                        },
+                        new
+                        {
+                            id = 202,
+                            territorie_id = 22,
+                            title = "Bektemir tumani - Yangihayot tumani"
+                        },
+                        new
+                        {
+                            id = 203,
+                            territorie_id = 22,
+                            title = "Yashnobod tumani"
+                        },
+                        new
+                        {
+                            id = 204,
+                            territorie_id = 22,
+                            title = "Chilonzor tumani"
+                        },
+                        new
+                        {
+                            id = 205,
+                            territorie_id = 22,
+                            title = "Uchtepa tumani"
+                        },
+                        new
+                        {
+                            id = 207,
+                            territorie_id = 22,
+                            title = "Mirzo Ulugʻbek tumani"
+                        },
+                        new
+                        {
+                            id = 208,
+                            territorie_id = 22,
+                            title = "Sergeli tumani - Yangihayot tumani"
+                        },
+                        new
+                        {
+                            id = 209,
+                            territorie_id = 10,
+                            title = "Ishtixon tumani"
+                        },
+                        new
+                        {
+                            id = 210,
+                            territorie_id = 9,
+                            title = "Kogon shahar"
+                        },
+                        new
+                        {
+                            id = 211,
+                            territorie_id = 19,
+                            title = "Arnasoy tumani"
+                        },
+                        new
+                        {
+                            id = 212,
+                            territorie_id = 22,
+                            title = "Shayxontoxur tumani"
+                        },
+                        new
+                        {
+                            id = 214,
+                            territorie_id = 21,
+                            title = "Namangan tumani"
+                        },
+                        new
+                        {
+                            id = 215,
+                            territorie_id = 21,
+                            title = "Uchqoʻrgʻon tumani"
+                        },
+                        new
+                        {
+                            id = 216,
+                            territorie_id = 21,
+                            title = "Kosonsoy tumani"
+                        },
+                        new
+                        {
+                            id = 217,
+                            territorie_id = 16,
+                            title = "Xiva shahar"
+                        },
+                        new
+                        {
+                            id = 218,
+                            territorie_id = 8,
+                            title = "Taxiatosh"
+                        },
+                        new
+                        {
+                            id = 219,
+                            territorie_id = 18,
+                            title = "Shaxrisabz shahar"
+                        },
+                        new
+                        {
+                            id = 220,
+                            territorie_id = 17,
+                            title = "Toshkent tumani"
+                        },
+                        new
+                        {
+                            id = 221,
+                            territorie_id = 17,
+                            title = "Yangiyoʻl shahar"
+                        },
+                        new
+                        {
+                            id = 222,
+                            territorie_id = 17,
+                            title = "Ohangaron shahar"
+                        },
+                        new
+                        {
+                            id = 223,
+                            territorie_id = 17,
+                            title = "Nurafshon shahar"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Model.DistrictsModel.DistrictTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("district_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("territorie_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("district_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("territorie_translation_id");
+
+                    b.ToTable("districts_translations_20ts24tu");
+                });
+
             modelBuilder.Entity("Entities.Model.FileModel.Files", b =>
                 {
                     b.Property<int>("id")
@@ -592,6 +1866,59 @@ namespace Entities.Migrations
                     b.HasIndex("status_id");
 
                     b.ToTable("languages_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.NeighborhoodsModel.Neighborhood", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("district_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("district_id");
+
+                    b.ToTable("neighborhoods_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.NeighborhoodsModel.NeighborhoodTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("district_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("neighborhood_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("district_translation_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("neighborhood_id");
+
+                    b.ToTable("neighborhoods_translations_20ts24tu");
                 });
 
             modelBuilder.Entity("Entities.Model.PagesModel.PageTranslation", b =>
@@ -1122,6 +2449,122 @@ namespace Entities.Migrations
                     b.ToTable("statuses_translations_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.TerritoriesModel.Territorie", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.ToTable("territories_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 8,
+                            title = "Qoraqalpogʻiston Respublikasi"
+                        },
+                        new
+                        {
+                            id = 9,
+                            title = "Buxoro viloyati"
+                        },
+                        new
+                        {
+                            id = 10,
+                            title = "Samarqand viloyati"
+                        },
+                        new
+                        {
+                            id = 11,
+                            title = "Navoiy viloyati"
+                        },
+                        new
+                        {
+                            id = 12,
+                            title = "Andijon viloyati"
+                        },
+                        new
+                        {
+                            id = 13,
+                            title = "Fargʻona viloyati"
+                        },
+                        new
+                        {
+                            id = 14,
+                            title = "Surxondaryo viloyati"
+                        },
+                        new
+                        {
+                            id = 15,
+                            title = "Sirdaryo viloyati"
+                        },
+                        new
+                        {
+                            id = 16,
+                            title = "Xorazm viloyati"
+                        },
+                        new
+                        {
+                            id = 17,
+                            title = "Toshkent viloyati"
+                        },
+                        new
+                        {
+                            id = 18,
+                            title = "Qashqadaryo viloyati"
+                        },
+                        new
+                        {
+                            id = 19,
+                            title = "Jizzax viloyati"
+                        },
+                        new
+                        {
+                            id = 21,
+                            title = "Namangan viloyati"
+                        },
+                        new
+                        {
+                            id = 22,
+                            title = "Toshkent shahri"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Model.TerritoriesModel.TerritorieTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("territorie_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("territorie_id");
+
+                    b.ToTable("territories_translations_20ts24tu");
+                });
+
             modelBuilder.Entity("Entities.Model.User", b =>
                 {
                     b.Property<int>("id")
@@ -1182,6 +2625,22 @@ namespace Entities.Migrations
                     b.HasIndex("user_type_id");
 
                     b.ToTable("users_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            login = "admin",
+                            password = "X85cpohQrV+USeuUGKBe8qQ4PKBd1oT1MYOu8wOr2V4=",
+                            user_type_id = 1
+                        },
+                        new
+                        {
+                            id = 2,
+                            login = "user",
+                            password = "5sI/jrzFz2ijUO3dRLlGnjdVl5zBYO4OInDwyb/qPYk=",
+                            user_type_id = 2
+                        });
                 });
 
             modelBuilder.Entity("Entities.Model.UserType", b =>
@@ -1203,6 +2662,18 @@ namespace Entities.Migrations
                     b.HasIndex("status_id");
 
                     b.ToTable("user_types_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            type = "admin"
+                        },
+                        new
+                        {
+                            id = 2,
+                            type = "user"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Model.UserTypeTranslation", b =>
@@ -1452,6 +2923,36 @@ namespace Entities.Migrations
                     b.Navigation("status_translation_");
                 });
 
+            modelBuilder.Entity("Entities.Model.DistrictsModel.District", b =>
+                {
+                    b.HasOne("Entities.Model.TerritoriesModel.Territorie", "territorie_")
+                        .WithMany()
+                        .HasForeignKey("territorie_id");
+
+                    b.Navigation("territorie_");
+                });
+
+            modelBuilder.Entity("Entities.Model.DistrictsModel.DistrictTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.DistrictsModel.District", "district_")
+                        .WithMany()
+                        .HasForeignKey("district_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.TerritoriesModel.TerritorieTranslation", "territorie_translation_")
+                        .WithMany()
+                        .HasForeignKey("territorie_translation_id");
+
+                    b.Navigation("district_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("territorie_translation_");
+                });
+
             modelBuilder.Entity("Entities.Model.FileModel.Files", b =>
                 {
                     b.HasOne("Entities.Model.StatusModel.Status", "status_")
@@ -1537,6 +3038,36 @@ namespace Entities.Migrations
                     b.Navigation("img_");
 
                     b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.NeighborhoodsModel.Neighborhood", b =>
+                {
+                    b.HasOne("Entities.Model.DistrictsModel.District", "district_")
+                        .WithMany()
+                        .HasForeignKey("district_id");
+
+                    b.Navigation("district_");
+                });
+
+            modelBuilder.Entity("Entities.Model.NeighborhoodsModel.NeighborhoodTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.DistrictsModel.DistrictTranslation", "district_translation_")
+                        .WithMany()
+                        .HasForeignKey("district_translation_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.NeighborhoodsModel.Neighborhood", "neighborhood_")
+                        .WithMany()
+                        .HasForeignKey("neighborhood_id");
+
+                    b.Navigation("district_translation_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("neighborhood_");
                 });
 
             modelBuilder.Entity("Entities.Model.PagesModel.PageTranslation", b =>
@@ -1824,6 +3355,21 @@ namespace Entities.Migrations
                     b.Navigation("language_");
 
                     b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.TerritoriesModel.TerritorieTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.TerritoriesModel.Territorie", "territorie_")
+                        .WithMany()
+                        .HasForeignKey("territorie_id");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("territorie_");
                 });
 
             modelBuilder.Entity("Entities.Model.User", b =>

@@ -1,4 +1,4 @@
-﻿namespace TSTUWebAPI.Controllers.AnyClasses
+﻿namespace Entities.Model.AnyClasses
 {
     public class TokenVerify
     {

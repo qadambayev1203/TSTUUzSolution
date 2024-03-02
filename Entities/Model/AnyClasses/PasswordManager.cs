@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace TSTUWebAPI.Controllers.AnyClasses
+namespace Entities.Model.AnyClasses
 {
     public class PasswordManager
     {

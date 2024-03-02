@@ -1,18 +1,22 @@
-﻿using Entities.Model;
+﻿using Entities.Configuration;
+using Entities.Model;
 using Entities.Model.BlogsCategoryModel;
 using Entities.Model.BlogsModel;
 using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
+using Entities.Model.DistrictsModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.NeighborhoodsModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
 using Entities.Model.SiteDetailsModel;
 using Entities.Model.SitesModel;
 using Entities.Model.SiteTypesModel;
 using Entities.Model.StatusModel;
+using Entities.Model.TerritoriesModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +36,10 @@ namespace Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new TerritorieConfiguration());
+            modelBuilder.ApplyConfiguration(new DistrictConfiguration());
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.login)
                 .IsUnique();
@@ -68,6 +76,7 @@ namespace Entities
 
             }
         }
+       
 
 
 
@@ -99,6 +108,12 @@ namespace Entities
         public DbSet<BlogCategoryTranslation> blogs_category_translations_20ts24tu { get; set; }
         public DbSet<Blog> blogs_20ts24tu { get; set; }
         public DbSet<BlogTranslation> blogs_translations_20ts24tu { get; set; }
+        public DbSet<Territorie> territories_20ts24tu { get; set; }
+        public DbSet<TerritorieTranslation> territories_translations_20ts24tu { get; set; }
+        public DbSet<District> districts_20ts24tu { get; set; }
+        public DbSet<DistrictTranslation> districts_translations_20ts24tu { get; set; }
+        public DbSet<Neighborhood> neighborhoods_20ts24tu { get; set; }
+        public DbSet<NeighborhoodTranslation> neighborhoods_translations_20ts24tu { get; set; }
         public DbSet<User> users_20ts24tu { get; set; }
         public DbSet<UserType> user_types_20ts24tu { get; set; }
         public DbSet<UserTypeTranslation> user_types_translations_20ts24tu { get; set; }
