@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240304074551_FirstMigration")]
+    [Migration("20240304083333_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,151 @@ namespace Entities.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Entities.Model.AppealsToTheRectorsModel.AppealToRector", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("addres")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("appeal")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("birthday")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("country_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("district_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("employe_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("file_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("fio_")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("gender_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("neighborhood_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("territorie_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("country_id");
+
+                    b.HasIndex("district_id");
+
+                    b.HasIndex("employe_id");
+
+                    b.HasIndex("file_id");
+
+                    b.HasIndex("gender_id");
+
+                    b.HasIndex("neighborhood_id");
+
+                    b.HasIndex("territorie_id");
+
+                    b.ToTable("appeals_to_rectors_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.AppealsToTheRectorsModel.AppealToRectorTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("addres")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("appeal")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("appeal_to_rector_id")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("birthday")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("country_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("district_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("employe_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("file_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("fio_")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("gender_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("neighborhood_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("territorie_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("territorie_translation_ididid")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("appeal_to_rector_id");
+
+                    b.HasIndex("country_translation_id");
+
+                    b.HasIndex("district_translation_id");
+
+                    b.HasIndex("employe_translation_id");
+
+                    b.HasIndex("file_translation_id");
+
+                    b.HasIndex("gender_translation_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("neighborhood_translation_id");
+
+                    b.HasIndex("territorie_translation_ididid");
+
+                    b.ToTable("appeals_to_rectors_20ts24tu_translations_20ts24tu");
+                });
 
             modelBuilder.Entity("Entities.Model.BlogsCategoryModel.BlogCategory", b =>
                 {
@@ -1763,6 +1908,102 @@ namespace Entities.Migrations
                     b.ToTable("districts_translations_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.EmploymentModel.Employment", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.ToTable("employments_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            title = "Band"
+                        },
+                        new
+                        {
+                            id = 2,
+                            title = "Ishsiz"
+                        },
+                        new
+                        {
+                            id = 3,
+                            title = "Nafaqada"
+                        },
+                        new
+                        {
+                            id = 4,
+                            title = "Talaba"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Model.EmploymentModel.EmploymentTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("employment_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("employment_id");
+
+                    b.HasIndex("language_id");
+
+                    b.ToTable("employments_20ts24tu_translations_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            employment_id = 1,
+                            language_id = 1,
+                            title = "Busy"
+                        },
+                        new
+                        {
+                            id = 2,
+                            employment_id = 2,
+                            language_id = 1,
+                            title = "Unemployed"
+                        },
+                        new
+                        {
+                            id = 3,
+                            employment_id = 3,
+                            language_id = 1,
+                            title = "Retired"
+                        },
+                        new
+                        {
+                            id = 4,
+                            employment_id = 4,
+                            language_id = 1,
+                            title = "Student"
+                        });
+                });
+
             modelBuilder.Entity("Entities.Model.FileModel.Files", b =>
                 {
                     b.Property<int>("id")
@@ -1925,6 +2166,20 @@ namespace Entities.Migrations
                     b.HasIndex("status_id");
 
                     b.ToTable("languages_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            code = "en",
+                            title = "England"
+                        },
+                        new
+                        {
+                            id = 2,
+                            code = "ru",
+                            title = "Russian"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Model.NeighborhoodsModel.Neighborhood", b =>
@@ -2790,6 +3045,108 @@ namespace Entities.Migrations
                     b.ToTable("user_types_translations_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.AppealsToTheRectorsModel.AppealToRector", b =>
+                {
+                    b.HasOne("Entities.Model.CountrysModel.Country", "country_")
+                        .WithMany()
+                        .HasForeignKey("country_id");
+
+                    b.HasOne("Entities.Model.DistrictsModel.District", "district_")
+                        .WithMany()
+                        .HasForeignKey("district_id");
+
+                    b.HasOne("Entities.Model.EmploymentModel.Employment", "employe_")
+                        .WithMany()
+                        .HasForeignKey("employe_id");
+
+                    b.HasOne("Entities.Model.FileModel.Files", "file_")
+                        .WithMany()
+                        .HasForeignKey("file_id");
+
+                    b.HasOne("Entities.Model.GenderModel.Gender", "gender_")
+                        .WithMany()
+                        .HasForeignKey("gender_id");
+
+                    b.HasOne("Entities.Model.NeighborhoodsModel.Neighborhood", "neighborhood_")
+                        .WithMany()
+                        .HasForeignKey("neighborhood_id");
+
+                    b.HasOne("Entities.Model.TerritoriesModel.Territorie", "territorie_")
+                        .WithMany()
+                        .HasForeignKey("territorie_id");
+
+                    b.Navigation("country_");
+
+                    b.Navigation("district_");
+
+                    b.Navigation("employe_");
+
+                    b.Navigation("file_");
+
+                    b.Navigation("gender_");
+
+                    b.Navigation("neighborhood_");
+
+                    b.Navigation("territorie_");
+                });
+
+            modelBuilder.Entity("Entities.Model.AppealsToTheRectorsModel.AppealToRectorTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.AppealsToTheRectorsModel.AppealToRector", "appeal_to_rector_")
+                        .WithMany()
+                        .HasForeignKey("appeal_to_rector_id");
+
+                    b.HasOne("Entities.Model.CountrysModel.CountryTranslation", "country_translation_")
+                        .WithMany()
+                        .HasForeignKey("country_translation_id");
+
+                    b.HasOne("Entities.Model.DistrictsModel.DistrictTranslation", "district_translation_")
+                        .WithMany()
+                        .HasForeignKey("district_translation_id");
+
+                    b.HasOne("Entities.Model.EmploymentModel.EmploymentTranslation", "employe_translation_")
+                        .WithMany()
+                        .HasForeignKey("employe_translation_id");
+
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "file_translation_")
+                        .WithMany()
+                        .HasForeignKey("file_translation_id");
+
+                    b.HasOne("Entities.Model.GenderModel.GenderTranslation", "gender_translation_")
+                        .WithMany()
+                        .HasForeignKey("gender_translation_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.NeighborhoodsModel.NeighborhoodTranslation", "neighborhood_translation_")
+                        .WithMany()
+                        .HasForeignKey("neighborhood_translation_id");
+
+                    b.HasOne("Entities.Model.TerritoriesModel.TerritorieTranslation", "territorie_translation_idid")
+                        .WithMany()
+                        .HasForeignKey("territorie_translation_ididid");
+
+                    b.Navigation("appeal_to_rector_");
+
+                    b.Navigation("country_translation_");
+
+                    b.Navigation("district_translation_");
+
+                    b.Navigation("employe_translation_");
+
+                    b.Navigation("file_translation_");
+
+                    b.Navigation("gender_translation_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("neighborhood_translation_");
+
+                    b.Navigation("territorie_translation_idid");
+                });
+
             modelBuilder.Entity("Entities.Model.BlogsCategoryModel.BlogCategory", b =>
                 {
                     b.HasOne("Entities.Model.StatusModel.Status", "status_")
@@ -3049,6 +3406,21 @@ namespace Entities.Migrations
                     b.Navigation("language_");
 
                     b.Navigation("territorie_translation_");
+                });
+
+            modelBuilder.Entity("Entities.Model.EmploymentModel.EmploymentTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.EmploymentModel.Employment", "employment_")
+                        .WithMany()
+                        .HasForeignKey("employment_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.Navigation("employment_");
+
+                    b.Navigation("language_");
                 });
 
             modelBuilder.Entity("Entities.Model.FileModel.Files", b =>
