@@ -1,4 +1,5 @@
-﻿using Entities.Model.LanguagesModel;
+﻿using Entities.Model.CountrysModel;
+using Entities.Model.LanguagesModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,5 +13,7 @@ namespace Entities.Model.TerritoriesModel
     {
         public int id { get; set; }
         public string title { get; set; }
+        [ForeignKey("Country")] public int? country_id { get; set; }
+        public Country country_ { get; set; }
     }
 }

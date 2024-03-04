@@ -14,20 +14,20 @@ namespace Entities.Configuration
         public void Configure(EntityTypeBuilder<Territorie> builder)
         {
             builder.HasData(
-                new Territorie { id = 8, title = "Qoraqalpogʻiston Respublikasi" },
-                new Territorie { id = 9, title = "Buxoro viloyati" },
-                new Territorie { id = 10, title = "Samarqand viloyati" },
-                new Territorie { id = 11, title = "Navoiy viloyati" },
-                new Territorie { id = 12, title = "Andijon viloyati" },
-                new Territorie { id = 13, title = "Fargʻona viloyati" },
-                new Territorie { id = 14, title = "Surxondaryo viloyati" },
-                new Territorie { id = 15, title = "Sirdaryo viloyati" },
-                new Territorie { id = 16, title = "Xorazm viloyati" },
-                new Territorie { id = 17, title = "Toshkent viloyati" },
-                new Territorie { id = 18, title = "Qashqadaryo viloyati" },
-                new Territorie { id = 19, title = "Jizzax viloyati" },
-                new Territorie { id = 21, title = "Namangan viloyati" },
-                new Territorie { id = 22, title = "Toshkent shahri" }
+                new Territorie { id = 8, title = "Qoraqalpogʻiston Respublikasi", country_id=1 },
+                new Territorie { id = 9, title = "Buxoro viloyati", country_id = 1 },
+                new Territorie { id = 10, title = "Samarqand viloyati", country_id=1  },
+                new Territorie { id = 11, title = "Navoiy viloyati", country_id=1  },
+                new Territorie { id = 12, title = "Andijon viloyati", country_id=1  },
+                new Territorie { id = 13, title = "Fargʻona viloyati", country_id=1  },
+                new Territorie { id = 14, title = "Surxondaryo viloyati", country_id=1  },
+                new Territorie { id = 15, title = "Sirdaryo viloyati", country_id=1  },
+                new Territorie { id = 16, title = "Xorazm viloyati", country_id=1  },
+                new Territorie { id = 17, title = "Toshkent viloyati", country_id=1  },
+                new Territorie { id = 18, title = "Qashqadaryo viloyati", country_id=1  },
+                new Territorie { id = 19, title = "Jizzax viloyati", country_id=1  },
+                new Territorie { id = 21, title = "Namangan viloyati", country_id=1  },
+                new Territorie { id = 22, title = "Toshkent shahri", country_id=1  }
                 );
 
         }

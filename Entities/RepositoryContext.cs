@@ -2,6 +2,7 @@
 using Entities.Model;
 using Entities.Model.BlogsCategoryModel;
 using Entities.Model.BlogsModel;
+using Entities.Model.CountrysModel;
 using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
@@ -38,6 +39,7 @@ namespace Entities
         {
             modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new TerritorieConfiguration());
             modelBuilder.ApplyConfiguration(new DistrictConfiguration());
             modelBuilder.Entity<User>()
@@ -108,6 +110,8 @@ namespace Entities
         public DbSet<BlogCategoryTranslation> blogs_category_translations_20ts24tu { get; set; }
         public DbSet<Blog> blogs_20ts24tu { get; set; }
         public DbSet<BlogTranslation> blogs_translations_20ts24tu { get; set; }
+        public DbSet<Country> countries_20ts24tu { get; set; }
+        public DbSet<CountryTranslation> countries_translations_20ts24tu { get; set; }
         public DbSet<Territorie> territories_20ts24tu { get; set; }
         public DbSet<TerritorieTranslation> territories_translations_20ts24tu { get; set; }
         public DbSet<District> districts_20ts24tu { get; set; }

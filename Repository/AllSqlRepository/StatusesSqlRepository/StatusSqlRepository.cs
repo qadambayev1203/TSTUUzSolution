@@ -52,9 +52,9 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
 
         public bool CreateStatus(Status status)
         {
-           
-                   
-                
+            try
+            {
+
                 //_context.BackupDatabase();
                 if (status == null)
                 {

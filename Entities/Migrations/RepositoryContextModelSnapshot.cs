@@ -198,6 +198,62 @@ namespace Entities.Migrations
                     b.ToTable("blogs_translations_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.CountrysModel.Country", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.ToTable("countries_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            title = "O'zbekiston"
+                        },
+                        new
+                        {
+                            id = 2,
+                            title = "Boshqa"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Model.CountrysModel.CountryTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("country_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("country_id");
+
+                    b.HasIndex("language_id");
+
+                    b.ToTable("countries_translations_20ts24tu");
+                });
+
             modelBuilder.Entity("Entities.Model.DepartamentDetailsModel.DepartamentDetail", b =>
                 {
                     b.Property<int>("id")
@@ -2457,11 +2513,16 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("country_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("id");
+
+                    b.HasIndex("country_id");
 
                     b.ToTable("territories_20ts24tu");
 
@@ -2469,71 +2530,85 @@ namespace Entities.Migrations
                         new
                         {
                             id = 8,
+                            country_id = 1,
                             title = "Qoraqalpogʻiston Respublikasi"
                         },
                         new
                         {
                             id = 9,
+                            country_id = 1,
                             title = "Buxoro viloyati"
                         },
                         new
                         {
                             id = 10,
+                            country_id = 1,
                             title = "Samarqand viloyati"
                         },
                         new
                         {
                             id = 11,
+                            country_id = 1,
                             title = "Navoiy viloyati"
                         },
                         new
                         {
                             id = 12,
+                            country_id = 1,
                             title = "Andijon viloyati"
                         },
                         new
                         {
                             id = 13,
+                            country_id = 1,
                             title = "Fargʻona viloyati"
                         },
                         new
                         {
                             id = 14,
+                            country_id = 1,
                             title = "Surxondaryo viloyati"
                         },
                         new
                         {
                             id = 15,
+                            country_id = 1,
                             title = "Sirdaryo viloyati"
                         },
                         new
                         {
                             id = 16,
+                            country_id = 1,
                             title = "Xorazm viloyati"
                         },
                         new
                         {
                             id = 17,
+                            country_id = 1,
                             title = "Toshkent viloyati"
                         },
                         new
                         {
                             id = 18,
+                            country_id = 1,
                             title = "Qashqadaryo viloyati"
                         },
                         new
                         {
                             id = 19,
+                            country_id = 1,
                             title = "Jizzax viloyati"
                         },
                         new
                         {
                             id = 21,
+                            country_id = 1,
                             title = "Namangan viloyati"
                         },
                         new
                         {
                             id = 22,
+                            country_id = 1,
                             title = "Toshkent shahri"
                         });
                 });
@@ -2546,6 +2621,9 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("country_translation_id")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
@@ -2557,6 +2635,8 @@ namespace Entities.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("id");
+
+                    b.HasIndex("country_translation_id");
 
                     b.HasIndex("language_id");
 
@@ -2801,6 +2881,21 @@ namespace Entities.Migrations
                     b.Navigation("status_translation_");
 
                     b.Navigation("user_");
+                });
+
+            modelBuilder.Entity("Entities.Model.CountrysModel.CountryTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.CountrysModel.Country", "country_")
+                        .WithMany()
+                        .HasForeignKey("country_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.Navigation("country_");
+
+                    b.Navigation("language_");
                 });
 
             modelBuilder.Entity("Entities.Model.DepartamentDetailsModel.DepartamentDetail", b =>
@@ -3357,8 +3452,21 @@ namespace Entities.Migrations
                     b.Navigation("status_");
                 });
 
+            modelBuilder.Entity("Entities.Model.TerritoriesModel.Territorie", b =>
+                {
+                    b.HasOne("Entities.Model.CountrysModel.Country", "country_")
+                        .WithMany()
+                        .HasForeignKey("country_id");
+
+                    b.Navigation("country_");
+                });
+
             modelBuilder.Entity("Entities.Model.TerritoriesModel.TerritorieTranslation", b =>
                 {
+                    b.HasOne("Entities.Model.CountrysModel.CountryTranslation", "country_translation_")
+                        .WithMany()
+                        .HasForeignKey("country_translation_id");
+
                     b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
                         .WithMany()
                         .HasForeignKey("language_id");
@@ -3366,6 +3474,8 @@ namespace Entities.Migrations
                     b.HasOne("Entities.Model.TerritoriesModel.Territorie", "territorie_")
                         .WithMany()
                         .HasForeignKey("territorie_id");
+
+                    b.Navigation("country_translation_");
 
                     b.Navigation("language_");
 
