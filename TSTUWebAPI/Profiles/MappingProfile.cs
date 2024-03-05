@@ -2,51 +2,63 @@
 using Entities.DTO;
 using Entities.DTO.BlogsCategoryDTOS;
 using Entities.DTO.BlogsDTOS;
+using Entities.DTO.CountrysDTOS;
 using Entities.DTO.DepartamentDetailsDTOS;
 using Entities.DTO.DepartamentDTOS;
 using Entities.DTO.DepartamentTypeDTOS;
+using Entities.DTO.DistrictsDTOS;
 using Entities.DTO.FilesDTOS;
 using Entities.DTO.GenderDTOS;
 using Entities.DTO.LanguageDTOS;
+using Entities.DTO.NeighborhoodsDTOS;
 using Entities.DTO.PageDTOS;
 using Entities.DTO.PersonDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.BlogCategoryConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.BlogConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.CountrysConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.DepartamentConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.DepartamentDetailConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.DepartamentTypeConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.DistrictsConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.GenderConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.NeighborhoodConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.PageConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.PersonsConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.SiteConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.SiteDeatilConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.SiteTypeConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.TerritoriesConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.UsersConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.UserTypeConfDTOS;
 using Entities.DTO.SiteDetailDTOS;
 using Entities.DTO.SiteDTOS;
 using Entities.DTO.SiteTypeDTOS;
 using Entities.DTO.StatusDTOS;
+using Entities.DTO.TerritoriesDTOS;
 using Entities.DTO.UserCrudDTOS;
 using Entities.DTO.UserTypeDTOS;
 using Entities.Model;
 using Entities.Model.BlogsCategoryModel;
 using Entities.Model.BlogsModel;
+using Entities.Model.CountrysModel;
 using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
+using Entities.Model.DistrictsModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.NeighborhoodsModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
 using Entities.Model.SiteDetailsModel;
 using Entities.Model.SitesModel;
 using Entities.Model.SiteTypesModel;
 using Entities.Model.StatusModel;
+using Entities.Model.TerritoriesModel;
 
 namespace TSTUWebAPI.Profiles
 {
@@ -247,6 +259,59 @@ namespace TSTUWebAPI.Profiles
             CreateMap<BlogTranslationCreatedDTO, BlogTranslation>();
             CreateMap<BlogTranslationUpdatedDTO, BlogTranslation>();
             CreateMap<BlogTranslation, BlogTranslationReadedDTO>();
+
+
+
+            //Country DTOS
+            CreateMap<CountryCreatedDTO, Country>();
+            CreateMap<CountryUpdatedDTO, Country>();
+            CreateMap<Country, CountryReadedDTO>();
+
+
+            CreateMap<CountryTranslationCreatedDTO, CountryTranslation>();
+            CreateMap<CountryTranslationUpdatedDTO, CountryTranslation>();
+            CreateMap<CountryTranslation, CountryTranslationReadedDTO>();
+            CreateMap<CountryTranslation, CountryTranslationReadedConfDTO>();
+
+
+            //Territorie DTOS
+            CreateMap<TerritorieCreatedDTO, Territorie>();
+            CreateMap<TerritorieUpdatedDTO, Territorie>();
+            CreateMap<Territorie, TerritorieReadedDTO>();
+            CreateMap<Territorie, TerritorieConfReadedDTO>();
+
+
+            CreateMap<TerritorieTranslationCreatedDTO, TerritorieTranslation>();
+            CreateMap<TerritorieTranslationUpdatedDTO, TerritorieTranslation>();
+            CreateMap<TerritorieTranslation, TerritorieTranslationReadedDTO>();
+            CreateMap<TerritorieTranslation, TerritorieTranslationConfReadedDTO>();
+
+
+            //District DTOS
+            CreateMap<DistrictCreatedDTO, District>();
+            CreateMap<DistrictUpdatedDTO, District>();
+            CreateMap<District, DistrictReadedDTO>();
+            CreateMap<District, DistrictConfReadedDTO>();
+
+
+            CreateMap<DistrictTranslationCreatedDTO, DistrictTranslation>();
+            CreateMap<DistrictTranslationUpdatedDTO, DistrictTranslation>();
+            CreateMap<DistrictTranslation, DistrictTranslationReadedDTO>();
+            CreateMap<DistrictTranslation, DistrictTranslationConfReadedDTO>();
+
+
+
+            //Neighborhood DTOS
+            CreateMap<NeighborhoodCreatedDTO, Neighborhood>();
+            CreateMap<NeighborhoodUpdatedDTO, Neighborhood>();
+            CreateMap<Neighborhood, NeighborhoodReadedDTO>();
+            CreateMap<Neighborhood, NeighborhoodConfReadedDTO>();
+
+
+            CreateMap<NeighborhoodTranslationCreatedDTO, NeighborhoodTranslation>();
+            CreateMap<NeighborhoodTranslationUpdatedDTO, NeighborhoodTranslation>();
+            CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedDTO>();
+            CreateMap<NeighborhoodTranslation, NeighborhoodTranslationConfReadedDTO>();
         }
     }
 }
