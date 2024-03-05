@@ -124,9 +124,9 @@ namespace Entities
         public DbSet<Neighborhood> neighborhoods_20ts24tu { get; set; }
         public DbSet<NeighborhoodTranslation> neighborhoods_translations_20ts24tu { get; set; }
         public DbSet<Employment> employments_20ts24tu { get; set; }
-        public DbSet<EmploymentTranslation> employments_20ts24tu_translations_20ts24tu { get; set; }
+        public DbSet<EmploymentTranslation> employments_translations_20ts24tu { get; set; }
         public DbSet<AppealToRector> appeals_to_rectors_20ts24tu { get; set; }
-        public DbSet<AppealToRectorTranslation> appeals_to_rectors_20ts24tu_translations_20ts24tu { get; set; }
+        public DbSet<AppealToRectorTranslation> appeals_to_rectors_translations_20ts24tu { get; set; }
         public DbSet<User> users_20ts24tu { get; set; }
         public DbSet<UserType> user_types_20ts24tu { get; set; }
         public DbSet<UserTypeTranslation> user_types_translations_20ts24tu { get; set; }

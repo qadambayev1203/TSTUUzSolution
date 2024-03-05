@@ -66,6 +66,9 @@ namespace Entities.Migrations
                     b.Property<int?>("neighborhood_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("territorie_id")
                         .HasColumnType("integer");
 
@@ -82,6 +85,8 @@ namespace Entities.Migrations
                     b.HasIndex("gender_id");
 
                     b.HasIndex("neighborhood_id");
+
+                    b.HasIndex("status_id");
 
                     b.HasIndex("territorie_id");
 
@@ -138,10 +143,10 @@ namespace Entities.Migrations
                     b.Property<int?>("neighborhood_translation_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("territorie_translation_id")
+                    b.Property<int?>("status_translation_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("territorie_translation_ididid")
+                    b.Property<int?>("territorie_translation_id")
                         .HasColumnType("integer");
 
                     b.HasKey("id");
@@ -162,9 +167,11 @@ namespace Entities.Migrations
 
                     b.HasIndex("neighborhood_translation_id");
 
-                    b.HasIndex("territorie_translation_ididid");
+                    b.HasIndex("status_translation_id");
 
-                    b.ToTable("appeals_to_rectors_20ts24tu_translations_20ts24tu");
+                    b.HasIndex("territorie_translation_id");
+
+                    b.ToTable("appeals_to_rectors_translations_20ts24tu");
                 });
 
             modelBuilder.Entity("Entities.Model.BlogsCategoryModel.BlogCategory", b =>
@@ -1968,7 +1975,7 @@ namespace Entities.Migrations
 
                     b.HasIndex("language_id");
 
-                    b.ToTable("employments_20ts24tu_translations_20ts24tu");
+                    b.ToTable("employments_translations_20ts24tu");
 
                     b.HasData(
                         new
@@ -3068,6 +3075,10 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("neighborhood_id");
 
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
                     b.HasOne("Entities.Model.TerritoriesModel.Territorie", "territorie_")
                         .WithMany()
                         .HasForeignKey("territorie_id");
@@ -3083,6 +3094,8 @@ namespace Entities.Migrations
                     b.Navigation("gender_");
 
                     b.Navigation("neighborhood_");
+
+                    b.Navigation("status_");
 
                     b.Navigation("territorie_");
                 });
@@ -3121,9 +3134,13 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("neighborhood_translation_id");
 
-                    b.HasOne("Entities.Model.TerritoriesModel.TerritorieTranslation", "territorie_translation_idid")
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
                         .WithMany()
-                        .HasForeignKey("territorie_translation_ididid");
+                        .HasForeignKey("status_translation_id");
+
+                    b.HasOne("Entities.Model.TerritoriesModel.TerritorieTranslation", "territorie_translation_")
+                        .WithMany()
+                        .HasForeignKey("territorie_translation_id");
 
                     b.Navigation("appeal_to_rector_");
 
@@ -3141,7 +3158,9 @@ namespace Entities.Migrations
 
                     b.Navigation("neighborhood_translation_");
 
-                    b.Navigation("territorie_translation_idid");
+                    b.Navigation("status_translation_");
+
+                    b.Navigation("territorie_translation_");
                 });
 
             modelBuilder.Entity("Entities.Model.BlogsCategoryModel.BlogCategory", b =>

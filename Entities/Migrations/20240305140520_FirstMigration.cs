@@ -223,7 +223,8 @@ namespace Entities.Migrations
                     employe_id = table.Column<int>(type: "integer", nullable: true),
                     email = table.Column<string>(type: "text", nullable: false),
                     file_id = table.Column<int>(type: "integer", nullable: true),
-                    appeal = table.Column<string>(type: "text", nullable: false)
+                    appeal = table.Column<string>(type: "text", nullable: false),
+                    status_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -254,6 +255,11 @@ namespace Entities.Migrations
                         principalTable: "neighborhoods_20ts24tu",
                         principalColumn: "id");
                     table.ForeignKey(
+                        name: "FK_appeals_to_rectors_20ts24tu_statuses_20ts24tu_status_id",
+                        column: x => x.status_id,
+                        principalTable: "statuses_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
                         name: "FK_appeals_to_rectors_20ts24tu_territories_20ts24tu_territorie~",
                         column: x => x.territorie_id,
                         principalTable: "territories_20ts24tu",
@@ -261,7 +267,7 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "appeals_to_rectors_translations_20ts24tu",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -270,7 +276,6 @@ namespace Entities.Migrations
                     appeal_to_rector_id = table.Column<int>(type: "integer", nullable: true),
                     country_translation_id = table.Column<int>(type: "integer", nullable: true),
                     territorie_translation_id = table.Column<int>(type: "integer", nullable: true),
-                    territorie_translation_ididid = table.Column<int>(type: "integer", nullable: true),
                     district_translation_id = table.Column<int>(type: "integer", nullable: true),
                     neighborhood_translation_id = table.Column<int>(type: "integer", nullable: true),
                     addres = table.Column<int>(type: "integer", nullable: false),
@@ -280,13 +285,14 @@ namespace Entities.Migrations
                     employe_translation_id = table.Column<int>(type: "integer", nullable: true),
                     email = table.Column<string>(type: "text", nullable: false),
                     file_translation_id = table.Column<int>(type: "integer", nullable: true),
-                    appeal = table.Column<string>(type: "text", nullable: false)
+                    appeal = table.Column<string>(type: "text", nullable: false),
+                    status_translation_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_appeals_to_rectors_20ts24tu_translations_20ts24tu", x => x.id);
+                    table.PrimaryKey("PK_appeals_to_rectors_translations_20ts24tu", x => x.id);
                     table.ForeignKey(
-                        name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_appeals_t~",
+                        name: "FK_appeals_to_rectors_translations_20ts24tu_appeals_to_rectors~",
                         column: x => x.appeal_to_rector_id,
                         principalTable: "appeals_to_rectors_20ts24tu",
                         principalColumn: "id");
@@ -553,7 +559,7 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "employments_20ts24tu_translations_20ts24tu",
+                name: "employments_translations_20ts24tu",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
@@ -564,9 +570,9 @@ namespace Entities.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_employments_20ts24tu_translations_20ts24tu", x => x.id);
+                    table.PrimaryKey("PK_employments_translations_20ts24tu", x => x.id);
                     table.ForeignKey(
-                        name: "FK_employments_20ts24tu_translations_20ts24tu_employments_20ts~",
+                        name: "FK_employments_translations_20ts24tu_employments_20ts24tu_empl~",
                         column: x => x.employment_id,
                         principalTable: "employments_20ts24tu",
                         principalColumn: "id");
@@ -1287,7 +1293,7 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "employments_20ts24tu_translations_20ts24tu",
+                table: "employments_translations_20ts24tu",
                 columns: new[] { "id", "employment_id", "language_id", "title" },
                 values: new object[,]
                 {
@@ -1568,54 +1574,64 @@ namespace Entities.Migrations
                 column: "neighborhood_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_appeals_to_rectors_20ts24tu_status_id",
+                table: "appeals_to_rectors_20ts24tu",
+                column: "status_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_appeals_to_rectors_20ts24tu_territorie_id",
                 table: "appeals_to_rectors_20ts24tu",
                 column: "territorie_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_appeal_to~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_appeal_to_rector_id",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "appeal_to_rector_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_country_t~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_country_translatio~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "country_translation_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_district_~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_district_translati~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "district_translation_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_employe_t~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_employe_translatio~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "employe_translation_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_file_tran~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_file_translation_id",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "file_translation_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_gender_tr~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_gender_translation~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "gender_translation_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_language_~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_language_id",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "language_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_neighborh~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "IX_appeals_to_rectors_translations_20ts24tu_neighborhood_trans~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "neighborhood_translation_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_appeals_to_rectors_20ts24tu_translations_20ts24tu_territori~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
-                column: "territorie_translation_ididid");
+                name: "IX_appeals_to_rectors_translations_20ts24tu_status_translation~",
+                table: "appeals_to_rectors_translations_20ts24tu",
+                column: "status_translation_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_appeals_to_rectors_translations_20ts24tu_territorie_transla~",
+                table: "appeals_to_rectors_translations_20ts24tu",
+                column: "territorie_translation_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_blogs_20ts24tu_blog_category_id",
@@ -1803,13 +1819,13 @@ namespace Entities.Migrations
                 column: "territorie_translation_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_employments_20ts24tu_translations_20ts24tu_employment_id",
-                table: "employments_20ts24tu_translations_20ts24tu",
+                name: "IX_employments_translations_20ts24tu_employment_id",
+                table: "employments_translations_20ts24tu",
                 column: "employment_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_employments_20ts24tu_translations_20ts24tu_language_id",
-                table: "employments_20ts24tu_translations_20ts24tu",
+                name: "IX_employments_translations_20ts24tu_language_id",
+                table: "employments_translations_20ts24tu",
                 column: "language_id");
 
             migrationBuilder.CreateIndex(
@@ -2176,58 +2192,65 @@ namespace Entities.Migrations
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_countries~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_countries_translat~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "country_translation_id",
                 principalTable: "countries_translations_20ts24tu",
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_districts~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_districts_translat~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "district_translation_id",
                 principalTable: "districts_translations_20ts24tu",
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_employmen~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_employments_transl~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "employe_translation_id",
-                principalTable: "employments_20ts24tu_translations_20ts24tu",
+                principalTable: "employments_translations_20ts24tu",
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_files_tra~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_files_translations~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "file_translation_id",
                 principalTable: "files_translations_20ts24tu",
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_genders_t~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_genders_translatio~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "gender_translation_id",
                 principalTable: "genders_translations_20ts24tu",
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_languages~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_languages_20ts24tu~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "language_id",
                 principalTable: "languages_20ts24tu",
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_neighborh~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_neighborhoods_tran~",
+                table: "appeals_to_rectors_translations_20ts24tu",
                 column: "neighborhood_translation_id",
                 principalTable: "neighborhoods_translations_20ts24tu",
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_appeals_to_rectors_20ts24tu_translations_20ts24tu_territori~",
-                table: "appeals_to_rectors_20ts24tu_translations_20ts24tu",
-                column: "territorie_translation_ididid",
+                name: "FK_appeals_to_rectors_translations_20ts24tu_statuses_translati~",
+                table: "appeals_to_rectors_translations_20ts24tu",
+                column: "status_translation_id",
+                principalTable: "statuses_translations_20ts24tu",
+                principalColumn: "id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_appeals_to_rectors_translations_20ts24tu_territories_transl~",
+                table: "appeals_to_rectors_translations_20ts24tu",
+                column: "territorie_translation_id",
                 principalTable: "territories_translations_20ts24tu",
                 principalColumn: "id");
 
@@ -2379,8 +2402,8 @@ namespace Entities.Migrations
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_employments_20ts24tu_translations_20ts24tu_languages_20ts24~",
-                table: "employments_20ts24tu_translations_20ts24tu",
+                name: "FK_employments_translations_20ts24tu_languages_20ts24tu_langua~",
+                table: "employments_translations_20ts24tu",
                 column: "language_id",
                 principalTable: "languages_20ts24tu",
                 principalColumn: "id");
@@ -2405,7 +2428,7 @@ namespace Entities.Migrations
                 table: "persons_20ts24tu");
 
             migrationBuilder.DropTable(
-                name: "appeals_to_rectors_20ts24tu_translations_20ts24tu");
+                name: "appeals_to_rectors_translations_20ts24tu");
 
             migrationBuilder.DropTable(
                 name: "blogs_translations_20ts24tu");
@@ -2429,7 +2452,7 @@ namespace Entities.Migrations
                 name: "appeals_to_rectors_20ts24tu");
 
             migrationBuilder.DropTable(
-                name: "employments_20ts24tu_translations_20ts24tu");
+                name: "employments_translations_20ts24tu");
 
             migrationBuilder.DropTable(
                 name: "neighborhoods_translations_20ts24tu");

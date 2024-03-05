@@ -4,6 +4,7 @@ using Entities.Model.EmploymentModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.NeighborhoodsModel;
+using Entities.Model.StatusModel;
 using Entities.Model.TerritoriesModel;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,9 @@ namespace Entities.Model.AppealsToTheRectorsModel
         [ForeignKey("Files")] public int? file_id { get; set; }
         public Files file_ { get; set; }
         public string appeal { get; set; }
+        [ForeignKey("Status")] public int? status_id { get; set; }
+        public Status status_ { get; set; }
+
 
     }
 }

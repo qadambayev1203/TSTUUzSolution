@@ -1,43 +1,53 @@
 using Contracts;
+using Contracts.AllRepository.AppealsToRectorRepository;
 using Contracts.AllRepository.BlogsCategoryRepository;
 using Contracts.AllRepository.BlogsRepository;
+using Contracts.AllRepository.CountriesRepository;
 using Contracts.AllRepository.DepartamentDetailsRepository;
 using Contracts.AllRepository.DepartamentsRepository;
 using Contracts.AllRepository.DepartamentsTypeRepository;
+using Contracts.AllRepository.DistrictsRepository;
+using Contracts.AllRepository.EmploymentsRepsitory;
 using Contracts.AllRepository.FilesRepository;
 using Contracts.AllRepository.GendersRepository;
 using Contracts.AllRepository.LanguagesRepository;
+using Contracts.AllRepository.NeighborhoodsRepository;
 using Contracts.AllRepository.PagesRepository;
 using Contracts.AllRepository.PersonsRepository;
 using Contracts.AllRepository.SiteDetailsRepository;
 using Contracts.AllRepository.SitesRepository;
 using Contracts.AllRepository.SiteTypesRepository;
 using Contracts.AllRepository.StatusesRepository;
+using Contracts.AllRepository.TerritoriesRepository;
 using Contracts.AllRepository.UsersRepository;
 using Contracts.AllRepository.UserTypesRepository;
 using Entities;
 using Entities.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repository;
+using Repository.AllSqlRepository.AppealsToRectorSqlRepository;
 using Repository.AllSqlRepository.BlogsCategorySqlRepository;
 using Repository.AllSqlRepository.BlogsSqlRepository;
+using Repository.AllSqlRepository.CountriesSqlRepository;
 using Repository.AllSqlRepository.DepartamentsDetailSqlRepository;
 using Repository.AllSqlRepository.DepartamentsSqlRepository;
 using Repository.AllSqlRepository.DepartamentsTypeSqlRepository;
+using Repository.AllSqlRepository.DistrictsSqlRepository;
+using Repository.AllSqlRepository.EmploymentsSqlRepository;
 using Repository.AllSqlRepository.FilesSqlRepository;
 using Repository.AllSqlRepository.GendersSqlRepository;
 using Repository.AllSqlRepository.LanguagesSqlRepository;
+using Repository.AllSqlRepository.NeighborhoodsSqlRepository;
 using Repository.AllSqlRepository.PagesSqlRepository;
 using Repository.AllSqlRepository.PersonsSqlRepository;
 using Repository.AllSqlRepository.SiteDetailsSqlRepository;
 using Repository.AllSqlRepository.SitesSqlRepository;
 using Repository.AllSqlRepository.SiteTypesSqlRepository;
 using Repository.AllSqlRepository.StatusesSqlRepository;
+using Repository.AllSqlRepository.TerritoriesSqlRepository;
 using Repository.AllSqlRepository.UsersSqlRepository;
 using Repository.AllSqlRepository.UserTypesSqlRepository;
 using System.Text;
@@ -53,7 +63,7 @@ var Configuration = new ConfigurationBuilder()
 // Add services to the container.
 
 
-//JWT**************************************************
+#region JWT
 IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -77,13 +87,43 @@ builder.Services.AddAuthentication(x =>
         ValidateLifetime = true
     };
 });
-//*****************************************************
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "Example enter like this => Bearer nbkgtrnnhnuihnggfnhbnfnthngtrhn",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+    });
 
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                       new OpenApiSecurityScheme
+                       {
+                           Reference=new OpenApiReference
+                           {
+                               Type = ReferenceType.SecurityScheme,
+                               Id = "Bearer",
+                           },
+                       },
+                       Array.Empty<string>()
+                    },
+                });
+});
+#endregion
 
+#region DB
 builder.Services.AddDbContext<RepositoryContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")
                ));
+#endregion
+
+#region RepositorysServices
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 //Gender AND GenderTranslation
@@ -134,71 +174,28 @@ builder.Services.AddScoped<IBlogCategoryRepository, BlogCategorySqlRepository>()
 //Blog AND BlogTranslation
 builder.Services.AddScoped<IBlogRepository, BlogSqlRepository>();
 
+//Country AND CountryTranslation
+builder.Services.AddScoped<ICountryRepository, CountrySqlRepository>();
 
+//Territorie AND TerritorieTranslation
+builder.Services.AddScoped<ITerritorieRepository, TerritorieSqlRepository>();
 
+//District AND DistrictTranslation
+builder.Services.AddScoped<IDistrictRepository, DistrictSqlRepository>();
 
+//Neighborhood AND NeighborhoodTranslation
+builder.Services.AddScoped<INeighborhoodRepository, NeighborhoodSqlRepository>();
 
+//Employment AND EmploymentTranslation
+builder.Services.AddScoped<IEmploymentRepsitory, EmploymentSqlRepository>();
 
+//AppealToRector AND AppealToRectorTranslation
+builder.Services.AddScoped<IAppealToRectorRepository, AppealToRectorSqlRepository>();
 
+#endregion
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#region AnyServices
 
 builder.Services.AddCors(options =>
 {
@@ -220,39 +217,17 @@ builder.Services.AddCors(opt =>
     opt.AddPolicy("CorsPolicy", builder =>
     builder.AllowAnyOrigin().AllowAnyHeader());
 });
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "Example enter like this => Bearer nbkgtrnnhnuihnggfnhbnfnthngtrhn",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-    });
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                       new OpenApiSecurityScheme
-                       {
-                           Reference=new OpenApiReference
-                           {
-                               Type = ReferenceType.SecurityScheme,
-                               Id = "Bearer",
-                           },
-                       },
-                       Array.Empty<string>()
-                    },
-                });
-});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#endregion
+
+
+#region Midddlware
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -273,3 +248,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+#endregion

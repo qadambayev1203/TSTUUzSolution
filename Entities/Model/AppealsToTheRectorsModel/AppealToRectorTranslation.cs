@@ -5,6 +5,7 @@ using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.NeighborhoodsModel;
+using Entities.Model.StatusModel;
 using Entities.Model.TerritoriesModel;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Entities.Model.AppealsToTheRectorsModel
         [ForeignKey("CountryTranslation")] public int? country_translation_id { get; set; }
         public CountryTranslation? country_translation_ { get; set; }
         [ForeignKey("TerritorieTranslation")] public int? territorie_translation_id { get; set; }
-        public TerritorieTranslation? territorie_translation_idid { get; set; }
+        public TerritorieTranslation? territorie_translation_ { get; set; }
         [ForeignKey("DistrictTranslation")] public int? district_translation_id { get; set; }
         public DistrictTranslation? district_translation_ { get; set; }
         [ForeignKey("NeighborhoodTranslation")] public int? neighborhood_translation_id { get; set; }
@@ -41,5 +42,7 @@ namespace Entities.Model.AppealsToTheRectorsModel
         [ForeignKey("FilesTranslation")] public int? file_translation_id { get; set; }
         public FilesTranslation file_translation_ { get; set; }
         public string appeal { get; set; }
+        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
+        public StatusTranslation status_translation_ { get; set; }
     }
 }

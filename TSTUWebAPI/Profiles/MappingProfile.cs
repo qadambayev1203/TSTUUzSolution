@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entities.DTO;
+using Entities.DTO.AppealsToRectorDTOS;
 using Entities.DTO.BlogsCategoryDTOS;
 using Entities.DTO.BlogsDTOS;
 using Entities.DTO.CountrysDTOS;
@@ -7,6 +8,7 @@ using Entities.DTO.DepartamentDetailsDTOS;
 using Entities.DTO.DepartamentDTOS;
 using Entities.DTO.DepartamentTypeDTOS;
 using Entities.DTO.DistrictsDTOS;
+using Entities.DTO.EmploymentsDTOS;
 using Entities.DTO.FilesDTOS;
 using Entities.DTO.GenderDTOS;
 using Entities.DTO.LanguageDTOS;
@@ -41,6 +43,7 @@ using Entities.DTO.TerritoriesDTOS;
 using Entities.DTO.UserCrudDTOS;
 using Entities.DTO.UserTypeDTOS;
 using Entities.Model;
+using Entities.Model.AppealsToTheRectorsModel;
 using Entities.Model.BlogsCategoryModel;
 using Entities.Model.BlogsModel;
 using Entities.Model.CountrysModel;
@@ -48,6 +51,7 @@ using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
 using Entities.Model.DistrictsModel;
+using Entities.Model.EmploymentModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
@@ -266,6 +270,7 @@ namespace TSTUWebAPI.Profiles
             CreateMap<CountryCreatedDTO, Country>();
             CreateMap<CountryUpdatedDTO, Country>();
             CreateMap<Country, CountryReadedDTO>();
+            CreateMap<Country, CountryReadedConfDTO>();
 
 
             CreateMap<CountryTranslationCreatedDTO, CountryTranslation>();
@@ -312,6 +317,31 @@ namespace TSTUWebAPI.Profiles
             CreateMap<NeighborhoodTranslationUpdatedDTO, NeighborhoodTranslation>();
             CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedDTO>();
             CreateMap<NeighborhoodTranslation, NeighborhoodTranslationConfReadedDTO>();
+
+
+
+            //Employment DTOS
+            CreateMap<EmploymentCreatedDTO, Employment>();
+            CreateMap<EmploymentUpdatedDTO, Employment>();
+            CreateMap<Employment, EmploymentReadedDTO>();
+
+
+            CreateMap<EmploymentTranslationCreatedDTO, EmploymentTranslation>();
+            CreateMap<EmploymentTranslationUpdatedDTO, EmploymentTranslation>();
+            CreateMap<EmploymentTranslation, EmploymentTranslationReadedDTO>();
+            CreateMap<EmploymentTranslation, EmploymentTranslationConfRededDTO>();
+
+
+            //AppealToRector DTOS
+            CreateMap<AppealToRectorCreatedDTO, AppealToRector>();
+            CreateMap<AppealToRectorUpdatedDTO, AppealToRector>();
+            CreateMap<AppealToRector, AppealToRectorReadedDTO>();
+            CreateMap<AppealToRector, AppealToRectorConfRededDTO>();
+
+
+            CreateMap<AppealToRectorTranslationCreatedDTO, AppealToRectorTranslation>();
+            CreateMap<AppealToRectorTranslationUpdatedDTO, AppealToRectorTranslation>();
+            CreateMap<AppealToRectorTranslation, AppealToRectorTranslationReadedDTO>();
         }
     }
 }
