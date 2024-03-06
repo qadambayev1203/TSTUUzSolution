@@ -1,4 +1,5 @@
 ﻿using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
 using Entities.Model.CountrysModel;
 using Entities.Model.LanguagesModel;
 using System;
@@ -16,5 +17,6 @@ namespace Entities.DTO.CountrysDTOS
         public string title { get; set; }
         public LanguageConfReadedDTO? language_ { get; set; }
         public CountryReadedDTO country_ { get; set; }
+        public StatusTranslationConfReadedDTO status_translation_ { get; set; }
     }
 }

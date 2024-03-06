@@ -16,5 +16,6 @@ namespace Entities.DTO.NeighborhoodsDTOS
         public int? neighborhood_id { get; set; }
         public int? district_translation_id { get; set; }
         public string title { get; set; }
+        public int status_id { get; set; }
     }
 }

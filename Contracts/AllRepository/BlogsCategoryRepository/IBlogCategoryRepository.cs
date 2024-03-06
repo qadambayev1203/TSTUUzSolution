@@ -12,7 +12,7 @@ namespace Contracts.AllRepository.BlogsCategoryRepository
         //BlogCategory CRUD
         public IEnumerable<BlogCategory> AllBlogCategory(int queryNum, int pageNum);
         public BlogCategory GetBlogCategoryById(int id);
-        public bool CreateBlogCategory(BlogCategory blogCategory);
+        public int CreateBlogCategory(BlogCategory blogCategory);
         public bool UpdateBlogCategory(int id, BlogCategory blogCategory);
         public bool DeleteBlogCategory(int id);
 
@@ -21,8 +21,10 @@ namespace Contracts.AllRepository.BlogsCategoryRepository
         //BlogCategoryTranslation CRUD
         public IEnumerable<BlogCategoryTranslation> AllBlogCategoryTranslation(int queryNum, int pageNum, string language_code);
         public BlogCategoryTranslation GetBlogCategoryTranslationById(int id);
-        public bool CreateBlogCategoryTranslation(BlogCategoryTranslation blogCategoryTranslation);
+        public int CreateBlogCategoryTranslation(BlogCategoryTranslation blogCategoryTranslation);
         public bool UpdateBlogCategoryTranslation(int id, BlogCategoryTranslation blogCategoryTranslation);
         public bool DeleteBlogCategoryTranslation(int id);
+
+        public bool SaveChanges();
     }
 }

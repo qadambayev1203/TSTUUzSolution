@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.GendersRepository;
 using Entities.DTO.GenderDTOS;
+using Entities.Model.AnyClasses;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
@@ -10,6 +12,7 @@ using System.Reflection;
 namespace TSTUWebAPI.Controllers.GenderControllers
 {
     [Route("api/gender")]
+    [Authorize]
     [ApiController]
     public class GenderController : ControllerBase
     {
@@ -24,33 +27,38 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
         // gender CRUD
 
-        [HttpPost("creategender")]
+        [Authorize(Roles="Admin")]       [HttpPost("creategender")]
         public IActionResult Creategender(GenderCreatedDTO gender1)
         {
             var gender = _mapper.Map<Gender>(gender1);
-            bool check = _repository.CreateGender(gender);
+            int check = _repository.CreateGender(gender);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok("Created");
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallgender")]
+        [Authorize(Roles="Admin")]       [HttpGet("getallgender")]
         public IActionResult GetAllgender(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<Gender> genders1 = _repository.AllGender(queryNum, pageNum);
             var genders = _mapper.Map<IEnumerable<GenderReadedDTO>>(genders1);
-            if (genders == null||genders.Count() == 0) { return NotFound(); }
+            if (genders == null || genders.Count() == 0) { return NotFound(); }
 
             return Ok(genders);
         }
 
-        [HttpGet("getbyidgender/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyidgender/{id}")]
         public IActionResult GetByIdgender(int id)
         {
 
@@ -59,17 +67,22 @@ namespace TSTUWebAPI.Controllers.GenderControllers
             {
                 return NotFound();
             }
-            var gender=_mapper.Map<GenderReadedDTO>(gender1);
+            var gender = _mapper.Map<GenderReadedDTO>(gender1);
             if (gender == null) { return NotFound(); }
             return Ok(gender);
         }
 
 
-        [HttpDelete("deletegender/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deletegender/{id}")]
         public IActionResult Deletegender(int id)
         {
             bool check = _repository.DeleteGender(id);
             if (!check)
+            {
+                return BadRequest();
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return BadRequest();
             }
@@ -78,18 +91,18 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
 
 
-        [HttpPut("updategender/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updategender/{id}")]
         public IActionResult Updategender(GenderUpdatedDTO gender1, int id)
         {
             try
             {
                 var gender = _repository.GetGenderById(id);
-                if (gender == null)
+                if (gender == null || gender1 == null)
                 {
                     return NotFound();
                 }
                 _mapper.Map(gender1, gender);
-                bool check = _repository.UpdateGender();
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return BadRequest();
@@ -110,33 +123,38 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
 
         //genderTranslation CRUD
-        [HttpPost("creategendertranslation")]
+        [Authorize(Roles="Admin")]       [HttpPost("creategendertranslation")]
         public IActionResult CreategenderTranslation(GenderTranslationCreatedDTO gendertranslation1)
         {
             var gendertranslation = _mapper.Map<GenderTranslation>(gendertranslation1);
-            bool check = _repository.CreateGenderTranslation(gendertranslation);
+            int check = _repository.CreateGenderTranslation(gendertranslation);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok("Created");
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallgendertranslation")]
+        [Authorize(Roles="Admin")]       [HttpGet("getallgendertranslation")]
         public IActionResult GetAllgenderTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<GenderTranslation> gendertranslations1 = _repository.AllGenderTranslation(queryNum, pageNum, language_code);
             var gendertranslations = _mapper.Map<IEnumerable<GenderTranslationReadedDTO>>(gendertranslations1);
-            if (gendertranslations == null||gendertranslations.Count() == 0) { return NotFound(); }
+            if (gendertranslations == null || gendertranslations.Count() == 0) { return NotFound(); }
 
             return Ok(gendertranslations);
         }
 
-        [HttpGet("getbyidgendertranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyidgendertranslation/{id}")]
         public IActionResult GetByIdgenderTranslation(int id)
         {
 
@@ -148,11 +166,16 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         }
 
 
-        [HttpDelete("deletegendertranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deletegendertranslation/{id}")]
         public IActionResult DeletegenderTranslation(int id)
         {
             bool check = _repository.DeleteGenderTranslation(id);
             if (!check)
+            {
+                return BadRequest();
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return BadRequest();
             }
@@ -161,18 +184,18 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
 
 
-        [HttpPut("updategendertranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updategendertranslation/{id}")]
         public IActionResult UpdategenderTranslation(GenderTranslationUpdatedDTO gendertranslation1, int id)
         {
             try
             {
                 var gendertranslation = _repository.GetGenderTranslationById(id);
-                if (gendertranslation == null)
+                if (gendertranslation == null || gendertranslation1 == null)
                 {
                     return NotFound();
                 }
                 _mapper.Map(gendertranslation1, gendertranslation);
-                bool check = _repository.UpdateGenderTranslation();
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return BadRequest();

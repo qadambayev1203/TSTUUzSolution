@@ -49,22 +49,22 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
             }
         }
 
-        public bool CreateUserType(UserType userType)
+        public int CreateUserType(UserType userType)
         {
             try
             {
                 if (userType == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.user_types_20ts24tu.Add(userType);
                 _context.SaveChanges();
 
-                return true;
+                return userType.id;
             }
             catch 
             {
-                return false;
+                return 0;
             }
         }
 
@@ -79,7 +79,6 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                 }
                 userType.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.user_types_20ts24tu.Update(userType);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -107,7 +106,6 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
             try
             {
 
-                _context.SaveChanges();
 
                 return true;
             }
@@ -163,22 +161,22 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
             }
         }
 
-        public bool CreateUserTypeTranslation(UserTypeTranslation userTypeTranslation)
+        public int CreateUserTypeTranslation(UserTypeTranslation userTypeTranslation)
         {
             try
             {
                 if (userTypeTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.user_types_translations_20ts24tu.Add(userTypeTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return userTypeTranslation.id;
             }
             catch 
             {
-                return false;
+                return 0;
             }
         }
 
@@ -193,7 +191,6 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                 }
                 userTypeTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.user_types_translations_20ts24tu.Update(userTypeTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -221,7 +218,6 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
             try
             {
 
-                _context.SaveChanges();
 
                 return true;
             }
@@ -229,6 +225,11 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
             {
                 return false;
             }
+        }
+
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false;}
         }
     }
 }

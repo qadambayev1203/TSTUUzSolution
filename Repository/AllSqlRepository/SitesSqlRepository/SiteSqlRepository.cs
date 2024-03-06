@@ -54,23 +54,23 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
         }
 
-        public bool CreateSite(Site site)
+        public int CreateSite(Site site)
         {
             try
             {
                 if (site == null)
                 {
-                    return false;
+                    return 0;
                 }
                 site.created_at = DateTime.UtcNow;
                 _context.sites_20ts24tu.Add(site);
                 _context.SaveChanges();
 
-                return true;
+                return site.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -85,7 +85,6 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                 }
                 site.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.sites_20ts24tu.Update(site);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -109,19 +108,11 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
         }
 
-        public bool UpdateSite(Site site, int id)
+        public bool UpdateSite()
         {
             try
             {
-                var sitecheck = GetSiteById(id);
-                if (sitecheck == null)
-                {
-                    return false;
-                }
-                site.id = sitecheck.id;
-                site.updated_at = DateTime.UtcNow;
-                _context.sites_20ts24tu.Update(site);
-                _context.SaveChanges();
+                
                 return true;
             }
             catch
@@ -191,23 +182,23 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
         }
 
-        public bool CreateSiteTranslation(SiteTranslation siteTranslation)
+        public int CreateSiteTranslation(SiteTranslation siteTranslation)
         {
             try
             {
                 if (siteTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 siteTranslation.created_at = DateTime.UtcNow;
                 _context.sites_translations_20ts24tu.Add(siteTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return siteTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -222,7 +213,6 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                 }
                 siteTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.sites_translations_20ts24tu.Update(siteTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -249,23 +239,27 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
         }
 
-        public bool UpdateSiteTranslation(SiteTranslation siteTranslation, int id)
+        public bool UpdateSiteTranslation()
         {
             try
             {
-                var siteTranslationCheck = GetSiteTranslationById(id);
-                if (siteTranslationCheck == null)
-                {
-                    return false;
-                }
-                siteTranslation.id = siteTranslationCheck.id;
-                siteTranslation.updated_at = DateTime.UtcNow;
-                _context.sites_translations_20ts24tu.Update(siteTranslation);
-                _context.SaveChanges();
-
+               
                 return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
             {
                 return false;
             }

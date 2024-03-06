@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Contracts.AllRepository.EmploymentsRepsitory
 {
-    public interface IEmploymentRepsitory
+    public interface IEmploymentRepository
     {
         //Employment CRUD
         public IEnumerable<Employment> AllEmployment(int queryNum, int pageNum);
         public Employment GetEmploymentById(int id);
-        public bool CreateEmployment(Employment employment);
-        public bool UpdateEmployment(int id, Employment employment);
+        public int CreateEmployment(Employment employment);
+        public bool UpdateEmployment();
         public bool DeleteEmployment(int id);
 
 
@@ -21,8 +21,11 @@ namespace Contracts.AllRepository.EmploymentsRepsitory
         //EmploymentTranslation CRUD
         public IEnumerable<EmploymentTranslation> AllEmploymentTranslation(int queryNum, int pageNum, string language_code);
         public EmploymentTranslation GetEmploymentTranslationById(int id);
-        public bool CreateEmploymentTranslation(EmploymentTranslation employmentTranslation);
-        public bool UpdateEmploymentTranslation(int id, EmploymentTranslation employmentTranslation);
+        public int CreateEmploymentTranslation(EmploymentTranslation employmentTranslation);
+        public bool UpdateEmploymentTranslation();
         public bool DeleteEmploymentTranslation(int id);
+
+
+        public bool SaveChanges();
     }
 }

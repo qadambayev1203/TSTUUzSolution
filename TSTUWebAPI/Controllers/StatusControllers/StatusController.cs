@@ -2,6 +2,7 @@
 using Contracts.AllRepository.StatusesRepository;
 using Entities.DTO.StatusDTOS;
 using Entities.Model;
+using Entities.Model.AnyClasses;
 using Entities.Model.StatusModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +12,8 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 {
     [Route("api/status")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
+    
     public class StatusController : ControllerBase
     {
         private readonly IStatusRepository _repository;
@@ -25,32 +27,37 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 
         // Status CRUD
 
-        [HttpPost("createstatus")]
+        [Authorize(Roles="Admin")]       [HttpPost("createstatus")]
         public IActionResult CreateStatus(StatusCreatedDTO status1)
         {
             var status = _mapper.Map<Status>(status1);
-            bool check = _repository.CreateStatus(status);
+            int check = _repository.CreateStatus(status);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok("Created");
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallstatus")]
+        [Authorize(Roles="Admin")]       [HttpGet("getallstatus")]
         public IActionResult GetAllStatus(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<Status> statuses1 = _repository.AllStatus(queryNum, pageNum);
             var statuses = _mapper.Map<IEnumerable<StatusReadedDTO>>(statuses1);
-            if (statuses == null||statuses.Count()==0) { return NotFound(); }
+            if (statuses == null || statuses.Count() == 0) { return NotFound(); }
             return Ok(statuses);
         }
 
-        [HttpGet("getbyidstatus/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyidstatus/{id}")]
         public IActionResult GetByIdStatus(int id)
         {
 
@@ -65,11 +72,16 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         }
 
 
-        [HttpDelete("deletestatus/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deletestatus/{id}")]
         public IActionResult DeleteStatus(int id)
         {
             bool check = _repository.DeleteStatus(id);
             if (!check)
+            {
+                return BadRequest();
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return BadRequest();
             }
@@ -78,26 +90,26 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 
 
 
-        [HttpPut("updatestatus/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updatestatus/{id}")]
         public IActionResult UpdateStatus(StatusUpdatedDTO status1, int id)
         {
 
             try
             {
                 Status status = _repository.GetStatusById(id);
-                if(status == null)
+                if (status == null || status1 == null)
                 {
                     return NotFound();
                 }
                 _mapper.Map(status1, status);
-                var a = _repository.UpdateStatus();
+                var a = _repository.SaveChanges();
                 if (a)
                 {
                     return BadRequest(a);
                 }
                 return Ok("Updated");
             }
-            catch 
+            catch
             {
                 return BadRequest();
             }
@@ -111,32 +123,37 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 
 
         //StatusTranslation CRUD
-        [HttpPost("createstatustranslation")]
+        [Authorize(Roles="Admin")]       [HttpPost("createstatustranslation")]
         public IActionResult CreateStatusTranslation(StatusTranslationCreatedDTO statustranslation1)
         {
             var statustranslation = _mapper.Map<StatusTranslation>(statustranslation1);
-            bool check = _repository.CreateStatusTranslation(statustranslation);
+            int check = _repository.CreateStatusTranslation(statustranslation);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok("Created");
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallstatustranslation")]
+        [Authorize(Roles="Admin")]       [HttpGet("getallstatustranslation")]
         public IActionResult GetAllStatusTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<StatusTranslation> statustranslationes1 = _repository.AllStatusTranslation(queryNum, pageNum, language_code);
             var statustranslationes = _mapper.Map<IEnumerable<StatusTranslationReadedDTO>>(statustranslationes1);
-            if (statustranslationes == null||statustranslationes.Count() == 0) { return NotFound(); }
+            if (statustranslationes == null || statustranslationes.Count() == 0) { return NotFound(); }
             return Ok(statustranslationes);
         }
 
-        [HttpGet("getbyidstatustranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyidstatustranslation/{id}")]
         public IActionResult GetByIdStatusTranslation(int id)
         {
 
@@ -151,11 +168,16 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         }
 
 
-        [HttpDelete("deletestatustranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deletestatustranslation/{id}")]
         public IActionResult DeleteStatusTranslation(int id)
         {
             bool check = _repository.DeleteStatusTranslation(id);
             if (!check)
+            {
+                return BadRequest();
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return BadRequest();
             }
@@ -164,25 +186,25 @@ namespace TSTUWebAPI.Controllers.StatusControllers
 
 
 
-        [HttpPut("updatestatustranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updatestatustranslation/{id}")]
         public IActionResult UpdateStatusTranslation(StatusTranslationUpdatedDTO statustranslation1, int id)
         {
             try
             {
                 var status = _repository.GetStatusTranslationById(id);
-                if (status == null)
+                if (status == null || statustranslation1 == null)
                 {
                     return NotFound();
                 }
                 _mapper.Map(statustranslation1, status);
-                bool check = _repository.UpdateStatusTranslation();
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return BadRequest();
                 }
                 return Ok("Updated");
             }
-            catch 
+            catch
             {
                 return BadRequest();
             }

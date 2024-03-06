@@ -1,4 +1,5 @@
-﻿using Entities.DTO.ReadedDTOSConfigurations.TerritoriesConfDTOS;
+﻿using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.TerritoriesConfDTOS;
 using Entities.Model.TerritoriesModel;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,6 @@ namespace Entities.DTO.DistrictsDTOS
         public int id { get; set; }
         public TerritorieConfReadedDTO territorie_ { get; set; }
         public string title { get; set; }
+        public StatusConfReadedDTO status_ { get; set; }
     }
 }

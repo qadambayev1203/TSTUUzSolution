@@ -67,23 +67,23 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
             }
         }
 
-        public bool CreateSiteDetail(SiteDetail siteDetail)
+        public int CreateSiteDetail(SiteDetail siteDetail)
         {
             try
             {
                 if (siteDetail == null)
                 {
-                    return false;
+                    return 0;
                 }
                 siteDetail.created_at = DateTime.UtcNow;
                 _context.site_details_20ts24tu.Add(siteDetail);
                 _context.SaveChanges();
 
-                return true;
+                return siteDetail.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -98,7 +98,6 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 }
                 siteDetail.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.site_details_20ts24tu.Update(siteDetail);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -127,19 +126,11 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
             }
         }
 
-        public bool UpdateSiteDetail(SiteDetail siteDetail, int id)
+        public bool UpdateSiteDetail()
         {
             try
             {
-                var siteDetailcheck = GetSiteDetailById(id);
-                if (siteDetailcheck == null)
-                {
-                    return false;
-                }
-                siteDetail.id = siteDetailcheck.id;
-                siteDetail.update_at = DateTime.UtcNow;
-                _context.site_details_20ts24tu.Update(siteDetail);
-                _context.SaveChanges();
+               
                 return true;
             }
             catch
@@ -213,23 +204,23 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
             }
         }
 
-        public bool CreateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation)
+        public int CreateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation)
         {
             try
             {
                 if (siteDetailTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 siteDetailTranslation.created_at = DateTime.UtcNow;
                 _context.site_details_translations_20ts24tu.Add(siteDetailTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return siteDetailTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -244,7 +235,6 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 }
                 siteDetailTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.site_details_translations_20ts24tu.Update(siteDetailTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -274,26 +264,24 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
             }
         }
 
-        public bool UpdateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation, int id)
+        public bool UpdateSiteDetailTranslation()
         {
             try
             {
-                var siteDetailTranslationCheck = GetSiteDetailTranslationById(id);
-                if (siteDetailTranslationCheck == null)
-                {
-                    return false;
-                }
-                siteDetailTranslation.id = siteDetailTranslationCheck.id;
-                siteDetailTranslation.update_at = DateTime.UtcNow;
-                _context.site_details_translations_20ts24tu.Update(siteDetailTranslation);
-                _context.SaveChanges();
-
+               
                 return true;
             }
             catch
             {
                 return false;
             }
+        }
+
+        
+
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false;}
         }
     }
 }

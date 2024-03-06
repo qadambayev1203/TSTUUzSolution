@@ -12,7 +12,7 @@ namespace Contracts.AllRepository.PersonsRepository
         //Person CRUD
         public IEnumerable<Person> AllPerson(int queryNum, int pageNum);
         public Person GetPersonById(int id);
-        public bool CreatePerson(Person person);
+        public int CreatePerson(Person person);
         public bool UpdatePerson();
         public bool DeletePerson(int id);
 
@@ -21,8 +21,10 @@ namespace Contracts.AllRepository.PersonsRepository
         //PersonTranslation CRUD
         public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum, int pageNum, string language_code);
         public PersonTranslation GetPersonTranslationById(int id);
-        public bool CreatePersonTranslation(PersonTranslation personTranslation);
+        public int CreatePersonTranslation(PersonTranslation personTranslation);
         public bool UpdatePersonTranslation();
         public bool DeletePersonTranslation(int id);
+        public bool SaveChanges();
+
     }
 }

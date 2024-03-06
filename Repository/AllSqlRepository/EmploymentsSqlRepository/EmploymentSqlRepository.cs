@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.AllSqlRepository.EmploymentsSqlRepository
 {
-    public class EmploymentSqlRepository : IEmploymentRepsitory
+    public class EmploymentSqlRepository : IEmploymentRepository
     {
         private readonly RepositoryContext _context;
         public EmploymentSqlRepository(RepositoryContext repositoryContext)
@@ -54,16 +54,41 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             }
         }
 
-        public bool CreateEmployment(Employment Employment)
+        public int CreateEmployment(Employment Employment)
         {
             try
             {
                 if (Employment == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.employments_20ts24tu.Add(Employment);
-                _context.SaveChanges();
+                bool check = SaveChanges();
+                if (!check)
+                {
+                    return 0;
+                }
+                int id =Employment.id;
+
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteEmployment(int id)
+        {
+            try
+            {
+                var emp = GetEmploymentById(id);
+                if (emp == null)
+                {
+                    return false;
+                }
+                emp.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.employments_20ts24tu.Update(emp);
 
                 return true;
             }
@@ -71,11 +96,6 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteEmployment(int id)
-        {
-            return true;
         }
 
         public Employment GetEmploymentById(int id)
@@ -93,19 +113,11 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             }
         }
 
-        public bool UpdateEmployment(int id, Employment Employment)
+        public bool UpdateEmployment()
         {
 
             try
             {
-                var dep = GetEmploymentById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                Employment.id = dep.id;
-                _context.employments_20ts24tu.Update(Employment);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -165,16 +177,40 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             }
         }
 
-        public bool CreateEmploymentTranslation(EmploymentTranslation EmploymentTranslation)
+        public int CreateEmploymentTranslation(EmploymentTranslation EmploymentTranslation)
         {
             try
             {
                 if (EmploymentTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.employments_translations_20ts24tu.Add(EmploymentTranslation);
-                _context.SaveChanges();
+                bool check = SaveChanges();
+                if (!check)
+                {
+                    return 0;
+                }
+                var id = EmploymentTranslation.id;
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteEmploymentTranslation(int id)
+        {
+            try
+            {
+                var emp= GetEmploymentTranslationById(id);
+                if (emp == null)
+                {
+                    return false;
+                }
+                emp.status_translation_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.employments_translations_20ts24tu.Update(emp);
 
                 return true;
             }
@@ -182,11 +218,6 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteEmploymentTranslation(int id)
-        {
-                return true;
         }
 
         public EmploymentTranslation GetEmploymentTranslationById(int id)
@@ -204,19 +235,11 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             }
         }
 
-        public bool UpdateEmploymentTranslation(int id, EmploymentTranslation EmploymentTranslation)
+        public bool UpdateEmploymentTranslation()
         {
 
             try
             {
-                var deptr = GetEmploymentById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                EmploymentTranslation.id = deptr.id;
-                _context.employments_translations_20ts24tu.Update(EmploymentTranslation);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -225,5 +248,19 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             }
         }
         #endregion
+
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
     }
 }

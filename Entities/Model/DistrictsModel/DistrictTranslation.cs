@@ -1,4 +1,5 @@
 ﻿using Entities.Model.LanguagesModel;
+using Entities.Model.StatusModel;
 using Entities.Model.TerritoriesModel;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace Entities.Model.DistrictsModel
         [ForeignKey("TerritorieTranslation")] public int? territorie_translation_id { get; set; }
         public TerritorieTranslation territorie_translation_ { get; set; }
         public string title { get; set; }
+        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
+        public StatusTranslation? status_translation_ { get; set; }
 
 
     }

@@ -32,16 +32,37 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
             }
         }
 
-        public bool CreateCountry(Country Country)
+        public int CreateCountry(Country Country)
         {
             try
             {
                 if (Country == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.countries_20ts24tu.Add(Country);
                 _context.SaveChanges();
+                var id = Country.id;
+
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteCountry(int id)
+        {
+            try
+            {
+                var count = GetCountryById(id);
+                if (count == null)
+                {
+                    return false;
+                }
+                count.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.countries_20ts24tu.Update(count);
 
                 return true;
             }
@@ -49,11 +70,6 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteCountry(int id)
-        {
-            return true;
         }
 
         public Country GetCountryById(int id)
@@ -75,14 +91,6 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
 
             try
             {
-                var dep = GetCountryById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                Country.id = dep.id;
-                _context.countries_20ts24tu.Update(Country);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -98,7 +106,7 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
 
 
         #region CountryTranslation CRUD
-        public IEnumerable<CountryTranslation> AllCountryTranslation()
+        public IEnumerable<CountryTranslation> AllCountryTranslation(string language_code)
         {
             try
             {
@@ -107,6 +115,7 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
                 CountryTranslations = _context.countries_translations_20ts24tu
                     .Include(x => x.language_)
                     .Include(x => x.country_)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                     .ToList();
 
 
@@ -118,16 +127,38 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
             }
         }
 
-        public bool CreateCountryTranslation(CountryTranslation CountryTranslation)
+        public int CreateCountryTranslation(CountryTranslation CountryTranslation)
         {
             try
             {
                 if (CountryTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.countries_translations_20ts24tu.Add(CountryTranslation);
                 _context.SaveChanges();
+                int id = CountryTranslation.id;
+
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteCountryTranslation(int id)
+        {
+
+            try
+            {
+                var count= GetCountryTranslationById(id);
+                if (count == null)
+                {
+                    return false;
+                }
+                count.status_translation_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.countries_translations_20ts24tu.Update(count);
 
                 return true;
             }
@@ -135,12 +166,6 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteCountryTranslation(int id)
-        {
-
-            return true;
 
         }
 
@@ -164,14 +189,6 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
 
             try
             {
-                var deptr = GetCountryById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                CountryTranslation.id = deptr.id;
-                _context.countries_translations_20ts24tu.Update(CountryTranslation);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -180,5 +197,19 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
             }
         }
         #endregion
+
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
     }
 }

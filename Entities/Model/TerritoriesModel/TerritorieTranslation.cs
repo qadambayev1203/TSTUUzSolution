@@ -20,5 +20,7 @@ namespace Entities.Model.TerritoriesModel
         public string title { get; set; }
         [ForeignKey("CountryTranslation")] public int? country_translation_id { get; set; }
         public CountryTranslation country_translation_ { get; set; }
+        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
+        public StatusTranslation? status_translation_ { get; set; }
     }
 }

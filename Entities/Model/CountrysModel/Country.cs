@@ -11,6 +11,8 @@ namespace Entities.Model.CountrysModel
     public class Country
     {
         public int id { get; set; }
-        public string title { get; set; }        
+        public string title { get; set; }
+        [ForeignKey("Status")] public int? status_id { get; set; }
+        public Status? status_ { get; set; }
     }
 }

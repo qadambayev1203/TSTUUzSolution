@@ -12,12 +12,13 @@ namespace Contracts.AllRepository.LanguagesRepository
         //Language CRUD
         public IEnumerable<Language> AllLanguage(int queryNum, int pageNum);
         public Language GetLanguageById(int id);
-        public bool CreateLanguage(Language language);
+        public int CreateLanguage(Language language);
         public bool UpdateLanguage();
         public bool DeleteLanguage(int id);
 
+        public bool SaveChanges();
 
 
-       
+
     }
 }

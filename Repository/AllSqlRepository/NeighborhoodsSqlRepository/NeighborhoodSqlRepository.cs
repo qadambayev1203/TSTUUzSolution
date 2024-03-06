@@ -38,16 +38,36 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
             }
         }
 
-        public bool CreateNeighborhood(Neighborhood Neighborhood)
+        public int CreateNeighborhood(Neighborhood Neighborhood)
         {
             try
             {
                 if (Neighborhood == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.neighborhoods_20ts24tu.Add(Neighborhood);
                 _context.SaveChanges();
+                int id = Neighborhood.id;
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteNeighborhood(int id)
+        {
+            try
+            {
+                var neig= GetNeighborhoodById(id);
+                if (neig == null)
+                {
+                    return false;
+                }
+                neig.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.neighborhoods_20ts24tu.Update(neig);
 
                 return true;
             }
@@ -55,11 +75,6 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteNeighborhood(int id)
-        {
-            return true;
         }
 
         public Neighborhood GetNeighborhoodById(int id)
@@ -81,14 +96,6 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
 
             try
             {
-                var dep = GetNeighborhoodById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                Neighborhood.id = dep.id;
-                _context.neighborhoods_20ts24tu.Update(Neighborhood);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -104,7 +111,7 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
 
 
         #region NeighborhoodTranslation CRUD
-        public IEnumerable<NeighborhoodTranslation> AllNeighborhoodTranslation(int district_translation_id)
+        public IEnumerable<NeighborhoodTranslation> AllNeighborhoodTranslation(int district_translation_id, string language_code)
         {
             try
             {
@@ -115,6 +122,7 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
                     .Include(x => x.neighborhood_)
                     .Include(x => x.district_translation_)
                     .Where(x => x.district_translation_.id == district_translation_id)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                     .ToList();
 
 
@@ -126,16 +134,37 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
             }
         }
 
-        public bool CreateNeighborhoodTranslation(NeighborhoodTranslation NeighborhoodTranslation)
+        public int CreateNeighborhoodTranslation(NeighborhoodTranslation NeighborhoodTranslation)
         {
             try
             {
                 if (NeighborhoodTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.neighborhoods_translations_20ts24tu.Add(NeighborhoodTranslation);
                 _context.SaveChanges();
+                int id = NeighborhoodTranslation.id;
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteNeighborhoodTranslation(int id)
+        {
+
+            try
+            {
+                var neig = GetNeighborhoodTranslationById(id);
+                if (neig == null)
+                {
+                    return false;
+                }
+                neig.status_translation_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.neighborhoods_translations_20ts24tu.Update(neig);
 
                 return true;
             }
@@ -143,12 +172,6 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteNeighborhoodTranslation(int id)
-        {
-
-            return true;
 
         }
 
@@ -173,14 +196,6 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
 
             try
             {
-                var deptr = GetNeighborhoodById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                NeighborhoodTranslation.id = deptr.id;
-                _context.neighborhoods_translations_20ts24tu.Update(NeighborhoodTranslation);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -189,5 +204,11 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
             }
         }
         #endregion
+
+
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
+        }
     }
 }

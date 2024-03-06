@@ -1,5 +1,6 @@
 ﻿using Entities.Model.FileModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,5 +18,7 @@ namespace Entities.Model.EmploymentModel
         public Employment? employment_ { get; set; }
         [ForeignKey("Language")] public int? language_id { get; set; }
         public Language? language_ { get; set; }
+        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
+        public StatusTranslation? status_translation_ { get; set; }
     }
 }

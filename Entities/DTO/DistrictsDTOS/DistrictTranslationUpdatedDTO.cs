@@ -16,5 +16,6 @@ namespace Entities.DTO.DistrictsDTOS
         public int? district_id { get; set; }
         public int? territorie_translation_id { get; set; }
         public string title { get; set; }
+        public int status_id { get; set; }
     }
 }

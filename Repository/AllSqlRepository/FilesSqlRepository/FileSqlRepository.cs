@@ -51,22 +51,22 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
         }
 
-        public bool CreateFiles(Files file)
+        public int CreateFiles(Files file)
         {
             try
             {
                 if (file == null)
                 {
-                    return false;
+                    return 0;
                 }
                 file.crated_at = DateTime.UtcNow;
                 _context.files_20ts24tu.Add(file);
                 _context.SaveChanges();
-                return true;
+                return file.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
 
         }
@@ -82,7 +82,6 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 }
                 file.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.files_20ts24tu.Update(file);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -110,7 +109,6 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 
             try
             {
-                _context.SaveChanges();
 
                 return true;
             }
@@ -163,22 +161,22 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
         }
 
-        public bool CreateFilesTranslation(FilesTranslation fileTranslation)
+        public int CreateFilesTranslation(FilesTranslation fileTranslation)
         {
             try
             {
                 if (fileTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.files_translations_20ts24tu.Add(fileTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return fileTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -193,7 +191,6 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 }
                 fileTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.files_translations_20ts24tu.Update(fileTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -223,7 +220,6 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             try
             {
 
-                _context.SaveChanges();
 
                 return true;
             }
@@ -233,5 +229,9 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
         }
 
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false;}
+        }
     }
 }

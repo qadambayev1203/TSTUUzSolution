@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.DepartamentDetailsRepository;
 using Entities.DTO.DepartamentDetailsDTOS;
+using Entities.Model.AnyClasses;
 using Entities.Model.DepartamentDetailsModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
 {
     [Route("api/departamentDetaildetail")]
+    [Authorize]
     [ApiController]
     public class DepartamentDetailController : ControllerBase
     {
@@ -22,7 +25,7 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
 
         // DepartamentDetail CRUD
 
-        [HttpPost("createdepartamentDetail")]
+        [Authorize(Roles="Admin")]       [HttpPost("createdepartamentDetail")]
         public IActionResult CreateDepartamentDetail(DepartamentDetailCreatedDTO departamentDetail1)
         {
             if (departamentDetail1 == null)
@@ -30,17 +33,22 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
                 return StatusCode(422);
             }
             var departamentDetail = _mapper.Map<DepartamentDetail>(departamentDetail1);
-            bool check = _repository.CreateDepartamentDetail(departamentDetail);
+            int check = _repository.CreateDepartamentDetail(departamentDetail);
 
-            if (!check)
+            if (check==0)
             {
                 return StatusCode(400);
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return StatusCode(200); 
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getalldepartamentDetail")]
+        [Authorize(Roles="Admin")]       [HttpGet("getalldepartamentDetail")]
         public IActionResult GetAllDepartamentDetail(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -54,7 +62,7 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
             return Ok(departamentDetails);
         }
 
-        [HttpGet("getbyiddepartamentDetail/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyiddepartamentDetail/{id}")]
         public IActionResult GetByIdDepartamentDetail(int id)
         {
 
@@ -70,12 +78,16 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
         }
 
 
-        [HttpDelete("deletedepartamentDetail/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deletedepartamentDetail/{id}")]
         public IActionResult DeleteDepartamentDetail(int id)
         {
             
             bool check = _repository.DeleteDepartamentDetail(id);
             if (!check)
+            {
+                return StatusCode(404);
+            }bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return StatusCode(404);
             }
@@ -84,17 +96,18 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
 
 
 
-        [HttpPut("updatedepartamentDetail/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updatedepartamentDetail/{id}")]
         public IActionResult UpdateDepartamentDetail(DepartamentDetailUpdatedDTO departamentDetail1, int id)
         {
             try
             {
-                if (departamentDetail1 == null)
+                var departamentDetail = GetByIdDepartamentDetail(id);
+                if (departamentDetail1 == null|| departamentDetail==null)
                 {
                     return StatusCode(422);
                 }
-                var departamentDetail = _mapper.Map<DepartamentDetail>(departamentDetail1);
-                bool check = _repository.UpdateDepartamentDetail(id, departamentDetail);
+                _mapper.Map(departamentDetail1, departamentDetail);
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return StatusCode(400);
@@ -115,7 +128,7 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
 
 
         //DepartamentDetailTranslation CRUD
-        [HttpPost("createdepartamentDetailtranslation")]
+        [Authorize(Roles="Admin")]       [HttpPost("createdepartamentDetailtranslation")]
         public IActionResult CreateDepartamentDetailTranslation(DepartamentDetailTranslationCreatedDTO departamentDetailtranslation1)
         {
             if(departamentDetailtranslation1 == null)
@@ -123,17 +136,22 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
                 return StatusCode(422);
             }
             var departamentDetailtranslation = _mapper.Map<DepartamentDetailTranslation>(departamentDetailtranslation1);
-            bool check = _repository.CreateDepartamentDetailTranslation(departamentDetailtranslation);
+            int check = _repository.CreateDepartamentDetailTranslation(departamentDetailtranslation);
 
-            if (!check)
+            if (check == 0)
             {
                 return StatusCode(400);
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return StatusCode(200);
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getalldepartamentDetailtranslation")]
+        [Authorize(Roles="Admin")]       [HttpGet("getalldepartamentDetailtranslation")]
         public IActionResult GetAllDepartamentDetailTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -147,7 +165,7 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
             return Ok(departamentDetailtranslations);
         }
 
-        [HttpGet("getbyiddepartamentDetailtranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyiddepartamentDetailtranslation/{id}")]
         public IActionResult GetByIdDepartamentDetailTranslation(int id)
         {
 
@@ -158,11 +176,15 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
         }
 
 
-        [HttpDelete("deletedepartamentDetailtranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deletedepartamentDetailtranslation/{id}")]
         public IActionResult DeleteDepartamentDetailTranslation(int id)
         {
             bool check = _repository.DeleteDepartamentDetailTranslation(id);
             if (!check)
+            {
+                return StatusCode(400);
+            } bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return StatusCode(400);
             }
@@ -171,17 +193,18 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
 
 
 
-        [HttpPut("updatedepartamentDetailtranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updatedepartamentDetailtranslation/{id}")]
         public IActionResult UpdateDepartamentDetailTranslation(DepartamentDetailTranslationUpdatedDTO departamentDetailtranslation1, int id)
         {
             try
             {
-                if (departamentDetailtranslation1 == null)
+                var departamentDetailtranslation = GetByIdDepartamentDetailTranslation(id);
+                if (departamentDetailtranslation1 == null || departamentDetailtranslation == null)
                 {
                     return StatusCode(422);
                 }
-                var departamentDetailtranslation = _mapper.Map<DepartamentDetailTranslation>(departamentDetailtranslation1);
-                bool check = _repository.UpdateDepartamentDetailTranslation(id, departamentDetailtranslation);
+                _mapper.Map(departamentDetailtranslation1, departamentDetailtranslation);
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return StatusCode(400);

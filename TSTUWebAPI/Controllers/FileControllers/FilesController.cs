@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.FilesRepository;
 using Entities.DTO.FilesDTOS;
+using Entities.Model.AnyClasses;
 using Entities.Model.DepartamentsTypeModel;
 using Entities.Model.FileModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TSTUWebAPI.Controllers.FileControllers
 {
     [Route("api/files")]
+    [Authorize]
     [ApiController]
     public class FilesController : ControllerBase
     {
@@ -23,7 +26,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
         // files CRUD
 
-        [HttpPost("uploadfiles")]
+       [Authorize(Roles="Admin")]       [HttpPost("uploadfiles")]
         public IActionResult UploadFiles(FilesCreatedDTO files1)
         {
             var files = _mapper.Map<Files>(files1);
@@ -42,29 +45,34 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 return BadRequest("File Upload Error!");
             }
             files.url = Url;
-            bool check = _repository.CreateFiles(files);
+            int check = _repository.CreateFiles(files);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok("Created");
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallfiles")]
+       [Authorize(Roles="Admin")]       [HttpGet("getallfiles")]
         public IActionResult GetAllfiles(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<Files> files1 = _repository.AllFile(queryNum, pageNum);
             var files = _mapper.Map<IEnumerable<FilesReadedDTO>>(files1);
-            if (files == null||files.Count() == 0) { return NotFound(); }
+            if (files == null || files.Count() == 0) { return NotFound(); }
 
             return Ok(files);
         }
 
-        [HttpGet("getbyidfiles/{id}")]
+       [Authorize(Roles="Admin")]       [HttpGet("getbyidfiles/{id}")]
         public IActionResult GetByIdfiles(int id)
         {
 
@@ -78,11 +86,16 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
 
-        [HttpDelete("deletefiles/{id}")]
+       [Authorize(Roles="Admin")]       [HttpDelete("deletefiles/{id}")]
         public IActionResult Deletefiles(int id)
         {
             bool check = _repository.DeleteFiles(id);
             if (!check)
+            {
+                return BadRequest();
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return BadRequest();
             }
@@ -91,13 +104,13 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
 
 
-        [HttpPut("updatefiles/{id}")]
+       [Authorize(Roles="Admin")]       [HttpPut("updatefiles/{id}")]
         public IActionResult Updatefiles(FilesUpdatedDTO files, int id)
         {
             try
             {
                 var file = _repository.GetFilesById(id);
-                if (file == null)
+                if (file == null || files == null)
                 {
                     return NotFound();
                 }
@@ -122,7 +135,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
 
                 _mapper.Map(files, file);
-                bool check = _repository.UpdateFiles();
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return BadRequest();
@@ -143,7 +156,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
 
         //filesTranslation CRUD
-        [HttpPost("uploadfilestranslation")]
+       [Authorize(Roles="Admin")]       [HttpPost("uploadfilestranslation")]
         public IActionResult UploadFilesTranslation(FilesTranslationCreatedDTO filestranslation1)
         {
             var filestranslation = _mapper.Map<FilesTranslation>(filestranslation1);
@@ -162,31 +175,36 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 return BadRequest("File Upload Error!");
             }
             filestranslation.url = Url;
-            bool check = _repository.CreateFilesTranslation(filestranslation);
+            int check = _repository.CreateFilesTranslation(filestranslation);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok("Created");
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallfilestranslation")]
-        public IActionResult GetAllfilesTranslation(int queryNum, int pageNum, string?  language_code)
+       [Authorize(Roles="Admin")]       [HttpGet("getallfilestranslation")]
+        public IActionResult GetAllfilesTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<FilesTranslation> filestranslationes1 = _repository.AllFilesTranslation(queryNum, pageNum, language_code);
             var filestranslationes = _mapper.Map<IEnumerable<FilesTranslationReadedDTO>>(filestranslationes1);
-            if (filestranslationes == null||filestranslationes.Count() == 0)
+            if (filestranslationes == null || filestranslationes.Count() == 0)
             {
                 return NotFound();
             }
             return Ok(filestranslationes);
         }
 
-        [HttpGet("getbyidfilestranslation/{id}")]
+       [Authorize(Roles="Admin")]       [HttpGet("getbyidfilestranslation/{id}")]
         public IActionResult GetByIdfilesTranslation(int id)
         {
 
@@ -201,11 +219,16 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
 
-        [HttpDelete("deletefilestranslation/{id}")]
+       [Authorize(Roles="Admin")]       [HttpDelete("deletefilestranslation/{id}")]
         public IActionResult DeletefilesTranslation(int id)
         {
             bool check = _repository.DeleteFilesTranslation(id);
             if (!check)
+            {
+                return BadRequest();
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return BadRequest();
             }
@@ -214,13 +237,13 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
 
 
-        [HttpPut("updatefilestranslation/{id}")]
+       [Authorize(Roles="Admin")]       [HttpPut("updatefilestranslation/{id}")]
         public IActionResult UpdatefilesTranslation(FilesTranslationUpdatedDTO filestranslation1, int id)
         {
             try
             {
                 var filestranslation = _repository.GetFilesTranslationById(id);
-                if (filestranslation == null)
+                if (filestranslation == null || filestranslation1 == null)
                 {
                     return NotFound();
                 }
@@ -243,14 +266,14 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 filestranslation.url = Url;
 
                 _mapper.Map(filestranslation1, filestranslation);
-                bool check = _repository.UpdateFilesTranslation();
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return BadRequest();
                 }
                 return Ok("Updated");
             }
-            catch 
+            catch
             {
                 return BadRequest();
             }

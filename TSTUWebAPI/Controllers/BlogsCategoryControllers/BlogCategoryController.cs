@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.BlogsCategoryRepository;
 using Entities.DTO.BlogsCategoryDTOS;
+using Entities.Model.AnyClasses;
 using Entities.Model.BlogsCategoryModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 {
     [Route("api/blogcategorycontroller")]
+    [Authorize]
     [ApiController]
     public class BlogCategoryController : ControllerBase
     {
@@ -22,21 +25,26 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
         // BlogCategory CRUD
 
-        [HttpPost("createblogcategory")]
+        [Authorize(Roles="Admin")]       [HttpPost("createblogcategory")]
         public IActionResult CreateBlogCategory(BlogCategoryCreatedDTO blogCategory1)
         {
             var blogCategory = _mapper.Map<BlogCategory>(blogCategory1);
-            bool check = _repository.CreateBlogCategory(blogCategory);
+            int check = _repository.CreateBlogCategory(blogCategory);
 
-            if (!check)
+            if (check==0)
             {
                 return StatusCode(400);
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok();
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallblogcategory")]
+        [Authorize(Roles="Admin")]       [HttpGet("getallblogcategory")]
         public IActionResult GetAllBlogCategory(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -47,7 +55,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             return Ok(blogCategorys);
         }
 
-        [HttpGet("getbyidblogcategory/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyidblogcategory/{id}")]
         public IActionResult GetByIdBlogCategory(int id)
         {
 
@@ -63,11 +71,16 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
         }
 
 
-        [HttpDelete("deleteblogcategory/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deleteblogcategory/{id}")]
         public IActionResult DeleteBlogCategory(int id)
         {
             bool check = _repository.DeleteBlogCategory(id);
             if (!check)
+            {
+                return StatusCode(400);
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return StatusCode(400);
             }
@@ -76,7 +89,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
 
 
-        [HttpPut("updateblogcategory/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updateblogcategory/{id}")]
         public IActionResult UpdateBlogCategory(BlogCategoryUpdatedDTO blogCategory1, int id)
         {
             try
@@ -85,8 +98,13 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
                 {
                     return StatusCode(400);
                 }
-                var blogCategory = _mapper.Map<BlogCategory>(blogCategory1);
-                bool check = _repository.UpdateBlogCategory(id, blogCategory);
+                var BlogCategory = _repository.GetBlogCategoryById(id);
+                if(BlogCategory == null)
+                {
+                    return BadRequest();
+                }
+                _mapper.Map(blogCategory1, BlogCategory);
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return StatusCode(400);
@@ -107,21 +125,26 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
 
         //BlogCategoryTranslation CRUD
-        [HttpPost("createblogcategorytranslation")]
+        [Authorize(Roles="Admin")]       [HttpPost("createblogcategorytranslation")]
         public IActionResult CreateBlogCategoryTranslation(BlogCategoryTranslationCreatedDTO blogCategorytranslation1)
         {
             var blogCategorytranslation = _mapper.Map<BlogCategoryTranslation>(blogCategorytranslation1);
-            bool check = _repository.CreateBlogCategoryTranslation(blogCategorytranslation);
+            int check = _repository.CreateBlogCategoryTranslation(blogCategorytranslation);
 
-            if (!check)
+            if (check==0)
             {
                 return StatusCode(400);
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok();
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallblogcategorytranslation")]
+        [Authorize(Roles="Admin")]       [HttpGet("getallblogcategorytranslation")]
         public IActionResult GetAllBlogCategoryTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -132,7 +155,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             return Ok(blogCategorytranslations);
         }
 
-        [HttpGet("getbyidblogcategorytranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpGet("getbyidblogcategorytranslation/{id}")]
         public IActionResult GetByIdBlogCategoryTranslation(int id)
         {
 
@@ -143,11 +166,16 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
         }
 
 
-        [HttpDelete("deleteblogcategorytranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpDelete("deleteblogcategorytranslation/{id}")]
         public IActionResult DeleteBlogCategoryTranslation(int id)
         {
             bool check = _repository.DeleteBlogCategoryTranslation(id);
             if (!check)
+            {
+                return StatusCode(400);
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return StatusCode(400);
             }
@@ -156,7 +184,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
 
 
-        [HttpPut("updateblogcategorytranslation/{id}")]
+        [Authorize(Roles="Admin")]       [HttpPut("updateblogcategorytranslation/{id}")]
         public IActionResult UpdateBlogCategoryTranslation(BlogCategoryTranslationUpdatedDTO blogCategorytranslation1, int id)
         {
             try
@@ -165,8 +193,13 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
                 {
                     return StatusCode(400);
                 }
-                var blogCategorytranslation = _mapper.Map<BlogCategoryTranslation>(blogCategorytranslation1);
-                bool check = _repository.UpdateBlogCategoryTranslation(id, blogCategorytranslation);
+                var blogCategorytranslation = _repository.GetBlogCategoryTranslationById(id);
+                if (blogCategorytranslation == null)
+                {
+                    return StatusCode(400);
+                }
+                _mapper.Map(blogCategorytranslation1, blogCategorytranslation);
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return StatusCode(400);

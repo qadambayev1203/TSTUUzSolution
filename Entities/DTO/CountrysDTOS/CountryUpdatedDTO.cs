@@ -8,7 +8,7 @@ namespace Entities.DTO.CountrysDTOS
 {
     public class CountryUpdatedDTO
     {
-        public int id { get; set; }
         public string title { get; set; }
+        public int status_id { get; set; }
     }
 }

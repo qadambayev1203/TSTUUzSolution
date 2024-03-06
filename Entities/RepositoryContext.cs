@@ -47,6 +47,8 @@ namespace Entities
             modelBuilder.ApplyConfiguration(new DistrictConfiguration());
             modelBuilder.ApplyConfiguration(new EmploymentConfiguration());
             modelBuilder.ApplyConfiguration(new EmploymentTranslationConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusTranslationConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusConfiguration());
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.login)
                 .IsUnique();

@@ -63,22 +63,22 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public bool CreateBlog(Blog blog)
+        public int CreateBlog(Blog blog)
         {
             try
             {
                 if (blog == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.blogs_20ts24tu.Add(blog);
                 _context.SaveChanges();
 
-                return true;
+                return blog.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -93,7 +93,6 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 }
                 blog.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.blogs_20ts24tu.Update(blog);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -121,19 +120,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public bool UpdateBlog(int id, Blog blog)
+        public bool UpdateBlog()
         {
 
             try
             {
-                var dep = GetBlogById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                blog.id = dep.id;
-                _context.blogs_20ts24tu.Update(blog);
-                _context.SaveChanges();
+
                 return true;
             }
             catch
@@ -193,34 +185,34 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((language_code!=null)? x => x.language_.code.Equals(language_code):x=>x.language_.code!=null)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200).ToList();
 
                 }
                 return blogTranslations;
             }
-            catch 
+            catch
             {
                 return null;
             }
         }
 
-        public bool CreateBlogTranslation(BlogTranslation blogTranslation)
+        public int CreateBlogTranslation(BlogTranslation blogTranslation)
         {
             try
             {
                 if (blogTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.blogs_translations_20ts24tu.Add(blogTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return blogTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -235,7 +227,6 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 }
                 blogTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.blogs_translations_20ts24tu.Update(blogTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -264,19 +255,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public bool UpdateBlogTranslation(int id, BlogTranslation blogTranslation)
+        public bool UpdateBlogTranslation()
         {
 
             try
             {
-                var deptr = GetBlogById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                blogTranslation.id = deptr.id;
-                _context.blogs_translations_20ts24tu.Update(blogTranslation);
-                _context.SaveChanges();
+
                 return true;
             }
             catch
@@ -285,5 +269,10 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
         #endregion
+
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
+        }
     }
 }

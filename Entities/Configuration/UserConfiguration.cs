@@ -30,7 +30,7 @@ namespace Entities.Configuration
                 {
                     id = 2,
                     user_type_id = 2,
-                    login = "user",
+                    login = "aser",
                     password = PasswordManager.EncryptPassword(("user12").ToString()),
                     person_id = null,
                     departament_id = null,

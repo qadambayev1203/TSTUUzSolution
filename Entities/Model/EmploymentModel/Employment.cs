@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Entities.Model.StatusModel;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,5 +12,7 @@ namespace Entities.Model.EmploymentModel
     {
         public int id { get; set; }
         public string title { get; set; }
+        [ForeignKey("Status")] public int? status_id { get; set; }
+        public Status? status_ { get; set; }
     }
 }

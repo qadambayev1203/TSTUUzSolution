@@ -1,4 +1,5 @@
 ﻿using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
 using Entities.Model.EmploymentModel;
 using Entities.Model.LanguagesModel;
 using System;
@@ -16,5 +17,6 @@ namespace Entities.DTO.EmploymentsDTOS
         public string title { get; set; }
         public EmploymentReadedDTO? employment_ { get; set; }
         public LanguageConfReadedDTO? language_ { get; set; }
+        public StatusTranslationConfReadedDTO status_ { get; set; }
     }
 }

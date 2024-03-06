@@ -187,7 +187,7 @@ builder.Services.AddScoped<IDistrictRepository, DistrictSqlRepository>();
 builder.Services.AddScoped<INeighborhoodRepository, NeighborhoodSqlRepository>();
 
 //Employment AND EmploymentTranslation
-builder.Services.AddScoped<IEmploymentRepsitory, EmploymentSqlRepository>();
+builder.Services.AddScoped<IEmploymentRepository, EmploymentSqlRepository>();
 
 //AppealToRector AND AppealToRectorTranslation
 builder.Services.AddScoped<IAppealToRectorRepository, AppealToRectorSqlRepository>();

@@ -1,5 +1,6 @@
 ﻿using Entities.Model.DistrictsModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,5 +20,7 @@ namespace Entities.Model.NeighborhoodsModel
         [ForeignKey("DistrictTranslation")] public int? district_translation_id { get; set; }
         public DistrictTranslation? district_translation_ { get; set; }
         public string title { get; set; }
+        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
+        public StatusTranslation? status_translation_ { get; set; }
     }
 }

@@ -50,22 +50,22 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public bool CreateDepartament(Departament departament)
+        public int CreateDepartament(Departament departament)
         {
             try
             {
                 if (departament == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.departament_20ts24tu.Add(departament);
                 _context.SaveChanges();
 
-                return true;
+                return departament.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -80,7 +80,6 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 }
                 departament.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.departament_20ts24tu.Update(departament);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -104,19 +103,12 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public bool UpdateDepartament(int id, Departament departament)
+        public bool UpdateDepartament()
         {
 
             try
             {
-                var dep = GetDepartamentById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                departament.id = dep.id;
-                _context.departament_20ts24tu.Update(departament);
-                _context.SaveChanges();
+
                 return true;
             }
             catch
@@ -140,10 +132,10 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     departamentTranslations = _context.departament_translations_20ts24tu
-                        .Include(x=>x.language_)
-                        .Include(x=>x.status_translation_)
-                        .Include(x=>x.img_)
-                        .Include(x=>x.departament_translation_type_)
+                        .Include(x => x.language_)
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.img_)
+                        .Include(x => x.departament_translation_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(10 * (queryNum - 1))
                         .Take(10)
@@ -182,22 +174,22 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public bool CreateDepartamentTranslation(DepartamentTranslation departamentTranslation)
+        public int CreateDepartamentTranslation(DepartamentTranslation departamentTranslation)
         {
             try
             {
                 if (departamentTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.departament_translations_20ts24tu.Add(departamentTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return departamentTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -212,7 +204,6 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 }
                 departamentTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.departament_translations_20ts24tu.Update(departamentTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -239,19 +230,12 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public bool UpdateDepartamentTranslation(int id, DepartamentTranslation departamentTranslation)
+        public bool UpdateDepartamentTranslation()
         {
 
             try
             {
-                var deptr = GetDepartamentById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                departamentTranslation.id = deptr.id;
-                _context.departament_translations_20ts24tu.Update(departamentTranslation);
-                _context.SaveChanges();
+
                 return true;
             }
             catch
@@ -259,5 +243,10 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 return false;
             }
         }
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
+        }
+
     }
 }

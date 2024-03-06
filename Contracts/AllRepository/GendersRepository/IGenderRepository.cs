@@ -13,7 +13,7 @@ namespace Contracts.AllRepository.GendersRepository
         //Gender CRUD
         public IEnumerable<Gender> AllGender(int queryNum, int pageNum);
         public Gender GetGenderById(int id);
-        public bool CreateGender(Gender gender);
+        public int CreateGender(Gender gender);
         public bool UpdateGender();
         public bool DeleteGender(int id);
 
@@ -22,8 +22,11 @@ namespace Contracts.AllRepository.GendersRepository
         //GenderTranslation CRUD
         public IEnumerable<GenderTranslation> AllGenderTranslation(int queryNum, int pageNum, string language_code);
         public GenderTranslation GetGenderTranslationById(int id);
-        public bool CreateGenderTranslation(GenderTranslation genderTranslation);
+        public int CreateGenderTranslation(GenderTranslation genderTranslation);
         public bool UpdateGenderTranslation();
         public bool DeleteGenderTranslation(int id);
+
+        public bool SaveChanges();
+
     }
 }

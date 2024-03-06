@@ -1,7 +1,9 @@
 ﻿using Entities.DTO.CountrysDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.CountrysConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.SiteConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.TerritoriesConfDTOS;
+using Entities.DTO.SiteDTOS;
 using Entities.Model.CountrysModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.TerritoriesModel;
@@ -21,5 +23,6 @@ namespace Entities.DTO.TerritoriesDTOS
         public TerritorieConfReadedDTO territorie_ { get; set; }
         public string title { get; set; }
         public CountryTranslationReadedConfDTO country_translation_ { get; set; }
+        public SiteTranslationConfReadedDTO status_ { get; set; }
     }
 }

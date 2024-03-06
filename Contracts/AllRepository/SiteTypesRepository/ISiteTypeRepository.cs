@@ -12,8 +12,8 @@ namespace Contracts.AllRepository.SiteTypesRepository
         //SiteType CRUD
         public IEnumerable<SiteType> AllSiteType(int queryNum, int pageNum);
         public SiteType GetSiteTypeById(int id);
-        public bool CreateSiteType(SiteType siteType);
-        public bool UpdateSiteType(SiteType siteType, int id);
+        public int CreateSiteType(SiteType siteType);
+        public bool UpdateSiteType();
         public bool DeleteSiteType(int id);
 
 
@@ -21,8 +21,11 @@ namespace Contracts.AllRepository.SiteTypesRepository
         //SiteTypeTranslation CRUD
         public IEnumerable<SiteTypeTranslation> AllSiteTypeTranslation(int queryNum, int pageNum, string language_code);
         public SiteTypeTranslation GetSiteTypeTranslationById(int id);
-        public bool CreateSiteTypeTranslation(SiteTypeTranslation siteTypeTranslation);
-        public bool UpdateSiteTypeTranslation(SiteTypeTranslation siteTypeTranslation, int id);
+        public int CreateSiteTypeTranslation(SiteTypeTranslation siteTypeTranslation);
+        public bool UpdateSiteTypeTranslation();
         public bool DeleteSiteTypeTranslation(int id);
+
+        public bool SaveChanges();
+
     }
 }

@@ -16,7 +16,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
         private readonly RepositoryContext _context;
         public GenderSqlRepository(RepositoryContext repositoryContext)
         {
-           _context = repositoryContext;
+            _context = repositoryContext;
         }
 
 
@@ -29,7 +29,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 var genders = new List<Gender>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    genders = _context.genders_20ts24tu.Include(x => x.status_).Skip(10*(pageNum-1)).Take(10).ToList();
+                    genders = _context.genders_20ts24tu.Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 if (queryNum != 0)
@@ -45,28 +45,28 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 }
                 return genders;
             }
-            catch 
+            catch
             {
                 return null;
             }
         }
 
-        public bool CreateGender(Gender gender)
+        public int CreateGender(Gender gender)
         {
             try
             {
                 if (gender == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.genders_20ts24tu.Add(gender);
                 _context.SaveChanges();
 
-                return true;
+                return gender.id;
             }
-            catch 
+            catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -81,11 +81,10 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 }
                 gender.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.Update(gender);
-                _context.SaveChanges();
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -99,7 +98,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
 
                 return gender;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -110,10 +109,9 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
 
             try
             {
-                _context.SaveChanges();
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -136,7 +134,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                     genderTranslations = _context.genders_translations_20ts24tu.Include(x => x.gender_).
                         Include(x => x.status_translation_).Include(x => x.language_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10*(queryNum - 1))
+                        .Skip(10 * (queryNum - 1))
                         .Take(10)
                         .ToList();
 
@@ -161,28 +159,28 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 }
                 return genderTranslations;
             }
-            catch 
+            catch
             {
                 return null;
             }
         }
 
-        public bool CreateGenderTranslation(GenderTranslation genderTranslation)
+        public int CreateGenderTranslation(GenderTranslation genderTranslation)
         {
             try
             {
                 if (genderTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.genders_translations_20ts24tu.Add(genderTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return genderTranslation.id;
             }
-            catch 
+            catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -197,11 +195,10 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 }
                 genderTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.genders_translations_20ts24tu.Update(genderTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -214,7 +211,7 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 var genderTranslation = _context.genders_translations_20ts24tu.Include(x => x.gender_).Include(x => x.status_translation_).Include(x => x.language_).FirstOrDefault(x => x.id.Equals(id));
                 return genderTranslation;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -225,14 +222,17 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
 
             try
             {
-                _context.SaveChanges();
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
+        }
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
         }
 
     }

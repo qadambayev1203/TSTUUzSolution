@@ -12,8 +12,8 @@ namespace Contracts.AllRepository.PagesRepository
         //Page CRUD
         public IEnumerable<Pages> AllPage(int queryNum, int pageNum);
         public Pages GetPageById(int id);
-        public bool CreatePage(Pages page);
-        public bool UpdatePage(int id,Pages page);
+        public int CreatePage(Pages page);
+        public bool UpdatePage();
         public bool DeletePage(int id);
 
 
@@ -21,8 +21,11 @@ namespace Contracts.AllRepository.PagesRepository
         //PageTranslation CRUD
         public IEnumerable<PageTranslation> AllPageTranslation(int queryNum, int pageNum, string language_code);
         public PageTranslation GetPageTranslationById(int id);
-        public bool CreatePageTranslation(PageTranslation pageTranslation);
-        public bool UpdatePageTranslation(int id,PageTranslation pageTranslation);
+        public int CreatePageTranslation(PageTranslation pageTranslation);
+        public bool UpdatePageTranslation();
         public bool DeletePageTranslation(int id);
+
+        public bool SaveChanges();
+
     }
 }

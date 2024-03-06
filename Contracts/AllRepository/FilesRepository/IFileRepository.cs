@@ -12,7 +12,7 @@ namespace Contracts.AllRepository.FilesRepository
         //File CRUD
         public IEnumerable<Files> AllFile(int queryNum, int pageNum);
         public Files GetFilesById(int id);
-        public bool CreateFiles(Files file);
+        public int CreateFiles(Files file);
         public bool UpdateFiles();
         public bool DeleteFiles(int id);
 
@@ -21,8 +21,11 @@ namespace Contracts.AllRepository.FilesRepository
         //FileTranslation CRUD
         public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum, string language_code);
         public FilesTranslation GetFilesTranslationById(int id);
-        public bool CreateFilesTranslation(FilesTranslation fileTranslation);
+        public int CreateFilesTranslation(FilesTranslation fileTranslation);
         public bool UpdateFilesTranslation();
         public bool DeleteFilesTranslation(int id);
+
+        public bool SaveChanges();
+
     }
 }

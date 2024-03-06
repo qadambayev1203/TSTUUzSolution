@@ -37,16 +37,37 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
             }
         }
 
-        public bool CreateDistrict(District District)
+        public int CreateDistrict(District District)
         {
             try
             {
                 if (District == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.districts_20ts24tu.Add(District);
                 _context.SaveChanges();
+                int id = District.id;
+
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteDistrict(int id)
+        {
+            try
+            {
+                var district = GetDistrictById(id);
+                if (district == null)
+                {
+                    return false;
+                }
+                district.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.districts_20ts24tu.Update(district);
 
                 return true;
             }
@@ -54,11 +75,6 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteDistrict(int id)
-        {
-            return true;
         }
 
         public District GetDistrictById(int id)
@@ -80,14 +96,6 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
 
             try
             {
-                var dep = GetDistrictById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                District.id = dep.id;
-                _context.districts_20ts24tu.Update(District);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -103,7 +111,7 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
 
 
         #region DistrictTranslation CRUD
-        public IEnumerable<DistrictTranslation> AllDistrictTranslation(int territorie_translation_id)
+        public IEnumerable<DistrictTranslation> AllDistrictTranslation(int territorie_translation_id, string language_code)
         {
             try
             {
@@ -114,6 +122,7 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
                     .Include(x => x.district_)
                     .Include(x => x.territorie_translation_)
                     .Where(x => x.territorie_translation_.id == territorie_translation_id)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                     .ToList();
 
 
@@ -125,16 +134,38 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
             }
         }
 
-        public bool CreateDistrictTranslation(DistrictTranslation DistrictTranslation)
+        public int CreateDistrictTranslation(DistrictTranslation DistrictTranslation)
         {
             try
             {
                 if (DistrictTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.districts_translations_20ts24tu.Add(DistrictTranslation);
                 _context.SaveChanges();
+                int id = DistrictTranslation.id;
+
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteDistrictTranslation(int id)
+        {
+
+            try
+            {
+                var district= GetDistrictTranslationById(id);
+                if (district == null)
+                {
+                    return false;
+                }
+                district.status_translation_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.districts_translations_20ts24tu.Update(district);
 
                 return true;
             }
@@ -142,12 +173,6 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteDistrictTranslation(int id)
-        {
-
-            return true;
 
         }
 
@@ -172,14 +197,6 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
 
             try
             {
-                var deptr = GetDistrictById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                DistrictTranslation.id = deptr.id;
-                _context.districts_translations_20ts24tu.Update(DistrictTranslation);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -188,5 +205,19 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
             }
         }
         #endregion
+
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
     }
 }

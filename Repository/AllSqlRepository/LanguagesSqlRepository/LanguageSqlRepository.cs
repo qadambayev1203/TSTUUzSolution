@@ -20,14 +20,14 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
         }
 
 
-        public IEnumerable<Language> AllLanguage(int queryNum,int pageNum)
+        public IEnumerable<Language> AllLanguage(int queryNum, int pageNum)
         {
             try
             {
                 var languages = new List<Language>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x=>x.img_).Skip(10*(pageNum-1)).Take(10).ToList();
+                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
@@ -43,28 +43,28 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
                 }
                 return languages;
             }
-            catch 
+            catch
             {
                 return null;
             }
         }
 
-        public bool CreateLanguage(Language language)
+        public int CreateLanguage(Language language)
         {
             try
             {
                 if (language == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.languages_20ts24tu.Add(language);
                 _context.SaveChanges();
 
-                return true;
+                return language.id;
             }
-            catch 
+            catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -79,11 +79,10 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
                 }
                 language.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.languages_20ts24tu.Update(language);
-                _context.SaveChanges();
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -96,7 +95,7 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
                 var language = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).FirstOrDefault(x => x.id.Equals(id));
                 return language;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -107,13 +106,16 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
 
             try
             {
-                _context.SaveChanges();
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
+        }
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
         }
     }
 }

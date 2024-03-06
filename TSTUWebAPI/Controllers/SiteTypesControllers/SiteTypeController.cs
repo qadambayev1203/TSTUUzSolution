@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Contracts.AllRepository.SiteTypesRepository;
 using Entities.DTO.SiteTypeDTOS;
+using Entities.Model.AnyClasses;
 using Entities.Model.SiteTypesModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,7 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
 {
     [Route("api/sitetype")]
     [ApiController]
+    [Authorize]
     public class SiteTypeController : ControllerBase
     {
         private readonly ISiteTypeRepository _repository;
@@ -22,32 +25,38 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
 
         // SiteType CRUD
 
-        [HttpPost("createsitetype")]
+       [Authorize(Roles="Admin")]       [HttpPost("createsitetype")]
         public IActionResult CreateSiteType(SiteTypeCreatedDTO siteType1)
         {
             var siteType = _mapper.Map<SiteType>(siteType1);
-            bool check = _repository.CreateSiteType(siteType);
+            int check = _repository.CreateSiteType(siteType);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
 
-            return Ok("Created");
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
+
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallsitetype")]
+       [Authorize(Roles="Admin")]       [HttpGet("getallsitetype")]
         public IActionResult GetAllSiteType(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<SiteType> siteTypees1 = _repository.AllSiteType(queryNum, pageNum);
             var siteTypees = _mapper.Map<IEnumerable<SiteTypeReadedDTO>>(siteTypees1);
-            if (siteTypees == null||siteTypees.Count() == 0) { return NotFound(); }
+            if (siteTypees == null || siteTypees.Count() == 0) { return NotFound(); }
             return Ok(siteTypees);
         }
 
-        [HttpGet("getbyidsitetype/{id}")]
+       [Authorize(Roles="Admin")]       [HttpGet("getbyidsitetype/{id}")]
         public IActionResult GetByIdSiteType(int id)
         {
 
@@ -62,11 +71,16 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
         }
 
 
-        [HttpDelete("deletesitetype/{id}")]
+       [Authorize(Roles="Admin")]       [HttpDelete("deletesitetype/{id}")]
         public IActionResult DeleteSiteType(int id)
         {
             bool check = _repository.DeleteSiteType(id);
             if (!check)
+            {
+                return BadRequest();
+            }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
             {
                 return BadRequest();
             }
@@ -75,19 +89,19 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
 
 
 
-        [HttpPut("updatesitetype/{id}")]
+       [Authorize(Roles="Admin")]       [HttpPut("updatesitetype/{id}")]
         public IActionResult UpdateSiteType(SiteTypeUpdatedDTO siteType1, int id)
         {
 
             try
             {
                 SiteType siteType = _repository.GetSiteTypeById(id);
-                if (siteType == null)
+                if (siteType == null || siteType1 == null)
                 {
                     return NotFound();
                 }
-                var siteTypeModel = _mapper.Map<SiteType>(siteType1);
-                var a = _repository.UpdateSiteType(siteTypeModel, id);
+                _mapper.Map(siteType1, siteType);
+                var a = _repository.SaveChanges();
                 if (a)
                 {
                     return BadRequest(a);
@@ -108,32 +122,37 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
 
 
         //SiteTypeTranslation CRUD
-        [HttpPost("createsitetypetranslation")]
+       [Authorize(Roles="Admin")]       [HttpPost("createsitetypetranslation")]
         public IActionResult CreateSiteTypeTranslation(SiteTypeTranslationCreatedDTO siteTypetranslation1)
         {
             var siteTypetranslation = _mapper.Map<SiteTypeTranslation>(siteTypetranslation1);
-            bool check = _repository.CreateSiteTypeTranslation(siteTypetranslation);
+            int check = _repository.CreateSiteTypeTranslation(siteTypetranslation);
 
-            if (!check)
+            if (check == 0)
             {
                 return BadRequest();
             }
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = check,
+                StatusCode = 200
+            };
 
-            return Ok("Created");
+            return Ok(createdItemId);
         }
 
-        [HttpGet("getallsitetypetranslation")]
+       [Authorize(Roles="Admin")]       [HttpGet("getallsitetypetranslation")]
         public IActionResult GetAllSiteTypeTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
             IEnumerable<SiteTypeTranslation> siteTypetranslationes1 = _repository.AllSiteTypeTranslation(queryNum, pageNum, language_code);
             var siteTypetranslationes = _mapper.Map<IEnumerable<SiteTypeTranslationReadedDTO>>(siteTypetranslationes1);
-            if (siteTypetranslationes == null||siteTypetranslationes.Count() == 0) { return NotFound(); }
+            if (siteTypetranslationes == null || siteTypetranslationes.Count() == 0) { return NotFound(); }
             return Ok(siteTypetranslationes);
         }
 
-        [HttpGet("getbyidsitetypetranslation/{id}")]
+       [Authorize(Roles="Admin")]       [HttpGet("getbyidsitetypetranslation/{id}")]
         public IActionResult GetByIdSiteTypeTranslation(int id)
         {
 
@@ -148,7 +167,7 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
         }
 
 
-        [HttpDelete("deletesitetypetranslation/{id}")]
+       [Authorize(Roles="Admin")]       [HttpDelete("deletesitetypetranslation/{id}")]
         public IActionResult DeleteSiteTypeTranslation(int id)
         {
             bool check = _repository.DeleteSiteTypeTranslation(id);
@@ -156,22 +175,27 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
             {
                 return BadRequest();
             }
+            bool check1 = _repository.SaveChanges();
+            if (!check1)
+            {
+                return BadRequest();
+            }
             return Ok("Deleted");
         }
 
 
-        [HttpPut("updatesitetypetranslation/{id}")]
+       [Authorize(Roles="Admin")]       [HttpPut("updatesitetypetranslation/{id}")]
         public IActionResult UpdateSiteTypeTranslation(SiteTypeTranslationUpdatedDTO siteTypetranslation1, int id)
         {
             try
             {
                 var siteType = _repository.GetSiteTypeTranslationById(id);
-                if (siteType == null)
+                if (siteType == null || siteTypetranslation1 == null)
                 {
                     return NotFound();
                 }
-                var siteTypeTranslationModel = _mapper.Map<SiteTypeTranslation>(siteTypetranslation1);
-                bool check = _repository.UpdateSiteTypeTranslation(siteTypeTranslationModel, id);
+                _mapper.Map(siteTypetranslation1, siteType);
+                bool check = _repository.SaveChanges();
                 if (!check)
                 {
                     return BadRequest();

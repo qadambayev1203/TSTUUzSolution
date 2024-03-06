@@ -12,8 +12,8 @@ namespace Contracts.AllRepository.DepartamentsRepository
         //Departament CRUD
         public IEnumerable<Departament> AllDepartament(int queryNum, int pageNum);
         public Departament GetDepartamentById(int id);
-        public bool CreateDepartament(Departament departament);
-        public bool UpdateDepartament(int id, Departament departament);
+        public int CreateDepartament(Departament departament);
+        public bool UpdateDepartament();
         public bool DeleteDepartament(int id);
 
 
@@ -21,8 +21,10 @@ namespace Contracts.AllRepository.DepartamentsRepository
         //DepartamentTranslation CRUD
         public IEnumerable<DepartamentTranslation> AllDepartamentTranslation(int queryNum, int pageNum, string language_code);
         public DepartamentTranslation GetDepartamentTranslationById(int id);
-        public bool CreateDepartamentTranslation(DepartamentTranslation departamentTranslation);
-        public bool UpdateDepartamentTranslation(int id, DepartamentTranslation departamentTranslation);
+        public int CreateDepartamentTranslation(DepartamentTranslation departamentTranslation);
+        public bool UpdateDepartamentTranslation();
         public bool DeleteDepartamentTranslation(int id);
+        public bool SaveChanges();
+
     }
 }

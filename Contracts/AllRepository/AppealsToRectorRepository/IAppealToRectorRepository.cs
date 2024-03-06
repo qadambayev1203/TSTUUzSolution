@@ -12,7 +12,7 @@ namespace Contracts.AllRepository.AppealsToRectorRepository
         //AppealToRector CRUD
         public IEnumerable<AppealToRector> AllAppealToRector(int queryNum, int pageNum);
         public AppealToRector GetAppealToRectorById(int id);
-        public bool CreateAppealToRector(AppealToRector appealToRector);
+        public int CreateAppealToRector(AppealToRector appealToRector);
         public bool UpdateAppealToRector(int id, AppealToRector appealToRector);
         public bool DeleteAppealToRector(int id);
 
@@ -21,8 +21,11 @@ namespace Contracts.AllRepository.AppealsToRectorRepository
         //AppealToRectorTranslation CRUD
         public IEnumerable<AppealToRectorTranslation> AllAppealToRectorTranslation(int queryNum, int pageNum, string language_code);
         public AppealToRectorTranslation GetAppealToRectorTranslationById(int id);
-        public bool CreateAppealToRectorTranslation(AppealToRectorTranslation appealToRectorTranslation);
+        public int CreateAppealToRectorTranslation(AppealToRectorTranslation appealToRectorTranslation);
         public bool UpdateAppealToRectorTranslation(int id, AppealToRectorTranslation appealToRectorTranslation);
         public bool DeleteAppealToRectorTranslation(int id);
+
+
+        public bool SaveChanges();
     }
 }

@@ -50,25 +50,24 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
             }
         }
 
-        public bool CreateStatus(Status status)
+        public int CreateStatus(Status status)
         {
             try
             {
 
-                //_context.BackupDatabase();
                 if (status == null)
                 {
-                    return false;
+                    return 0;
                 }
                 status.is_deleted = false;
                 _context.statuses_20ts24tu.Add(status);
                 _context.SaveChanges();
 
-                return true;
+                return status.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -83,7 +82,6 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 }
                 status.is_deleted = true;
                 _context.statuses_20ts24tu.Update(status);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -111,7 +109,6 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
         {
             try
             {
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -168,23 +165,23 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
             }
         }
 
-        public bool CreateStatusTranslation(StatusTranslation statusTranslation)
+        public int CreateStatusTranslation(StatusTranslation statusTranslation)
         {
             try
             {
                 if (statusTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 statusTranslation.is_deleted = false;
                 _context.statuses_translations_20ts24tu.Add(statusTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return statusTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -199,7 +196,6 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                 }
                 statusTranslation.is_deleted = true;
                 _context.statuses_translations_20ts24tu.Update(statusTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -227,11 +223,23 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
             try
             {
 
-                _context.SaveChanges();
 
                 return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
             {
                 return false;
             }

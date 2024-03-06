@@ -16,6 +16,7 @@ namespace TSTUWebAPI.Controllers
 {
     [Route("api/user")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private static string TokenCheck;

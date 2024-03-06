@@ -72,22 +72,22 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             }
         }
 
-        public bool CreateAppealToRector(AppealToRector AppealToRector)
+        public int CreateAppealToRector(AppealToRector AppealToRector)
         {
             try
             {
                 if (AppealToRector == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.appeals_to_rectors_20ts24tu.Add(AppealToRector);
                 _context.SaveChanges();
-
-                return true;
+                int id = AppealToRector.id;
+                return id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -102,7 +102,6 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                 }
                 AppealToRector.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.appeals_to_rectors_20ts24tu.Update(AppealToRector);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -140,14 +139,6 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
 
             try
             {
-                var dep = GetAppealToRectorById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                AppealToRector.id = dep.id;
-                _context.appeals_to_rectors_20ts24tu.Update(AppealToRector);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -231,22 +222,22 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             }
         }
 
-        public bool CreateAppealToRectorTranslation(AppealToRectorTranslation AppealToRectorTranslation)
+        public int CreateAppealToRectorTranslation(AppealToRectorTranslation AppealToRectorTranslation)
         {
             try
             {
                 if (AppealToRectorTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.appeals_to_rectors_translations_20ts24tu.Add(AppealToRectorTranslation);
                 _context.SaveChanges();
-
-                return true;
+                int id = AppealToRectorTranslation.id;
+                return id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -261,7 +252,6 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                 }
                 AppealToRectorTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.appeals_to_rectors_translations_20ts24tu.Update(AppealToRectorTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -299,14 +289,6 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
 
             try
             {
-                var deptr = GetAppealToRectorById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                AppealToRectorTranslation.id = deptr.id;
-                _context.appeals_to_rectors_translations_20ts24tu.Update(AppealToRectorTranslation);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -315,5 +297,12 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             }
         }
         #endregion
+
+
+
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
+        }
     }
 }

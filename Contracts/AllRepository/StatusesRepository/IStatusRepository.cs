@@ -12,7 +12,7 @@ namespace Contracts.AllRepository.StatusesRepository
         //Status CRUD
         public IEnumerable<Status> AllStatus(int queryNum, int pageNum);
         public Status GetStatusById(int id);
-        public bool CreateStatus(Status status);
+        public int CreateStatus(Status status);
         public bool UpdateStatus();
         public bool DeleteStatus(int id);
 
@@ -21,8 +21,10 @@ namespace Contracts.AllRepository.StatusesRepository
         //StatusTranslation CRUD
         public IEnumerable<StatusTranslation> AllStatusTranslation(int queryNum, int pageNum, string language_code);
         public StatusTranslation GetStatusTranslationById(int id);
-        public bool CreateStatusTranslation(StatusTranslation statusTranslation);
+        public int CreateStatusTranslation(StatusTranslation statusTranslation);
         public bool UpdateStatusTranslation();
         public bool DeleteStatusTranslation(int id);
+        public bool SaveChanges();
+
     }
 }

@@ -50,22 +50,22 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
             }
         }
 
-        public bool CreateDepartamentType(DepartamentType departamentType)
+        public int CreateDepartamentType(DepartamentType departamentType)
         {
             try
             {
                 if (departamentType == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.departament_types_20ts24tu.Add(departamentType);
                 _context.SaveChanges();
 
-                return true;
+                return departamentType.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -80,7 +80,6 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
                 }
                 departamentType.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.departament_types_20ts24tu.Update(departamentType);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -104,19 +103,12 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
             }
         }
 
-        public bool UpdateDepartamentType(int id, DepartamentType departamentType)
+        public bool UpdateDepartamentType()
         {
 
             try
             {
-                var depType = GetDepartamentTypeById(id);
-                if (depType == null)
-                {
-                    return false;
-                }
-                departamentType.id = depType.id;
-                _context.departament_types_20ts24tu.Update(departamentType);
-                _context.SaveChanges();
+
                 return true;
             }
             catch
@@ -172,22 +164,22 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
             }
         }
 
-        public bool CreateDepartamentTypeTranslation(DepartamentTypeTranslation departamentTypeTranslation)
+        public int CreateDepartamentTypeTranslation(DepartamentTypeTranslation departamentTypeTranslation)
         {
             try
             {
                 if (departamentTypeTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.departament_types_translations_20ts24tu.Add(departamentTypeTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return departamentTypeTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -202,7 +194,6 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
                 }
                 departamentTypeTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.departament_types_translations_20ts24tu.Update(departamentTypeTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -226,19 +217,11 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
             }
         }
 
-        public bool UpdateDepartamentTypeTranslation(int id, DepartamentTypeTranslation departamentTypeTranslation)
+        public bool UpdateDepartamentTypeTranslation()
         {
 
             try
             {
-                var depDettr = GetDepartamentTypeById(id);
-                if (depDettr == null)
-                {
-                    return false;
-                }
-                departamentTypeTranslation.id = depDettr.id;
-                _context.departament_types_translations_20ts24tu.Update(departamentTypeTranslation);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -246,5 +229,11 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
                 return false;
             }
         }
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
+        }
+
+        
     }
 }

@@ -62,24 +62,23 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
             }
         }
 
-        public bool CreateUser(User user)
+        public int CreateUser(User user)
         {
             try
             {
-                _context.BackupDatabase();
                 if (user == null)
                 {
-                    return false;
+                    return 0;
                 }
                 user.created_at = DateTime.UtcNow;
                 _context.users_20ts24tu.Add(user);
                 _context.SaveChanges();
 
-                return true;
+                return user.id;
             }
             catch 
             {
-                return false;
+                return 0;
             }
         }
 
@@ -94,7 +93,6 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 }
                 user.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.users_20ts24tu.Update(user);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -119,12 +117,24 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
             }
         }
 
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
+
         public bool UpdateUser()
         {
 
             try
             {
-                _context.SaveChanges();
 
                 return true;
             }

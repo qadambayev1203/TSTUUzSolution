@@ -12,8 +12,8 @@ namespace Contracts.AllRepository.BlogsRepository
         //Blog CRUD
         public IEnumerable<Blog> AllBlog(int queryNum, int pageNum);
         public Blog GetBlogById(int id);
-        public bool CreateBlog(Blog blog);
-        public bool UpdateBlog(int id, Blog blog);
+        public int CreateBlog(Blog blog);
+        public bool UpdateBlog();
         public bool DeleteBlog(int id);
 
 
@@ -21,8 +21,10 @@ namespace Contracts.AllRepository.BlogsRepository
         //BlogTranslation CRUD
         public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code);
         public BlogTranslation GetBlogTranslationById(int id);
-        public bool CreateBlogTranslation(BlogTranslation blogTranslation);
-        public bool UpdateBlogTranslation(int id, BlogTranslation blogTranslation);
+        public int CreateBlogTranslation(BlogTranslation blogTranslation);
+        public bool UpdateBlogTranslation();
         public bool DeleteBlogTranslation(int id);
+        public bool SaveChanges();
+
     }
 }

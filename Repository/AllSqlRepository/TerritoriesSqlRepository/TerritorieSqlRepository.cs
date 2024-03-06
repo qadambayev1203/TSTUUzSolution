@@ -32,16 +32,37 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
             }
         }
 
-        public bool CreateTerritorie(Territorie Territorie)
+        public int CreateTerritorie(Territorie Territorie)
         {
             try
             {
                 if (Territorie == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.territories_20ts24tu.Add(Territorie);
                 _context.SaveChanges();
+                int id = Territorie.id;
+
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteTerritorie(int id)
+        {
+            try
+            {
+                var terr = GetTerritorieById(id);
+                if (terr == null)
+                {
+                    return false;
+                }
+                terr.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.territories_20ts24tu.Update(terr);
 
                 return true;
             }
@@ -49,11 +70,6 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteTerritorie(int id)
-        {
-            return true;
         }
 
         public Territorie GetTerritorieById(int id)
@@ -75,14 +91,6 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
 
             try
             {
-                var dep = GetTerritorieById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                Territorie.id = dep.id;
-                _context.territories_20ts24tu.Update(Territorie);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -98,7 +106,7 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
 
 
         #region TerritorieTranslation CRUD
-        public IEnumerable<TerritorieTranslation> AllTerritorieTranslation(int country_translation_id)
+        public IEnumerable<TerritorieTranslation> AllTerritorieTranslation(int country_translation_id, string language_code)
         {
             try
             {
@@ -109,6 +117,7 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
                     .Include(x => x.territorie_)
                     .Include(x => x.country_translation_)
                     .Where(x => x.country_translation_.id == country_translation_id)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                     .ToList();
 
 
@@ -120,16 +129,37 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
             }
         }
 
-        public bool CreateTerritorieTranslation(TerritorieTranslation TerritorieTranslation)
+        public int CreateTerritorieTranslation(TerritorieTranslation TerritorieTranslation)
         {
             try
             {
                 if (TerritorieTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.territories_translations_20ts24tu.Add(TerritorieTranslation);
                 _context.SaveChanges();
+                int id = TerritorieTranslation.id;
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public bool DeleteTerritorieTranslation(int id)
+        {
+
+            try
+            {
+                var terr= GetTerritorieTranslationById(id);
+                if (terr == null)
+                {
+                    return false;
+                }
+                terr.status_translation_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+                _context.territories_translations_20ts24tu.Update(terr);
 
                 return true;
             }
@@ -137,12 +167,6 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
             {
                 return false;
             }
-        }
-
-        public bool DeleteTerritorieTranslation(int id)
-        {
-
-            return true;
 
         }
 
@@ -167,14 +191,6 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
 
             try
             {
-                var deptr = GetTerritorieById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                TerritorieTranslation.id = deptr.id;
-                _context.territories_translations_20ts24tu.Update(TerritorieTranslation);
-                _context.SaveChanges();
                 return true;
             }
             catch
@@ -183,5 +199,22 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
             }
         }
         #endregion
+
+
+
+
+        public bool SaveChanges()
+        {
+
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 var pages = new List<Pages>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).ThenInclude(y=>y.user_type_)
+                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
@@ -51,22 +51,22 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
             }
         }
 
-        public bool CreatePage(Pages page)
+        public int CreatePage(Pages page)
         {
             try
             {
                 if (page == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.pages_20ts24tu.Add(page);
                 _context.SaveChanges();
 
-                return true;
+                return page.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -81,7 +81,6 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 }
                 page.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.pages_20ts24tu.Update(page);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -105,19 +104,12 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
             }
         }
 
-        public bool UpdatePage(int id, Pages page)
+        public bool UpdatePage()
         {
 
             try
             {
-                var dep = GetPageById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                page.id = dep.id;
-                _context.pages_20ts24tu.Update(page);
-                _context.SaveChanges();
+
                 return true;
             }
             catch
@@ -186,22 +178,22 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
             }
         }
 
-        public bool CreatePageTranslation(PageTranslation pageTranslation)
+        public int CreatePageTranslation(PageTranslation pageTranslation)
         {
             try
             {
                 if (pageTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.pages_translations_20ts24tu.Add(pageTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return pageTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -216,7 +208,6 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 }
                 pageTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.pages_translations_20ts24tu.Update(pageTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -244,25 +235,22 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
             }
         }
 
-        public bool UpdatePageTranslation(int id, PageTranslation pageTranslation)
+        public bool UpdatePageTranslation()
         {
 
             try
             {
-                var deptr = GetPageById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                pageTranslation.id = deptr.id;
-                _context.pages_translations_20ts24tu.Update(pageTranslation);
-                _context.SaveChanges();
+
                 return true;
             }
             catch
             {
                 return false;
             }
+        }
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
         }
     }
 }

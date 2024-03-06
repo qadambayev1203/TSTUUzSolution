@@ -12,17 +12,20 @@ namespace Contracts.AllRepository.CountriesRepository
         //Country CRUD
         public IEnumerable<Country> AllCountry();
         public Country GetCountryById(int id);
-        public bool CreateCountry(Country country);
+        public int CreateCountry(Country country);
         public bool UpdateCountry(int id, Country country);
         public bool DeleteCountry(int id);
 
 
 
         //CountryTranslation CRUD
-        public IEnumerable<CountryTranslation> AllCountryTranslation();
+        public IEnumerable<CountryTranslation> AllCountryTranslation(string language_code);
         public CountryTranslation GetCountryTranslationById(int id);
-        public bool CreateCountryTranslation(CountryTranslation countryTranslation);
+        public int CreateCountryTranslation(CountryTranslation countryTranslation);
         public bool UpdateCountryTranslation(int id, CountryTranslation countryTranslation);
         public bool DeleteCountryTranslation(int id);
+
+
+        public bool SaveChanges();
     }
 }

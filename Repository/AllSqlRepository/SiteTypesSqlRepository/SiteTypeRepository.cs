@@ -55,22 +55,22 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
             }
         }
 
-        public bool CreateSiteType(SiteType siteType)
+        public int CreateSiteType(SiteType siteType)
         {
             try
             {
                 if (siteType == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.site_types_20ts24tu.Add(siteType);
                 _context.SaveChanges();
 
-                return true;
+                return siteType.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -85,7 +85,6 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                 }
                 siteType.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.site_types_20ts24tu.Update(siteType);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -110,18 +109,11 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
             }
         }
 
-        public bool UpdateSiteType(SiteType siteType, int id)
+        public bool UpdateSiteType()
         {
             try
             {
-                var siteTypecheck = GetSiteTypeById(id);
-                if (siteTypecheck == null)
-                {
-                    return false;
-                }
-                siteType.id = siteTypecheck.id;
-                _context.site_types_20ts24tu.Update(siteType);
-                _context.SaveChanges();
+               
                 return true;
             }
             catch
@@ -184,22 +176,22 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
             }
         }
 
-        public bool CreateSiteTypeTranslation(SiteTypeTranslation siteTypeTranslation)
+        public int CreateSiteTypeTranslation(SiteTypeTranslation siteTypeTranslation)
         {
             try
             {
                 if (siteTypeTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.site_types_translations_20ts24tu.Add(siteTypeTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return siteTypeTranslation.id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -214,7 +206,6 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                 }
                 siteTypeTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.site_types_translations_20ts24tu.Update(siteTypeTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -240,25 +231,22 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
             }
         }
 
-        public bool UpdateSiteTypeTranslation(SiteTypeTranslation siteTypeTranslation, int id)
+        public bool UpdateSiteTypeTranslation()
         {
             try
             {
-                var siteTypeTranslationCheck = GetSiteTypeTranslationById(id);
-                if (siteTypeTranslationCheck == null)
-                {
-                    return false;
-                }
-                siteTypeTranslation.id = siteTypeTranslationCheck.id;
-                _context.site_types_translations_20ts24tu.Update(siteTypeTranslation);
-                _context.SaveChanges();
-
                 return true;
             }
             catch
             {
                 return false;
             }
+        }
+
+
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false;}
         }
     }
 }

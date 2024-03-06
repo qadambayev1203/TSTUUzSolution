@@ -1,4 +1,5 @@
 ﻿using Entities.DTO.CountrysDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
 using Entities.Model.CountrysModel;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,6 @@ namespace Entities.DTO.TerritoriesDTOS
         public int id { get; set; }
         public string title { get; set; }
         public CountryReadedDTO country_ { get; set; }
+        public StatusConfReadedDTO status_ { get; set; }
     }
 }

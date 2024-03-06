@@ -12,8 +12,9 @@ namespace Contracts.AllRepository.UsersRepository
         //User CRUD
         public IEnumerable<User> AllUser(int queryNum, int pageNum);
         public User GetUserById(int id);
-        public bool CreateUser(User user);
+        public int CreateUser(User user);
         public bool UpdateUser();
+        public bool SaveChanges();
         public bool DeleteUser(int id);
 
     }

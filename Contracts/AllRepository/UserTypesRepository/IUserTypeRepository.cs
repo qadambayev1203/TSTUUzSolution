@@ -12,7 +12,7 @@ namespace Contracts.AllRepository.UserTypesRepository
         //UserType CRUD
         public IEnumerable<UserType> AllUserType(int queryNum,int pageNum);
         public UserType GetUserTypeById(int id);
-        public bool CreateUserType(UserType userType);
+        public int CreateUserType(UserType userType);
         public bool UpdateUserType();
         public bool DeleteUserType(int id);
 
@@ -20,9 +20,10 @@ namespace Contracts.AllRepository.UserTypesRepository
         //UserTypeTranslation CRUD
         public IEnumerable<UserTypeTranslation> AllUserTypeTranslation(int queryNum, int pageNum, string language_code);
         public UserTypeTranslation GetUserTypeTranslationById(int id);
-        public bool CreateUserTypeTranslation(UserTypeTranslation userTypeTranslation);
+        public int CreateUserTypeTranslation(UserTypeTranslation userTypeTranslation);
         public bool UpdateUserTypeTranslation();
         public bool DeleteUserTypeTranslation(int id);
+        public bool SaveChanges();
 
 
 

@@ -50,22 +50,22 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
             }
         }
 
-        public bool CreateBlogCategory(BlogCategory blogCategory)
+        public int CreateBlogCategory(BlogCategory blogCategory)
         {
             try
             {
                 if (blogCategory == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.blogs_category_20ts24tu.Add(blogCategory);
                 _context.SaveChanges();
-
-                return true;
+                int id = blogCategory.id;
+                return id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -80,7 +80,6 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                 }
                 blogCategory.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.blogs_category_20ts24tu.Update(blogCategory);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -109,14 +108,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
 
             try
             {
-                var dep = GetBlogCategoryById(id);
-                if (dep == null)
-                {
-                    return false;
-                }
-                blogCategory.id = dep.id;
-                _context.blogs_category_20ts24tu.Update(blogCategory);
-                _context.SaveChanges();
+                
                 return true;
             }
             catch
@@ -179,22 +171,22 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
             }
         }
 
-        public bool CreateBlogCategoryTranslation(BlogCategoryTranslation blogCategoryTranslation)
+        public int CreateBlogCategoryTranslation(BlogCategoryTranslation blogCategoryTranslation)
         {
             try
             {
                 if (blogCategoryTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.blogs_category_translations_20ts24tu.Add(blogCategoryTranslation);
                 _context.SaveChanges();
-
-                return true;
+                int id = blogCategoryTranslation.id;
+                return id;
             }
             catch
             {
-                return false;
+                return 0;
             }
         }
 
@@ -209,7 +201,6 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                 }
                 blogCategoryTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.blogs_category_translations_20ts24tu.Update(blogCategoryTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -240,17 +231,23 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
 
             try
             {
-                var deptr = GetBlogCategoryById(id);
-                if (deptr == null)
-                {
-                    return false;
-                }
-                blogCategoryTranslation.id = deptr.id;
-                _context.blogs_category_translations_20ts24tu.Update(blogCategoryTranslation);
-                _context.SaveChanges();
+               
                 return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
             {
                 return false;
             }

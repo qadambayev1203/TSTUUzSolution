@@ -1,4 +1,5 @@
-﻿using Entities.Model.TerritoriesModel;
+﻿using Entities.Model.StatusModel;
+using Entities.Model.TerritoriesModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,5 +15,7 @@ namespace Entities.Model.DistrictsModel
         [ForeignKey("Territorie")] public int? territorie_id { get; set; }
         public Territorie territorie_ { get; set; }
         public string title { get; set; }
+        [ForeignKey("Status")] public int? status_id { get; set; }
+        public Status? status_ { get; set; }
     }
 }

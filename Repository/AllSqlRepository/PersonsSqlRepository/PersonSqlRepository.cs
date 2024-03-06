@@ -59,23 +59,23 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
             }
         }
 
-        public bool CreatePerson(Person person)
+        public int CreatePerson(Person person)
         {
             try
             {
                 if (person == null)
                 {
-                    return false;
+                    return 0;
                 }
                 person.created_at = DateTime.UtcNow;
                 _context.persons_20ts24tu.Add(person);
                 _context.SaveChanges();
 
-                return true;
+                return person.id;
             }
             catch 
             {
-                return false;
+                return 0;
             }
         }
 
@@ -90,7 +90,6 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 }
                 person.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.persons_20ts24tu.Update(person);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -118,7 +117,6 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
             try
             {
-                _context.SaveChanges();
 
                 return true;
             }
@@ -177,22 +175,22 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
             }
         }
 
-        public bool CreatePersonTranslation(PersonTranslation personTranslation)
+        public int CreatePersonTranslation(PersonTranslation personTranslation)
         {
             try
             {
                 if (personTranslation == null)
                 {
-                    return false;
+                    return 0;
                 }
                 _context.persons_translations_20ts24tu.Add(personTranslation);
                 _context.SaveChanges();
 
-                return true;
+                return personTranslation.id;
             }
             catch 
             {
-                return false;
+                return 0;
             }
         }
 
@@ -207,7 +205,6 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 }
                 personTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.persons_translations_20ts24tu.Update(personTranslation);
-                _context.SaveChanges();
 
                 return true;
             }
@@ -235,7 +232,6 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
             try
             {
-                _context.SaveChanges();
 
                 return true;
             }
@@ -243,6 +239,10 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
             {
                 return false;
             }
+        }
+        public bool SaveChanges()
+        {
+            try { _context.SaveChanges(); return true; } catch { return false; }
         }
 
     }

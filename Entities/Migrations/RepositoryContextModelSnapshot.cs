@@ -358,11 +358,16 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("id");
+
+                    b.HasIndex("status_id");
 
                     b.ToTable("countries_20ts24tu");
 
@@ -393,6 +398,9 @@ namespace Entities.Migrations
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -402,6 +410,8 @@ namespace Entities.Migrations
                     b.HasIndex("country_id");
 
                     b.HasIndex("language_id");
+
+                    b.HasIndex("status_translation_id");
 
                     b.ToTable("countries_translations_20ts24tu");
                 });
@@ -646,6 +656,9 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("territorie_id")
                         .HasColumnType("integer");
 
@@ -654,6 +667,8 @@ namespace Entities.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("id");
+
+                    b.HasIndex("status_id");
 
                     b.HasIndex("territorie_id");
 
@@ -1894,6 +1909,9 @@ namespace Entities.Migrations
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("territorie_translation_id")
                         .HasColumnType("integer");
 
@@ -1906,6 +1924,8 @@ namespace Entities.Migrations
                     b.HasIndex("district_id");
 
                     b.HasIndex("language_id");
+
+                    b.HasIndex("status_translation_id");
 
                     b.HasIndex("territorie_translation_id");
 
@@ -1920,11 +1940,16 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("id");
+
+                    b.HasIndex("status_id");
 
                     b.ToTable("employments_20ts24tu");
 
@@ -1965,6 +1990,9 @@ namespace Entities.Migrations
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -1974,6 +2002,8 @@ namespace Entities.Migrations
                     b.HasIndex("employment_id");
 
                     b.HasIndex("language_id");
+
+                    b.HasIndex("status_translation_id");
 
                     b.ToTable("employments_translations_20ts24tu");
 
@@ -2197,12 +2227,17 @@ namespace Entities.Migrations
                     b.Property<int?>("district_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .HasColumnType("text");
 
                     b.HasKey("id");
 
                     b.HasIndex("district_id");
+
+                    b.HasIndex("status_id");
 
                     b.ToTable("neighborhoods_20ts24tu");
                 });
@@ -2224,6 +2259,9 @@ namespace Entities.Migrations
                     b.Property<int?>("neighborhood_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -2235,6 +2273,8 @@ namespace Entities.Migrations
                     b.HasIndex("language_id");
 
                     b.HasIndex("neighborhood_id");
+
+                    b.HasIndex("status_translation_id");
 
                     b.ToTable("neighborhoods_translations_20ts24tu");
                 });
@@ -2736,6 +2776,20 @@ namespace Entities.Migrations
                     b.HasKey("id");
 
                     b.ToTable("statuses_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            is_deleted = false,
+                            status = "Active"
+                        },
+                        new
+                        {
+                            id = 2,
+                            is_deleted = false,
+                            status = "Deleted"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Model.StatusModel.StatusTranslation", b =>
@@ -2765,6 +2819,24 @@ namespace Entities.Migrations
                     b.HasIndex("status_id");
 
                     b.ToTable("statuses_translations_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            is_deleted = false,
+                            language_id = 1,
+                            status = "Active",
+                            status_id = 1
+                        },
+                        new
+                        {
+                            id = 2,
+                            is_deleted = false,
+                            language_id = 1,
+                            status = "Deleted",
+                            status_id = 2
+                        });
                 });
 
             modelBuilder.Entity("Entities.Model.TerritoriesModel.Territorie", b =>
@@ -2778,6 +2850,9 @@ namespace Entities.Migrations
                     b.Property<int?>("country_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -2785,6 +2860,8 @@ namespace Entities.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("country_id");
+
+                    b.HasIndex("status_id");
 
                     b.ToTable("territories_20ts24tu");
 
@@ -2889,6 +2966,9 @@ namespace Entities.Migrations
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("territorie_id")
                         .HasColumnType("integer");
 
@@ -2901,6 +2981,8 @@ namespace Entities.Migrations
                     b.HasIndex("country_translation_id");
 
                     b.HasIndex("language_id");
+
+                    b.HasIndex("status_translation_id");
 
                     b.HasIndex("territorie_id");
 
@@ -2979,7 +3061,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 2,
-                            login = "user",
+                            login = "aser",
                             password = "5sI/jrzFz2ijUO3dRLlGnjdVl5zBYO4OInDwyb/qPYk=",
                             user_type_id = 2
                         });
@@ -3009,12 +3091,12 @@ namespace Entities.Migrations
                         new
                         {
                             id = 1,
-                            type = "admin"
+                            type = "Admin"
                         },
                         new
                         {
                             id = 2,
-                            type = "user"
+                            type = "User"
                         });
                 });
 
@@ -3259,6 +3341,15 @@ namespace Entities.Migrations
                     b.Navigation("user_");
                 });
 
+            modelBuilder.Entity("Entities.Model.CountrysModel.Country", b =>
+                {
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("status_");
+                });
+
             modelBuilder.Entity("Entities.Model.CountrysModel.CountryTranslation", b =>
                 {
                     b.HasOne("Entities.Model.CountrysModel.Country", "country_")
@@ -3269,9 +3360,15 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("language_id");
 
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
                     b.Navigation("country_");
 
                     b.Navigation("language_");
+
+                    b.Navigation("status_translation_");
                 });
 
             modelBuilder.Entity("Entities.Model.DepartamentDetailsModel.DepartamentDetail", b =>
@@ -3396,9 +3493,15 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Model.DistrictsModel.District", b =>
                 {
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
                     b.HasOne("Entities.Model.TerritoriesModel.Territorie", "territorie_")
                         .WithMany()
                         .HasForeignKey("territorie_id");
+
+                    b.Navigation("status_");
 
                     b.Navigation("territorie_");
                 });
@@ -3413,6 +3516,10 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("language_id");
 
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
                     b.HasOne("Entities.Model.TerritoriesModel.TerritorieTranslation", "territorie_translation_")
                         .WithMany()
                         .HasForeignKey("territorie_translation_id");
@@ -3421,7 +3528,18 @@ namespace Entities.Migrations
 
                     b.Navigation("language_");
 
+                    b.Navigation("status_translation_");
+
                     b.Navigation("territorie_translation_");
+                });
+
+            modelBuilder.Entity("Entities.Model.EmploymentModel.Employment", b =>
+                {
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("status_");
                 });
 
             modelBuilder.Entity("Entities.Model.EmploymentModel.EmploymentTranslation", b =>
@@ -3434,9 +3552,15 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("language_id");
 
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
                     b.Navigation("employment_");
 
                     b.Navigation("language_");
+
+                    b.Navigation("status_translation_");
                 });
 
             modelBuilder.Entity("Entities.Model.FileModel.Files", b =>
@@ -3532,7 +3656,13 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("district_id");
 
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
                     b.Navigation("district_");
+
+                    b.Navigation("status_");
                 });
 
             modelBuilder.Entity("Entities.Model.NeighborhoodsModel.NeighborhoodTranslation", b =>
@@ -3549,11 +3679,17 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("neighborhood_id");
 
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
                     b.Navigation("district_translation_");
 
                     b.Navigation("language_");
 
                     b.Navigation("neighborhood_");
+
+                    b.Navigation("status_translation_");
                 });
 
             modelBuilder.Entity("Entities.Model.PagesModel.PageTranslation", b =>
@@ -3849,7 +3985,13 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("country_id");
 
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
                     b.Navigation("country_");
+
+                    b.Navigation("status_");
                 });
 
             modelBuilder.Entity("Entities.Model.TerritoriesModel.TerritorieTranslation", b =>
@@ -3862,6 +4004,10 @@ namespace Entities.Migrations
                         .WithMany()
                         .HasForeignKey("language_id");
 
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
                     b.HasOne("Entities.Model.TerritoriesModel.Territorie", "territorie_")
                         .WithMany()
                         .HasForeignKey("territorie_id");
@@ -3869,6 +4015,8 @@ namespace Entities.Migrations
                     b.Navigation("country_translation_");
 
                     b.Navigation("language_");
+
+                    b.Navigation("status_translation_");
 
                     b.Navigation("territorie_");
                 });

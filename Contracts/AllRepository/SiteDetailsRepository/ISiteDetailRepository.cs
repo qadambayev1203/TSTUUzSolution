@@ -12,8 +12,8 @@ namespace Contracts.AllRepository.SiteDetailsRepository
         //SiteDetail CRUD
         public IEnumerable<SiteDetail> AllSiteDetail(int queryNum, int pageNum);
         public SiteDetail GetSiteDetailById(int id);
-        public bool CreateSiteDetail(SiteDetail siteDetail);
-        public bool UpdateSiteDetail(SiteDetail siteDetail, int id);
+        public int CreateSiteDetail(SiteDetail siteDetail);
+        public bool UpdateSiteDetail();
         public bool DeleteSiteDetail(int id);
 
 
@@ -21,8 +21,10 @@ namespace Contracts.AllRepository.SiteDetailsRepository
         //SiteDetailTranslation CRUD
         public IEnumerable<SiteDetailTranslation> AllSiteDetailTranslation(int queryNum, int pageNum, string language_code);
         public SiteDetailTranslation GetSiteDetailTranslationById(int id);
-        public bool CreateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation);
-        public bool UpdateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation, int id);
+        public int CreateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation);
+        public bool UpdateSiteDetailTranslation();
         public bool DeleteSiteDetailTranslation(int id);
+        public bool SaveChanges();
+
     }
 }

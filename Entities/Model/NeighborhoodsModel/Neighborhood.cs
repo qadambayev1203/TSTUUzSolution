@@ -1,4 +1,5 @@
 ﻿using Entities.Model.DistrictsModel;
+using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,5 +15,7 @@ namespace Entities.Model.NeighborhoodsModel
         [ForeignKey("District")] public int? district_id { get; set; }
         public District? district_ { get; set; }
         public string? title { get; set; }
+        [ForeignKey("Status")] public int? status_id { get; set; }
+        public Status? status_ { get; set; }
     }
 }
