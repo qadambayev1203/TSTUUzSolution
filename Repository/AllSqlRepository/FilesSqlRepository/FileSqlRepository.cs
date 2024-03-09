@@ -28,8 +28,8 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 var files = new List<Files>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y=>y.user_type_)
-                        .Include(x => x.status_).Skip(10 * (pageNum-1)).Take(10).ToList();
+                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
@@ -117,6 +117,24 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 return false;
             }
         }
+        public IEnumerable<Files> SelectFileTitle()
+        {
+            try
+            {
+                var files = new List<Files>();
+                files = _context.files_20ts24tu
+                    .Select(x => new Files
+                    {
+                        id = x.id,
+                        title = x.title
+                    }).ToList();
+                return files;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
 
 
@@ -131,16 +149,16 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
-                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10*(pageNum-1)).Take(10).ToList();
+                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 else if (queryNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_)
-                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Include(x => x.language_).Take(queryNum).ToList();
 
@@ -148,7 +166,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 else
                 {
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
-                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200).ToList();
 
@@ -205,7 +223,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             try
             {
                 var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
-                        .Include(x=> x.user_).ThenInclude(y=>y.user_type_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
                     .FirstOrDefault(x => x.id.Equals(id));
                 return fileTranslation;
             }
@@ -228,10 +246,33 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 return false;
             }
         }
+        public IEnumerable<FilesTranslation> SelectFileTranslationTitle(string language_code)
+        {
+            try
+            {
+                var files = new List<FilesTranslation>();
+                files = _context.files_translations_20ts24tu
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                    .Select(x => new FilesTranslation
+                    {
+                        id = x.id,
+                        title = x.title
+                    }).ToList();
+
+                return files;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public bool SaveChanges()
         {
-            try { _context.SaveChanges(); return true; } catch { return false;}
+            try { _context.SaveChanges(); return true; } catch { return false; }
         }
+
+
+
     }
 }

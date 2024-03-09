@@ -79,11 +79,13 @@ namespace TSTUWebAPI.Profiles
             CreateMap<FilesUpdatedDTO, Files>();
             CreateMap<Files, FilesReadedDTO>();
             CreateMap<Files, FileConfReadedDTO>();
+            CreateMap<Files, FileSelectDTO>();
 
             CreateMap<FilesTranslationCreatedDTO, FilesTranslation>();
             CreateMap<FilesTranslationUpdatedDTO, FilesTranslation>();
             CreateMap<FilesTranslation, FilesTranslationReadedDTO>();
             CreateMap<FilesTranslation, FileTranslationConfReadedDTO>();
+            CreateMap<FilesTranslation, FileTranslationSelectDTO>();
 
 
             //Gender DTOS

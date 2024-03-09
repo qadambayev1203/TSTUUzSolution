@@ -15,7 +15,7 @@ namespace Contracts.AllRepository.FilesRepository
         public int CreateFiles(Files file);
         public bool UpdateFiles();
         public bool DeleteFiles(int id);
-
+        public IEnumerable<Files> SelectFileTitle();
 
 
         //FileTranslation CRUD
@@ -24,6 +24,8 @@ namespace Contracts.AllRepository.FilesRepository
         public int CreateFilesTranslation(FilesTranslation fileTranslation);
         public bool UpdateFilesTranslation();
         public bool DeleteFilesTranslation(int id);
+        public IEnumerable<FilesTranslation> SelectFileTranslationTitle(string language_code);
+
 
         public bool SaveChanges();
 
