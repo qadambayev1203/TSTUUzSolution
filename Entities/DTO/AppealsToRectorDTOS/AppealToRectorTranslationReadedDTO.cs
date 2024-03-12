@@ -20,11 +20,13 @@ namespace Entities.DTO.AppealsToRectorDTOS
         public TerritorieTranslationConfReadedDTO? territorie_translation_ { get; set; }
         public DistrictTranslationConfReadedDTO? district_translation_ { get; set; }
         public NeighborhoodTranslationConfReadedDTO? neighborhood_translation_ { get; set; }
-        public int addres { get; set; }
+        public string addres { get; set; }
         public string fio_ { get; set; }
         public DateTime birthday { get; set; }
         public GenderTranslationConfReadedDTO? gender_translation_ { get; set; }
         public EmploymentTranslationConfRededDTO? employe_translation_ { get; set; }
+        public string telephone_number_one { get; set; }
+        public string telephone_number_two { get; set; }
         public string email { get; set; }
         public FileTranslationConfReadedDTO file_translation_ { get; set; }
         public string appeal { get; set; }

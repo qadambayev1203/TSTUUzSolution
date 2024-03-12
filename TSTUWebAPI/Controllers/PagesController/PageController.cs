@@ -26,10 +26,12 @@ namespace TSTUWebAPI.Controllers.PagesController
 
         // page CRUD
 
-        [Authorize(Roles="Admin")]       [HttpPost("createpage")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createpage")]
         public IActionResult Createpage(PageCreatedDTO page1)
         {
             var page = _mapper.Map<Pages>(page1);
+            page.user_id = UserCreatedId.id;
             int check = _repository.CreatePage(page);
 
             if (check == 0)
@@ -45,7 +47,8 @@ namespace TSTUWebAPI.Controllers.PagesController
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallpage")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getallpage")]
         public IActionResult GetAllpage(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -57,7 +60,8 @@ namespace TSTUWebAPI.Controllers.PagesController
             return Ok(pages);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidpage/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getbyidpage/{id}")]
         public IActionResult GetByIdpage(int id)
         {
 
@@ -68,7 +72,8 @@ namespace TSTUWebAPI.Controllers.PagesController
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deletepage/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deletepage/{id}")]
         public IActionResult Deletepage(int id)
         {
             bool check = _repository.DeletePage(id);
@@ -86,7 +91,8 @@ namespace TSTUWebAPI.Controllers.PagesController
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updatepage/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updatepage/{id}")]
         public IActionResult Updatepage(PageUpdatedDTO page1, int id)
         {
             try
@@ -119,10 +125,12 @@ namespace TSTUWebAPI.Controllers.PagesController
 
 
         //pageTranslation CRUD
-        [Authorize(Roles="Admin")]       [HttpPost("createpagetranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createpagetranslation")]
         public IActionResult CreatepageTranslation(PageTranslationCreatedDTO pagetranslation1)
         {
             var pagetranslation = _mapper.Map<PageTranslation>(pagetranslation1);
+            pagetranslation.user_id = UserCreatedId.id;
             int check = _repository.CreatePageTranslation(pagetranslation);
 
             if (check == 0)
@@ -138,7 +146,8 @@ namespace TSTUWebAPI.Controllers.PagesController
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallpagetranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getallpagetranslation")]
         public IActionResult GetAllpageTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -149,7 +158,8 @@ namespace TSTUWebAPI.Controllers.PagesController
             return Ok(pagetranslationes);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidpagetranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getbyidpagetranslation/{id}")]
         public IActionResult GetByIdpageTranslation(int id)
         {
             PageTranslation pagetranslation1 = _repository.GetPageTranslationById(id);
@@ -159,7 +169,8 @@ namespace TSTUWebAPI.Controllers.PagesController
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deletepagetranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deletepagetranslation/{id}")]
         public IActionResult DeletepageTranslation(int id)
         {
             bool check = _repository.DeletePageTranslation(id);
@@ -177,7 +188,8 @@ namespace TSTUWebAPI.Controllers.PagesController
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updatepagetranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updatepagetranslation/{id}")]
         public IActionResult UpdatepageTranslation(PageTranslation pagetranslation1, int id)
         {
             try

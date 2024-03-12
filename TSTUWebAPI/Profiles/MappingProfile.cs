@@ -339,11 +339,13 @@ namespace TSTUWebAPI.Profiles
             CreateMap<AppealToRectorUpdatedDTO, AppealToRector>();
             CreateMap<AppealToRector, AppealToRectorReadedDTO>();
             CreateMap<AppealToRector, AppealToRectorConfRededDTO>();
+            CreateMap<AppealToRector, AppealEmailCheckStatusDTO>();
 
 
             CreateMap<AppealToRectorTranslationCreatedDTO, AppealToRectorTranslation>();
             CreateMap<AppealToRectorTranslationUpdatedDTO, AppealToRectorTranslation>();
             CreateMap<AppealToRectorTranslation, AppealToRectorTranslationReadedDTO>();
+            CreateMap<AppealToRectorTranslation, AppealTranslationEmailCheckStatusDTO>();
         }
     }
 }

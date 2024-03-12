@@ -1,6 +1,7 @@
 ﻿using Contracts.AllRepository.AppealsToRectorRepository;
 using Entities;
 using Entities.Model.AppealsToTheRectorsModel;
+using Entities.Model.StatusModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
@@ -146,7 +147,25 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                 return false;
             }
         }
-
+        public IEnumerable<AppealToRector> GetByAppealStatus(string email)
+        {
+            try
+            {
+                List<AppealToRector> appealToRectorsStatus = new List<AppealToRector>();
+                appealToRectorsStatus = _context.appeals_to_rectors_20ts24tu.Where(x => x.email == email)
+                    .Select(y => new AppealToRector
+                    {
+                        id = y.id,
+                        appeal = y.appeal,
+                        status_ = y.status_
+                    }).ToList();
+                return appealToRectorsStatus;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         #endregion
 
@@ -303,6 +322,29 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
         public bool SaveChanges()
         {
             try { _context.SaveChanges(); return true; } catch { return false; }
+        }
+
+
+
+        public IEnumerable<AppealToRectorTranslation> GetByAppealStatusTranslation(string email, string language_code)
+        {
+            try
+            {
+                List<AppealToRectorTranslation> appealToRectorsStatus = new List<AppealToRectorTranslation>();
+                appealToRectorsStatus = _context.appeals_to_rectors_translations_20ts24tu.Where(x => x.email == email)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                    .Select(y => new AppealToRectorTranslation
+                    {
+                        id = y.id,
+                        appeal = y.appeal,
+                        status_translation_ = y.status_translation_
+                    }).ToList();
+                return appealToRectorsStatus;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

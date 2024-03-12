@@ -14,11 +14,13 @@ namespace Entities.DTO.AppealsToRectorDTOS
         public int? territorie_translation_id { get; set; }
         public int? district_translation_id { get; set; }
         public int? neighborhood_translation_id { get; set; }
-        public int addres { get; set; }
+        public string addres { get; set; }
         public string fio_ { get; set; }
         public DateTime birthday { get; set; }
         public int? gender_translation_id { get; set; }
         public int? employe_translation_id { get; set; }
+        public string telephone_number_one { get; set; }
+        public string telephone_number_two { get; set; }
         public string email { get; set; }
         public int? file_translation_id { get; set; }
         public string appeal { get; set; }

@@ -46,6 +46,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 return BadRequest("File Upload Error!");
             }
             files.url = Url;
+            files.user_id = UserCreatedId.id;
             int check = _repository.CreateFiles(files);
 
             if (check == 0)
@@ -193,6 +194,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 return BadRequest("File Upload Error!");
             }
             filestranslation.url = Url;
+            filestranslation.user_id = UserCreatedId.id;
             int check = _repository.CreateFilesTranslation(filestranslation);
 
             if (check == 0)

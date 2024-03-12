@@ -17,6 +17,5 @@ namespace Entities.DTO.BlogsDTOS
         public int? blog_category_id { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
-        public int? user_id { get; set; }
     }
 }

@@ -25,10 +25,12 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         #region Blog CRUD
 
-        [Authorize(Roles="Admin")]       [HttpPost("createblog")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createblog")]
         public IActionResult CreateBlog(BlogCreatedDTO blog1)
         {
             var blog = _mapper.Map<Blog>(blog1);
+            blog.user_id = UserCreatedId.id;
             int check = _repository.CreateBlog(blog);
 
             if (check == 0)
@@ -44,7 +46,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallblog")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getallblog")]
         public IActionResult GetAllBlog(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -55,7 +58,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             return Ok(blogs);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidblog/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getbyidblog/{id}")]
         public IActionResult GetByIdBlog(int id)
         {
 
@@ -71,7 +75,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deleteblog/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteblog/{id}")]
         public IActionResult DeleteBlog(int id)
         {
             bool check = _repository.DeleteBlog(id);
@@ -89,7 +94,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updateblog/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateblog/{id}")]
         public IActionResult UpdateBlog(BlogUpdatedDTO blog1, int id)
         {
             try
@@ -122,10 +128,12 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         #region BlogTranslation CRUD
 
-        [Authorize(Roles="Admin")]       [HttpPost("createblogtranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createblogtranslation")]
         public IActionResult CreateBlogTranslation(BlogTranslationCreatedDTO blogtranslation1)
         {
             var blogtranslation = _mapper.Map<BlogTranslation>(blogtranslation1);
+            blogtranslation.user_id = UserCreatedId.id;
             int check = _repository.CreateBlogTranslation(blogtranslation);
 
             if (check == 0)
@@ -141,7 +149,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallblogtranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getallblogtranslation")]
         public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -152,7 +161,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             return Ok(blogtranslations);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidblogtranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getbyidblogtranslation/{id}")]
         public IActionResult GetByIdBlogTranslation(int id)
         {
 
@@ -163,7 +173,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deleteblogtranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteblogtranslation/{id}")]
         public IActionResult DeleteBlogTranslation(int id)
         {
             bool check = _repository.DeleteBlogTranslation(id);
@@ -181,7 +192,8 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updateblogtranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateblogtranslation/{id}")]
         public IActionResult UpdateBlogTranslation(BlogTranslationUpdatedDTO blogtranslation1, int id)
         {
             try

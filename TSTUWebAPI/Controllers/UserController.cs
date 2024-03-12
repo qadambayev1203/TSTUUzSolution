@@ -20,7 +20,6 @@ namespace TSTUWebAPI.Controllers
     public class UserController : ControllerBase
     {
         private static string TokenCheck;
-        private static int UserId;
         private readonly IRepositoryManager repositoryManager;
         private readonly IOptions<AppSettings> appSettings;
         private readonly IMapper mapper;
@@ -75,7 +74,7 @@ namespace TSTUWebAPI.Controllers
                 return Unauthorized("Error login or password");
             }
             TokenCheck=authInfo.Token;
-            UserId = authInfo.UserDetails.Id;
+            UserCreatedId.id = authInfo.UserDetails.Id;
             return Ok(authInfo);
         }
 
@@ -90,7 +89,7 @@ namespace TSTUWebAPI.Controllers
                 {
                     TokenVerify verify = new TokenVerify()
                     {
-                        user_id = UserId,
+                        user_id = UserCreatedId.id,
                         verification=true
                     };
                     

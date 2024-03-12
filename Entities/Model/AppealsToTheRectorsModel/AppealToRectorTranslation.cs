@@ -31,13 +31,15 @@ namespace Entities.Model.AppealsToTheRectorsModel
         public DistrictTranslation? district_translation_ { get; set; }
         [ForeignKey("NeighborhoodTranslation")] public int? neighborhood_translation_id { get; set; }
         public NeighborhoodTranslation? neighborhood_translation_ { get; set; }
-        public int addres { get; set; }
+        public string addres { get; set; }
         public string fio_ { get; set; }
         public DateTime birthday { get; set; }
         [ForeignKey("GenderTranslation")] public int? gender_translation_id { get; set; }
         public GenderTranslation? gender_translation_ { get; set; }
         [ForeignKey("EmploymentTranslation")] public int? employe_translation_id { get; set; }
         public EmploymentTranslation? employe_translation_ { get; set; }
+        public string telephone_number_one { get; set; }
+        public string telephone_number_two { get; set; }
         public string email { get; set; }
         [ForeignKey("FilesTranslation")] public int? file_translation_id { get; set; }
         public FilesTranslation file_translation_ { get; set; }

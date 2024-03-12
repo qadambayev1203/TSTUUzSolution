@@ -26,13 +26,15 @@ namespace Entities.Model.AppealsToTheRectorsModel
         public District? district_ { get; set; }
         [ForeignKey("Neighborhood")] public int? neighborhood_id { get; set; }
         public Neighborhood neighborhood_ { get; set; }
-        public int addres { get; set; }
+        public string addres { get; set; }
         public string fio_ { get; set; }
         public DateTime birthday { get; set; }
         [ForeignKey("Gender")] public int? gender_id { get; set; }
         public Gender? gender_ { get; set; }
         [ForeignKey("Employment")] public int? employe_id { get; set; }
         public Employment? employe_ { get; set; }
+        public string telephone_number_one { get; set; }
+        public string telephone_number_two { get; set; }
         public string email { get; set; }
         [ForeignKey("Files")] public int? file_id { get; set; }
         public Files file_ { get; set; }

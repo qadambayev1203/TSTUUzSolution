@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.SitesControllers
         public IActionResult CreateSite(SiteCreatedDTO site1)
         {
             var site = _mapper.Map<Site>(site1);
+            site.user_id = UserCreatedId.id;
             int check = _repository.CreateSite(site);
 
             if (check == 0)
@@ -125,6 +126,7 @@ namespace TSTUWebAPI.Controllers.SitesControllers
         public IActionResult CreateSiteTranslation(SiteTranslationCreatedDTO sitetranslation1)
         {
             var sitetranslation = _mapper.Map<SiteTranslation>(sitetranslation1);
+            sitetranslation.user_id = UserCreatedId.id;
             int check = _repository.CreateSiteTranslation(sitetranslation);
 
             if (check == 0)

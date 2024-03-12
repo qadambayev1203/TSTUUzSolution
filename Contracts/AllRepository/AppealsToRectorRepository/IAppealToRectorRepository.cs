@@ -1,4 +1,5 @@
 ﻿using Entities.Model.AppealsToTheRectorsModel;
+using Entities.Model.StatusModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Contracts.AllRepository.AppealsToRectorRepository
         public int CreateAppealToRector(AppealToRector appealToRector);
         public bool UpdateAppealToRector(int id, AppealToRector appealToRector);
         public bool DeleteAppealToRector(int id);
+        public IEnumerable<AppealToRector> GetByAppealStatus(string email);
 
 
 
@@ -24,6 +26,7 @@ namespace Contracts.AllRepository.AppealsToRectorRepository
         public int CreateAppealToRectorTranslation(AppealToRectorTranslation appealToRectorTranslation);
         public bool UpdateAppealToRectorTranslation(int id, AppealToRectorTranslation appealToRectorTranslation);
         public bool DeleteAppealToRectorTranslation(int id);
+        public IEnumerable<AppealToRectorTranslation> GetByAppealStatusTranslation(string email, string language_code);
 
 
         public bool SaveChanges();

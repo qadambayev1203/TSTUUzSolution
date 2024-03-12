@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 {
     [Route("api/appealtorector")]
-    [Authorize]
     [ApiController]
     public class AppealToRectorController : ControllerBase
     {
@@ -24,7 +23,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 
         // AppealToRector CRUD
 
-        [Authorize(Roles="Admin")]       [HttpPost("createappealtorector")]
+        [HttpPost("createappealtorector")]
         public IActionResult CreateAppealToRector(AppealToRectorCreatedDTO AppealToRector1)
         {
             var AppealToRector = _mapper.Map<AppealToRector>(AppealToRector1);
@@ -44,7 +43,8 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallappealtorector")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getallappealtorector")]
         public IActionResult GetAllAppealToRector(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -56,7 +56,8 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(AppealToRectors);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidappealtorector/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getbyidappealtorector/{id}")]
         public IActionResult GetByIdAppealToRector(int id)
         {
 
@@ -71,7 +72,8 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deleteappealtorector/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteappealtorector/{id}")]
         public IActionResult DeleteAppealToRector(int id)
         {
             bool check = _repository.DeleteAppealToRector(id);
@@ -89,12 +91,17 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updateappealtorector/{id}")]
-        public IActionResult UpdateAppealToRector(AppealToRectorUpdatedDTO AppealToRector1, int id)
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateappealtorector/{id}")]
+        public IActionResult UpdateAppealToRector(int status_id, int id)
         {
             try
             {
                 var AppealToRectorcheck = _repository.GetAppealToRectorById(id);
+                AppealToRectorUpdatedDTO AppealToRector1 = new AppealToRectorUpdatedDTO()
+                {
+                    status_id = status_id
+                };
                 if (AppealToRectorcheck == null || AppealToRector1 == null)
                 {
                     return NotFound();
@@ -114,14 +121,22 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 
         }
 
+        [HttpGet("getallappealtorectoremailstatus/{email}")]
+        public IActionResult GetAllAppealToRectorEmailStatus(string email)
+        {
+            IEnumerable<AppealToRector> AppealToRectors1 = _repository.GetByAppealStatus(email);
+            var AppealToRectors = _mapper.Map<IEnumerable<AppealEmailCheckStatusDTO>>(AppealToRectors1);
+            if (AppealToRectors == null || AppealToRectors.Count() == 0) { return NotFound(); }
 
+            return Ok(AppealToRectors);
+        }
 
 
 
 
 
         //AppealToRectorTranslation CRUD
-        [Authorize(Roles="Admin")]       [HttpPost("createappealtorectortranslation")]
+        [HttpPost("createappealtorectortranslation")]
         public IActionResult CreateAppealToRectorTranslation(AppealToRectorTranslationCreatedDTO AppealToRectortranslation1)
         {
             var AppealToRectortranslation = _mapper.Map<AppealToRectorTranslation>(AppealToRectortranslation1);
@@ -144,7 +159,8 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallappealtorectortranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getallappealtorectortranslation")]
         public IActionResult GetAllAppealToRectorTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -156,7 +172,8 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(AppealToRectortranslations);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidappealtorectortranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getbyidappealtorectortranslation/{id}")]
         public IActionResult GetByIdAppealToRectorTranslation(int id)
         {
 
@@ -168,7 +185,8 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deleteappealtorectortranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteappealtorectortranslation/{id}")]
         public IActionResult DeleteAppealToRectorTranslation(int id)
         {
             bool check = _repository.DeleteAppealToRectorTranslation(id);
@@ -186,12 +204,17 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updateappealtorectortranslation/{id}")]
-        public IActionResult UpdateAppealToRectorTranslation(AppealToRectorTranslationUpdatedDTO AppealToRectortranslation1, int id)
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateappealtorectortranslation/{id}")]
+        public IActionResult UpdateAppealToRectorTranslation(int status_translation_id, int id)
         {
             try
             {
                 var AppealToRectortranslationch = _repository.GetAppealToRectorTranslationById(id);
+                AppealToRectorTranslationUpdatedDTO AppealToRectortranslation1 = new AppealToRectorTranslationUpdatedDTO()
+                {
+                    status_translation_id=status_translation_id,
+                };
                 if (AppealToRectortranslationch == null || AppealToRectortranslation1 == null)
                 {
                     return NotFound();
@@ -209,6 +232,17 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                 return BadRequest();
             }
 
+        }
+
+
+        [HttpGet("getallappealtorectortranslationemailstatus/{email}")]
+        public IActionResult GetAllAppealToRectorTranslationEmailStatus(string email, string language_code)
+        {
+            IEnumerable<AppealToRectorTranslation> AppealToRectors1 = _repository.GetByAppealStatusTranslation(email, language_code);
+            var AppealToRectorsTranslation = _mapper.Map<IEnumerable<AppealTranslationEmailCheckStatusDTO>>(AppealToRectors1);
+            if (AppealToRectorsTranslation == null || AppealToRectorsTranslation.Count() == 0) { return NotFound(); }
+
+            return Ok(AppealToRectorsTranslation);
         }
     }
 }

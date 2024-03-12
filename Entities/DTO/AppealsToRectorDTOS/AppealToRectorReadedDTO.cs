@@ -30,11 +30,13 @@ namespace Entities.DTO.AppealsToRectorDTOS
         public TerritorieConfReadedDTO territorie_ { get; set; }
         public DistrictConfReadedDTO? district_ { get; set; }
         public NeighborhoodConfReadedDTO neighborhood_ { get; set; }
-        public int addres { get; set; }
+        public string addres { get; set; }
         public string fio_ { get; set; }
         public DateTime birthday { get; set; }
         public GenderConfReadedDTO? gender_ { get; set; }
         public EmploymentReadedDTO? employe_ { get; set; }
+        public string telephone_number_one { get; set; }
+        public string telephone_number_two { get; set; }
         public string email { get; set; }
         public FileConfReadedDTO file_ { get; set; }
         public string appeal { get; set; }

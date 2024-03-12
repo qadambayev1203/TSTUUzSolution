@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240306200223_FirstMigration")]
+    [Migration("20240312082942_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -33,8 +33,9 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<int>("addres")
-                        .HasColumnType("integer");
+                    b.Property<string>("addres")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("appeal")
                         .IsRequired()
@@ -72,6 +73,14 @@ namespace Entities.Migrations
                     b.Property<int?>("status_id")
                         .HasColumnType("integer");
 
+                    b.Property<string>("telephone_number_one")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("telephone_number_two")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int?>("territorie_id")
                         .HasColumnType("integer");
 
@@ -104,8 +113,9 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<int>("addres")
-                        .HasColumnType("integer");
+                    b.Property<string>("addres")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("appeal")
                         .IsRequired()
@@ -148,6 +158,14 @@ namespace Entities.Migrations
 
                     b.Property<int?>("status_translation_id")
                         .HasColumnType("integer");
+
+                    b.Property<string>("telephone_number_one")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("telephone_number_two")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int?>("territorie_translation_id")
                         .HasColumnType("integer");
