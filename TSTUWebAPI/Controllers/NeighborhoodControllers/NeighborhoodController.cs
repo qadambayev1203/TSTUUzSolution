@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace TSTUWebAPI.Controllers.NeighborhoodControllers
 {
     [Route("api/neighborhood")]
-    [Authorize]
     [ApiController]
     public class NeighborhoodController : ControllerBase
     {
@@ -25,7 +24,8 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
 
         // Neighborhood CRUD
 
-       [Authorize(Roles="Admin")]       [HttpPost("createneighborhood")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createneighborhood")]
         public IActionResult CreateNeighborhood(NeighborhoodCreatedDTO Neighborhood1)
         {
             var Neighborhood = _mapper.Map<Neighborhood>(Neighborhood1);
@@ -45,7 +45,7 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
             return Ok(createdItemId);
         }
 
-       [Authorize(Roles="Admin")]       [HttpGet("getallneighborhood")]
+        [HttpGet("getallneighborhood")]
         public IActionResult GetAllNeighborhood(int district_id)
         {
             IEnumerable<Neighborhood> Neighborhoods1 = _repository.AllNeighborhood(district_id);
@@ -55,7 +55,7 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
             return Ok(Neighborhoods);
         }
 
-       [Authorize(Roles="Admin")]       [HttpGet("getbyidneighborhood/{id}")]
+        [HttpGet("getbyidneighborhood/{id}")]
         public IActionResult GetByIdNeighborhood(int id)
         {
 
@@ -70,14 +70,16 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
         }
 
 
-       [Authorize(Roles="Admin")]       [HttpDelete("deleteNeighborhood/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteNeighborhood/{id}")]
         public IActionResult DeleteNeighborhood(int id)
         {
             bool check = _repository.DeleteNeighborhood(id);
             if (!check)
             {
                 return BadRequest();
-            }bool check1 = _repository.SaveChanges();
+            }
+            bool check1 = _repository.SaveChanges();
             if (!check1)
             {
                 return BadRequest();
@@ -87,7 +89,8 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
 
 
 
-       [Authorize(Roles="Admin")]       [HttpPut("updateneighborhood/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateneighborhood/{id}")]
         public IActionResult UpdateNeighborhood(NeighborhoodUpdatedDTO Neighborhood1, int id)
         {
             try
@@ -119,7 +122,8 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
 
 
         //NeighborhoodTranslation CRUD
-       [Authorize(Roles="Admin")]       [HttpPost("createneighborhoodtranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createneighborhoodtranslation")]
         public IActionResult CreateNeighborhoodTranslation(NeighborhoodTranslationCreatedDTO Neighborhoodtranslation1)
         {
             var Neighborhoodtranslation = _mapper.Map<NeighborhoodTranslation>(Neighborhoodtranslation1);
@@ -142,7 +146,7 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
             return Ok(createdItemId);
         }
 
-       [Authorize(Roles="Admin")]       [HttpGet("getallneighborhoodtranslation")]
+        [HttpGet("getallneighborhoodtranslation")]
         public IActionResult GetAllNeighborhoodTranslation(int country_translation_id, string? language_code)
         {
             IEnumerable<NeighborhoodTranslation> Neighborhoodtranslations1 = _repository.AllNeighborhoodTranslation(country_translation_id, language_code);
@@ -152,7 +156,7 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
             return Ok(Neighborhoodtranslations);
         }
 
-       [Authorize(Roles="Admin")]       [HttpGet("getbyidneighborhoodtranslation/{id}")]
+        [HttpGet("getbyidneighborhoodtranslation/{id}")]
         public IActionResult GetByIdNeighborhoodTranslation(int id)
         {
 
@@ -164,14 +168,16 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
         }
 
 
-       [Authorize(Roles="Admin")]       [HttpDelete("deleteNeighborhoodtranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteNeighborhoodtranslation/{id}")]
         public IActionResult DeleteNeighborhoodTranslation(int id)
         {
             bool check = _repository.DeleteNeighborhoodTranslation(id);
             if (!check)
             {
                 return BadRequest();
-            }bool check1 = _repository.SaveChanges();
+            }
+            bool check1 = _repository.SaveChanges();
             if (!check1)
             {
                 return BadRequest();
@@ -181,7 +187,8 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
 
 
 
-       [Authorize(Roles="Admin")]       [HttpPut("updateneighborhoodtranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateneighborhoodtranslation/{id}")]
         public IActionResult UpdateNeighborhoodTranslation(NeighborhoodTranslationUpdatedDTO Neighborhoodtranslation1, int id)
         {
             try

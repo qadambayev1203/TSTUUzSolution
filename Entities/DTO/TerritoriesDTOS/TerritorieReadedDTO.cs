@@ -14,7 +14,6 @@ namespace Entities.DTO.TerritoriesDTOS
     {
         public int id { get; set; }
         public string title { get; set; }
-        public CountryReadedDTO country_ { get; set; }
         public StatusConfReadedDTO status_ { get; set; }
     }
 }

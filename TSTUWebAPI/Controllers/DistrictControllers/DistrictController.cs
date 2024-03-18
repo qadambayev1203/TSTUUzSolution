@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace TSTUWebAPI.Controllers.DistrictControllers
 {
     [Route("api/district")]
-    [Authorize]
     [ApiController]
     public class DistrictController : ControllerBase
     {
@@ -24,7 +23,8 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
 
         // District CRUD
 
-      [Authorize(Roles="Admin")]       [HttpPost("createdistrict")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createdistrict")]
         public IActionResult CreateDistrict(DistrictCreatedDTO District1)
         {
             var District = _mapper.Map<District>(District1);
@@ -44,7 +44,7 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
             return Ok(createdItemId);
         }
 
-      [Authorize(Roles="Admin")]       [HttpGet("getalldistrict")]
+        [HttpGet("getalldistrict")]
         public IActionResult GetAllDistrict(int territorie_id)
         {
             IEnumerable<District> Districts1 = _repository.AllDistrict(territorie_id);
@@ -54,7 +54,7 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
             return Ok(Districts);
         }
 
-      [Authorize(Roles="Admin")]       [HttpGet("getbyiddistrict/{id}")]
+        [HttpGet("getbyiddistrict/{id}")]
         public IActionResult GetByIdDistrict(int id)
         {
 
@@ -69,14 +69,16 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
         }
 
 
-      [Authorize(Roles="Admin")]       [HttpDelete("deleteDistrict/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteDistrict/{id}")]
         public IActionResult DeleteDistrict(int id)
         {
             bool check = _repository.DeleteDistrict(id);
             if (!check)
             {
                 return BadRequest();
-            }bool check1 = _repository.SaveChanges();
+            }
+            bool check1 = _repository.SaveChanges();
             if (!check1)
             {
                 return BadRequest();
@@ -86,7 +88,8 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
 
 
 
-      [Authorize(Roles="Admin")]       [HttpPut("updatedistrict/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updatedistrict/{id}")]
         public IActionResult UpdateDistrict(DistrictUpdatedDTO District1, int id)
         {
             try
@@ -118,7 +121,8 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
 
 
         //DistrictTranslation CRUD
-      [Authorize(Roles="Admin")]       [HttpPost("createdistricttranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createdistricttranslation")]
         public IActionResult CreateDistrictTranslation(DistrictTranslationCreatedDTO Districttranslation1)
         {
             var Districttranslation = _mapper.Map<DistrictTranslation>(Districttranslation1);
@@ -141,7 +145,7 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
             return Ok(createdItemId);
         }
 
-      [Authorize(Roles="Admin")]       [HttpGet("getalldistricttranslation")]
+        [HttpGet("getalldistricttranslation")]
         public IActionResult GetAllDistrictTranslation(int territorie_translation_id, string? language_code)
         {
             IEnumerable<DistrictTranslation> Districttranslations1 = _repository.AllDistrictTranslation(territorie_translation_id, language_code);
@@ -151,7 +155,7 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
             return Ok(Districttranslations);
         }
 
-      [Authorize(Roles="Admin")]       [HttpGet("getbyiddistricttranslation/{id}")]
+        [HttpGet("getbyiddistricttranslation/{id}")]
         public IActionResult GetByIdDistrictTranslation(int id)
         {
 
@@ -163,14 +167,16 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
         }
 
 
-      [Authorize(Roles="Admin")]       [HttpDelete("deleteDistricttranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteDistricttranslation/{id}")]
         public IActionResult DeleteDistrictTranslation(int id)
         {
             bool check = _repository.DeleteDistrictTranslation(id);
             if (!check)
             {
                 return BadRequest();
-            } bool check1 = _repository.SaveChanges();
+            }
+            bool check1 = _repository.SaveChanges();
             if (!check1)
             {
                 return BadRequest();
@@ -180,7 +186,8 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
 
 
 
-      [Authorize(Roles="Admin")]       [HttpPut("updatedistricttranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updatedistricttranslation/{id}")]
         public IActionResult UpdateDistrictTranslation(DistrictTranslationUpdatedDTO Districttranslation1, int id)
         {
             try

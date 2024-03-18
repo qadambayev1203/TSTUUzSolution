@@ -19,10 +19,8 @@ namespace Entities.DTO.TerritoriesDTOS
     public class TerritorieTranslationReadedDTO
     {
         public int id { get; set; }
-        public LanguageConfReadedDTO? language_ { get; set; }
-        public TerritorieConfReadedDTO territorie_ { get; set; }
         public string title { get; set; }
-        public CountryTranslationReadedConfDTO country_translation_ { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
         public SiteTranslationConfReadedDTO status_ { get; set; }
     }
 }

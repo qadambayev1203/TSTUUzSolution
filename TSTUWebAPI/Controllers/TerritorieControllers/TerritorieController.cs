@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace TSTUWebAPI.Controllers.TerritorieControllers
 {
     [Route("api/territorie")]
-    [Authorize]
     [ApiController]
     public class TerritorieController : ControllerBase
     {
@@ -45,7 +44,7 @@ namespace TSTUWebAPI.Controllers.TerritorieControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallterritorie")]
+        [HttpGet("getallterritorie")]
         public IActionResult GetAllTerritorie(int country_id)
         {
             IEnumerable<Territorie> Territories1 = _repository.AllTerritorie(country_id);
@@ -55,7 +54,7 @@ namespace TSTUWebAPI.Controllers.TerritorieControllers
             return Ok(Territories);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidterritorie/{id}")]
+        [HttpGet("getbyidterritorie/{id}")]
         public IActionResult GetByIdTerritorie(int id)
         {
 
@@ -142,7 +141,7 @@ namespace TSTUWebAPI.Controllers.TerritorieControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallterritorietranslation")]
+        [HttpGet("getallterritorietranslation")]
         public IActionResult GetAllTerritorieTranslation(int country_translation_id, string? language_code)
         {
             IEnumerable<TerritorieTranslation> Territorietranslations1 = _repository.AllTerritorieTranslation(country_translation_id, language_code);
@@ -152,7 +151,7 @@ namespace TSTUWebAPI.Controllers.TerritorieControllers
             return Ok(Territorietranslations);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidterritorietranslation/{id}")]
+        [HttpGet("getbyidterritorietranslation/{id}")]
         public IActionResult GetByIdTerritorieTranslation(int id)
         {
 

@@ -17,10 +17,8 @@ namespace Entities.DTO.DistrictsDTOS
     public class DistrictTranslationReadedDTO
     {
         public int id { get; set; }
-        public LanguageConfReadedDTO? language_ { get; set; }
-        public DistrictConfReadedDTO? district_ { get; set; }
-        public TerritorieTranslationConfReadedDTO territorie_translation_ { get; set; }
         public string title { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
         public StatusTranslationConfReadedDTO status_ { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace Entities.DTO.CountrysDTOS
         public int id { get; set; }
         public string title { get; set; }
         public LanguageConfReadedDTO? language_ { get; set; }
-        public CountryReadedDTO country_ { get; set; }
         public StatusTranslationConfReadedDTO status_translation_ { get; set; }
     }
 }

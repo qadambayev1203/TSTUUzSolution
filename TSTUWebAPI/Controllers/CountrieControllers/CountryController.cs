@@ -44,7 +44,7 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallcountry")]
+        [HttpGet("getallcountry")]
         public IActionResult GetAllCountry()
         {
             IEnumerable<Country> Countrys1 = _repository.AllCountry();
@@ -54,7 +54,7 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
             return Ok(Countrys);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidcountry/{id}")]
+        [HttpGet("getbyidcountry/{id}")]
         public IActionResult GetByIdCountry(int id)
         {
 
@@ -69,7 +69,8 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deleteCountry/{id}")]
+        [Authorize(Roles="Admin")]
+        [HttpDelete("deleteCountry/{id}")]
         public IActionResult DeleteCountry(int id)
         {
             bool check = _repository.DeleteCountry(id);
@@ -141,7 +142,7 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallcountrytranslation")]
+        [HttpGet("getallcountrytranslation")]
         public IActionResult GetAllCountryTranslation(string language_code)
         {
             IEnumerable<CountryTranslation> Countrytranslations1 = _repository.AllCountryTranslation(language_code);
@@ -151,7 +152,7 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
             return Ok(Countrytranslations);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidcountrytranslation/{id}")]
+        [HttpGet("getbyidcountrytranslation/{id}")]
         public IActionResult GetByIdCountryTranslation(int id)
         {
 

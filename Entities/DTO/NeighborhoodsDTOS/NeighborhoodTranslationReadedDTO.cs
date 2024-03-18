@@ -17,10 +17,8 @@ namespace Entities.DTO.NeighborhoodsDTOS
     public class NeighborhoodTranslationReadedDTO
     {
         public int id { get; set; }
-        public LanguageConfReadedDTO? language_ { get; set; }
-        public NeighborhoodConfReadedDTO neighborhood_ { get; set; }
-        public DistrictTranslationConfReadedDTO? district_translation_ { get; set; }
         public string title { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
         public StatusTranslationConfReadedDTO status_ { get; set; }
     }
 }
