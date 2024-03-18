@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace TSTUWebAPI.Controllers.CountrieControllers
 {
     [Route("api/country")]
-    [Authorize]
     [ApiController]
     public class CountryController : ControllerBase
     {
