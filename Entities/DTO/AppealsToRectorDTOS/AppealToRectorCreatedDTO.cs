@@ -22,6 +22,5 @@ namespace Entities.DTO.AppealsToRectorDTOS
         public string email { get; set; }
         public int? file_id { get; set; }
         public string appeal { get; set; }
-        public int? status_id { get; set; }
     }
 }

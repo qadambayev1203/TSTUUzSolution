@@ -26,6 +26,10 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
         [HttpPost("createappealtorector")]
         public IActionResult CreateAppealToRector(AppealToRectorCreatedDTO AppealToRector1)
         {
+            if (AppealToRector1 == null)
+            {
+                return BadRequest();
+            }
             var AppealToRector = _mapper.Map<AppealToRector>(AppealToRector1);
             int id = _repository.CreateAppealToRector(AppealToRector);
 
@@ -139,6 +143,10 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
         [HttpPost("createappealtorectortranslation")]
         public IActionResult CreateAppealToRectorTranslation(AppealToRectorTranslationCreatedDTO AppealToRectortranslation1)
         {
+            if (AppealToRectortranslation1 == null)
+            {
+                return BadRequest();
+            }
             var AppealToRectortranslation = _mapper.Map<AppealToRectorTranslation>(AppealToRectortranslation1);
             int id = _repository.CreateAppealToRectorTranslation(AppealToRectortranslation);
             if (id == 0)
@@ -213,7 +221,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                 var AppealToRectortranslationch = _repository.GetAppealToRectorTranslationById(id);
                 AppealToRectorTranslationUpdatedDTO AppealToRectortranslation1 = new AppealToRectorTranslationUpdatedDTO()
                 {
-                    status_translation_id=status_translation_id,
+                    status_translation_id = status_translation_id,
                 };
                 if (AppealToRectortranslationch == null || AppealToRectortranslation1 == null)
                 {

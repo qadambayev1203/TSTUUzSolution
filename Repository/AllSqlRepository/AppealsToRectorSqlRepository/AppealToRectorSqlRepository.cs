@@ -77,6 +77,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
         {
             try
             {
+                AppealToRector.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Active")).id;
                 if (AppealToRector == null)
                 {
                     return 0;
@@ -245,6 +246,8 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
         {
             try
             {
+                AppealToRectorTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Active")).id;
+
                 if (AppealToRectorTranslation == null)
                 {
                     return 0;
