@@ -30,15 +30,15 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                     statuses = _context.statuses_20ts24tu.Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    statuses = _context.statuses_20ts24tu.Take(queryNum).ToList();
+                    statuses = _context.statuses_20ts24tu.Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    statuses = _context.statuses_20ts24tu.Take(200).ToList();
+                    statuses = _context.statuses_20ts24tu.ToList();
 
                 }
                 return statuses;
@@ -138,13 +138,13 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                         .ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
                         .Include(x => x.language_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(queryNum)
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
 
                 }
@@ -153,7 +153,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
                     statusesTranslation = _context.statuses_translations_20ts24tu.Include(x => x.status_)
                         .Include(x => x.language_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200)
+                      
                         .ToList();
 
                 }

@@ -33,17 +33,17 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     Employments = _context.employments_20ts24tu
-                        .Take(queryNum).ToList();
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
                     Employments = _context.employments_20ts24tu
-                       .Take(200).ToList();
+                       .ToList();
 
                 }
                 return Employments;
@@ -156,6 +156,7 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.employment_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Skip(queryNum * (pageNum - 1))
                         .Take(queryNum)
                         .ToList();
 
@@ -166,7 +167,7 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.employment_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return EmploymentTranslations;

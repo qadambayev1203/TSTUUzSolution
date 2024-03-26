@@ -31,15 +31,15 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                     blogCategorys = _context.blogs_category_20ts24tu.Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    blogCategorys = _context.blogs_category_20ts24tu.Include(x => x.status_).Take(queryNum).ToList();
+                    blogCategorys = _context.blogs_category_20ts24tu.Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    blogCategorys = _context.blogs_category_20ts24tu.Include(x => x.status_).Take(200).ToList();
+                    blogCategorys = _context.blogs_category_20ts24tu.Include(x => x.status_).ToList();
 
                 }
                 return blogCategorys;
@@ -141,7 +141,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                         .ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     blogCategoryTranslations = _context.blogs_category_translations_20ts24tu
@@ -149,6 +149,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                         .Include(x => x.status_translation_)
                         .Include(x => x.blog_category_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Skip(queryNum * (pageNum - 1))
                         .Take(queryNum)
                         .ToList();
 
@@ -160,7 +161,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                         .Include(x => x.status_translation_)
                         .Include(x => x.blog_category_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return blogCategoryTranslations;

@@ -30,15 +30,15 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
                     languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).Take(queryNum).ToList();
+                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).Take(200).ToList();
+                    languages = _context.languages_20ts24tu.Include(x => x.status_).Include(x => x.img_).ToList();
 
                 }
                 return languages;

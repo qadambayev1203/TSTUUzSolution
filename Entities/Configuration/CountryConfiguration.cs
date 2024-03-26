@@ -10,7 +10,7 @@ using Entities.Model.CountrysModel;
 
 namespace Entities.Configuration
 {
-    internal class CountryConfiguration : IEntityTypeConfiguration<Country>
+    public class CountryConfiguration : IEntityTypeConfiguration<Country>
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {

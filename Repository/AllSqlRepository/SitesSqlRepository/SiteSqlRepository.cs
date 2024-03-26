@@ -31,16 +31,16 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Take(queryNum).ToList();
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).ThenInclude(y => y.user_type_).Take(200).ToList();
+                    sitees = _context.sites_20ts24tu.Include(x => x.status_).Include(x => x.site_type_).Include(x => x.user_).ThenInclude(y => y.user_type_).ToList();
 
                 }
                 return sitees;
@@ -146,7 +146,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     siteesTranslation = _context.sites_translations_20ts24tu
@@ -156,7 +156,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .Include(x => x.site_type_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(queryNum)
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
 
                 }
@@ -168,7 +168,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                         .Include(x => x.site_type_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200)
+                        
                         .ToList();
 
                 }
@@ -176,9 +176,9 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
             catch
             {
-#pragma warning disable CS8603 // Possible null reference return.
+
                 return null;
-#pragma warning restore CS8603 // Possible null reference return.
+
             }
         }
 

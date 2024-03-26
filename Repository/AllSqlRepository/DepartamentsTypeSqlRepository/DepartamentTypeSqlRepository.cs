@@ -31,15 +31,15 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
                     departamentTypes = _context.departament_types_20ts24tu.Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departamentTypes = _context.departament_types_20ts24tu.Include(x => x.status_).Take(queryNum).ToList();
+                    departamentTypes = _context.departament_types_20ts24tu.Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    departamentTypes = _context.departament_types_20ts24tu.Include(x => x.status_).Take(200).ToList();
+                    departamentTypes = _context.departament_types_20ts24tu.Include(x => x.status_).ToList();
 
                 }
                 return departamentTypes;
@@ -139,12 +139,13 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
                         .ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     departamentTypeTranslations = _context.departament_types_translations_20ts24tu.Include(x => x.language_)
                         .Include(x => x.departament_type_).Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Skip(queryNum * (queryNum - 1))
                         .Take(queryNum)
                         .ToList();
 
@@ -153,7 +154,7 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
                 {
                     departamentTypeTranslations = _context.departament_types_translations_20ts24tu.Include(x => x.language_)
                         .Include(x => x.departament_type_).Include(x => x.status_translation_)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null).Take(200).ToList();
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null).ToList();
 
                 }
                 return departamentTypeTranslations;

@@ -31,29 +31,28 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_)
-                        .Skip(10*(pageNum-1))
+                        .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
 
                 }
-                else if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_)
-                        .Take(queryNum)
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
 
                 }
                 else
                 {
                     persons = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_)
-                        .Take(200)
                         .ToList();
 
                 }
                 return persons;
             }
-            catch 
+            catch
             {
                 return Enumerable.Empty<Person>();
             }
@@ -73,7 +72,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
                 return person.id;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -93,7 +92,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -106,7 +105,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 var person = _context.persons_20ts24tu.Include(x => x.gender_).Include(x => x.status_).Include(x => x.img_).FirstOrDefault(x => x.id.Equals(id));
                 return person;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -120,7 +119,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -132,7 +131,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
 
         //PersonTranslation CRUD
-        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum,int pageNum, string language_code)
+        public IEnumerable<PersonTranslation> AllPersonTranslation(int queryNum, int pageNum, string language_code)
         {
             try
             {
@@ -140,21 +139,21 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 if (queryNum == 0 && pageNum != 0)
                 {
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.language_)
-                        .Include(x => x.persons_).ThenInclude(y=>y.img_)
+                        .Include(x => x.persons_).ThenInclude(y => y.img_)
                         .Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10*(pageNum-1))
+                        .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).
                         Include(x => x.language_).Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(queryNum)
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
 
                 }
@@ -163,13 +162,12 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                     personsTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_)
                         .Include(x => x.language_).Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200)
-                        .ToList();
+                          .ToList();
 
                 }
                 return personsTranslation;
             }
-            catch 
+            catch
             {
                 return Enumerable.Empty<PersonTranslation>();
             }
@@ -188,7 +186,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
                 return personTranslation.id;
             }
-            catch 
+            catch
             {
                 return 0;
             }
@@ -208,7 +206,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }
@@ -221,7 +219,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 var personTranslation = _context.persons_translations_20ts24tu.Include(x => x.gender_).Include(x => x.language_).Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
                 return personTranslation;
             }
-            catch 
+            catch
             {
                 return null;
             }
@@ -235,7 +233,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
 
                 return true;
             }
-            catch 
+            catch
             {
                 return false;
             }

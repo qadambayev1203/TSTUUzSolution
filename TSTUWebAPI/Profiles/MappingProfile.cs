@@ -12,6 +12,8 @@ using Entities.DTO.EmploymentsDTOS;
 using Entities.DTO.FilesDTOS;
 using Entities.DTO.GenderDTOS;
 using Entities.DTO.LanguageDTOS;
+using Entities.DTO.MenuDTOS;
+using Entities.DTO.MenuTypesDTOS;
 using Entities.DTO.NeighborhoodsDTOS;
 using Entities.DTO.PageDTOS;
 using Entities.DTO.PersonDTOS;
@@ -25,6 +27,8 @@ using Entities.DTO.ReadedDTOSConfigurations.DistrictsConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.GenderConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.MenuConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.MenuTypesConfDTO;
 using Entities.DTO.ReadedDTOSConfigurations.NeighborhoodConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.PageConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.PersonsConfDTOS;
@@ -55,6 +59,8 @@ using Entities.Model.EmploymentModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.MenuModel;
+using Entities.Model.MenuTypesModel;
 using Entities.Model.NeighborhoodsModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
@@ -346,6 +352,31 @@ namespace TSTUWebAPI.Profiles
             CreateMap<AppealToRectorTranslationUpdatedDTO, AppealToRectorTranslation>();
             CreateMap<AppealToRectorTranslation, AppealToRectorTranslationReadedDTO>();
             CreateMap<AppealToRectorTranslation, AppealTranslationEmailCheckStatusDTO>();
+
+
+            //MenuType DTOS
+            CreateMap<MenuTypeCreatedDTO, MenuType>();
+            CreateMap<MenuTypeUpdatedDTO, MenuType>();
+            CreateMap<MenuType, MenuTypeReadedDTO>();
+            CreateMap<MenuType, MenuTypeConfReadedDTO>();
+            CreateMap<MenuType, AppealEmailCheckStatusDTO>();
+
+
+            CreateMap<MenuTypeTranslationCreatedDTO, MenuTypeTranslation>();
+            CreateMap<MenuTypeTranslationUpdatedDTO, MenuTypeTranslation>();
+            CreateMap<MenuTypeTranslation, MenuTypeTranslationReadedDTO>();
+            CreateMap<MenuTypeTranslation, MenuTypeTranslationConfReadedDTO>();
+
+            //Menu DTOS
+            CreateMap<MenuCreatedDTO, Menu>();
+            CreateMap<MenuUpdatedDTO, Menu>();
+            CreateMap<Menu, MenuReadedDTO>();
+            CreateMap<Menu, MenuConfReadedDTO>();
+
+
+            CreateMap<MenuTranslationCreatedDTO, MenuTranslation>();
+            CreateMap<MenuTranslationUpdatedDTO, MenuTranslation>();
+            CreateMap<MenuTranslation, MenuTranslationReadedDTO>();
         }
     }
 }

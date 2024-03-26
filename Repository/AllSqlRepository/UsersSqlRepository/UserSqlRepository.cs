@@ -35,13 +35,13 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                         .ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.status_)
-                        .Take(queryNum)
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
 
                 }
@@ -50,7 +50,7 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                     users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.status_)
-                        .Take(200)
+                      
                         .ToList();
 
                 }

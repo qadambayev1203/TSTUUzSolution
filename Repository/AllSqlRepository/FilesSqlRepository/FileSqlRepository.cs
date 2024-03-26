@@ -32,15 +32,15 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                         .Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Take(queryNum).ToList();
+                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Take(200).ToList();
+                    files = _context.files_20ts24tu.Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).ToList();
 
                 }
                 return files;
@@ -154,13 +154,13 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Include(x => x.language_).Take(queryNum).ToList();
+                        .Include(x => x.language_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
@@ -168,7 +168,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                     filesTranslations = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return filesTranslations;

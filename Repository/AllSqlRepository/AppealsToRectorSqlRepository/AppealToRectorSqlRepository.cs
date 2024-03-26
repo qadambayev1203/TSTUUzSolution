@@ -36,7 +36,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     AppealToRectors = _context.appeals_to_rectors_20ts24tu
@@ -48,7 +48,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Include(x => x.gender_)
                         .Include(x => x.employe_)
                         .Include(x => x.file_)
-                        .Take(queryNum).ToList();
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
@@ -62,7 +62,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Include(x => x.gender_)
                         .Include(x => x.employe_)
                         .Include(x => x.file_)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return AppealToRectors;
@@ -198,7 +198,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     AppealToRectorTranslations = _context.appeals_to_rectors_translations_20ts24tu
@@ -213,6 +213,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Include(x => x.employe_translation_)
                         .Include(x => x.file_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Skip(queryNum * (pageNum - 1))
                         .Take(queryNum)
                         .ToList();
 
@@ -231,7 +232,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Include(x => x.employe_translation_)
                         .Include(x => x.file_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return AppealToRectorTranslations;

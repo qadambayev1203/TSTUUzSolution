@@ -30,15 +30,15 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                     userTypes = _context.user_types_20ts24tu.Include(x => x.status_).Skip(10*(pageNum-1)).Take(10).ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    userTypes = _context.user_types_20ts24tu.Include(x => x.status_).Take(queryNum).ToList();
+                    userTypes = _context.user_types_20ts24tu.Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    userTypes = _context.user_types_20ts24tu.Include(x => x.status_).Take(200).ToList();
+                    userTypes = _context.user_types_20ts24tu.Include(x => x.status_).ToList();
 
                 }
                 return userTypes;
@@ -136,13 +136,13 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                         .ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
                         .Include(x => x.language_).Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(queryNum).ToList();
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
@@ -150,7 +150,7 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                     userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
                         .Include(x => x.language_).Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return userTypesTranslation;

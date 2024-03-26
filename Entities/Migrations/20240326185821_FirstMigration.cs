@@ -124,6 +124,25 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "menu_types_20ts24tu",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    status_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_menu_types_20ts24tu", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_menu_types_20ts24tu_statuses_20ts24tu_status_id",
+                        column: x => x.status_id,
+                        principalTable: "statuses_20ts24tu",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "site_types_20ts24tu",
                 columns: table => new
                 {
@@ -808,6 +827,37 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "menu_types_translations_20ts24tu",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    menu_type_id = table.Column<int>(type: "integer", nullable: true),
+                    status_translation_id = table.Column<int>(type: "integer", nullable: true),
+                    language_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_menu_types_translations_20ts24tu", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_menu_types_translations_20ts24tu_languages_20ts24tu_languag~",
+                        column: x => x.language_id,
+                        principalTable: "languages_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_types_translations_20ts24tu_menu_types_20ts24tu_menu_t~",
+                        column: x => x.menu_type_id,
+                        principalTable: "menu_types_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_types_translations_20ts24tu_statuses_translations_20ts~",
+                        column: x => x.status_translation_id,
+                        principalTable: "statuses_translations_20ts24tu",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "neighborhoods_translations_20ts24tu",
                 columns: table => new
                 {
@@ -983,6 +1033,50 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "menu_20ts24tu",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    parent_id = table.Column<int>(type: "integer", nullable: false),
+                    position = table.Column<int>(type: "integer", nullable: true),
+                    high_menu = table.Column<int>(type: "integer", nullable: true),
+                    menu_type_id = table.Column<int>(type: "integer", nullable: true),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    icon_id = table.Column<int>(type: "integer", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    link_id = table.Column<int>(type: "integer", nullable: true),
+                    status_id = table.Column<int>(type: "integer", nullable: true),
+                    user_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_menu_20ts24tu", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_menu_20ts24tu_files_20ts24tu_icon_id",
+                        column: x => x.icon_id,
+                        principalTable: "files_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_20ts24tu_menu_types_20ts24tu_menu_type_id",
+                        column: x => x.menu_type_id,
+                        principalTable: "menu_types_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_20ts24tu_statuses_20ts24tu_status_id",
+                        column: x => x.status_id,
+                        principalTable: "statuses_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_20ts24tu_users_20ts24tu_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users_20ts24tu",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "pages_20ts24tu",
                 columns: table => new
                 {
@@ -1096,6 +1190,62 @@ namespace Entities.Migrations
                         name: "FK_persons_translations_20ts24tu_statuses_translations_20ts24t~",
                         column: x => x.status_translation_id,
                         principalTable: "statuses_translations_20ts24tu",
+                        principalColumn: "id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "menu_translations_20ts24tu",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    menu_id = table.Column<int>(type: "integer", nullable: true),
+                    parent_id = table.Column<int>(type: "integer", nullable: true),
+                    position = table.Column<int>(type: "integer", nullable: true),
+                    high_menu = table.Column<int>(type: "integer", nullable: true),
+                    menu_type_translation_id = table.Column<int>(type: "integer", nullable: true),
+                    title = table.Column<string>(type: "text", nullable: true),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    icon_id = table.Column<int>(type: "integer", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    link_id = table.Column<int>(type: "integer", nullable: true),
+                    status_id = table.Column<int>(type: "integer", nullable: true),
+                    language_id = table.Column<int>(type: "integer", nullable: true),
+                    user_id = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_menu_translations_20ts24tu", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_menu_translations_20ts24tu_files_translations_20ts24tu_icon~",
+                        column: x => x.icon_id,
+                        principalTable: "files_translations_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_translations_20ts24tu_languages_20ts24tu_language_id",
+                        column: x => x.language_id,
+                        principalTable: "languages_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_translations_20ts24tu_menu_20ts24tu_menu_id",
+                        column: x => x.menu_id,
+                        principalTable: "menu_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_translations_20ts24tu_menu_types_translations_20ts24tu~",
+                        column: x => x.menu_type_translation_id,
+                        principalTable: "menu_types_translations_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_translations_20ts24tu_statuses_translations_20ts24tu_s~",
+                        column: x => x.status_id,
+                        principalTable: "statuses_translations_20ts24tu",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_menu_translations_20ts24tu_users_20ts24tu_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users_20ts24tu",
                         principalColumn: "id");
                 });
 
@@ -1359,6 +1509,20 @@ namespace Entities.Migrations
                     { 2, 2, 1, null, "Unemployed" },
                     { 3, 3, 1, null, "Retired" },
                     { 4, 4, 1, null, "Student" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "menu_types_20ts24tu",
+                columns: new[] { "id", "status_id", "title" },
+                values: new object[,]
+                {
+                    { 1, 1, "Main" },
+                    { 2, 1, "Blog" },
+                    { 3, 1, "Page" },
+                    { 4, 1, "Link" },
+                    { 5, 1, "Faculty" },
+                    { 6, 1, "Department" },
+                    { 7, 1, "Section" }
                 });
 
             migrationBuilder.InsertData(
@@ -1931,6 +2095,12 @@ namespace Entities.Migrations
                 column: "status_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_files_20ts24tu_title",
+                table: "files_20ts24tu",
+                column: "title",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_files_20ts24tu_user_id",
                 table: "files_20ts24tu",
                 column: "user_id");
@@ -1949,6 +2119,12 @@ namespace Entities.Migrations
                 name: "IX_files_translations_20ts24tu_status_translation_id",
                 table: "files_translations_20ts24tu",
                 column: "status_translation_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_files_translations_20ts24tu_title",
+                table: "files_translations_20ts24tu",
+                column: "title",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_files_translations_20ts24tu_user_id",
@@ -1984,6 +2160,76 @@ namespace Entities.Migrations
                 name: "IX_languages_20ts24tu_status_id",
                 table: "languages_20ts24tu",
                 column: "status_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_20ts24tu_icon_id",
+                table: "menu_20ts24tu",
+                column: "icon_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_20ts24tu_menu_type_id",
+                table: "menu_20ts24tu",
+                column: "menu_type_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_20ts24tu_status_id",
+                table: "menu_20ts24tu",
+                column: "status_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_20ts24tu_user_id",
+                table: "menu_20ts24tu",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_translations_20ts24tu_icon_id",
+                table: "menu_translations_20ts24tu",
+                column: "icon_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_translations_20ts24tu_language_id",
+                table: "menu_translations_20ts24tu",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_translations_20ts24tu_menu_id",
+                table: "menu_translations_20ts24tu",
+                column: "menu_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_translations_20ts24tu_menu_type_translation_id",
+                table: "menu_translations_20ts24tu",
+                column: "menu_type_translation_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_translations_20ts24tu_status_id",
+                table: "menu_translations_20ts24tu",
+                column: "status_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_translations_20ts24tu_user_id",
+                table: "menu_translations_20ts24tu",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_types_20ts24tu_status_id",
+                table: "menu_types_20ts24tu",
+                column: "status_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_types_translations_20ts24tu_language_id",
+                table: "menu_types_translations_20ts24tu",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_types_translations_20ts24tu_menu_type_id",
+                table: "menu_types_translations_20ts24tu",
+                column: "menu_type_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_menu_types_translations_20ts24tu_status_translation_id",
+                table: "menu_types_translations_20ts24tu",
+                column: "status_translation_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_neighborhoods_20ts24tu_district_id",
@@ -2575,6 +2821,9 @@ namespace Entities.Migrations
                 name: "departament_details_translations_20ts24tu");
 
             migrationBuilder.DropTable(
+                name: "menu_translations_20ts24tu");
+
+            migrationBuilder.DropTable(
                 name: "pages_translations_20ts24tu");
 
             migrationBuilder.DropTable(
@@ -2608,6 +2857,12 @@ namespace Entities.Migrations
                 name: "departament_translations_20ts24tu");
 
             migrationBuilder.DropTable(
+                name: "menu_20ts24tu");
+
+            migrationBuilder.DropTable(
+                name: "menu_types_translations_20ts24tu");
+
+            migrationBuilder.DropTable(
                 name: "pages_20ts24tu");
 
             migrationBuilder.DropTable(
@@ -2636,6 +2891,9 @@ namespace Entities.Migrations
 
             migrationBuilder.DropTable(
                 name: "files_translations_20ts24tu");
+
+            migrationBuilder.DropTable(
+                name: "menu_types_20ts24tu");
 
             migrationBuilder.DropTable(
                 name: "site_types_translations_20ts24tu");

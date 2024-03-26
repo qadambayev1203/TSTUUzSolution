@@ -32,15 +32,15 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                         .Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Take(queryNum).ToList();
+                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Take(200).ToList();
+                    pages = _context.pages_20ts24tu.Include(x => x.img_).Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).ToList();
 
                 }
                 return pages;
@@ -144,7 +144,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                         .ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     pageTranslations = _context.pages_translations_20ts24tu
@@ -154,7 +154,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Include(x => x.page_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(queryNum)
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
 
                 }
@@ -167,7 +167,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Include(x => x.page_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return pageTranslations;

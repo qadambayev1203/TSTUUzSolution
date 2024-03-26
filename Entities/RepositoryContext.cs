@@ -12,6 +12,8 @@ using Entities.Model.EmploymentModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.LanguagesModel;
+using Entities.Model.MenuModel;
+using Entities.Model.MenuTypesModel;
 using Entities.Model.NeighborhoodsModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonModel;
@@ -49,11 +51,14 @@ namespace Entities
             modelBuilder.ApplyConfiguration(new EmploymentTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new StatusTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new StatusConfiguration());
-            modelBuilder.Entity<User>()
-                .HasIndex(u => u.login)
-                .IsUnique();
+            modelBuilder.ApplyConfiguration(new MenuTypeConfiguration());
+          
+            modelBuilder.Entity<Files>().HasIndex(f=>f.title).IsUnique();
+            modelBuilder.Entity<FilesTranslation>().HasIndex(f=>f.title).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(f=>f.login).IsUnique();
 
             base.OnModelCreating(modelBuilder);
+
         }
         public void BackupDatabase(/*string server,string port,string user,string password,string dbname,string backupCommandDir,string backupFile*/)
 
@@ -126,6 +131,10 @@ namespace Entities
         public DbSet<Neighborhood> neighborhoods_20ts24tu { get; set; }
         public DbSet<NeighborhoodTranslation> neighborhoods_translations_20ts24tu { get; set; }
         public DbSet<Employment> employments_20ts24tu { get; set; }
+        public DbSet<MenuType> menu_types_20ts24tu { get; set; }
+        public DbSet<MenuTypeTranslation> menu_types_translations_20ts24tu { get; set; }
+        public DbSet<Menu> menu_20ts24tu { get; set; }
+        public DbSet<MenuTranslation> menu_translations_20ts24tu { get; set; }
         public DbSet<EmploymentTranslation> employments_translations_20ts24tu { get; set; }
         public DbSet<AppealToRector> appeals_to_rectors_20ts24tu { get; set; }
         public DbSet<AppealToRectorTranslation> appeals_to_rectors_translations_20ts24tu { get; set; }

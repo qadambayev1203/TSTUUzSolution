@@ -37,8 +37,11 @@ namespace Entities.Configuration
                     status_id = null
                 }
                 );
+            builder.HasIndex(u => u.login).IsUnique();
+
 
         }
+
     }
 
 }

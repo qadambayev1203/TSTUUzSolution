@@ -14,8 +14,8 @@ namespace Entities.Configuration
         public void Configure(EntityTypeBuilder<Status> builder)
         {
             builder.HasData(
-                new Status { id = 1, status = "Active",is_deleted=false },
-                new Status { id = 2, status = "Deleted" ,is_deleted= false }
+                new Status { id = 1, status = "Active", is_deleted = false },
+                new Status { id = 2, status = "Deleted", is_deleted = false }
                 );
 
         }

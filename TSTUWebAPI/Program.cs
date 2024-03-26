@@ -11,6 +11,8 @@ using Contracts.AllRepository.EmploymentsRepsitory;
 using Contracts.AllRepository.FilesRepository;
 using Contracts.AllRepository.GendersRepository;
 using Contracts.AllRepository.LanguagesRepository;
+using Contracts.AllRepository.MenuesRepository;
+using Contracts.AllRepository.MenuTypesRepository;
 using Contracts.AllRepository.NeighborhoodsRepository;
 using Contracts.AllRepository.PagesRepository;
 using Contracts.AllRepository.PersonsRepository;
@@ -40,6 +42,8 @@ using Repository.AllSqlRepository.EmploymentsSqlRepository;
 using Repository.AllSqlRepository.FilesSqlRepository;
 using Repository.AllSqlRepository.GendersSqlRepository;
 using Repository.AllSqlRepository.LanguagesSqlRepository;
+using Repository.AllSqlRepository.MenuesSqlRepository;
+using Repository.AllSqlRepository.MenuTypesSqlRepository;
 using Repository.AllSqlRepository.NeighborhoodsSqlRepository;
 using Repository.AllSqlRepository.PagesSqlRepository;
 using Repository.AllSqlRepository.PersonsSqlRepository;
@@ -191,6 +195,12 @@ builder.Services.AddScoped<IEmploymentRepository, EmploymentSqlRepository>();
 
 //AppealToRector AND AppealToRectorTranslation
 builder.Services.AddScoped<IAppealToRectorRepository, AppealToRectorSqlRepository>();
+
+//MenuType AND MenuTypeTranslation
+builder.Services.AddScoped<IMenuTypeRepository, MenuTypeSqlRepository>();
+
+//Menu AND MenuTranslation
+builder.Services.AddScoped<IMenuRepository, MenuSqlRepository>();
 
 #endregion
 

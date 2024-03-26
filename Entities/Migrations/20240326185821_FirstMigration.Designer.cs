@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Entities.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240312082942_FirstMigration")]
+    [Migration("20240326185821_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -2089,6 +2089,9 @@ namespace Entities.Migrations
 
                     b.HasIndex("status_id");
 
+                    b.HasIndex("title")
+                        .IsUnique();
+
                     b.HasIndex("user_id");
 
                     b.ToTable("files_20ts24tu");
@@ -2127,6 +2130,9 @@ namespace Entities.Migrations
                     b.HasIndex("language_id");
 
                     b.HasIndex("status_translation_id");
+
+                    b.HasIndex("title")
+                        .IsUnique();
 
                     b.HasIndex("user_id");
 
@@ -2235,6 +2241,226 @@ namespace Entities.Migrations
                             code = "ru",
                             title = "Russian"
                         });
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuModel.Menu", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("high_menu")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("icon_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("link_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("menu_type_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("parent_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("position")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("icon_id");
+
+                    b.HasIndex("menu_type_id");
+
+                    b.HasIndex("status_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("menu_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuModel.MenuTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime?>("created_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("description")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("high_menu")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("icon_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("link_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("menu_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("menu_type_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("parent_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("position")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("user_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("icon_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("menu_id");
+
+                    b.HasIndex("menu_type_translation_id");
+
+                    b.HasIndex("status_id");
+
+                    b.HasIndex("user_id");
+
+                    b.ToTable("menu_translations_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuTypesModel.MenuType", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("status_id");
+
+                    b.ToTable("menu_types_20ts24tu");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            status_id = 1,
+                            title = "Main"
+                        },
+                        new
+                        {
+                            id = 2,
+                            status_id = 1,
+                            title = "Blog"
+                        },
+                        new
+                        {
+                            id = 3,
+                            status_id = 1,
+                            title = "Page"
+                        },
+                        new
+                        {
+                            id = 4,
+                            status_id = 1,
+                            title = "Link"
+                        },
+                        new
+                        {
+                            id = 5,
+                            status_id = 1,
+                            title = "Faculty"
+                        },
+                        new
+                        {
+                            id = 6,
+                            status_id = 1,
+                            title = "Department"
+                        },
+                        new
+                        {
+                            id = 7,
+                            status_id = 1,
+                            title = "Section"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuTypesModel.MenuTypeTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("menu_type_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("menu_type_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.ToTable("menu_types_translations_20ts24tu");
                 });
 
             modelBuilder.Entity("Entities.Model.NeighborhoodsModel.Neighborhood", b =>
@@ -3669,6 +3895,102 @@ namespace Entities.Migrations
                     b.Navigation("img_");
 
                     b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuModel.Menu", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.Files", "icon_")
+                        .WithMany()
+                        .HasForeignKey("icon_id");
+
+                    b.HasOne("Entities.Model.MenuTypesModel.MenuType", "menu_type_")
+                        .WithMany()
+                        .HasForeignKey("menu_type_id");
+
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
+                    b.Navigation("icon_");
+
+                    b.Navigation("menu_type_");
+
+                    b.Navigation("status_");
+
+                    b.Navigation("user_");
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuModel.MenuTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "icon_")
+                        .WithMany()
+                        .HasForeignKey("icon_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.MenuModel.Menu", "menu_")
+                        .WithMany()
+                        .HasForeignKey("menu_id");
+
+                    b.HasOne("Entities.Model.MenuTypesModel.MenuTypeTranslation", "menu_type_translation_")
+                        .WithMany()
+                        .HasForeignKey("menu_type_translation_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.HasOne("Entities.Model.User", "user_")
+                        .WithMany()
+                        .HasForeignKey("user_id");
+
+                    b.Navigation("icon_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("menu_");
+
+                    b.Navigation("menu_type_translation_");
+
+                    b.Navigation("status_");
+
+                    b.Navigation("user_");
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuTypesModel.MenuType", b =>
+                {
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.MenuTypesModel.MenuTypeTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.MenuTypesModel.MenuType", "menu_type_")
+                        .WithMany()
+                        .HasForeignKey("menu_type_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("menu_type_");
+
+                    b.Navigation("status_translation_");
                 });
 
             modelBuilder.Entity("Entities.Model.NeighborhoodsModel.Neighborhood", b =>

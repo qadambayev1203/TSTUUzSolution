@@ -32,18 +32,18 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     siteTypees = _context.site_types_20ts24tu
                         .Include(x => x.status_)
-                        .Take(queryNum).ToList();
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
                     siteTypees = _context.site_types_20ts24tu
-                        .Include(x => x.status_).Take(200).ToList();
+                        .Include(x => x.status_).ToList();
 
                 }
                 return siteTypees;
@@ -145,7 +145,7 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                         .ToList();
 
                 }
-                else if (queryNum != 0)
+                else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     siteTypeesTranslation = _context.site_types_translations_20ts24tu
@@ -153,7 +153,7 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(queryNum)
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
 
                 }
@@ -164,7 +164,7 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200)
+                    
                         .ToList();
 
                 }

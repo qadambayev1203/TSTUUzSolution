@@ -31,15 +31,15 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Take(queryNum).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Take(200).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).ToList();
 
                 }
                 return departaments;
@@ -142,7 +142,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .ToList();
 
                 }
-                if (queryNum != 0)
+                if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     departamentTranslations = _context.departament_translations_20ts24tu
@@ -151,6 +151,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.img_)
                         .Include(x => x.departament_translation_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Skip(queryNum * (queryNum - 1))
                         .Take(queryNum)
                         .ToList();
 
@@ -163,7 +164,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.img_)
                         .Include(x => x.departament_translation_type_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                        .ToList();
 
                 }
                 return departamentTranslations;
