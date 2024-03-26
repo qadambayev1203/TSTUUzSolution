@@ -12,7 +12,6 @@ using System.Reflection;
 namespace TSTUWebAPI.Controllers.GenderControllers
 {
     [Route("api/gender")]
-    [Authorize]
     [ApiController]
     public class GenderController : ControllerBase
     {
@@ -27,7 +26,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
         // gender CRUD
 
-        [Authorize(Roles="Admin")]       [HttpPost("creategender")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("creategender")]
         public IActionResult Creategender(GenderCreatedDTO gender1)
         {
             var gender = _mapper.Map<Gender>(gender1);
@@ -45,8 +45,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
             return Ok(createdItemId);
         }
-
-        [Authorize(Roles="Admin")]       [HttpGet("getallgender")]
+        [HttpGet("getallgender")]
         public IActionResult GetAllgender(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -57,8 +56,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
             return Ok(genders);
         }
-
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidgender/{id}")]
+        [HttpGet("getbyidgender/{id}")]
         public IActionResult GetByIdgender(int id)
         {
 
@@ -73,7 +71,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deletegender/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deletegender/{id}")]
         public IActionResult Deletegender(int id)
         {
             bool check = _repository.DeleteGender(id);
@@ -91,7 +90,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updategender/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updategender/{id}")]
         public IActionResult Updategender(GenderUpdatedDTO gender1, int id)
         {
             try
@@ -123,7 +123,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
 
         //genderTranslation CRUD
-        [Authorize(Roles="Admin")]       [HttpPost("creategendertranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("creategendertranslation")]
         public IActionResult CreategenderTranslation(GenderTranslationCreatedDTO gendertranslation1)
         {
             var gendertranslation = _mapper.Map<GenderTranslation>(gendertranslation1);
@@ -141,8 +142,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
             return Ok(createdItemId);
         }
-
-        [Authorize(Roles="Admin")]       [HttpGet("getallgendertranslation")]
+        [HttpGet("getallgendertranslation")]
         public IActionResult GetAllgenderTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -153,8 +153,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
             return Ok(gendertranslations);
         }
-
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidgendertranslation/{id}")]
+        [HttpGet("getbyidgendertranslation/{id}")]
         public IActionResult GetByIdgenderTranslation(int id)
         {
 
@@ -166,7 +165,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deletegendertranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deletegendertranslation/{id}")]
         public IActionResult DeletegenderTranslation(int id)
         {
             bool check = _repository.DeleteGenderTranslation(id);
@@ -184,7 +184,8 @@ namespace TSTUWebAPI.Controllers.GenderControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updategendertranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updategendertranslation/{id}")]
         public IActionResult UpdategenderTranslation(GenderTranslationUpdatedDTO gendertranslation1, int id)
         {
             try

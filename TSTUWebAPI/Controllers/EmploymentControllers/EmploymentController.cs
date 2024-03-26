@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace TSTUWebAPI.Controllers.EmploymentControllers
 {
     [Route("api/employment")]
-    [Authorize]
     [ApiController]
     public class EmploymentController : ControllerBase
     {
@@ -25,7 +24,8 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
 
         // Employment CRUD
 
-        [Authorize(Roles="Admin")]       [HttpPost("createemployment")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createemployment")]
         public IActionResult CreateEmployment(EmploymentCreatedDTO Employment1)
         {
             var Employment = _mapper.Map<Employment>(Employment1);
@@ -45,7 +45,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallemployment")]
+        [HttpGet("getallemployment")]
         public IActionResult GetAllEmployment(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -57,7 +57,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
             return Ok(Employments);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidemployment/{id}")]
+        [HttpGet("getbyidemployment/{id}")]
         public IActionResult GetByIdEmployment(int id)
         {
 
@@ -72,14 +72,16 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deleteemployment/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteemployment/{id}")]
         public IActionResult DeleteEmployment(int id)
         {
             bool check = _repository.DeleteEmployment(id);
             if (!check)
             {
                 return BadRequest();
-            }bool check1 = _repository.SaveChanges();
+            }
+            bool check1 = _repository.SaveChanges();
             if (!check1)
             {
                 return BadRequest();
@@ -89,7 +91,8 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updateemployment/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateemployment/{id}")]
         public IActionResult UpdateEmployment(EmploymentUpdatedDTO Employment1, int id)
         {
             try
@@ -121,7 +124,8 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
 
 
         //EmploymentTranslation CRUD
-        [Authorize(Roles="Admin")]       [HttpPost("createemploymenttranslation")]
+        [Authorize(Roles = "Admin")]
+        [HttpPost("createemploymenttranslation")]
         public IActionResult CreateEmploymentTranslation(EmploymentTranslationCreatedDTO Employmenttranslation1)
         {
             var Employmenttranslation = _mapper.Map<EmploymentTranslation>(Employmenttranslation1);
@@ -144,7 +148,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getallemploymenttranslation")]
+        [HttpGet("getallemploymenttranslation")]
         public IActionResult GetAllEmploymentTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -156,7 +160,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
             return Ok(Employmenttranslations);
         }
 
-        [Authorize(Roles="Admin")]       [HttpGet("getbyidemploymenttranslation/{id}")]
+        [HttpGet("getbyidemploymenttranslation/{id}")]
         public IActionResult GetByIdEmploymentTranslation(int id)
         {
 
@@ -168,14 +172,16 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         }
 
 
-        [Authorize(Roles="Admin")]       [HttpDelete("deleteemploymenttranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("deleteemploymenttranslation/{id}")]
         public IActionResult DeleteEmploymentTranslation(int id)
         {
             bool check = _repository.DeleteEmploymentTranslation(id);
             if (!check)
             {
                 return BadRequest();
-            } bool check1 = _repository.SaveChanges();
+            }
+            bool check1 = _repository.SaveChanges();
             if (!check1)
             {
                 return BadRequest();
@@ -185,7 +191,8 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
 
 
 
-        [Authorize(Roles="Admin")]       [HttpPut("updateemploymenttranslation/{id}")]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("updateemploymenttranslation/{id}")]
         public IActionResult UpdateEmploymentTranslation(EmploymentTranslationUpdatedDTO Employmenttranslation1, int id)
         {
             try
