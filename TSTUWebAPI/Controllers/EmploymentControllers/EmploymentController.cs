@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         public IActionResult CreateEmployment(EmploymentCreatedDTO Employment1)
         {
             var Employment = _mapper.Map<Employment>(Employment1);
+            Employment.status_id = 1;
             int id = _repository.CreateEmployment(Employment);
 
             if (id == 0)
@@ -129,6 +130,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         public IActionResult CreateEmploymentTranslation(EmploymentTranslationCreatedDTO Employmenttranslation1)
         {
             var Employmenttranslation = _mapper.Map<EmploymentTranslation>(Employmenttranslation1);
+            Employmenttranslation.status_translation_id = 1;
             int id = _repository.CreateEmploymentTranslation(Employmenttranslation);
             if (id == 0)
             {

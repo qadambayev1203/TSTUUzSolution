@@ -31,6 +31,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
         {
             string passwordhash = PasswordManager.EncryptPassword((user1.login + user1.password).ToString());
             var user = _mapper.Map<User>(user1);
+            user.status_id = 1;
             user.password = passwordhash;
             int check = _repository.CreateUser(user);
 

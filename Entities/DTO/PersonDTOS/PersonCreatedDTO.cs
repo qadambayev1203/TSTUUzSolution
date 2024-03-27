@@ -16,7 +16,6 @@ namespace Entities.DTO.PersonDTOS
         public string? pinfl { get; set; }
         public string? passport_text { get; set; }
         public string? passport_number { get; set; }
-        public int? status_id { get; set; }
         public int? files_id { get; set; }
     }
 }

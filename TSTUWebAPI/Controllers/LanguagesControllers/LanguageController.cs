@@ -30,6 +30,7 @@ namespace TSTUWebAPI.Controllers.LanguagesControllers
         public IActionResult Createlanguage(LanguageCreatedDTO language1)
         {
             var language = _mapper.Map<Language>(language1);
+            language.status_id = 1;
             int check = _repository.CreateLanguage(language);
 
             if (check == 0)

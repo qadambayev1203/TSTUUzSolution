@@ -32,6 +32,7 @@ namespace TSTUWebAPI.Controllers.PagesController
         {
             var page = _mapper.Map<Pages>(page1);
             page.user_id = UserCreatedId.id;
+            page.status_id = 1;
             int check = _repository.CreatePage(page);
 
             if (check == 0)
@@ -131,6 +132,7 @@ namespace TSTUWebAPI.Controllers.PagesController
         {
             var pagetranslation = _mapper.Map<PageTranslation>(pagetranslation1);
             pagetranslation.user_id = UserCreatedId.id;
+            pagetranslation.status_translation_id = 1;
             int check = _repository.CreatePageTranslation(pagetranslation);
 
             if (check == 0)

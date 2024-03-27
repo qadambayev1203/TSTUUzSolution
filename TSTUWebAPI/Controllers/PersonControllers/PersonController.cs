@@ -30,6 +30,7 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         public IActionResult Createperson(PersonCreatedDTO person1)
         {
             var person = _mapper.Map<Person>(person1);
+            person.status_id = 1;
             int check = _repository.CreatePerson(person);
 
             if (check == 0)
@@ -124,6 +125,7 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         public IActionResult CreatepersonTranslation(PersonTranslationCreatedDTO persontranslation1)
         {
             var persontranslation = _mapper.Map<PersonTranslation>(persontranslation1);
+            persontranslation.status_translation_id = 1;
             int check = _repository.CreatePersonTranslation(persontranslation);
 
             if (check == 0)

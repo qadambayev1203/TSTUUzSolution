@@ -2102,6 +2102,9 @@ namespace Entities.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
+                    b.Property<DateTime?>("crated_at")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int?>("files_id")
                         .HasColumnType("integer");
 
@@ -2113,6 +2116,9 @@ namespace Entities.Migrations
 
                     b.Property<string>("title")
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("url")
                         .HasColumnType("text");
@@ -2260,8 +2266,8 @@ namespace Entities.Migrations
                     b.Property<int?>("icon_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("link_id")
-                        .HasColumnType("integer");
+                    b.Property<string>("link_")
+                        .HasColumnType("text");
 
                     b.Property<int?>("menu_type_id")
                         .HasColumnType("integer");
@@ -2320,8 +2326,8 @@ namespace Entities.Migrations
                     b.Property<int?>("language_id")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("link_id")
-                        .HasColumnType("integer");
+                    b.Property<string>("link_")
+                        .HasColumnType("text");
 
                     b.Property<int?>("menu_id")
                         .HasColumnType("integer");

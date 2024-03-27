@@ -31,6 +31,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         public IActionResult Creategender(GenderCreatedDTO gender1)
         {
             var gender = _mapper.Map<Gender>(gender1);
+            gender.status_id = 1;
             int check = _repository.CreateGender(gender);
 
             if (check == 0)
@@ -128,6 +129,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         public IActionResult CreategenderTranslation(GenderTranslationCreatedDTO gendertranslation1)
         {
             var gendertranslation = _mapper.Map<GenderTranslation>(gendertranslation1);
+            gendertranslation.status_translation_id = 1;
             int check = _repository.CreateGenderTranslation(gendertranslation);
 
             if (check == 0)

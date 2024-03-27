@@ -1,4 +1,5 @@
-﻿using Entities.Model.FileModel;
+﻿using Entities.DTO.FilesDTOS;
+using Entities.Model.FileModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.SiteDetailsModel;
 using Entities.Model.SitesModel;

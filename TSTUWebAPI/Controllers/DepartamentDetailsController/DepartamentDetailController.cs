@@ -33,6 +33,7 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
                 return StatusCode(422);
             }
             var departamentDetail = _mapper.Map<DepartamentDetail>(departamentDetail1);
+            departamentDetail.status_id = 1;
             int check = _repository.CreateDepartamentDetail(departamentDetail);
 
             if (check==0)
@@ -136,6 +137,7 @@ namespace TSTUWebAPI.Controllers.DepartamentDetailDetailsController
                 return StatusCode(422);
             }
             var departamentDetailtranslation = _mapper.Map<DepartamentDetailTranslation>(departamentDetailtranslation1);
+            departamentDetailtranslation.status_translation_id = 1;
             int check = _repository.CreateDepartamentDetailTranslation(departamentDetailtranslation);
 
             if (check == 0)

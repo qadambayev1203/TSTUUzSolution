@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
         public IActionResult CreateNeighborhood(NeighborhoodCreatedDTO Neighborhood1)
         {
             var Neighborhood = _mapper.Map<Neighborhood>(Neighborhood1);
+            Neighborhood.status_id = 1;
             int id = _repository.CreateNeighborhood(Neighborhood);
 
             if (id == 0)
@@ -127,6 +128,7 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
         public IActionResult CreateNeighborhoodTranslation(NeighborhoodTranslationCreatedDTO Neighborhoodtranslation1)
         {
             var Neighborhoodtranslation = _mapper.Map<NeighborhoodTranslation>(Neighborhoodtranslation1);
+            Neighborhoodtranslation.status_translation_id = 1;
             int id = _repository.CreateNeighborhoodTranslation(Neighborhoodtranslation);
             if (id == 0)
             {

@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
         public IActionResult CreateUserType(UserTypeCreatedDTO userType1)
         {
             var userType = _mapper.Map<UserType>(userType1);
+            userType.status_id = 1;
             int check = _repository.CreateUserType(userType);
 
             if (check == 0)
@@ -121,6 +122,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
         public IActionResult CreateUserTypeTranslation(UserTypeTranslationCreatedDTO userTypetranslation1)
         {
             var userTypetranslation = _mapper.Map<UserTypeTranslation>(userTypetranslation1);
+            userTypetranslation.status_translation_id = 1;
             int check = _repository.CreateUserTypeTranslation(userTypetranslation);
 
             if (check == 0)

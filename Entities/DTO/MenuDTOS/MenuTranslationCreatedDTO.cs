@@ -13,11 +13,11 @@ namespace Entities.DTO.MenuDTOS
         public int? parent_id { get; set; }
         public int? position { get; set; }
         public int? high_menu { get; set; }
-        [ForeignKey("MenuTypeTranslation")] public int? menu_type_translation_id { get; set; }
+        public int? menu_type_translation_id { get; set; }
         public string? title { get; set; }
         public string? description { get; set; }
         public int? icon_id { get; set; }
-        public int? link_id { get; set; }
+        public string? link_ { get; set; }
         public int? language_id { get; set; }
     }
 }

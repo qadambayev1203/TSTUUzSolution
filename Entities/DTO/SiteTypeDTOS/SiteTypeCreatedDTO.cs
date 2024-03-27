@@ -9,6 +9,5 @@ namespace Entities.DTO.SiteTypeDTOS
     public class SiteTypeCreatedDTO
     {
         public string? type { get; set; }
-        public int? status_id { get; set; }
     }
 }

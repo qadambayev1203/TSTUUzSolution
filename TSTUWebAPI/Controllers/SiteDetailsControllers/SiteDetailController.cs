@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.SiteDetailDetailsControllers
         public IActionResult CreateSiteDetail(SiteDetailCreatedDTO siteDetail1)
         {
             var siteDetail = _mapper.Map<SiteDetail>(siteDetail1);
+            siteDetail.status_id = 1;
             int check = _repository.CreateSiteDetail(siteDetail);
 
             if (check == 0)
@@ -125,6 +126,7 @@ namespace TSTUWebAPI.Controllers.SiteDetailDetailsControllers
         public IActionResult CreateSiteDetailTranslation(SiteDetailTranslationCreatedDTO siteDetailtranslation1)
         {
             var siteDetailtranslation = _mapper.Map<SiteDetailTranslation>(siteDetailtranslation1);
+            siteDetailtranslation.status_translation_id = 1;
             int check = _repository.CreateSiteDetailTranslation(siteDetailtranslation);
 
             if (check == 0)

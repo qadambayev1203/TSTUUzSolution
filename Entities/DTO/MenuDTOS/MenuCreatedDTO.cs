@@ -15,6 +15,6 @@ namespace Entities.DTO.MenuDTOS
         public string? title { get; set; }
         public string? description { get; set; }
         public int? icon_id { get; set; }
-        public int? link_id { get; set; }
+        public string? link_ { get; set; }
     }
 }

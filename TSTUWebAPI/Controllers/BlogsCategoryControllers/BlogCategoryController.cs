@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
         public IActionResult CreateBlogCategory(BlogCategoryCreatedDTO blogCategory1)
         {
             var blogCategory = _mapper.Map<BlogCategory>(blogCategory1);
+            blogCategory.status_id = 1;
             int check = _repository.CreateBlogCategory(blogCategory);
 
             if (check==0)
@@ -129,6 +130,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
         public IActionResult CreateBlogCategoryTranslation(BlogCategoryTranslationCreatedDTO blogCategorytranslation1)
         {
             var blogCategorytranslation = _mapper.Map<BlogCategoryTranslation>(blogCategorytranslation1);
+            blogCategorytranslation.status_translation_id = 1;
             int check = _repository.CreateBlogCategoryTranslation(blogCategorytranslation);
 
             if (check==0)

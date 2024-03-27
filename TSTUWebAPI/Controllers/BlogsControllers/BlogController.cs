@@ -31,6 +31,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         {
             var blog = _mapper.Map<Blog>(blog1);
             blog.user_id = UserCreatedId.id;
+            blog.status_id = 1;
             int check = _repository.CreateBlog(blog);
 
             if (check == 0)
@@ -134,6 +135,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         {
             var blogtranslation = _mapper.Map<BlogTranslation>(blogtranslation1);
             blogtranslation.user_id = UserCreatedId.id;
+            blogtranslation.status_translation_id = 1;
             int check = _repository.CreateBlogTranslation(blogtranslation);
 
             if (check == 0)

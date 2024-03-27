@@ -11,6 +11,5 @@ namespace Entities.DTO.DepartamentTypeDTOS
     public class DepartamentTypeCreatedDTO
     {
         public string? type { get; set; }
-        public int? status_id { get; set; }
     }
 }

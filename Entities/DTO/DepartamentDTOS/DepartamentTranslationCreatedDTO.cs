@@ -15,7 +15,6 @@ namespace Entities.DTO.DepartamentDTOS
         public string? text { get; set; }
         public int? parent_id { get; set; }
         public int? language_id { get; set; }
-        public int? status_translation_id { get; set; }
         public int? files_translation_id { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }

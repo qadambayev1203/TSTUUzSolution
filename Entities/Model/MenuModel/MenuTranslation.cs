@@ -27,7 +27,7 @@ namespace Entities.Model.MenuModel
         public FilesTranslation? icon_ { get; set; }
         public DateTime? created_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
-        public int? link_id { get; set; }
+        public string? link_ { get; set; }
         [ForeignKey("StatusTranslation")] public int? status_id { get; set; }
         public StatusTranslation? status_ { get; set; }
         [ForeignKey("Language")] public int? language_id { get; set; }

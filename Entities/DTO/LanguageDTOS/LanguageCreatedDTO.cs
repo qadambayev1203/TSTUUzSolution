@@ -16,6 +16,5 @@ namespace Entities.DTO.LanguageDTOS
         public string? code { get; set; }
         public string? details { get; set; }
         public int? img_id { get; set; }
-        public int? status_id { get; set; }
     }
 }

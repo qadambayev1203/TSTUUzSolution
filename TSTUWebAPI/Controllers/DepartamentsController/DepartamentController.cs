@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         public IActionResult CreateDepartament(DepartamentCreatedDTO departament1)
         {
             var departament = _mapper.Map<Departament>(departament1);
+            departament.status_id = 1;
             int check = _repository.CreateDepartament(departament);
 
             if (check == 0)
@@ -124,6 +125,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         public IActionResult CreateDepartamentTranslation(DepartamentTranslationCreatedDTO departamenttranslation1)
         {
             var departamenttranslation = _mapper.Map<DepartamentTranslation>(departamenttranslation1);
+            departamenttranslation.status_translation_id = 1;
             int check = _repository.CreateDepartamentTranslation(departamenttranslation);
 
             if (check == 0)

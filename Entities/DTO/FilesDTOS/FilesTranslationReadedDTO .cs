@@ -18,6 +18,8 @@ namespace Entities.DTO.FilesDTOS
     {
         public int id { get; set; }
         public string? title { get; set; }
+        public DateTime? crated_at { get; set; } 
+        public DateTime? updated_at { get; set; }
         public FileConfReadedDTO? files_ { get; set; }
         public LanguageConfReadedDTO? languages_ { get; set; }
         public StatusTranslationConfReadedDTO? status_translation_ { get; set; }

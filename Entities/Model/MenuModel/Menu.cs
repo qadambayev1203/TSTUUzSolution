@@ -24,7 +24,7 @@ namespace Entities.Model.MenuModel
         public Files? icon_ { get; set; }
         public DateTime? created_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
-        public int? link_id { get; set; }
+        public string? link_ { get; set; }
         [ForeignKey("Status")] public int? status_id { get; set; }
         public Status? status_ { get; set; }
         [ForeignKey("User")] public int? user_id { get; set; }

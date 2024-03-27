@@ -27,6 +27,7 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
         public IActionResult CreateCountry(CountryCreatedDTO Country1)
         {
             var Country = _mapper.Map<Country>(Country1);
+            Country.status_id = 1;
             int id = _repository.CreateCountry(Country);
 
             if (id == 0)
@@ -122,6 +123,7 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
         public IActionResult CreateCountryTranslation(CountryTranslationCreatedDTO Countrytranslation1)
         {
             var Countrytranslation = _mapper.Map<CountryTranslation>(Countrytranslation1);
+            Countrytranslation.status_translation_id = 1;
             int id = _repository.CreateCountryTranslation(Countrytranslation);
             if (id == 0)
             {

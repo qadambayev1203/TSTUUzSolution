@@ -12,7 +12,6 @@ namespace Entities.DTO.BlogsDTOS
         public string? title { get; set; }
         public string? description { get; set; }
         public string? text { get; set; }
-        public int? status_translation_id { get; set; }
         public int? img_translation_id { get; set; }
         public int? blog_category_translation_id { get; set; }
         public int? position { get; set; }

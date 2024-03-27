@@ -28,6 +28,7 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
         public IActionResult CreateDistrict(DistrictCreatedDTO District1)
         {
             var District = _mapper.Map<District>(District1);
+            District.status_id = 1;
             int id = _repository.CreateDistrict(District);
 
             if (id == 0)
@@ -126,6 +127,7 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
         public IActionResult CreateDistrictTranslation(DistrictTranslationCreatedDTO Districttranslation1)
         {
             var Districttranslation = _mapper.Map<DistrictTranslation>(Districttranslation1);
+            Districttranslation.status_translation_id = 1;
             int id = _repository.CreateDistrictTranslation(Districttranslation);
             if (id == 0)
             {

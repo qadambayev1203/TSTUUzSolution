@@ -31,6 +31,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                 return BadRequest();
             }
             var AppealToRector = _mapper.Map<AppealToRector>(AppealToRector1);
+            AppealToRector.status_id = 1;
             int id = _repository.CreateAppealToRector(AppealToRector);
 
             if (id == 0)
@@ -148,6 +149,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                 return BadRequest();
             }
             var AppealToRectortranslation = _mapper.Map<AppealToRectorTranslation>(AppealToRectortranslation1);
+            AppealToRectortranslation.status_translation_id = 1;
             int id = _repository.CreateAppealToRectorTranslation(AppealToRectortranslation);
             if (id == 0)
             {

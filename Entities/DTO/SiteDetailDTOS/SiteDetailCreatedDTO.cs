@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.DTO.FilesDTOS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,5 @@ namespace Entities.DTO.SiteDetailDTOS
         public string? socials { get; set; }
         public string? details { get; set; }
         public int? site_id { get; set; }
-        public int? status_id { get; set; }
     }
 }

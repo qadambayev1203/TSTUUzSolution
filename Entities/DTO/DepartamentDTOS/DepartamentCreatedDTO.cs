@@ -18,7 +18,6 @@ namespace Entities.DTO.DepartamentDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public int? parent_id { get; set; }
-        public int? status_id { get; set; }
         public int? img_id { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }

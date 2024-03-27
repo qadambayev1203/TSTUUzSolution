@@ -28,6 +28,7 @@ namespace TSTUWebAPI.Controllers.TerritorieControllers
         public IActionResult CreateTerritorie(TerritorieCreatedDTO Territorie1)
         {
             var Territorie = _mapper.Map<Territorie>(Territorie1);
+            Territorie.status_id = 1;
             int id = _repository.CreateTerritorie(Territorie);
 
             if (id == 0)
@@ -122,6 +123,7 @@ namespace TSTUWebAPI.Controllers.TerritorieControllers
         public IActionResult CreateTerritorieTranslation(TerritorieTranslationCreatedDTO Territorietranslation1)
         {
             var Territorietranslation = _mapper.Map<TerritorieTranslation>(Territorietranslation1);
+            Territorietranslation.status_translation_id = 1;
             int id = _repository.CreateTerritorieTranslation(Territorietranslation);
             if (id == 0)
             {

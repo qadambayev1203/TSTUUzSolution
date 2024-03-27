@@ -17,6 +17,5 @@ namespace Entities.DTO.FilesDTOS
         public IFormFile? url { get; set; }
         public int? files_id { get; set; }
         public int? language_id { get; set; }
-        public int? status_translation_id { get; set; }
     }
 }

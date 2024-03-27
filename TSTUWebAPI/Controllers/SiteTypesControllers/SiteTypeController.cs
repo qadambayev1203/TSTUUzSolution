@@ -29,6 +29,7 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
         public IActionResult CreateSiteType(SiteTypeCreatedDTO siteType1)
         {
             var siteType = _mapper.Map<SiteType>(siteType1);
+            siteType.status_id = 1;
             int check = _repository.CreateSiteType(siteType);
 
             if (check == 0)
@@ -126,6 +127,7 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
         public IActionResult CreateSiteTypeTranslation(SiteTypeTranslationCreatedDTO siteTypetranslation1)
         {
             var siteTypetranslation = _mapper.Map<SiteTypeTranslation>(siteTypetranslation1);
+            siteTypetranslation.status_translation_id = 1;
             int check = _repository.CreateSiteTypeTranslation(siteTypetranslation);
 
             if (check == 0)

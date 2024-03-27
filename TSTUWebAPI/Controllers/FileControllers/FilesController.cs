@@ -47,6 +47,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             }
             files.url = Url;
             files.user_id = UserCreatedId.id;
+            files.status_id = 1;
             int check = _repository.CreateFiles(files);
 
             if (check == 0)
@@ -136,7 +137,6 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 {
                     return BadRequest("File Upload Error!");
                 }
-                file.url = Url;
 
 
 
@@ -146,6 +146,19 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 {
                     return BadRequest();
                 }
+
+                FilesUpdatedUrlDTO filesUpdatedUrlDTO = new FilesUpdatedUrlDTO()
+                {
+                    url = Url,
+                };
+
+                _mapper.Map(filesUpdatedUrlDTO, file);
+                bool check1 = _repository.SaveChanges();
+                if (!check1)
+                {
+                    return BadRequest();
+                }
+
                 return Ok("Updated");
             }
             catch
@@ -195,6 +208,8 @@ namespace TSTUWebAPI.Controllers.FileControllers
             }
             filestranslation.url = Url;
             filestranslation.user_id = UserCreatedId.id;
+            filestranslation.status_translation_id = 1;
+            filestranslation.crated_at = DateTime.UtcNow;
             int check = _repository.CreateFilesTranslation(filestranslation);
 
             if (check == 0)
@@ -288,6 +303,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                     return BadRequest("File Upload Error!");
                 }
                 filestranslation.url = Url;
+                filestranslation.updated_at = DateTime.UtcNow;
 
                 _mapper.Map(filestranslation1, filestranslation);
                 bool check = _repository.SaveChanges();
@@ -295,6 +311,20 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 {
                     return BadRequest();
                 }
+
+                FilesTranslationUpdatedUrlDTO filesUpdatedUrlDTO = new FilesTranslationUpdatedUrlDTO()
+                {
+                    url = Url,
+                };
+
+                _mapper.Map(filesUpdatedUrlDTO, filestranslation);
+                bool check1 = _repository.SaveChanges();
+                if (!check1)
+                {
+                    return BadRequest();
+                }
+
+
                 return Ok("Updated");
             }
             catch

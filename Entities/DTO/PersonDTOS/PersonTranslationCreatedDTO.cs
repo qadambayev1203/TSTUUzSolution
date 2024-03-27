@@ -19,6 +19,5 @@ namespace Entities.DTO.PersonDTOS
         public int? gender_id { get; set; }
         public int? persons_id { get; set; }
         public int? language_id { get; set; }
-        public int? status_translation_id { get; set; }
     }
 }

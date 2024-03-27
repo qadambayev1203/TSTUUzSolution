@@ -31,7 +31,7 @@ namespace Entities.DTO.MenuDTOS
         public FileTranslationConfReadedDTO? icon_ { get; set; }
         public DateTime? created_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
-        public int? link_id { get; set; }
+        public string? link_ { get; set; }
         public StatusTranslationConfReadedDTO? status_ { get; set; }
         public LanguageConfReadedDTO? language_ { get; set; }
         public UserConfReadedDTO? user_ { get; set; }

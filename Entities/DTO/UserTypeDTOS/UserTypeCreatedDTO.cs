@@ -9,6 +9,5 @@ namespace Entities.DTO.UserTypeDTOS
     public class UserTypeCreatedDTO
     {
         public string? type { get; set; }
-        public int? status_id { get; set; }
     }
 }

@@ -11,6 +11,5 @@ namespace Entities.DTO.GenderDTOS
     public class GenderCreatedDTO
     {
         public string? gender { get; set; }
-        public int? status_id { get; set; }
     }
 }
