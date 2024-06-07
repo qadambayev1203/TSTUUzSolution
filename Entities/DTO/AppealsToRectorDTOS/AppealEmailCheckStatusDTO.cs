@@ -13,5 +13,6 @@ namespace Entities.DTO.AppealsToRectorDTOS
         public int id { get; set; }
         public string appeal { get; set; }
         public StatusConfReadedDTO status_ { get; set; }
+        //asdfghj
     }
 }
