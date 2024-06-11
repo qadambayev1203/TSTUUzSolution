@@ -349,6 +349,22 @@ namespace Repository.AllSqlRepository.DepartamentsTypeSqlRepository
                 return null;
             }
         }
+        public DepartamentTypeTranslation GetDepartamentTypeTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var departamentTypeTranslation = _context.departament_types_translations_20ts24tu.Include(x => x.language_)
+                        .Include(x => x.departament_type_).Include(x => x.status_translation_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.departament_type_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return departamentTypeTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
 
         public DepartamentTypeTranslation GetDepartamentTypeTranslationByIdSite(int id)
         {

@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.PersonsRepository
         public IEnumerable<PersonTranslation> AllPersonTranslationSite(int queryNum, int pageNum, string language_code);
         public PersonTranslation GetPersonTranslationById(int id);
         public PersonTranslation GetPersonTranslationById(int uz_id, string language_code);
+        public PersonTranslation GetPersonTranslationByIdSite(int uz_id, string language_code);
         public PersonTranslation GetPersonTranslationByIdSite(int id);
         public int CreatePersonTranslation(PersonTranslation personTranslation);
         public bool UpdatePersonTranslation(int id, PersonTranslation person);

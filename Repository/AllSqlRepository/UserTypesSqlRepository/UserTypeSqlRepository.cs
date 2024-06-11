@@ -349,6 +349,21 @@ namespace Repository.AllSqlRepository.UserTypesSqlRepository
                 return null;
             }
         }
+        public UserTypeTranslation GetUserTypeTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var userTypeTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_).Include(x => x.language_).Include(x => x.status_translation_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.user_types_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return userTypeTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
 
         public bool UpdateUserTypeTranslation(int id, UserTypeTranslation userType)
         {

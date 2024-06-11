@@ -244,7 +244,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
         public IActionResult GetByIdfilesTranslation(int uz_id, string language_code)
         {
 
-            FilesTranslation filestranslation1 = _repository.GetFilesTranslationById(uz_id, language_code);
+            FilesTranslation filestranslation1 = _repository.GetFilesTranslationByIdSite(uz_id, language_code);
             if (filestranslation1 == null)
             {
 

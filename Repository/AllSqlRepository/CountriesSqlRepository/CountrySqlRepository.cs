@@ -265,13 +265,32 @@ namespace Repository.AllSqlRepository.CountriesSqlRepository
                 return null;
             }
         }
-          public CountryTranslation GetCountryTranslationById(int uz_id, string language_code)
+
+        public CountryTranslation GetCountryTranslationById(int uz_id, string language_code)
         {
             try
             {
                 var CountryTranslation = _context.countries_translations_20ts24tu
                         .Include(x => x.language_).Include(x => x.status_translation_)
                         .Include(x => x.country_).FirstOrDefault(x => x.country_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return CountryTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
+        public CountryTranslation GetCountryTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var CountryTranslation = _context.countries_translations_20ts24tu
+                        .Include(x => x.language_).Include(x => x.status_translation_)
+                        .Include(x => x.country_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.country_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return CountryTranslation;
             }
             catch (Exception ex)

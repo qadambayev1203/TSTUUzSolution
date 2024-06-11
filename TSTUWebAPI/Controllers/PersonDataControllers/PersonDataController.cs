@@ -75,15 +75,24 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallpersondata")]
-        public IActionResult GetAllpersonData(int queryNum, int pageNum)
+        public IActionResult GetAllpersonData(int queryNum, int pageNum, string? employee_type)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<PersonData> personDatas1 = _repository.AllPersonData(queryNum, pageNum);
-            var personDatas = _mapper.Map<IEnumerable<PersonDataReadedDTO>>(personDatas1);
-            if (personDatas == null) { }
+            IEnumerable<PersonData> personDatas1;
+            if (employee_type == null)
+            {
+                personDatas1 = _repository.AllPersonData(queryNum, pageNum);
+                var personDatas = _mapper.Map<IEnumerable<PersonDataReadedDTO>>(personDatas1);
+                return Ok(personDatas);
+            }
+            else
+            {
+                personDatas1 = _repository.AllPersonDataEmployeeType(queryNum, pageNum, employee_type);
+                var personDatas = _mapper.Map<IEnumerable<PersonDataReadedEmployeeTypeDTO>>(personDatas1);
+                return Ok(personDatas);
+            }
 
-            return Ok(personDatas);
         }
 
         [Authorize(Roles = "Admin")]
@@ -109,15 +118,24 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
         }
 
         [HttpGet("sitegetallpersondata")]
-        public IActionResult GetAllpersonDatasite(int queryNum, int pageNum)
+        public IActionResult GetAllpersonDatasite(int queryNum, int pageNum, string? employee_type)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<PersonData> personDatas1 = _repository.AllPersonDataSite(queryNum, pageNum);
-            var personDatas = _mapper.Map<IEnumerable<PersonDataReadedSiteDTO>>(personDatas1);
-            if (personDatas == null) { }
+            IEnumerable<PersonData> personDatas1;
+            if (employee_type == null)
+            {
+                personDatas1 = _repository.AllPersonDataSite(queryNum, pageNum);
+                var personDatas = _mapper.Map<IEnumerable<PersonDataReadedSiteDTO>>(personDatas1);
+                return Ok(personDatas);
+            }
+            else
+            {
+                personDatas1 = _repository.AllPersonDataEmployeeTypeSite(queryNum, pageNum, employee_type);
+                var personDatas = _mapper.Map<IEnumerable<PersonDataReadedEmployeeTypeSiteDTO>>(personDatas1);
+                return Ok(personDatas);
+            }
 
-            return Ok(personDatas);
         }
 
         [HttpGet("sitegetbyidpersondata/{id}")]
@@ -237,15 +255,24 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallpersondatatranslation")]
-        public IActionResult GetAllpersonDataTranslation(int queryNum, int pageNum, string? language_code)
+        public IActionResult GetAllpersonDataTranslation(int queryNum, int pageNum, string? language_code, string? employee_type)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<PersonDataTranslation> personDatatranslationes1 = _repository.AllPersonDataTranslation(queryNum, pageNum, language_code);
-            var personDatatranslationes = _mapper.Map<IEnumerable<PersonDataTranslationReadedDTO>>(personDatatranslationes1);
-            if (personDatatranslationes == null) { }
+            IEnumerable<PersonDataTranslation> personDatatranslationes1;
+            if (employee_type == null)
+            {
+                personDatatranslationes1 = _repository.AllPersonDataTranslation(queryNum, pageNum, language_code);
+                var personDatatranslationes = _mapper.Map<IEnumerable<PersonDataTranslationReadedDTO>>(personDatatranslationes1);
+                return Ok(personDatatranslationes);
+            }
+            else
+            {
+                personDatatranslationes1 = _repository.AllPersonDataTranslationEmployeeType(queryNum, pageNum, language_code, employee_type);
+                var personDatatranslationes = _mapper.Map<IEnumerable<PersonDataTranslationReadedEmployeeTypeDTO>>(personDatatranslationes1);
+                return Ok(personDatatranslationes);
+            }
 
-            return Ok(personDatatranslationes);
         }
 
         [Authorize(Roles = "Admin")]
@@ -279,21 +306,30 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
         }
 
         [HttpGet("sitegetallpersondatatranslation")]
-        public IActionResult GetAllpersonDataTranslationsite(int queryNum, int pageNum, string? language_code)
+        public IActionResult GetAllpersonDataTranslationsite(int queryNum, int pageNum, string? language_code, string? employee_type)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<PersonDataTranslation> personDatatranslationes1 = _repository.AllPersonDataTranslationSite(queryNum, pageNum, language_code);
-            var personDatatranslationes = _mapper.Map<IEnumerable<PersonDataTranslationReadedSiteDTO>>(personDatatranslationes1);
-            if (personDatatranslationes == null) { }
+            IEnumerable<PersonDataTranslation> personDatatranslationes1;
+            if (employee_type == null)
+            {
+                personDatatranslationes1 = _repository.AllPersonDataTranslationSite(queryNum, pageNum, language_code);
+                var personDatatranslationes = _mapper.Map<IEnumerable<PersonDataTranslationReadedSiteDTO>>(personDatatranslationes1);
+                return Ok(personDatatranslationes);
+            }
+            else
+            {
+                personDatatranslationes1 = _repository.AllPersonDataTranslationEmployeeTypeSite(queryNum, pageNum, language_code, employee_type);
+                var personDatatranslationes = _mapper.Map<IEnumerable<PersonDataTranslationReadedEmployeeTypeSiteDTO>>(personDatatranslationes1);
+                return Ok(personDatatranslationes);
+            }
 
-            return Ok(personDatatranslationes);
         }
 
         [HttpGet("sitegetbyuzidpersondatatranslation/{uz_id}")]
         public IActionResult GetByIdpersonDataTranslationsite(int uz_id, string language_code)
         {
-            PersonDataTranslation personDatatranslation1 = _repository.GetPersonDataTranslationById(uz_id, language_code);
+            PersonDataTranslation personDatatranslation1 = _repository.GetPersonDataTranslationByIdSite(uz_id, language_code);
             var personDatatranslation = _mapper.Map<PersonDataTranslationReadedSiteDTO>(personDatatranslation1);
             if (personDatatranslation == null) { }
             return Ok(personDatatranslation);

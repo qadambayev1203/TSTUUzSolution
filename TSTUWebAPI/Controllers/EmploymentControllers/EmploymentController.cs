@@ -84,7 +84,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Employment> Employments1 = _repository.AllEmployment(queryNum, pageNum);
+            IEnumerable<Employment> Employments1 = _repository.AllEmploymentSite(queryNum, pageNum);
             var Employments = _mapper.Map<IEnumerable<EmploymentReadedSiteDTO>>(Employments1);
             if (Employments == null) { }
 
@@ -95,7 +95,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         public IActionResult GetByIdEmploymentsite(int id)
         {
 
-            Employment Employment1 = _repository.GetEmploymentById(id);
+            Employment Employment1 = _repository.GetEmploymentByIdSite(id);
             if (Employment1 == null)
             {
 
@@ -229,7 +229,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<EmploymentTranslation> Employmenttranslations1 = _repository.AllEmploymentTranslation(queryNum, pageNum, language_code);
+            IEnumerable<EmploymentTranslation> Employmenttranslations1 = _repository.AllEmploymentTranslationSite(queryNum, pageNum, language_code);
             var Employmenttranslations = _mapper.Map<IEnumerable<EmploymentTranslationReadedSiteDTO>>(Employmenttranslations1);
             if (Employmenttranslations == null) { }
 
@@ -240,7 +240,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         public IActionResult GetByIdEmploymentTranslationsite(int uz_id, string language_code)
         {
 
-            EmploymentTranslation Employmenttranslation1 = _repository.GetEmploymentTranslationById(uz_id, language_code);
+            EmploymentTranslation Employmenttranslation1 = _repository.GetEmploymentTranslationByIdSite(uz_id, language_code);
             var Employmenttranslation = _mapper.Map<EmploymentTranslationReadedSiteDTO>(Employmenttranslation1);
             if (Employmenttranslation == null) { }
 
@@ -251,7 +251,7 @@ namespace TSTUWebAPI.Controllers.EmploymentControllers
         public IActionResult GetByIdEmploymentTranslationsite(int id)
         {
 
-            EmploymentTranslation Employmenttranslation1 = _repository.GetEmploymentTranslationById(id);
+            EmploymentTranslation Employmenttranslation1 = _repository.GetEmploymentTranslationByIdSite(id);
             var Employmenttranslation = _mapper.Map<EmploymentTranslationReadedSiteDTO>(Employmenttranslation1);
             if (Employmenttranslation == null) { }
 

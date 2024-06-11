@@ -111,6 +111,94 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
         }
 
+        public IEnumerable<PersonData> AllPersonDataEmployeeTypeSite(int queryNum, int pageNum, string employee_type)
+        {
+            try
+            {
+                var personDatas = new List<PersonData>();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    personDatas = _context.persons_data_20ts24tu
+                        .Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+                        .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                        .Include(x => x.status_)
+                        .Where(x => (x.status_.status != "Deleted" && x.persons_.employee_type_.title == employee_type)).Skip(10 * (pageNum - 1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                if (queryNum != 0 && pageNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    personDatas = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+                        .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                        .Include(x => x.status_)
+                        .Where(x => (x.status_.status != "Deleted" && x.persons_.employee_type_.title == employee_type)).Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    personDatas = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+                        .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                        .Include(x => x.status_)
+                        .Where(x => (x.status_.status != "Deleted" && x.persons_.employee_type_.title == employee_type))
+                        .ToList();
+
+                }
+                return personDatas;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return Enumerable.Empty<PersonData>();
+            }
+        }
+        public IEnumerable<PersonData> AllPersonDataEmployeeType(int queryNum, int pageNum, string employee_type)
+        {
+            try
+            {
+                var personDatas = new List<PersonData>();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    personDatas = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+                        .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                        .Include(x => x.status_)
+                        .Where(x => x.persons_.employee_type_.title == employee_type)
+                        .Skip(10 * (pageNum - 1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                if (queryNum != 0 && pageNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    personDatas = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+                        .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                        .Include(x => x.status_)
+                        .Where(x => x.persons_.employee_type_.title == employee_type)
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    personDatas = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+                        .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                        .Include(x => x.status_)
+                        .Where(x => x.persons_.employee_type_.title == employee_type)
+                        .ToList();
+
+                }
+                return personDatas;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return Enumerable.Empty<PersonData>();
+            }
+        }
+
         public int CreatePersonData(PersonData personData)
         {
             try
@@ -411,6 +499,123 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
         }
 
+        public IEnumerable<PersonDataTranslation> AllPersonDataTranslationEmployeeTypeSite(int queryNum, int pageNum, string language_code, string employee_type)
+        {
+            try
+            {
+                var personDatasTranslation = new List<PersonDataTranslation>();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    personDatasTranslation = _context.persons_data_translations_20ts24tu
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                        .Where(x => (x.status_translation_.status != "Deleted" && x.persons_translation_.employee_type_translation_.title == employee_type))
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Skip(10 * (pageNum - 1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                else if (queryNum != 0 && pageNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    personDatasTranslation = _context.persons_data_translations_20ts24tu.Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                        .Where(x => (x.status_translation_.status != "Deleted" && x.persons_translation_.employee_type_translation_.title == employee_type))
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    personDatasTranslation = _context.persons_data_translations_20ts24tu
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                        .Where(x => (x.status_translation_.status != "Deleted" && x.persons_translation_.employee_type_translation_.title == employee_type))
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                          .ToList();
+
+                }
+                return personDatasTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return Enumerable.Empty<PersonDataTranslation>();
+            }
+        }
+        public IEnumerable<PersonDataTranslation> AllPersonDataTranslationEmployeeType(int queryNum, int pageNum, string language_code, string employee_type)
+        {
+            try
+            {
+                var personDatasTranslation = new List<PersonDataTranslation>();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    personDatasTranslation = _context.persons_data_translations_20ts24tu.Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                        .Where(x => x.persons_translation_.employee_type_translation_.title == employee_type)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Skip(10 * (pageNum - 1))
+                        .Take(10)
+                        .ToList();
+
+                }
+                else if (queryNum != 0 && pageNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    personDatasTranslation = _context.persons_data_translations_20ts24tu
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                        .Where(x => x.persons_translation_.employee_type_translation_.title == employee_type)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                        .ToList();
+
+                }
+                else
+                {
+                    personDatasTranslation = _context.persons_data_translations_20ts24tu
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                        .Where(x => x.persons_translation_.employee_type_translation_.title == employee_type)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                          .ToList();
+
+                }
+                return personDatasTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return Enumerable.Empty<PersonDataTranslation>();
+            }
+        }
+
         public int CreatePersonDataTranslation(PersonDataTranslation personDataTranslation)
         {
             try
@@ -552,6 +757,27 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
         }
         public PersonDataTranslation GetPersonDataTranslationById(int uz_id, string language_code)
+        {
+            try
+            {
+                var personDataTranslation = _context.persons_data_translations_20ts24tu
+                    .Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                             .FirstOrDefault(x => x.persons_data_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return personDataTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
+        public PersonDataTranslation GetPersonDataTranslationByIdSite(int uz_id, string language_code)
         {
             try
             {

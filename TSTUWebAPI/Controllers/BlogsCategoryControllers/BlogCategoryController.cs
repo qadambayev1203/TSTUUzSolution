@@ -231,7 +231,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
         public IActionResult GetByIdBlogCategoryTranslationSite(int uz_id, string language_code)
         {
 
-            BlogCategoryTranslation blogCategorytranslation1 = _repository.GetBlogCategoryTranslationById(uz_id, language_code);
+            BlogCategoryTranslation blogCategorytranslation1 = _repository.GetBlogCategoryTranslationByIdSite(uz_id, language_code);
             var blogCategorytranslation = _mapper.Map<BlogCategoryTranslationReadedSiteDTO>(blogCategorytranslation1);
             if (blogCategorytranslation == null) { }
             return Ok(blogCategorytranslation);

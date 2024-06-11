@@ -465,6 +465,29 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
             }
         }
 
+        public SiteDetailTranslation GetSiteDetailTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var siteDetail = _context.site_details_translations_20ts24tu
+                        .Include(x => x.site_detail_)
+                        .Include(x => x.language_)
+                        .Include(x => x.logo_w_)
+                        .Include(x => x.logo_b_)
+                        .Include(x => x.favicon_)
+                        .Include(x => x.site_translation_)
+                        .Include(x => x.status_translation_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.site_detail_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return siteDetail;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public bool UpdateSiteDetailTranslation(int id, SiteDetailTranslation site)
         {
             try

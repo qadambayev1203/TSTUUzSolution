@@ -310,7 +310,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
         public IActionResult GetByIdMenuTranslationsite(int uz_id, string language_code)
         {
 
-            MenuTranslation Menutranslation1 = _repository.GetMenuTranslationById(uz_id, language_code);
+            MenuTranslation Menutranslation1 = _repository.GetMenuTranslationByIdSite(uz_id, language_code);
             if (Menutranslation1 == null)
             {
 

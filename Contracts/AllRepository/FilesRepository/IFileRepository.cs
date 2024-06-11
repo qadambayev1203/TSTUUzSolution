@@ -21,7 +21,8 @@ namespace Contracts.AllRepository.FilesRepository
         //FileTranslation CRUD
         public IEnumerable<FilesTranslation> AllFilesTranslation(int queryNum, int pageNum, string language_code);
         public FilesTranslation GetFilesTranslationById(int id);
-        public FilesTranslation GetFilesTranslationById(int iuz_id, string language_code);
+        public FilesTranslation GetFilesTranslationById(int uz_id, string language_code);
+        public FilesTranslation GetFilesTranslationByIdSite(int uz_id, string language_code);
         public int CreateFilesTranslation(FilesTranslation fileTranslation);
         public bool UpdateFilesTranslation(int id, FilesTranslation filesTranslation);
         public bool DeleteFilesTranslation(int id);

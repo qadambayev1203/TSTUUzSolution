@@ -359,7 +359,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         public IActionResult GetByIdDepartamentTranslationsite(int uz_id, string language_code)
         {
 
-            DepartamentTranslation departamenttranslation1 = _repository.GetDepartamentTranslationById(uz_id, language_code);
+            DepartamentTranslation departamenttranslation1 = _repository.GetDepartamentTranslationByIdSite(uz_id, language_code);
             var departamenttranslation = _mapper.Map<DepartamentTranslationReadedSiteDTO>(departamenttranslation1);
             if (departamenttranslation == null) { }
             return Ok(departamenttranslation);

@@ -219,7 +219,7 @@ namespace TSTUWebAPI.Controllers.UserTypeControllers
         public IActionResult GetByIdUserTypeTranslationselect(int uz_id, string language_code)
         {
 
-            UserTypeTranslation userTypetranslation1 = _repository.GetUserTypeTranslationById(uz_id, language_code);
+            UserTypeTranslation userTypetranslation1 = _repository.GetUserTypeTranslationByIdSite(uz_id, language_code);
             var userTypetranslation = _mapper.Map<UserTypeTranslationReadedSiteDTO>(userTypetranslation1);
             return Ok(userTypetranslation);
         }

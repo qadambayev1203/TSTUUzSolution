@@ -420,6 +420,25 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
             }
         }
 
+        public PersonTranslation GetPersonTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var personTranslation = _context.persons_translations_20ts24tu
+                        .Include(x => x.employee_type_translation_)
+                    .Include(y => y.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                    .Include(x => x.gender_).Include(x => x.language_).Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.status_translation_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.persons_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return personTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public bool UpdatePersonTranslation(int id, PersonTranslation person)
         {
 

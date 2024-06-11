@@ -403,6 +403,26 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
             }
         }
 
+        public SiteTranslation GetSiteTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var site = _context.sites_translations_20ts24tu.Include(x => x.site_)
+                        .Include(x => x.language_)
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.site_type_translation_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.site_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return site;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public bool UpdateSiteTranslation(int id, SiteTranslation site)
         {
             try

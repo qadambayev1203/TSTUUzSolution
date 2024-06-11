@@ -27,6 +27,7 @@ namespace Contracts.AllRepository.BlogsCategoryRepository
         public bool UpdateBlogCategoryTranslation(int id, BlogCategoryTranslation blogCategoryTranslation);
         public bool DeleteBlogCategoryTranslation(int id);
         public BlogCategoryTranslation GetBlogCategoryTranslationById(int uz_id, string language_code);
+        public BlogCategoryTranslation GetBlogCategoryTranslationByIdSite(int uz_id, string language_code);
         public IEnumerable<BlogCategoryTranslation> AllBlogCategoryTranslationSite(int queryNum, int pageNum, string language_code);
         public BlogCategoryTranslation GetBlogCategoryTranslationByIdSite(int id);
         public bool SaveChanges();

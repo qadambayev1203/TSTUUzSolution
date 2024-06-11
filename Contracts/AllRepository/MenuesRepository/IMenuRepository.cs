@@ -21,6 +21,7 @@ namespace Contracts.AllRepository.MenuesRepository
         public IEnumerable<MenuTranslation> AllMenuTranslationSite(int queryNum, int pageNum, string language_code, bool top_menu);
         public MenuTranslation GetMenuTranslationById(int id);
         public MenuTranslation GetMenuTranslationById(int uz_id, string language_code);
+        public MenuTranslation GetMenuTranslationByIdSite(int uz_id, string language_code);
         public MenuTranslation GetMenuTranslationByIdSite(int id);
         public int CreateMenuTranslation(MenuTranslation MenuTranslation);
         public bool UpdateMenuTranslation(int id, MenuTranslation menu);

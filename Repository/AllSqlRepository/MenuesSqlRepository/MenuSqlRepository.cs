@@ -260,12 +260,12 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                 dbcheck.title = menu.title;
                 dbcheck.description = menu.description;
                 dbcheck.link_ = menu.link_;
-                dbcheck.top_menu= menu.top_menu;
+                dbcheck.top_menu = menu.top_menu;
                 dbcheck.status_id = menu.status_id;
                 dbcheck.blog_id = menu.blog_id;
                 dbcheck.departament_id = menu.departament_id;
                 dbcheck.page_id = menu.page_id;
-                dbcheck.icon_=menu.icon_;
+                dbcheck.icon_ = menu.icon_;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;
             }
@@ -297,7 +297,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                         .Include(x => x.user_)
@@ -317,7 +317,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                         .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
@@ -335,7 +335,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                         .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
@@ -366,7 +366,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                         .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
@@ -386,7 +386,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                         .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
@@ -404,7 +404,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                         .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
@@ -480,7 +480,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                     .Include(x => x.user_)
@@ -504,10 +504,35 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                     .Include(x => x.user_)
+                    .FirstOrDefault(x => x.menu_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return MenuTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
+        public MenuTranslation GetMenuTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var MenuTranslation = _context.menu_translations_20ts24tu
+                     .Include(x => x.menu_)
+                        .Include(x => x.menu_type_translation_)
+                        .Include(x => x.icon_)
+                        .Include(x => x.blog_translation_)
+                        .Include(x => x.page_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                        .Include(x => x.status_)
+                        .Include(x => x.language_)
+                    .Include(x => x.user_)
+                        .Where(x => x.status_.status != "Deleted")
                     .FirstOrDefault(x => x.menu_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return MenuTranslation;
             }
@@ -528,7 +553,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y=>y.departament_type_translation_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
                     .Where(x => x.status_.status != "Deleted")

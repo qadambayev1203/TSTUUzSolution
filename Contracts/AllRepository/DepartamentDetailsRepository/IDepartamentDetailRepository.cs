@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.DepartamentDetailsRepository
         public IEnumerable<DepartamentDetailTranslation> AllDepartamentDetailTranslationSite(int queryNum, int pageNum, string language_code);
         public DepartamentDetailTranslation GetDepartamentDetailTranslationById(int id);
         public DepartamentDetailTranslation GetDepartamentDetailTranslationById(int uz_id, string language_code);
+        public DepartamentDetailTranslation GetDepartamentDetailTranslationByIdSite(int uz_id, string language_code);
         public DepartamentDetailTranslation GetDepartamentDetailTranslationByIdSite(int id);
         public int CreateDepartamentDetailTranslation(DepartamentDetailTranslation departamentDetailTranslation);
         public bool UpdateDepartamentDetailTranslation(int id, DepartamentDetailTranslation departamentDetail);

@@ -29,6 +29,7 @@ namespace Contracts.AllRepository.BlogsRepository
         public BlogTranslation GetBlogTranslationById(int id);
         public BlogTranslation GetBlogTranslationByIdSite(int id);
         public BlogTranslation GetBlogTranslationById(int uz_id, string language_code);
+        public BlogTranslation GetBlogTranslationByIdSite(int uz_id, string language_code);
         public int CreateBlogTranslation(BlogTranslation blogTranslation);
         public bool UpdateBlogTranslation(int id, BlogTranslation blog);
         public bool DeleteBlogTranslation(int id);

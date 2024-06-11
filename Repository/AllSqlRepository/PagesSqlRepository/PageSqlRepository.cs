@@ -67,13 +67,13 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
 
 
                 pages = _context.pages_20ts24tu
-                    .Select(x=> new Pages
+                    .Select(x => new Pages
                     {
-                        id=x.id,
-                        title_short=x.title_short,
-                        title=x.title,
-                        description=x.description,
-                        status_=x.status_
+                        id = x.id,
+                        title_short = x.title_short,
+                        title = x.title,
+                        description = x.description,
+                        status_ = x.status_
                     })
                     .ToList();
 
@@ -295,7 +295,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                         title = x.title,
                         description = x.description,
                         status_translation_ = x.status_translation_,
-                        page_id=x.page_id
+                        page_id = x.page_id
                     })
                     .ToList();
 
@@ -451,6 +451,27 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                         .Include(x => x.img_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Include(x => x.page_).FirstOrDefault(x => x.page_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return pageTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
+        public PageTranslation GetPageTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var pageTranslation = _context.pages_translations_20ts24tu
+                        .Include(x => x.language_)
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.img_translation_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Include(x => x.page_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.page_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return pageTranslation;
             }
             catch (Exception ex)

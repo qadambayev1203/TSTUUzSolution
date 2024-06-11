@@ -263,7 +263,7 @@ namespace TSTUWebAPI.Controllers.PersonControllers
         [HttpGet("sitegetbyuzidpersontranslation/{uz_id}")]
         public IActionResult GetByIdpersonTranslationsite(int uz_id, string language_code)
         {
-            PersonTranslation persontranslation1 = _repository.GetPersonTranslationById(uz_id, language_code);
+            PersonTranslation persontranslation1 = _repository.GetPersonTranslationByIdSite(uz_id, language_code);
             var persontranslation = _mapper.Map<PersonTranslationReadedSiteDTO>(persontranslation1);
             if (persontranslation == null) { }
             return Ok(persontranslation);

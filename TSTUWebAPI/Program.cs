@@ -1,3 +1,5 @@
+#region Library
+
 using Contracts;
 using Contracts.AllRepository.AppealsToRectorRepository;
 using Contracts.AllRepository.BlogsCategoryRepository;
@@ -11,6 +13,7 @@ using Contracts.AllRepository.EmployeesRepository;
 using Contracts.AllRepository.EmploymentsRepsitory;
 using Contracts.AllRepository.FilesRepository;
 using Contracts.AllRepository.GendersRepository;
+using Contracts.AllRepository.InteractiveServicesRepository;
 using Contracts.AllRepository.LanguagesRepository;
 using Contracts.AllRepository.MenuesRepository;
 using Contracts.AllRepository.MenuTypesRepository;
@@ -46,6 +49,7 @@ using Repository.AllSqlRepository.EmployeeTypesSqlRepository;
 using Repository.AllSqlRepository.EmploymentsSqlRepository;
 using Repository.AllSqlRepository.FilesSqlRepository;
 using Repository.AllSqlRepository.GendersSqlRepository;
+using Repository.AllSqlRepository.InteractivesServicesSqlRepository;
 using Repository.AllSqlRepository.LanguagesSqlRepository;
 using Repository.AllSqlRepository.MenuesSqlRepository;
 using Repository.AllSqlRepository.MenuTypesSqlRepository;
@@ -67,6 +71,8 @@ using System.Reflection;
 using System.Text;
 using TSTUWebAPI.Captcha;
 using TSTUWebAPI.Controllers.FileControllers;
+
+#endregion
 
 try
 {
@@ -225,8 +231,10 @@ try
     //Tokens AND TokensTranslation
     builder.Services.AddScoped<ITokensRepository, TokenSqlRepository>();
 
-    #endregion
+    //InteractiveServicess AND InteractiveServicessTranslation
+    builder.Services.AddScoped<IInteractiveServicesRepository, InteractiveServicesSqlRepository>();
 
+    #endregion
 
     #region AnyServices
 
@@ -259,7 +267,6 @@ try
 
 
     #endregion
-
 
     #region Midddlware
 

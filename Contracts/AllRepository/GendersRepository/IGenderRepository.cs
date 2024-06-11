@@ -26,6 +26,7 @@ namespace Contracts.AllRepository.GendersRepository
         public IEnumerable<GenderTranslation> AllGenderTranslationSite(int queryNum, int pageNum, string language_code);
         public GenderTranslation GetGenderTranslationById(int id);
         public GenderTranslation GetGenderTranslationById(int uz_id, string language_code);
+        public GenderTranslation GetGenderTranslationByIdSite(int uz_id, string language_code);
         public GenderTranslation GetGenderTranslationByIdSite(int id);
         public int CreateGenderTranslation(GenderTranslation genderTranslation);
         public bool UpdateGenderTranslation(int id, GenderTranslation gender);

@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.CountriesRepository
         public IEnumerable<CountryTranslation> AllCountryTranslationSite(string language_code);
         public CountryTranslation GetCountryTranslationById(int id);
         public CountryTranslation GetCountryTranslationById(int uz_id, string language_code);
+        public CountryTranslation GetCountryTranslationByIdSite(int uz_id, string language_code);
         public CountryTranslation GetCountryTranslationByIdSite(int id);
         public int CreateCountryTranslation(CountryTranslation countryTranslation);
         public bool UpdateCountryTranslation(int id, CountryTranslation countryTranslation);

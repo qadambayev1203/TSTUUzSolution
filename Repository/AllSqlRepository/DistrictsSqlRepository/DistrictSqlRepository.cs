@@ -324,6 +324,25 @@ namespace Repository.AllSqlRepository.DistrictsSqlRepository
                 return null;
             }
         }
+        public DistrictTranslation GetDistrictTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var DistrictTranslation = _context.districts_translations_20ts24tu
+                        .Include(x => x.language_)
+                    .Include(x => x.territorie_translation_)
+                    .Include(x => x.status_translation_)
+                    .Include(x => x.district_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.district_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return DistrictTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
 
         public DistrictTranslation GetDistrictTranslationByIdSite(int id)
         {

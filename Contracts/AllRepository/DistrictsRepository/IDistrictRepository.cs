@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.DistrictsRepository
         public IEnumerable<DistrictTranslation> AllDistrictTranslationSite(int territorie_translation_id, string language_code);
         public DistrictTranslation GetDistrictTranslationById(int id);
         public DistrictTranslation GetDistrictTranslationById(int uz_id, string language_code);
+        public DistrictTranslation GetDistrictTranslationByIdSite(int uz_id, string language_code);
         public DistrictTranslation GetDistrictTranslationByIdSite(int id);
         public int CreateDistrictTranslation(DistrictTranslation districtTranslation);
         public bool UpdateDistrictTranslation(int id, DistrictTranslation districtTranslation);

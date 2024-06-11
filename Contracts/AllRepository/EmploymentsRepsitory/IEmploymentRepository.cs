@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.EmploymentsRepsitory
         public IEnumerable<EmploymentTranslation> AllEmploymentTranslationSite(int queryNum, int pageNum, string language_code);
         public EmploymentTranslation GetEmploymentTranslationById(int id);
         public EmploymentTranslation GetEmploymentTranslationById(int uz_id, string language_code);
+        public EmploymentTranslation GetEmploymentTranslationByIdSite(int uz_id, string language_code);
         public EmploymentTranslation GetEmploymentTranslationByIdSite(int id);
         public int CreateEmploymentTranslation(EmploymentTranslation employmentTranslation);
         public bool UpdateEmploymentTranslation(int id, EmploymentTranslation employment);

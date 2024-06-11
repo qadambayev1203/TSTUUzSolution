@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.SiteTypesRepository
         public IEnumerable<SiteTypeTranslation> AllSiteTypeTranslationSite(int queryNum, int pageNum, string language_code);
         public SiteTypeTranslation GetSiteTypeTranslationById(int id);
         public SiteTypeTranslation GetSiteTypeTranslationById(int uz_id, string language_code);
+        public SiteTypeTranslation GetSiteTypeTranslationByIdSite(int uz_id, string language_code);
         public SiteTypeTranslation GetSiteTypeTranslationByIdSite(int id);
         public int CreateSiteTypeTranslation(SiteTypeTranslation siteTypeTranslation);
         public bool UpdateSiteTypeTranslation(int id, SiteTypeTranslation siteType);

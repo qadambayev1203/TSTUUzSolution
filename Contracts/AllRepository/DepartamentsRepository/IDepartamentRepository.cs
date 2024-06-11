@@ -31,6 +31,7 @@ namespace Contracts.AllRepository.DepartamentsRepository
         public IEnumerable<DepartamentTranslation> AllDepartamentTranslationType(string dep_type, string language_code);
         public DepartamentTranslation GetDepartamentTranslationById(int id);
         public DepartamentTranslation GetDepartamentTranslationById(int uz_id, string language_code);
+        public DepartamentTranslation GetDepartamentTranslationByIdSite(int uz_id, string language_code);
         public DepartamentTranslation GetDepartamentTranslationByIdSite(int id);
         public int CreateDepartamentTranslation(DepartamentTranslation departamentTranslation);
         public bool UpdateDepartamentTranslation(int id, DepartamentTranslation departament);

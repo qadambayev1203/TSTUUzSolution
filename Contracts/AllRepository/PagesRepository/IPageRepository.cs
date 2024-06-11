@@ -27,6 +27,7 @@ namespace Contracts.AllRepository.PagesRepository
         public IEnumerable<PageTranslation> AllPageTranslationSite(int queryNum, int pageNum, string language_code);
         public PageTranslation GetPageTranslationById(int id);
         public PageTranslation GetPageTranslationById(int uz_id, string language_code);
+        public PageTranslation GetPageTranslationByIdSite(int uz_id, string language_code);
         public PageTranslation GetPageTranslationByIdSite(int id);
         public int CreatePageTranslation(PageTranslation pageTranslation);
         public bool UpdatePageTranslation(int id, PageTranslation pageTranslation);

@@ -12,6 +12,8 @@ namespace Contracts.AllRepository.PersonsDataRepository
         //PersonData CRUD
         public IEnumerable<PersonData> AllPersonData(int queryNum, int pageNum);
         public IEnumerable<PersonData> AllPersonDataSite(int queryNum, int pageNum);
+        public IEnumerable<PersonData> AllPersonDataEmployeeType(int queryNum, int pageNum, string employee_type);
+        public IEnumerable<PersonData> AllPersonDataEmployeeTypeSite(int queryNum, int pageNum, string employee_type);
         public PersonData GetPersonDataById(int id);
         public PersonData GetPersonDataByIdSite(int id);
         public PersonData GetPersonDataByPersonId(int person_id);
@@ -25,11 +27,14 @@ namespace Contracts.AllRepository.PersonsDataRepository
         //PersonDataTranslation CRUD
         public IEnumerable<PersonDataTranslation> AllPersonDataTranslation(int queryNum, int pageNum, string language_code);
         public IEnumerable<PersonDataTranslation> AllPersonDataTranslationSite(int queryNum, int pageNum, string language_code);
+        public IEnumerable<PersonDataTranslation> AllPersonDataTranslationEmployeeType(int queryNum, int pageNum, string language_code, string employee_type);
+        public IEnumerable<PersonDataTranslation> AllPersonDataTranslationEmployeeTypeSite(int queryNum, int pageNum, string language_code, string employee_type);
         public PersonDataTranslation GetPersonDataTranslationById(int id);
         public PersonDataTranslation GetPersonDataTranslationByIdSite(int id);
         public PersonDataTranslation GetPersonDataTranslationByPersonId(int person_id, string language_code);
         public PersonDataTranslation GetPersonDataTranslationByPersonIdSite(int person_id, string language_code);
         public PersonDataTranslation GetPersonDataTranslationById(int uz_id, string language_code);
+        public PersonDataTranslation GetPersonDataTranslationByIdSite(int uz_id, string language_code);
         public int CreatePersonDataTranslation(PersonDataTranslation personDataTranslation);
         public bool UpdatePersonDataTranslation(int id, PersonDataTranslation personData);
         public bool DeletePersonDataTranslation(int id);

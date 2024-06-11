@@ -27,6 +27,7 @@ namespace Contracts.AllRepository.NeighborhoodsRepository
         public IEnumerable<NeighborhoodTranslation> AllNeighborhoodTranslationSite(int district_translation_id, string langiage_code);
         public NeighborhoodTranslation GetNeighborhoodTranslationById(int id);
         public NeighborhoodTranslation GetNeighborhoodTranslationById(int uz_id, string language_code);
+        public NeighborhoodTranslation GetNeighborhoodTranslationByIdSite(int uz_id, string language_code);
         public NeighborhoodTranslation GetNeighborhoodTranslationByIdSite(int id);
         public int CreateNeighborhoodTranslation(NeighborhoodTranslation neighborhoodTranslation);
         public bool UpdateNeighborhoodTranslation(int id, NeighborhoodTranslation neighborhoodTranslation);

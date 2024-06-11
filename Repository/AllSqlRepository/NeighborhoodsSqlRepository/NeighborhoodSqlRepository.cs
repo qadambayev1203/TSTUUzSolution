@@ -365,6 +365,26 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
             }
         }
 
+        public NeighborhoodTranslation GetNeighborhoodTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var NeighborhoodTranslation = _context.neighborhoods_translations_20ts24tu.
+                        Include(x => x.language_)
+                    .Include(x => x.neighborhood_)
+                    .Include(x => x.status_translation_)
+                    .Include(x => x.district_translation_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.neighborhood_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return NeighborhoodTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public NeighborhoodTranslation GetNeighborhoodTranslationByIdSite(int id)
         {
             try
@@ -419,8 +439,8 @@ namespace Repository.AllSqlRepository.NeighborhoodsSqlRepository
             }
         }
 
-        
 
-       
+
+
     }
 }

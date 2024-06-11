@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.StatusesRepository
         public IEnumerable<StatusTranslation> AllStatusTranslationSelect(int queryNum, int pageNum, string language_code);
         public StatusTranslation GetStatusTranslationById(int id);
         public StatusTranslation GetStatusTranslationById(int uz_id, string language_code);
+        public StatusTranslation GetStatusTranslationByIdSite(int uz_id, string language_code);
         public StatusTranslation GetStatusTranslationByIdSelect(int id);
         public int CreateStatusTranslation(StatusTranslation statusTranslation);
         public bool UpdateStatusTranslation(int id, StatusTranslation status);

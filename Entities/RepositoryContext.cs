@@ -12,6 +12,7 @@ using Entities.Model.EmployeeTypesModel;
 using Entities.Model.EmploymentModel;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
+using Entities.Model.InteractiveServicesModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.MenuModel;
 using Entities.Model.MenuTypesModel;
@@ -38,7 +39,7 @@ using System.Threading.Tasks;
 namespace Entities
 {
     public class RepositoryContext : DbContext
-    {      
+    {
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
         {
@@ -46,9 +47,9 @@ namespace Entities
             {
                 Database.EnsureCreated();
             }
-            catch 
+            catch
             {
-                
+
             }
         }
 
@@ -163,6 +164,8 @@ namespace Entities
         public DbSet<Tokens> tokens_20ts24tu { get; set; }
         public DbSet<PersonData> persons_data_20ts24tu { get; set; }
         public DbSet<PersonDataTranslation> persons_data_translations_20ts24tu { get; set; }
+        public DbSet<InteractiveServices> interactive_services_20ts24tu { get; set; }
+        public DbSet<InteractiveServicesTranslation> interactive_services_translations_20ts24tu { get; set; }
 
 
     }

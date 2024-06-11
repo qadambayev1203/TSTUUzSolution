@@ -377,6 +377,24 @@ namespace Repository.AllSqlRepository.EmployeeTypesSqlRepository
             }
         }
 
+        public EmployeeTypeTranslation GetEmployeeTypeTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var EmployeeTypeTranslation = _context.employee_types_translations_20ts24tu
+                        .Include(x => x.language_).Include(x => x.status_translation_)
+                        .Include(x => x.employee_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.employee_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return EmployeeTypeTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public EmployeeTypeTranslation GetEmployeeTypeTranslationByIdSite(int id)
         {
             try

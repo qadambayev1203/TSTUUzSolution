@@ -239,7 +239,7 @@ namespace TSTUWebAPI.Controllers.SitesControllers
         public IActionResult GetByIdSiteTranslationsite(int uz_id, string language_code)
         {
 
-            SiteTranslation sitetranslation1 = _repository.GetSiteTranslationById(uz_id, language_code);
+            SiteTranslation sitetranslation1 = _repository.GetSiteTranslationByIdSite(uz_id, language_code);
             if (sitetranslation1 == null)
             {
 

@@ -145,7 +145,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                 var blogCategorys = new List<BlogCategory>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    blogCategorys = _context.blogs_category_20ts24tu.Where(x=>x.status_.status!="Deleted").Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    blogCategorys = _context.blogs_category_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 if (queryNum != 0 && pageNum != 0)
@@ -298,7 +298,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                 _logger.LogError($"Error" + ex.ToString());
                 return null;
             }
-        }  
+        }
         public BlogCategoryTranslation GetBlogCategoryTranslationById(int uz_id, string language_code)
         {
             try
@@ -307,7 +307,26 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.blog_category_)
-                        .FirstOrDefault(x => x.blog_category_id.Equals(uz_id)&&x.language_.code.Equals(language_code));
+                        .FirstOrDefault(x => x.blog_category_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return blogCategoryTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
+        public BlogCategoryTranslation GetBlogCategoryTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var blogCategoryTranslation = _context.blogs_category_translations_20ts24tu
+                        .Include(x => x.language_)
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.blog_category_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.blog_category_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return blogCategoryTranslation;
             }
             catch (Exception ex)
@@ -343,7 +362,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
         }
 
 
-     
+
         public IEnumerable<BlogCategoryTranslation> AllBlogCategoryTranslationSite(int queryNum, int pageNum, string language_code)
         {
             try
@@ -369,7 +388,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.blog_category_)
-                        .Where(x=>x.status_translation_.status!="Deleted")
+                        .Where(x => x.status_translation_.status != "Deleted")
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(queryNum * (pageNum - 1))
                         .Take(queryNum)
@@ -382,7 +401,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.blog_category_)
-                        .Where(x=>x.status_translation_.status!="Deleted")
+                        .Where(x => x.status_translation_.status != "Deleted")
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .ToList();
 
@@ -427,7 +446,7 @@ namespace Repository.AllSqlRepository.BlogsCategorySqlRepository
             }
         }
 
-      
+
 
 
         #endregion

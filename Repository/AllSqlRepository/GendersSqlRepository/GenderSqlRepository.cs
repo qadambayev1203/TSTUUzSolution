@@ -332,11 +332,27 @@ namespace Repository.AllSqlRepository.GendersSqlRepository
                 return null;
             }
         }
-         public GenderTranslation GetGenderTranslationById(int uz_id, string language_code)
+        public GenderTranslation GetGenderTranslationById(int uz_id, string language_code)
         {
             try
             {
                 var genderTranslation = _context.genders_translations_20ts24tu.Include(x => x.gender_).Include(x => x.status_translation_).Include(x => x.language_).FirstOrDefault(x => x.gender_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return genderTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
+        public GenderTranslation GetGenderTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var genderTranslation = _context.genders_translations_20ts24tu.Include(x => x.gender_).Include(x => x.status_translation_).Include(x => x.language_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.gender_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return genderTranslation;
             }
             catch (Exception ex)

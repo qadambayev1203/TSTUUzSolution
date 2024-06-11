@@ -230,7 +230,7 @@ namespace TSTUWebAPI.Controllers.CountrieControllers
         public IActionResult GetByIdCountryTranslationsite(int uz_id, string language_code)
         {
 
-            CountryTranslation Countrytranslation1 = _repository.GetCountryTranslationById(uz_id, language_code);
+            CountryTranslation Countrytranslation1 = _repository.GetCountryTranslationByIdSite(uz_id, language_code);
             var Countrytranslation = _mapper.Map<CountryTranslationReadedSiteDTO>(Countrytranslation1);
             if (Countrytranslation == null) { }
 

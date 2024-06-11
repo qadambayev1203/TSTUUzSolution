@@ -75,6 +75,8 @@ using Entities.Model.TerritoriesModel;
 using Entities.Model.TokensModel;
 using Entities.Model.EmploymentModel;
 using Entities.Model.EmployeeTypesModel;
+using Entities.DTO.InteractiveServicesDTOS;
+using Entities.Model.InteractiveServicesModel;
 
 namespace TSTUWebAPI.Profiles
 {
@@ -149,6 +151,8 @@ namespace TSTUWebAPI.Profiles
             //PersonData DTOS
             CreateMap<PersonDataCreatedDTO, PersonData>();
             CreateMap<PersonDataUpdatedDTO, PersonData>();
+            CreateMap<PersonData, PersonDataReadedEmployeeTypeDTO>();
+            CreateMap<PersonData, PersonDataReadedEmployeeTypeSiteDTO>();
             CreateMap<PersonData, PersonDataReadedDTO>();
             CreateMap<PersonData, PersonDataReadedSiteDTO>();
             CreateMap<PersonData, PesonDataConfDTO>();
@@ -157,6 +161,8 @@ namespace TSTUWebAPI.Profiles
             CreateMap<PersonDataTranslationCreatedDTO, PersonDataTranslation>();
             CreateMap<PersonDataTranslationUpdatedDTO, PersonDataTranslation>();
             CreateMap<PersonDataTranslation, PersonDataTranslationReadedDTO>();
+            CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeDTO>();
+            CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeSiteDTO>();
             CreateMap<PersonDataTranslation, PersonDataTranslationReadedSiteDTO>();
 
 
@@ -166,7 +172,7 @@ namespace TSTUWebAPI.Profiles
             CreateMap<Status, StatusReadedDTO>();
             CreateMap<Status, StatusReadedSiteDTO>();
             CreateMap<Status, StatusConfReadedDTO>();
-            
+
 
 
             CreateMap<StatusTranslationCreatedDTO, StatusTranslation>();
@@ -486,6 +492,21 @@ namespace TSTUWebAPI.Profiles
             CreateMap<TokensUpdatedDTO, Tokens>();
             CreateMap<Tokens, TokensReadedDTO>();
             CreateMap<Tokens, TokensReadedSiteDTO>();
+
+
+            //InteractiveServices DTOS
+            CreateMap<InteractiveServicesCreatedDTO, InteractiveServices>();
+            CreateMap<InteractiveServicesUpdatedDTO, InteractiveServices>();
+            CreateMap<InteractiveServices, InteractiveServicesReadedDTO>();
+            CreateMap<InteractiveServices, InteractiveServicesReadedConfDTO>();
+            CreateMap<InteractiveServices, InteractiveServicesReadedSiteDTO>();
+
+
+            CreateMap<InteractiveServicesTranslationCreatedDTO, InteractiveServicesTranslation>();
+            CreateMap<InteractiveServicesTranslationUpdatedDTO, InteractiveServicesTranslation>();
+            CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationReadedDTO>();
+            CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationReadedSiteDTO>();
+            CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationConfReadedDTO>();
         }
     }
 }

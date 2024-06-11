@@ -83,7 +83,7 @@ namespace TSTUWebAPI.Controllers.EmployeeTypeControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<EmployeeType> EmployeeTypes1 = _repository.AllEmployeeType(queryNum, pageNum);
+            IEnumerable<EmployeeType> EmployeeTypes1 = _repository.AllEmployeeTypeSite(queryNum, pageNum);
             var EmployeeTypes = _mapper.Map<IEnumerable<EmployeeTypeReadedSiteDTO>>(EmployeeTypes1);
             if (EmployeeTypes == null) { }
 
@@ -94,7 +94,7 @@ namespace TSTUWebAPI.Controllers.EmployeeTypeControllers
         public IActionResult GetByIdEmployeeTypesite(int id)
         {
 
-            EmployeeType EmployeeType1 = _repository.GetEmployeeTypeById(id);
+            EmployeeType EmployeeType1 = _repository.GetEmployeeTypeByIdSite(id);
             if (EmployeeType1 == null)
             {
 
@@ -228,7 +228,7 @@ namespace TSTUWebAPI.Controllers.EmployeeTypeControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<EmployeeTypeTranslation> EmployeeTypetranslations1 = _repository.AllEmployeeTypeTranslation(queryNum, pageNum, language_code);
+            IEnumerable<EmployeeTypeTranslation> EmployeeTypetranslations1 = _repository.AllEmployeeTypeTranslationSite(queryNum, pageNum, language_code);
             var EmployeeTypetranslations = _mapper.Map<IEnumerable<EmployeeTypeTranslationReadedSiteDTO>>(EmployeeTypetranslations1);
             if (EmployeeTypetranslations == null) { }
 
@@ -239,7 +239,7 @@ namespace TSTUWebAPI.Controllers.EmployeeTypeControllers
         public IActionResult GetByIdEmployeeTypeTranslationsite(int uz_id, string language_code)
         {
 
-            EmployeeTypeTranslation EmployeeTypetranslation1 = _repository.GetEmployeeTypeTranslationById(uz_id, language_code);
+            EmployeeTypeTranslation EmployeeTypetranslation1 = _repository.GetEmployeeTypeTranslationByIdSite(uz_id, language_code);
             var EmployeeTypetranslation = _mapper.Map<EmployeeTypeTranslationReadedSiteDTO>(EmployeeTypetranslation1);
             if (EmployeeTypetranslation == null) { }
 
@@ -250,7 +250,7 @@ namespace TSTUWebAPI.Controllers.EmployeeTypeControllers
         public IActionResult GetByIdEmployeeTypeTranslationsite(int id)
         {
 
-            EmployeeTypeTranslation EmployeeTypetranslation1 = _repository.GetEmployeeTypeTranslationById(id);
+            EmployeeTypeTranslation EmployeeTypetranslation1 = _repository.GetEmployeeTypeTranslationByIdSite(id);
             var EmployeeTypetranslation = _mapper.Map<EmployeeTypeTranslationReadedSiteDTO>(EmployeeTypetranslation1);
             if (EmployeeTypetranslation == null) { }
 

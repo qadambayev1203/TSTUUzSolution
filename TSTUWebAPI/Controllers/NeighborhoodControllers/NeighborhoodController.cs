@@ -253,7 +253,7 @@ namespace TSTUWebAPI.Controllers.NeighborhoodControllers
         public IActionResult GetByIdNeighborhoodTranslationsite(int uz_id, string language_code)
         {
 
-            NeighborhoodTranslation Neighborhoodtranslation1 = _repository.GetNeighborhoodTranslationById(uz_id, language_code);
+            NeighborhoodTranslation Neighborhoodtranslation1 = _repository.GetNeighborhoodTranslationByIdSite(uz_id, language_code);
             var Neighborhoodtranslation = _mapper.Map<NeighborhoodTranslationReadedSiteDTO>(Neighborhoodtranslation1);
             if (Neighborhoodtranslation == null) { }
 

@@ -379,6 +379,24 @@ namespace Repository.AllSqlRepository.EmploymentsSqlRepository
             }
         }
 
+        public EmploymentTranslation GetEmploymentTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var EmploymentTranslation = _context.employments_translations_20ts24tu
+                        .Include(x => x.language_).Include(x => x.status_translation_)
+                        .Include(x => x.employment_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.employment_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return EmploymentTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public EmploymentTranslation GetEmploymentTranslationByIdSite(int id)
         {
             try

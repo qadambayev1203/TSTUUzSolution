@@ -307,7 +307,7 @@ namespace TSTUWebAPI.Controllers.PagesController
         [HttpGet("sitegetbyuzidpagetranslation/{uz_id}")]
         public IActionResult GetByIdpageTranslationsite(int uz_id, string language_code)
         {
-            PageTranslation pagetranslation1 = _repository.GetPageTranslationById(uz_id, language_code);
+            PageTranslation pagetranslation1 = _repository.GetPageTranslationByIdSite(uz_id, language_code);
             var pagetranslation = _mapper.Map<PageTranslationReadedSiteDTO>(pagetranslation1);
             if (pagetranslation == null) { }
             return Ok(pagetranslation);

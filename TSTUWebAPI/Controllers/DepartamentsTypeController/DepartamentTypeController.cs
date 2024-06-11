@@ -32,7 +32,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         // DepartamentType CRUD
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("createdepartamentType")]
+        [HttpPost("createdepartamenttype")]
         public IActionResult CreateDepartamentType(DepartamentTypeCreatedDTO departamentType1)
         {
             var departamentType = _mapper.Map<DepartamentType>(departamentType1);
@@ -53,7 +53,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("getalldepartamentType")]
+        [HttpGet("getalldepartamenttype")]
         public IActionResult GetAllDepartamentType(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -65,7 +65,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("getbyiddepartamentType/{id}")]
+        [HttpGet("getbyiddepartamenttype/{id}")]
         public IActionResult GetByIdDepartamentType(int id)
         {
 
@@ -80,7 +80,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
             return Ok(departamentType);
         }
 
-        [HttpGet("sitegetalldepartamentType")]
+        [HttpGet("sitegetalldepartamenttype")]
         public IActionResult GetAllDepartamentTypesite(int queryNum, int pageNum)
         {
             queryNum = Math.Abs(queryNum);
@@ -91,7 +91,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
             return Ok(departamentTypes);
         }
 
-        [HttpGet("sitegetbyiddepartamentType/{id}")]
+        [HttpGet("sitegetbyiddepartamenttype/{id}")]
         public IActionResult GetByIdDepartamentTypesite(int id)
         {
 
@@ -107,7 +107,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("deletedepartamentType/{id}")]
+        [HttpDelete("deletedepartamenttype/{id}")]
         public IActionResult DeleteDepartamentType(int id)
         {
             bool check = _repository.DeleteDepartamentType(id);
@@ -124,7 +124,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPut("updatedepartamentType/{id}")]
+        [HttpPut("updatedepartamenttype/{id}")]
         public IActionResult UpdateDepartamentType(DepartamentTypeUpdatedDTO departamentType1, int id)
         {
 
@@ -165,7 +165,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         //DepartamentTypeTranslation CRUD
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("createdepartamentTypetranslation")]
+        [HttpPost("createdepartamenttypetranslation")]
         public IActionResult CreateDepartamentTypeTranslation(DepartamentTypeTranslationCreatedDTO departamentTypetranslation1)
         {
             var departamentTypetranslation = _mapper.Map<DepartamentTypeTranslation>(departamentTypetranslation1);
@@ -186,7 +186,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("getalldepartamentTypetranslation")]
+        [HttpGet("getalldepartamenttypetranslation")]
         public IActionResult GetAllDepartamentTypeTranslation(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -199,7 +199,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("getbyuziddepartamentTypetranslation/{uz_id}")]
+        [HttpGet("getbyuziddepartamenttypetranslation/{uz_id}")]
         public IActionResult GetByIdDepartamentTypeTranslation(int uz_id, string language_code)
         {
 
@@ -210,7 +210,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("getbyiddepartamentTypetranslation/{id}")]
+        [HttpGet("getbyiddepartamenttypetranslation/{id}")]
         public IActionResult GetByIdDepartamentTypeTranslation(int id)
         {
 
@@ -220,7 +220,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
             return Ok(departamentTypetranslation);
         }
 
-        [HttpGet("sitegetalldepartamentTypetranslation")]
+        [HttpGet("sitegetalldepartamenttypetranslation")]
         public IActionResult GetAllDepartamentTypeTranslationsite(int queryNum, int pageNum, string? language_code)
         {
             queryNum = Math.Abs(queryNum);
@@ -232,17 +232,17 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
             return Ok(departamentTypetranslations);
         }
 
-        [HttpGet("sitegetbyuziddepartamentTypetranslation/{uz_id}")]
+        [HttpGet("sitegetbyuziddepartamenttypetranslation/{uz_id}")]
         public IActionResult GetByIdDepartamentTypeTranslationsite(int uz_id, string language_code)
         {
 
-            DepartamentTypeTranslation departamentTypetranslation1 = _repository.GetDepartamentTypeTranslationById(uz_id, language_code);
+            DepartamentTypeTranslation departamentTypetranslation1 = _repository.GetDepartamentTypeTranslationByIdSite(uz_id, language_code);
             var departamentTypetranslation = _mapper.Map<DepartamentTypeTranslationReadedSiteDTO>(departamentTypetranslation1);
             if (departamentTypetranslation == null) { }
             return Ok(departamentTypetranslation);
         }
 
-        [HttpGet("sitegetbyiddepartamentTypetranslation/{id}")]
+        [HttpGet("sitegetbyiddepartamenttypetranslation/{id}")]
         public IActionResult GetByIdDepartamentTypeTranslationsite(int id)
         {
 
@@ -253,7 +253,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("deletedepartamentTypetranslation/{id}")]
+        [HttpDelete("deletedepartamenttypetranslation/{id}")]
         public IActionResult DeleteDepartamentTypeTranslation(int id)
         {
             bool check = _repository.DeleteDepartamentTypeTranslation(id);
@@ -270,7 +270,7 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPut("updatedepartamentTypetranslation/{id}")]
+        [HttpPut("updatedepartamenttypetranslation/{id}")]
         public IActionResult UpdateDepartamentTypeTranslation(DepartamentTypeTranslationUpdatedDTO departamentTypetranslation1, int id)
         {
 

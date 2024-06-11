@@ -389,6 +389,25 @@ namespace Repository.AllSqlRepository.SiteTypesSqlRepository
             }
         }
 
+        public SiteTypeTranslation GetSiteTypeTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var siteType = _context.site_types_translations_20ts24tu
+                        .Include(x => x.site_type_)
+                        .Include(x => x.language_)
+                        .Include(x => x.status_translation_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.site_type_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return siteType;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public bool UpdateSiteTypeTranslation(int id, SiteTypeTranslation siteType)
         {
             try

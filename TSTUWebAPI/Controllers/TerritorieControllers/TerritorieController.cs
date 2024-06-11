@@ -223,7 +223,7 @@ namespace TSTUWebAPI.Controllers.TerritorieControllers
         public IActionResult GetByIdTerritorieTranslationsite(int uz_id, string language_code)
         {
 
-            TerritorieTranslation Territorietranslation1 = _repository.GetTerritorieTranslationById(uz_id, language_code);
+            TerritorieTranslation Territorietranslation1 = _repository.GetTerritorieTranslationByIdSite(uz_id, language_code);
             var Territorietranslation = _mapper.Map<TerritorieTranslationReadedSiteDTO>(Territorietranslation1);
 
             return Ok(Territorietranslation);

@@ -330,6 +330,26 @@ namespace Repository.AllSqlRepository.TerritoriesSqlRepository
             }
         }
 
+        public TerritorieTranslation GetTerritorieTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var TerritorieTranslation = _context.territories_translations_20ts24tu
+                        .Include(x => x.language_)
+                    .Include(x => x.territorie_)
+                    .Include(x => x.status_translation_)
+                    .Include(x => x.country_translation_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.territorie_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return TerritorieTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public bool UpdateTerritorieTranslation(int id, TerritorieTranslation TerritorieTranslation)
         {
 

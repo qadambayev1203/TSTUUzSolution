@@ -231,7 +231,7 @@ namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
         public IActionResult GetByIdSiteTypeTranslationsite(int uz_id, string language_code)
         {
 
-            SiteTypeTranslation siteTypetranslation1 = _repository.GetSiteTypeTranslationById(uz_id, language_code);
+            SiteTypeTranslation siteTypetranslation1 = _repository.GetSiteTypeTranslationByIdSite(uz_id, language_code);
             if (siteTypetranslation1 == null)
             {
 

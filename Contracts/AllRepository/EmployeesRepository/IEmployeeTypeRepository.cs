@@ -25,6 +25,7 @@ namespace Contracts.AllRepository.EmployeesRepository
         public IEnumerable<EmployeeTypeTranslation> AllEmployeeTypeTranslationSite(int queryNum, int pageNum, string language_code);
         public EmployeeTypeTranslation GetEmployeeTypeTranslationById(int id);
         public EmployeeTypeTranslation GetEmployeeTypeTranslationById(int uz_id, string language_code);
+        public EmployeeTypeTranslation GetEmployeeTypeTranslationByIdSite(int uz_id, string language_code);
         public EmployeeTypeTranslation GetEmployeeTypeTranslationByIdSite(int id);
         public int CreateEmployeeTypeTranslation(EmployeeTypeTranslation employeeTypeTranslation);
         public bool UpdateEmployeeTypeTranslation(int id, EmployeeTypeTranslation employeeType);

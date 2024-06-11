@@ -10,5 +10,6 @@ namespace Entities.DTO
     {
         public string Login { get; set; }
         public string Password { get; set; }
+        public int CaptchaNumbersSumm { get; set; }
     }
 }

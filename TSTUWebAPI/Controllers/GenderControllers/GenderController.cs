@@ -248,7 +248,7 @@ namespace TSTUWebAPI.Controllers.GenderControllers
         public IActionResult GetByIdgenderTranslationsite(int uz_id, string language_code)
         {
 
-            GenderTranslation gendertranslation1 = _repository.GetGenderTranslationById(uz_id, language_code);
+            GenderTranslation gendertranslation1 = _repository.GetGenderTranslationByIdSite(uz_id, language_code);
             var gendertranslation = _mapper.Map<GenderTranslationReadedSiteDTO>(gendertranslation1);
             if (gendertranslation == null) { }
 

@@ -385,13 +385,34 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
                 return null;
             }
         }
-         public DepartamentDetailTranslation GetDepartamentDetailTranslationById(int uz_id, string language_code)
+
+        public DepartamentDetailTranslation GetDepartamentDetailTranslationById(int uz_id, string language_code)
         {
             try
             {
                 var departamentDetailTranslation = _context.departament_details_translations_20ts24tu.Include(x => x.language_)
                         .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_).Include(x => x.departament_detail_)
                         .Include(x => x.status_translation_).FirstOrDefault(x => x.departament_detail_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return departamentDetailTranslation;
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+
+                return null;
+            }
+        }
+
+        public DepartamentDetailTranslation GetDepartamentDetailTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var departamentDetailTranslation = _context.departament_details_translations_20ts24tu.Include(x => x.language_)
+                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_).Include(x => x.departament_detail_)
+                        .Include(x => x.status_translation_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.departament_detail_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return departamentDetailTranslation;
             }
 

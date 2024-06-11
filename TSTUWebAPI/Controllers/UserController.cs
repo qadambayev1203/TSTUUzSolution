@@ -3,6 +3,8 @@ using Contracts;
 using Entities.DTO;
 using Entities.Model;
 using Entities.Model.AnyClasses;
+using Entities.Model.AppealsToTheRectorsModel;
+using Entities.Model.FileModel;
 using Entities.Model.SiteDetailsModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +18,8 @@ using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
+using TSTUWebAPI.Captcha;
+using TSTUWebAPI.Controllers.FileControllers;
 
 namespace TSTUWebAPI.Controllers
 {
@@ -31,66 +35,81 @@ namespace TSTUWebAPI.Controllers
         private readonly ILogger<UserController> _logger;
         private UserAuthInfoDTO authInfo;
         private User user;
+        private readonly CaptchaCheck captcheck;
 
 
 
-        public UserController(IRepositoryManager repositoryManager, IOptions<AppSettings> appSettings, IMapper mapper, ILogger<UserController> logger)
+        public UserController(IRepositoryManager repositoryManager, IOptions<AppSettings> appSettings, IMapper mapper, ILogger<UserController> logger, CaptchaCheck _captcheck)
         {
             this.repositoryManager = repositoryManager;
             this.appSettings = appSettings;
             this.mapper = mapper;
             this.securityTokenHandler = new JwtSecurityTokenHandler();
             this._logger = logger;
+            captcheck = _captcheck;
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserAuthInfoDTO>> LoginAsync([FromBody] UserCredentials credentials, CancellationToken cancelationToken)
         {
-            authInfo = new UserAuthInfoDTO();
-            if (credentials == null)
+            var token = HttpContext.Request.Headers["Authorization"];
+            if (token == SessionClass.tokenCheck || token == SessionClass.token)
             {
-                return BadRequest("No data");
-            }
-            credentials.Password = PasswordManager.EncryptPassword((credentials.Login + credentials.Password).ToString());
-
-
-            user = await repositoryManager.User.LoginAsync(credentials.Login, credentials.Password, false, cancelationToken);
-            if (user != null)
-            {
-                _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
-                try
+                authInfo = new UserAuthInfoDTO();
+                if (credentials == null)
                 {
-                    var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-                    var tokenDescriptoir = new SecurityTokenDescriptor()
+                    return BadRequest("No data");
+                }
+
+
+                var capt = captcheck.CheckCaptcha(credentials.CaptchaNumbersSumm);
+                if (!capt)
+                {
+                    return BadRequest("Captcha failed!");
+                }
+
+                credentials.Password = PasswordManager.EncryptPassword((credentials.Login + credentials.Password).ToString());
+
+
+                user = await repositoryManager.User.LoginAsync(credentials.Login, credentials.Password, false, cancelationToken);
+                if (user != null)
+                {
+                    _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
+                    try
                     {
-                        Subject = new ClaimsIdentity(
-                            new Claim[]
-                            {
+                        var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
+                        var tokenDescriptoir = new SecurityTokenDescriptor()
+                        {
+                            Subject = new ClaimsIdentity(
+                                new Claim[]
+                                {
                             new Claim("UserId", user.id.ToString()),
                             new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
                             new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
-                            }
-                           ),
-                        Expires = DateTime.UtcNow.AddDays(20),
-                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                    };
-                    var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
-                    authInfo.Token = securityTokenHandler.WriteToken(securityToken);
-                    authInfo.UserDetails = mapper.Map<UserDTO>(user);
+                                }
+                               ),
+                            Expires = DateTime.UtcNow.AddDays(20),
+                            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                        };
+                        var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
+                        authInfo.Token = securityTokenHandler.WriteToken(securityToken);
+                        authInfo.UserDetails = mapper.Map<UserDTO>(user);
 
-                    authInfo.UserDetails.UserType = user.user_type_.type;
+                        authInfo.UserDetails.UserType = user.user_type_.type;
+                    }
+                    catch { }
                 }
-                catch { }
-            }
-            if (string.IsNullOrEmpty(authInfo?.Token))
-            {
-                return Unauthorized("Error login or password");
-            }
+                if (string.IsNullOrEmpty(authInfo?.Token))
+                {
+                    return Unauthorized("Error login or password");
+                }
 
-            SessionClass.token = "Bearer " + authInfo.Token;
-            SessionClass.id = authInfo.UserDetails.Id;
-            return Ok(authInfo);
+                SessionClass.token = "Bearer " + authInfo.Token;
+                SessionClass.id = authInfo.UserDetails.Id;
+                return Ok(authInfo);
+            }
+            return Unauthorized();
         }
 
         [Authorize]

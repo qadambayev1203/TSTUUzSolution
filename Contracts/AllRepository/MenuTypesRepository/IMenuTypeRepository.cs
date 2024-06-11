@@ -21,6 +21,7 @@ namespace Contracts.AllRepository.MenuTypesRepository
         public IEnumerable<MenuTypeTranslation> AllMenuTypeTranslationSite(int queryNum, int pageNum, string language_code);
         public MenuTypeTranslation GetMenuTypeTranslationById(int id);
         public MenuTypeTranslation GetMenuTypeTranslationById(int uz_id, string language_code);
+        public MenuTypeTranslation GetMenuTypeTranslationByIdSite(int uz_id, string language_code);
         public MenuTypeTranslation GetMenuTypeTranslationByIdSite(int id);
         public int CreateMenuTypeTranslation(MenuTypeTranslation MenuTypeTranslation);
         public bool UpdateMenuTypeTranslation(int id, MenuTypeTranslation menuType);

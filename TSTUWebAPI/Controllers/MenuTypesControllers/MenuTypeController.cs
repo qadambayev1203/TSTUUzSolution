@@ -238,7 +238,7 @@ namespace TSTUWebAPI.Controllers.MenuTypesControllers
         public IActionResult GetByIdMenuTypeTranslationsite(int uz_id, string language_code)
         {
 
-            MenuTypeTranslation MenuTypetranslation1 = _repository.GetMenuTypeTranslationById(uz_id, language_code);
+            MenuTypeTranslation MenuTypetranslation1 = _repository.GetMenuTypeTranslationByIdSite(uz_id, language_code);
             if (MenuTypetranslation1 == null)
             {
 

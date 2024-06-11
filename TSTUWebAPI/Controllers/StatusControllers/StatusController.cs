@@ -188,10 +188,17 @@ namespace TSTUWebAPI.Controllers.StatusControllers
         {
 
             StatusTranslation statustranslation1 = _repository.GetStatusTranslationById(uz_id, language_code);
-            if (statustranslation1 == null)
-            {
+           
+            var statustranslation = _mapper.Map<StatusTranslationReadedDTO>(statustranslation1);
+            return Ok(statustranslation);
+        }
+        
+        [HttpGet("getbyiduzstatustranslationsite/{uz_id}")]
+        public IActionResult GetByIdStatusTranslationSite(int uz_id, string language_code)
+        {
 
-            }
+            StatusTranslation statustranslation1 = _repository.GetStatusTranslationByIdSite(uz_id, language_code);
+           
             var statustranslation = _mapper.Map<StatusTranslationReadedDTO>(statustranslation1);
             return Ok(statustranslation);
         }

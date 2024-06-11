@@ -365,6 +365,22 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
             }
         }
 
+        public StatusTranslation GetStatusTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var status = _context.statuses_translations_20ts24tu.Include(x => x.status_).Include(x => x.language_)
+                    .Where(x => x.is_deleted != true)
+                    .FirstOrDefault(x => x.status_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return status;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
         public bool UpdateStatusTranslation(int id, StatusTranslation status)
         {
             try

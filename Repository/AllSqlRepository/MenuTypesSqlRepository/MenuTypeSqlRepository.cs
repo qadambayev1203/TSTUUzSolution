@@ -74,13 +74,13 @@ namespace Repository.AllSqlRepository.MenuTypesSqlRepository
                 {
                     if (queryNum > 200) { queryNum = 200; }
                     MenuTypes = _context.menu_types_20ts24tu
-                        .Include(x => x.status_).Where(x=>x.status_.status!="Deleted")
+                        .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
                         .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    MenuTypes = _context.menu_types_20ts24tu.Include(x => x.status_).Where(x=>x.status_.status!="Deleted")
+                    MenuTypes = _context.menu_types_20ts24tu.Include(x => x.status_).Where(x => x.status_.status != "Deleted")
                        .ToList();
                 }
                 return MenuTypes;
@@ -371,6 +371,25 @@ namespace Repository.AllSqlRepository.MenuTypesSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.menu_type_)
                         .Include(x => x.status_translation_).FirstOrDefault(x => x.menu_type_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return MenuTypeTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
+        public MenuTypeTranslation GetMenuTypeTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var MenuTypeTranslation = _context.menu_types_translations_20ts24tu
+                        .Include(x => x.language_)
+                        .Include(x => x.menu_type_)
+                        .Include(x => x.status_translation_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.menu_type_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return MenuTypeTranslation;
             }
             catch (Exception ex)

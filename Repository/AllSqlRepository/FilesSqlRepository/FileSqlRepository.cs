@@ -286,6 +286,23 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
         }
 
+        public FilesTranslation GetFilesTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.files_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return fileTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return null;
+            }
+        }
+
         public bool UpdateFilesTranslation(int id, FilesTranslation filesTranslation)
         {
             try

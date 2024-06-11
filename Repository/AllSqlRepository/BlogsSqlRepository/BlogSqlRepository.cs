@@ -505,6 +505,27 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 return null;
             }
         }
+        public BlogTranslation GetBlogTranslationByIdSite(int uz_id, string language_code)
+        {
+            try
+            {
+                var blogTranslation = _context.blogs_translations_20ts24tu
+                        .Include(x => x.language_)
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.blog_category_translation_)
+                        .Include(x => x.blog_)
+                        .Include(x => x.img_translation_)
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .FirstOrDefault(x => x.blog_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+                return blogTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
 
         public BlogTranslation GetBlogTranslationByIdSite(int id)
         {

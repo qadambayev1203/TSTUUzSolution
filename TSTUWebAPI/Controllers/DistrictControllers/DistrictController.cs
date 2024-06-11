@@ -232,7 +232,7 @@ namespace TSTUWebAPI.Controllers.DistrictControllers
         public IActionResult GetByIdDistrictTranslationsite(int uz_id, string language_code)
         {
 
-            DistrictTranslation Districttranslation1 = _repository.GetDistrictTranslationById(uz_id, language_code);
+            DistrictTranslation Districttranslation1 = _repository.GetDistrictTranslationByIdSite(uz_id, language_code);
             var Districttranslation = _mapper.Map<DistrictTranslationReadedSiteDTO>(Districttranslation1);
             if (Districttranslation == null) { }
 

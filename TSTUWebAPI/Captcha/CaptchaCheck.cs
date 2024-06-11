@@ -19,15 +19,30 @@ namespace TSTUWebAPI.Captcha
         }
         public bool CheckCaptcha(int sum)
         {
-            
-            int sum1 = _captcha.num1+_captcha.num2;
-            _captcha = new CaptchaModel();
-            if (sum == sum1)
+            try
             {
-                return true;
+                if (_captcha == null)
+                {
+                    _captcha = new CaptchaModel()
+                    {
+                        num1 = 125,
+                        num2 = 12522
+                    };
+                }
+
+                int sum1 = _captcha.num1 + _captcha.num2;
+                _captcha = new CaptchaModel();
+                if (sum == sum1)
+                {
+                    return true;
+                }
+                _captcha = new CaptchaModel();
+                return false;
             }
-            _captcha = new CaptchaModel(); 
-            return false;
+            catch
+            {
+                return false;
+            }
         }
     }
 }
