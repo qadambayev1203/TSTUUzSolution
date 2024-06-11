@@ -6,8 +6,8 @@ namespace Contracts.AllRepository.MenuesRepository
     public interface IMenuRepository
     {
         //Menu CRUD
-        public IEnumerable<Menu> AllMenu(int queryNum, int pageNum, bool top_menu);
-        public IEnumerable<Menu> AllMenuSite(int queryNum, int pageNum, bool top_menu);
+        public IEnumerable<Menu> AllMenu(int queryNum, int pageNum, bool? top_menu);
+        public IEnumerable<Menu> AllMenuSite(int queryNum, int pageNum, bool? top_menu);
         public Menu GetMenuById(int id);
         public Menu GetMenuByIdSite(int id);
         public int CreateMenu(Menu Menu);
@@ -17,8 +17,8 @@ namespace Contracts.AllRepository.MenuesRepository
 
 
         //MenuTranslation CRUD
-        public IEnumerable<MenuTranslation> AllMenuTranslation(int queryNum, int pageNum, string language_code, bool top_menu);
-        public IEnumerable<MenuTranslation> AllMenuTranslationSite(int queryNum, int pageNum, string language_code, bool top_menu);
+        public IEnumerable<MenuTranslation> AllMenuTranslation(int queryNum, int pageNum, string language_code, bool? top_menu);
+        public IEnumerable<MenuTranslation> AllMenuTranslationSite(int queryNum, int pageNum, string language_code, bool? top_menu);
         public MenuTranslation GetMenuTranslationById(int id);
         public MenuTranslation GetMenuTranslationById(int uz_id, string language_code);
         public MenuTranslation GetMenuTranslationByIdSite(int uz_id, string language_code);

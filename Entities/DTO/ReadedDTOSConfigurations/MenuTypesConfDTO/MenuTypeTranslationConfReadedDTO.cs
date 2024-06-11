@@ -10,6 +10,6 @@ namespace Entities.DTO.ReadedDTOSConfigurations.MenuTypesConfDTO
     {
         public int id { get; set; }
         public string? title { get; set; }
-        public int? menu_type_id { get; set; }
+        public MenuTypeConfReadedDTO? menu_type_ { get; set; }
     }
 }

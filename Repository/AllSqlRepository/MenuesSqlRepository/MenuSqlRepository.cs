@@ -25,14 +25,16 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
 
 
         #region Menu CRUD
-        public IEnumerable<Menu> AllMenu(int queryNum, int pageNum, bool top_menu)
+        public IEnumerable<Menu> AllMenu(int queryNum, int pageNum, bool? top_menu)
         {
             try
             {
                 var menues = new List<Menu>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    menues = _context.menu_20ts24tu
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_20ts24tu
                         .Include(x => x.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.status_)
@@ -41,32 +43,67 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.blog_)
                         .Include(x => x.user_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_20ts24tu
+                        .Include(x => x.menu_type_)
+                        .Include(x => x.icon_)
+                        .Include(x => x.status_)
+                        .Include(x => x.user_)
+                        .Include(x => x.page_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.blog_)
+                        .Include(x => x.user_)
+                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                        .Skip(10 * (pageNum - 1))
+                        .Take(10)
+                        .ToList();
+                    }
 
                 }
                 else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    menues = _context.menu_20ts24tu
-                         .Include(x => x.menu_type_)
-                        .Include(x => x.icon_)
-                        .Include(x => x.status_)
-                        .Include(x => x.user_)
-                        .Include(x => x.page_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.blog_)
-                        .Include(x => x.user_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
-                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
-                        .ToList();
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_20ts24tu
+                        .Include(x => x.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.status_)
+                       .Include(x => x.user_)
+                       .Include(x => x.page_)
+                       .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                       .Include(x => x.blog_)
+                       .Include(x => x.user_)
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                       .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_20ts24tu
+                        .Include(x => x.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.status_)
+                       .Include(x => x.user_)
+                       .Include(x => x.page_)
+                       .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                       .Include(x => x.blog_)
+                       .Include(x => x.user_)
+                       .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                       .ToList();
+                    }
 
                 }
                 else
                 {
-                    menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.status_)
                         .Include(x => x.user_)
@@ -74,8 +111,21 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.blog_)
                         .Include(x => x.user_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
                         .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
+                        .Include(x => x.icon_)
+                        .Include(x => x.status_)
+                        .Include(x => x.user_)
+                        .Include(x => x.page_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.blog_)
+                        .Include(x => x.user_)
+                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                        .ToList();
+                    }
 
                 }
                 return menues;
@@ -87,14 +137,16 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
         }
 
-        public IEnumerable<Menu> AllMenuSite(int queryNum, int pageNum, bool top_menu)
+        public IEnumerable<Menu> AllMenuSite(int queryNum, int pageNum, bool? top_menu)
         {
             try
             {
                 var menues = new List<Menu>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    menues = _context.menu_20ts24tu
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_20ts24tu
                          .Include(x => x.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.status_)
@@ -102,41 +154,91 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                         .Include(x => x.page_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.blog_).Where(x => x.status_.status != "Deleted")
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
                         .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_20ts24tu
+                         .Include(x => x.menu_type_)
+                        .Include(x => x.icon_)
+                        .Include(x => x.status_)
+                        .Include(x => x.user_)
+                        .Include(x => x.page_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.blog_).Where(x => x.status_.status != "Deleted")
+                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                        .Skip(10 * (pageNum - 1))
+                        .Take(10)
+                        .ToList();
+                    }
+
 
                 }
                 else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.status_)
                         .Include(x => x.user_)
                         .Include(x => x.page_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.blog_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
                         .Where(x => x.status_.status != "Deleted")
                          .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
+                        .Include(x => x.icon_)
+                        .Include(x => x.status_)
+                        .Include(x => x.user_)
+                        .Include(x => x.page_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.blog_)
+                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                        .Where(x => x.status_.status != "Deleted")
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                        .ToList();
+                    }
+
 
                 }
                 else
                 {
-                    menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.status_)
                         .Include(x => x.user_)
                         .Include(x => x.page_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.blog_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
                         .Where(x => x.status_.status != "Deleted")
 
                         .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_20ts24tu.Include(x => x.menu_type_)
+                        .Include(x => x.icon_)
+                        .Include(x => x.status_)
+                        .Include(x => x.user_)
+                        .Include(x => x.page_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                        .Include(x => x.blog_)
+                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                        .Where(x => x.status_.status != "Deleted")
+
+                        .ToList();
+                    }
+
 
                 }
                 return menues;
@@ -284,64 +386,124 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
 
 
         #region MenuTranslation CRUD
-        public IEnumerable<MenuTranslation> AllMenuTranslation(int queryNum, int pageNum, string language_code, bool top_menu)
+        public IEnumerable<MenuTranslation> AllMenuTranslation(int queryNum, int pageNum, string language_code, bool? top_menu)
         {
             try
             {
                 var menues = new List<MenuTranslation>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    menues = _context.menu_translations_20ts24tu
-                          .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
-                        .Include(x => x.icon_)
-                        .Include(x => x.blog_translation_)
-                        .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
-                        .Include(x => x.status_)
-                        .Include(x => x.language_)
-                        .Include(x => x.user_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10 * (pageNum - 1))
-                        .Take(10)
-                        .ToList();
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                         .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Include(x => x.user_)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Skip(10 * (pageNum - 1))
+                       .Take(10)
+                       .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                         .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Include(x => x.user_)
+                       .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Skip(10 * (pageNum - 1))
+                       .Take(10)
+                       .ToList();
+                    }
+
 
                 }
                 else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    menues = _context.menu_translations_20ts24tu
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_translations_20ts24tu
                           .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
+                        .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
                         .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Include(x => x.user_)
                          .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
-
-                }
-                else
-                {
-                    menues = _context.menu_translations_20ts24tu
-                         .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
+                    }
+                    else
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                          .Include(x => x.menu_)
+                        .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
                         .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
                         .Include(x => x.status_)
                         .Include(x => x.language_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
+                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Include(x => x.user_)
+                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
+                    }
+
+
+                }
+                else
+                {
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                        .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Include(x => x.user_)
+                       .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                        .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Include(x => x.user_)
+                       .ToList();
+                    }
+
 
                 }
                 return menues;
@@ -353,64 +515,125 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
         }
 
-        public IEnumerable<MenuTranslation> AllMenuTranslationSite(int queryNum, int pageNum, string language_code, bool top_menu)
+        public IEnumerable<MenuTranslation> AllMenuTranslationSite(int queryNum, int pageNum, string language_code, bool? top_menu)
         {
             try
             {
                 var menues = new List<MenuTranslation>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    menues = _context.menu_translations_20ts24tu
-                       .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
-                        .Include(x => x.icon_)
-                        .Include(x => x.blog_translation_)
-                        .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
-                        .Include(x => x.status_)
-                        .Include(x => x.language_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
-                        .Where(x => x.status_.status != "Deleted")
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10 * (pageNum - 1))
-                        .Take(10)
-                        .ToList();
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                      .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where(x => x.status_.status != "Deleted")
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Skip(10 * (pageNum - 1))
+                       .Take(10)
+                       .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                      .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                       .Where(x => x.status_.status != "Deleted")
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Skip(10 * (pageNum - 1))
+                       .Take(10)
+                       .ToList();
+                    }
+
 
                 }
                 else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    menues = _context.menu_translations_20ts24tu
-                         .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
-                        .Include(x => x.icon_)
-                        .Include(x => x.blog_translation_)
-                        .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
-                        .Include(x => x.status_)
-                        .Include(x => x.language_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Where(x => x.status_.status != "Deleted")
-                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
-                        .ToList();
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                        .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Where(x => x.status_.status != "Deleted")
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                       .ToList();
+                    }
+                    else
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                        .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Where(x => x.status_.status != "Deleted")
+                        .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                       .ToList();
+                    }
+
 
                 }
                 else
                 {
-                    menues = _context.menu_translations_20ts24tu
-                          .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
-                        .Include(x => x.icon_)
-                        .Include(x => x.blog_translation_)
-                        .Include(x => x.page_translation_)
-                        .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
-                        .Include(x => x.status_)
-                        .Include(x => x.language_)
-                        .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Where(x => x.status_.status != "Deleted")
-                        .ToList();
+                    if (top_menu == null)
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                         .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Where(x => x.status_.status != "Deleted")
+                       .ToList();
+
+                    }
+                    else
+                    {
+                        menues = _context.menu_translations_20ts24tu
+                         .Include(x => x.menu_)
+                       .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
+                       .Include(x => x.icon_)
+                       .Include(x => x.blog_translation_)
+                       .Include(x => x.page_translation_)
+                       .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_)
+                       .Include(x => x.status_)
+                       .Include(x => x.language_)
+                       .Where((top_menu == true) ? x => x.top_menu.Equals(true) : x => x.top_menu != true)
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                       .Where(x => x.status_.status != "Deleted")
+                       .ToList();
+
+                    }
 
                 }
                 return menues;
@@ -476,7 +699,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             {
                 var MenuTranslation = _context.menu_translations_20ts24tu
                      .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
+                        .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
@@ -500,7 +723,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             {
                 var MenuTranslation = _context.menu_translations_20ts24tu
                      .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
+                        .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
@@ -524,7 +747,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             {
                 var MenuTranslation = _context.menu_translations_20ts24tu
                      .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
+                        .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)
@@ -549,7 +772,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             {
                 var MenuTranslation = _context.menu_translations_20ts24tu
                     .Include(x => x.menu_)
-                        .Include(x => x.menu_type_translation_)
+                        .Include(x => x.menu_type_translation_).ThenInclude(y => y.menu_type_)
                         .Include(x => x.icon_)
                         .Include(x => x.blog_translation_)
                         .Include(x => x.page_translation_)

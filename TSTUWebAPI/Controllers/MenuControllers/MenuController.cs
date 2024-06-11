@@ -75,7 +75,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
         [Authorize(Roles = "Admin")]
 
         [HttpGet("getallmenu")]
-        public IActionResult GetAllMenu(int queryNum, int pageNum, bool top_menu)
+        public IActionResult GetAllMenu(int queryNum, int pageNum, bool? top_menu)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
@@ -101,7 +101,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
         }
 
         [HttpGet("sitegetallmenu")]
-        public IActionResult GetAllMenusite(int queryNum, int pageNum, bool top_menu)
+        public IActionResult GetAllMenusite(int queryNum, int pageNum, bool? top_menu)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
@@ -241,7 +241,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallmenutranslation")]
-        public IActionResult GetAllMenuTranslation(int queryNum, int pageNum, string? language_code, bool top_menu)
+        public IActionResult GetAllMenuTranslation(int queryNum, int pageNum, string? language_code, bool? top_menu)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
@@ -282,7 +282,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
         }
 
         [HttpGet("sitegetallmenutranslation")]
-        public IActionResult GetAllMenuTranslationsite(int queryNum, int pageNum, string? language_code, bool top_menu)
+        public IActionResult GetAllMenuTranslationsite(int queryNum, int pageNum, string? language_code, bool? top_menu)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
