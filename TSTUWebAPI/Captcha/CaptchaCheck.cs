@@ -34,6 +34,11 @@ namespace TSTUWebAPI.Captcha
                 _captcha = new CaptchaModel();
                 if (sum == sum1)
                 {
+                    _captcha = new CaptchaModel()
+                    {
+                        num1 = 125,
+                        num2 = 12542
+                    };
                     return true;
                 }
                 _captcha = new CaptchaModel();
