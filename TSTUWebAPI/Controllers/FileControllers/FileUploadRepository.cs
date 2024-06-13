@@ -22,23 +22,64 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 if (!allowedExtensions.Contains(fileExtension))
                     return ("Invalid file extension!");
 
-                var filePathStr = @"file-uploads\any";
+                var filePathStr = @"file-uploads/attached/any";
 
                 if (allowedExtensionsImg.Contains(fileExtension))
                 {
-                    filePathStr = @"file-uploads\images";
+                    filePathStr = @"file-uploads/attached/images";
                 }
                 else if (allowedExtensionsDoc.Contains(fileExtension))
                 {
-                    filePathStr = @"file-uploads\documents";
+                    filePathStr = @"file-uploads/attached/documents";
                 }
                 else if (allowedExtensionsVideo.Contains(fileExtension))
                 {
-                    filePathStr = @"file-uploads\videos";
+                    filePathStr = @"file-uploads/attached/videos";
                 }
                 var filePath = Path.Combine(filePathStr, Guid.NewGuid().ToString() + fileExtension);
 
-                using (var stream = new FileStream(@"..\" + filePath, FileMode.Create))
+                using (var stream = new FileStream(@"../" + filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+                return SessionClass.fileUploadsUrl + filePath;
+            }
+            catch
+            {
+                return "Error!";
+            }
+        }
+
+        public string SaveFileAsyncFiles(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                    return (null);
+
+                var fileExtension = Path.GetExtension(file.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                    return ("Invalid file extension!");
+
+                var filePathStr = @"file-uploads/any";
+
+                if (allowedExtensionsImg.Contains(fileExtension))
+                {
+                    filePathStr = @"file-uploads/images";
+                }
+                else if (allowedExtensionsDoc.Contains(fileExtension))
+                {
+                    filePathStr = @"file-uploads/documents";
+                }
+                else if (allowedExtensionsVideo.Contains(fileExtension))
+                {
+                    filePathStr = @"file-uploads/videos";
+                }
+                var filePath = Path.Combine(filePathStr, Guid.NewGuid().ToString() + fileExtension);
+
+                using (var stream = new FileStream(@"../" + filePath, FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }

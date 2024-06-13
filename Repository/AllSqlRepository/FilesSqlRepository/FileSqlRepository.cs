@@ -144,6 +144,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 return false;
             }
         }
+
         public IEnumerable<Files> SelectFileTitle(bool? image)
         {
             try
@@ -152,6 +153,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 var files = new List<Files>();
                 files = _context.files_20ts24tu.Where(x => x.status_.status != "Deleted")
                     .Where((image != null) ? ((image == true) ? (y => allowedExtensionsImg.Any(ext => y.url.EndsWith(ext))) : (y => allowedExtensionsFile.Any(ext => y.url.EndsWith(ext)))) : (y => y.url != null))
+                    .Where(x => !x.url.StartsWith("file-uploads/attached"))
                     .Select(x => new Files
                     {
                         id = x.id,
@@ -292,6 +294,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             {
                 var fileTranslation = _context.files_translations_20ts24tu.Include(x => x.files_).Include(x => x.status_translation_).Include(x => x.language_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                    .Where(x => !x.url.StartsWith("file-uploads/attached"))
                         .Where(x => x.status_translation_.status != "Deleted")
                     .FirstOrDefault(x => x.files_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return fileTranslation;
@@ -337,6 +340,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 files = _context.files_translations_20ts24tu
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                     .Where(x => x.status_translation_.status != "Deleted")
+                    .Where(x => !x.url.StartsWith("file-uploads/attached"))
                     .Where((image != null) ? ((image == true) ? (y => allowedExtensionsImg.Any(ext => y.url.EndsWith(ext))) : (y => allowedExtensionsFile.Any(ext => y.url.EndsWith(ext)))) : (y => y.url != null))
                     .Select(x => new FilesTranslation
                     {

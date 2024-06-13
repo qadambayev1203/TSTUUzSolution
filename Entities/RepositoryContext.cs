@@ -23,6 +23,7 @@ using Entities.Model.PersonModel;
 using Entities.Model.SiteDetailsModel;
 using Entities.Model.SitesModel;
 using Entities.Model.SiteTypesModel;
+using Entities.Model.StatisticalNumbersModel;
 using Entities.Model.StatusModel;
 using Entities.Model.TerritoriesModel;
 using Entities.Model.TokensModel;
@@ -166,6 +167,8 @@ namespace Entities
         public DbSet<PersonDataTranslation> persons_data_translations_20ts24tu { get; set; }
         public DbSet<InteractiveServices> interactive_services_20ts24tu { get; set; }
         public DbSet<InteractiveServicesTranslation> interactive_services_translations_20ts24tu { get; set; }
+        public DbSet<StatisticalNumbers> statistical_numbers_20ts24tu { get; set; }
+        public DbSet<StatisticalNumbersTranslation> statistical_numbers_translations_20ts24tu { get; set; }
 
 
     }

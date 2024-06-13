@@ -13,6 +13,7 @@ using Contracts.AllRepository.EmployeesRepository;
 using Contracts.AllRepository.EmploymentsRepsitory;
 using Contracts.AllRepository.FilesRepository;
 using Contracts.AllRepository.GendersRepository;
+using Contracts.AllRepository.StatisticalNumbersRepository;
 using Contracts.AllRepository.InteractiveServicesRepository;
 using Contracts.AllRepository.LanguagesRepository;
 using Contracts.AllRepository.MenuesRepository;
@@ -32,7 +33,6 @@ using Contracts.AllRepository.UserTypesRepository;
 using Entities;
 using Entities.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -66,11 +66,10 @@ using Repository.AllSqlRepository.TokensSqlRepository;
 using Repository.AllSqlRepository.UsersSqlRepository;
 using Repository.AllSqlRepository.UserTypesSqlRepository;
 using Serilog;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Reflection;
 using System.Text;
 using TSTUWebAPI.Captcha;
 using TSTUWebAPI.Controllers.FileControllers;
+using Repository.AllSqlRepository.StatisticalsNumbersSqlRepository;
 
 #endregion
 
@@ -231,8 +230,11 @@ try
     //Tokens AND TokensTranslation
     builder.Services.AddScoped<ITokensRepository, TokenSqlRepository>();
 
-    //InteractiveServicess AND InteractiveServicessTranslation
+    //InteractiveServices AND InteractiveServicesTranslation
     builder.Services.AddScoped<IInteractiveServicesRepository, InteractiveServicesSqlRepository>();
+
+    //StatisticalNumbers AND StatisticalNumbersTranslation
+    builder.Services.AddScoped<IStatisticalNumbersRepository, StatisticalNumbersSqlRepository>();
 
     #endregion
 

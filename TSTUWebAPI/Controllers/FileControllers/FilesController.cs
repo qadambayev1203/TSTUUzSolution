@@ -39,7 +39,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             var files = _mapper.Map<Files>(files1);
             FileUploadRepository fileUpload = new FileUploadRepository();
 
-            var Url = fileUpload.SaveFileAsync(files1.url);
+            var Url = fileUpload.SaveFileAsyncFiles(files1.url);
 
             if (Url == "File not found or empty!")
             {
@@ -129,7 +129,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                     return BadRequest();
                 var file = _mapper.Map<Files>(files);
                 FileUploadRepository fileUpload = new FileUploadRepository();
-                var Url = fileUpload.SaveFileAsync(files.url);
+                var Url = fileUpload.SaveFileAsyncFiles(files.url);
                 if (Url == "File not found or empty!")
                 {
                     return BadRequest("File not found or empty!");
@@ -179,10 +179,6 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
 
 
-
-
-
-
         //filesTranslation CRUD
 
         [HttpPost("uploadfilestranslation")]
@@ -192,7 +188,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 return BadRequest();
             var filestranslation = _mapper.Map<FilesTranslation>(filestranslation1);
             FileUploadRepository fileUpload = new FileUploadRepository();
-            string Url = fileUpload.SaveFileAsync(filestranslation1.url);
+            string Url = fileUpload.SaveFileAsyncFiles(filestranslation1.url);
             if (Url == "File not found or empty!")
             {
                 return BadRequest("File not found or empty!");
@@ -299,7 +295,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 var filesTranslation = _mapper.Map<FilesTranslation>(filestranslation1);
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
-                var Url = fileUpload.SaveFileAsync(filestranslation1.url);
+                var Url = fileUpload.SaveFileAsyncFiles(filestranslation1.url);
                 if (Url == "File not found or empty!")
                 {
                     return BadRequest("File not found or empty!");

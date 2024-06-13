@@ -575,7 +575,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 1,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4121),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8457),
                             departament_type_id = 1,
                             parent_id = 0,
                             status_id = 1,
@@ -584,7 +584,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 2,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4125),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8459),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -593,7 +593,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 3,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4128),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8461),
                             departament_type_id = 3,
                             parent_id = 1,
                             status_id = 1,
@@ -602,7 +602,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 4,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4130),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8463),
                             departament_type_id = 3,
                             parent_id = 1,
                             status_id = 1,
@@ -611,7 +611,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 5,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4133),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8465),
                             departament_type_id = 4,
                             parent_id = 1,
                             status_id = 1,
@@ -620,7 +620,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 6,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4135),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8474),
                             departament_type_id = 4,
                             parent_id = 1,
                             status_id = 1,
@@ -629,7 +629,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 7,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4138),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8476),
                             departament_type_id = 4,
                             parent_id = 1,
                             status_id = 1,
@@ -638,7 +638,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 63,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4141),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8483),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -647,7 +647,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 64,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4143),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8484),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -656,7 +656,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 65,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4146),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8489),
                             departament_type_id = 20,
                             parent_id = 1,
                             status_id = 1,
@@ -665,7 +665,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 66,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4148),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8491),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -674,7 +674,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 67,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4150),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8492),
                             departament_type_id = 21,
                             parent_id = 1,
                             status_id = 1,
@@ -683,7 +683,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 68,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4153),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8494),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -692,7 +692,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 69,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4155),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8496),
                             departament_type_id = 20,
                             parent_id = 1,
                             status_id = 1,
@@ -701,7 +701,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 70,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4163),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8497),
                             departament_type_id = 23,
                             parent_id = 1,
                             status_id = 1,
@@ -710,7 +710,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 71,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4176),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8503),
                             departament_type_id = 20,
                             parent_id = 1,
                             status_id = 1,
@@ -719,7 +719,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 72,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4178),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8504),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -728,7 +728,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 73,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4180),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8506),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -737,7 +737,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 74,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4183),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8508),
                             departament_type_id = 24,
                             parent_id = 1,
                             status_id = 1,
@@ -746,7 +746,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 75,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4185),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8509),
                             departament_type_id = 25,
                             parent_id = 1,
                             status_id = 1,
@@ -755,7 +755,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 76,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4187),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8515),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -764,7 +764,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 77,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4190),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8517),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -773,7 +773,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 8,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4192),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8519),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -782,7 +782,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 14,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4195),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8520),
                             departament_type_id = 5,
                             parent_id = 8,
                             status_id = 1,
@@ -791,7 +791,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 15,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4197),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8522),
                             departament_type_id = 6,
                             parent_id = 8,
                             status_id = 1,
@@ -800,7 +800,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 16,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4199),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8524),
                             departament_type_id = 6,
                             parent_id = 8,
                             status_id = 1,
@@ -809,7 +809,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 17,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4202),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8525),
                             departament_type_id = 7,
                             parent_id = 8,
                             status_id = 1,
@@ -818,7 +818,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 18,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4204),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8527),
                             departament_type_id = 7,
                             parent_id = 8,
                             status_id = 1,
@@ -827,7 +827,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 19,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4208),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8529),
                             departament_type_id = 7,
                             parent_id = 8,
                             status_id = 1,
@@ -836,7 +836,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 20,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4210),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8531),
                             departament_type_id = 8,
                             parent_id = 8,
                             status_id = 1,
@@ -845,7 +845,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 21,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4212),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8532),
                             departament_type_id = 6,
                             parent_id = 8,
                             status_id = 1,
@@ -854,7 +854,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 26,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4215),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8537),
                             departament_type_id = 11,
                             parent_id = 21,
                             status_id = 1,
@@ -863,7 +863,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 27,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4217),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8538),
                             departament_type_id = 11,
                             parent_id = 21,
                             status_id = 1,
@@ -872,7 +872,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 28,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4219),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8540),
                             departament_type_id = 7,
                             parent_id = 21,
                             status_id = 1,
@@ -881,7 +881,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 29,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4221),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8542),
                             departament_type_id = 7,
                             parent_id = 21,
                             status_id = 1,
@@ -890,7 +890,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 22,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4224),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8543),
                             departament_type_id = 9,
                             parent_id = 8,
                             status_id = 1,
@@ -899,7 +899,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 23,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4226),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8545),
                             departament_type_id = 10,
                             parent_id = 8,
                             status_id = 1,
@@ -908,7 +908,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 24,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4229),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8547),
                             departament_type_id = 10,
                             parent_id = 8,
                             status_id = 1,
@@ -917,7 +917,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 25,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4231),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8548),
                             departament_type_id = 10,
                             parent_id = 8,
                             status_id = 1,
@@ -926,7 +926,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 9,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4234),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8550),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -935,7 +935,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 30,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4237),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8552),
                             departament_type_id = 7,
                             parent_id = 9,
                             status_id = 1,
@@ -944,7 +944,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 31,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4239),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8553),
                             departament_type_id = 14,
                             parent_id = 9,
                             status_id = 1,
@@ -953,7 +953,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 32,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4241),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8558),
                             departament_type_id = 15,
                             parent_id = 9,
                             status_id = 1,
@@ -962,7 +962,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 33,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4243),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8559),
                             departament_type_id = 16,
                             parent_id = 9,
                             status_id = 1,
@@ -971,7 +971,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 34,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4246),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8561),
                             departament_type_id = 4,
                             parent_id = 9,
                             status_id = 1,
@@ -980,7 +980,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 35,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4248),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8563),
                             departament_type_id = 18,
                             parent_id = 9,
                             status_id = 1,
@@ -989,7 +989,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 36,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4250),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8564),
                             departament_type_id = 4,
                             parent_id = 9,
                             status_id = 1,
@@ -998,7 +998,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 37,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4253),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8566),
                             departament_type_id = 7,
                             parent_id = 9,
                             status_id = 1,
@@ -1007,7 +1007,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 10,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4255),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8568),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1016,7 +1016,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 38,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4257),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8569),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1025,7 +1025,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 39,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4260),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8571),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1034,7 +1034,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 40,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4263),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8573),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1043,7 +1043,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 41,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4266),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8574),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1052,7 +1052,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 42,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4268),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8579),
                             departament_type_id = 4,
                             parent_id = 10,
                             status_id = 1,
@@ -1061,7 +1061,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 43,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4270),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8581),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1070,7 +1070,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 44,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4273),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8582),
                             departament_type_id = 6,
                             parent_id = 10,
                             status_id = 1,
@@ -1079,7 +1079,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 45,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4275),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8589),
                             departament_type_id = 8,
                             parent_id = 10,
                             status_id = 1,
@@ -1088,7 +1088,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 11,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4277),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8591),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1097,7 +1097,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 46,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4280),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8593),
                             departament_type_id = 5,
                             parent_id = 11,
                             status_id = 1,
@@ -1106,7 +1106,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 47,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4282),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8596),
                             departament_type_id = 7,
                             parent_id = 11,
                             status_id = 1,
@@ -1115,7 +1115,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 48,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4284),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8598),
                             departament_type_id = 7,
                             parent_id = 11,
                             status_id = 1,
@@ -1124,7 +1124,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 49,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4287),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8599),
                             departament_type_id = 6,
                             parent_id = 11,
                             status_id = 1,
@@ -1133,7 +1133,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 50,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4290),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8601),
                             departament_type_id = 6,
                             parent_id = 11,
                             status_id = 1,
@@ -1142,7 +1142,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 51,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4293),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8603),
                             departament_type_id = 6,
                             parent_id = 11,
                             status_id = 1,
@@ -1151,7 +1151,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 12,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4295),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8605),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1160,7 +1160,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 52,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4297),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8609),
                             departament_type_id = 7,
                             parent_id = 12,
                             status_id = 1,
@@ -1169,7 +1169,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 53,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4306),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8611),
                             departament_type_id = 5,
                             parent_id = 12,
                             status_id = 1,
@@ -1178,7 +1178,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 56,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4308),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8613),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1187,7 +1187,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 57,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4310),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8614),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1196,7 +1196,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 58,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4313),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8616),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1205,7 +1205,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 59,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4315),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8618),
                             departament_type_id = 19,
                             parent_id = 53,
                             status_id = 1,
@@ -1214,7 +1214,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 60,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4317),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8619),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1223,7 +1223,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 61,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4320),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8621),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1232,7 +1232,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 54,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4322),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8623),
                             departament_type_id = 12,
                             parent_id = 12,
                             status_id = 1,
@@ -1241,7 +1241,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 55,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4324),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8625),
                             departament_type_id = 13,
                             parent_id = 12,
                             status_id = 1,
@@ -1250,7 +1250,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 13,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4326),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8626),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1259,7 +1259,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 62,
-                            crated_at = new DateTime(2024, 6, 11, 7, 46, 17, 107, DateTimeKind.Utc).AddTicks(4329),
+                            crated_at = new DateTime(2024, 6, 13, 6, 25, 40, 120, DateTimeKind.Utc).AddTicks(8628),
                             departament_type_id = 6,
                             parent_id = 13,
                             status_id = 1,
@@ -4291,6 +4291,90 @@ namespace Entities.Migrations
                     b.ToTable("sites_translations_20ts24tu");
                 });
 
+            modelBuilder.Entity("Entities.Model.StatisticalNumbersModel.StatisticalNumbers", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int?>("icon_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("numbers")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("status_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("icon_id");
+
+                    b.HasIndex("status_id");
+
+                    b.ToTable("statistical_numbers_20ts24tu");
+                });
+
+            modelBuilder.Entity("Entities.Model.StatisticalNumbersModel.StatisticalNumbersTranslation", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int?>("icon_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("language_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("numbers")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("statistical_numbers_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("status_translation_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("icon_id");
+
+                    b.HasIndex("language_id");
+
+                    b.HasIndex("statistical_numbers_id");
+
+                    b.HasIndex("status_translation_id");
+
+                    b.ToTable("statistical_numbers_translations_20ts24tu");
+                });
+
             modelBuilder.Entity("Entities.Model.StatusModel.Status", b =>
                 {
                     b.Property<int>("id")
@@ -5832,6 +5916,48 @@ namespace Entities.Migrations
                     b.Navigation("status_translation_");
 
                     b.Navigation("user_");
+                });
+
+            modelBuilder.Entity("Entities.Model.StatisticalNumbersModel.StatisticalNumbers", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.Files", "icon_")
+                        .WithMany()
+                        .HasForeignKey("icon_id");
+
+                    b.HasOne("Entities.Model.StatusModel.Status", "status_")
+                        .WithMany()
+                        .HasForeignKey("status_id");
+
+                    b.Navigation("icon_");
+
+                    b.Navigation("status_");
+                });
+
+            modelBuilder.Entity("Entities.Model.StatisticalNumbersModel.StatisticalNumbersTranslation", b =>
+                {
+                    b.HasOne("Entities.Model.FileModel.FilesTranslation", "icon_")
+                        .WithMany()
+                        .HasForeignKey("icon_id");
+
+                    b.HasOne("Entities.Model.LanguagesModel.Language", "language_")
+                        .WithMany()
+                        .HasForeignKey("language_id");
+
+                    b.HasOne("Entities.Model.StatisticalNumbersModel.StatisticalNumbers", "statistical_numbers_")
+                        .WithMany()
+                        .HasForeignKey("statistical_numbers_id");
+
+                    b.HasOne("Entities.Model.StatusModel.StatusTranslation", "status_translation_")
+                        .WithMany()
+                        .HasForeignKey("status_translation_id");
+
+                    b.Navigation("icon_");
+
+                    b.Navigation("language_");
+
+                    b.Navigation("statistical_numbers_");
+
+                    b.Navigation("status_translation_");
                 });
 
             modelBuilder.Entity("Entities.Model.StatusModel.StatusTranslation", b =>

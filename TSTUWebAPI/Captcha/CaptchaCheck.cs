@@ -41,7 +41,11 @@ namespace TSTUWebAPI.Captcha
                     };
                     return true;
                 }
-                _captcha = new CaptchaModel();
+                _captcha = new CaptchaModel()
+                {
+                    num1 = 125,
+                    num2 = 125423
+                };
                 return false;
             }
             catch
