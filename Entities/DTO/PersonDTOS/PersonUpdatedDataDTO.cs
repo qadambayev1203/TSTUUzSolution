@@ -22,7 +22,7 @@ namespace Entities.DTO.PersonDTOS
         public string? passport_text { get; set; }
         public string? passport_number { get; set; }
         public int status_id { get; set; }
-        public required int? departament_id { get; set; }
+        public required int departament_id { get; set; }
         public required int employee_type_id { get; set; }
     }
 }

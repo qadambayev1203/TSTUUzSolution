@@ -18,10 +18,10 @@ namespace Entities.DTO.PersonDTOS
     public class PersonReadedDTO
     {
         public int id { get; set; }
-        public string? firstName { get; set; }
-        public string? lastName { get; set; }
-        public string? fathers_name { get; set; }
-        public string? email { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string fathers_name { get; set; }
+        public string email { get; set; }
         public GenderConfReadedDTO? gender_ { get; set; }
         public string? pinfl { get; set; }
         public string? passport_text { get; set; }

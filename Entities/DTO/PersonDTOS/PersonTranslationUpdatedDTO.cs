@@ -16,6 +16,6 @@ namespace Entities.DTO.PersonDTOS
         public int language_id { get; set; }
         public int status_translation_id { get; set; }
         public required int employee_type_translation_id { get; set; }
-        public required int? departament_translation_id { get; set; }
+        public required int departament_translation_id { get; set; }
     }
 }

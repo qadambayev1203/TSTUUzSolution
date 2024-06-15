@@ -18,6 +18,6 @@ namespace Entities.DTO.PersonDTOS
         public string fathers_name { get; set; }
         public int gender_id { get; set; }
         public required int employee_type_translation_id { get; set; }
-        public required int? departament_translation_id { get; set; }
+        public required int departament_translation_id { get; set; }
     }
 }
