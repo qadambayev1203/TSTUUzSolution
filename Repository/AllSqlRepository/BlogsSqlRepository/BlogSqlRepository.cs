@@ -12,6 +12,7 @@ using Repository.AllSqlRepository.StatusesSqlRepository;
 using Entities.Model.StatusModel;
 using Newtonsoft.Json;
 using Entities.Model.PagesModel;
+using Entities.Model.PersonDataModel;
 
 namespace Repository.AllSqlRepository.BlogsSqlRepository
 {
@@ -28,7 +29,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
 
         #region Blog CRUD
-        public IEnumerable<Blog> AllBlog(int queryNum, int pageNum, string? blog_category)
+        public IEnumerable<Blog> AllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite)
         {
             try
             {
@@ -40,6 +41,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
@@ -52,6 +54,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                         .Skip(queryNum * (pageNum - 1))
                         .Take(queryNum).ToList();
@@ -62,6 +65,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                     blogs = _context.blogs_20ts24tu
                         .Include(x => x.status_)
                         .Include(x => x.img_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                         .Include(x => x.blog_category_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_).ToList();
@@ -76,13 +80,14 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public IEnumerable<Blog> AllBlogSelect(string? blog_category)
+        public IEnumerable<Blog> AllBlogSelect(string? blog_category, bool? favorite)
         {
             try
             {
                 var blogs = new List<Blog>();
 
                 blogs = _context.blogs_20ts24tu
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                 .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                 .Select(x => new Blog
                 {
@@ -102,7 +107,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 return null;
             }
         }
-        public IEnumerable<Blog> AllBlogSite(int queryNum, int pageNum, string? blog_category)
+        public IEnumerable<Blog> AllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite)
         {
             try
             {
@@ -113,6 +118,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_).Where(x => x.status_.status != "Deleted")
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
@@ -127,6 +133,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_).Where(x => x.status_.status != "Deleted")
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(queryNum * (pageNum - 1))
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                         .Take(queryNum).ToList();
 
@@ -137,6 +144,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_).Where(x => x.status_.status != "Deleted")
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_).ToList();
 
@@ -158,6 +166,18 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 {
                     return 0;
                 }
+
+                DateTime localDateTime = DateTime.Parse(blog.event_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+
+                DateTime localDateTime1 = DateTime.Parse(blog.event_end_date.ToString());
+                localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
+                DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+
+                blog.event_date = utcDateTime;
+                blog.event_end_date = utcDateTime1;
+
                 _context.blogs_20ts24tu.Add(blog);
                 _context.SaveChanges();
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(blog));
@@ -241,6 +261,18 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 {
                     return false;
                 }
+
+                DateTime localDateTime = DateTime.Parse(blog.event_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+
+                DateTime localDateTime1 = DateTime.Parse(blog.event_end_date.ToString());
+                localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
+                DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+
+                blog.event_date = utcDateTime;
+                blog.event_end_date = utcDateTime1;
+
                 dbcheck.title_short = blog.title_short;
                 dbcheck.title = blog.title;
                 dbcheck.description = blog.description;
@@ -268,7 +300,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
 
         #region BlogTranslation CRUD
-        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category)
+        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite)
         {
             try
             {
@@ -282,6 +314,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
@@ -299,6 +332,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(queryNum * (pageNum - 1))
@@ -315,6 +349,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200).ToList();
@@ -329,7 +364,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public IEnumerable<BlogTranslation> AllBlogTranslationSelect(string language_code, string? blog_category)
+        public IEnumerable<BlogTranslation> AllBlogTranslationSelect(string language_code, string? blog_category, bool? favorite)
         {
             try
             {
@@ -338,6 +373,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 blogTranslations = _context.blogs_translations_20ts24tu
 
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                      .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
                     .Select(x => new BlogTranslation
                     {
@@ -360,7 +396,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public IEnumerable<BlogTranslation> AllBlogTranslationSite(int queryNum, int pageNum, string language_code, string? blog_category)
+        public IEnumerable<BlogTranslation> AllBlogTranslationSite(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite)
         {
             try
             {
@@ -373,6 +409,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Skip(10 * (pageNum - 1))
@@ -391,6 +428,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.blog_category_translation_)
                         .Include(x => x.blog_)
                         .Include(x => x.img_translation_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
                         .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
@@ -410,6 +448,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Include(x => x.img_translation_)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
+                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Take(200).ToList();
@@ -432,6 +471,18 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 {
                     return 0;
                 }
+
+                DateTime localDateTime = DateTime.Parse(blogTranslation.event_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+
+                DateTime localDateTime1 = DateTime.Parse(blogTranslation.event_end_date.ToString());
+                localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
+                DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+
+                blogTranslation.event_date = utcDateTime;
+                blogTranslation.event_end_date = utcDateTime1;
+
                 _context.blogs_translations_20ts24tu.Add(blogTranslation);
                 _context.SaveChanges();
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(blogTranslation));
@@ -558,6 +609,18 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 {
                     return false;
                 }
+
+                DateTime localDateTime = DateTime.Parse(blog.event_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+
+                DateTime localDateTime1 = DateTime.Parse(blog.event_end_date.ToString());
+                localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
+                DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+
+                blog.event_date = utcDateTime;
+                blog.event_end_date = utcDateTime1;
+
                 dbcheck.title_short = blog.title_short;
                 dbcheck.title = blog.title;
                 dbcheck.description = blog.description;

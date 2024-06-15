@@ -20,6 +20,8 @@ namespace Entities.Model.BlogsModel
         public string? text { get; set; }
         [ForeignKey("Status")] public int? status_id { get; set; }
         public Status? status_ { get; set; }
+        public DateTime? event_date { get; set; } 
+        public DateTime? event_end_date { get; set; } 
         public DateTime? crated_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
         [ForeignKey("Files")] public int? img_id { get; set; }

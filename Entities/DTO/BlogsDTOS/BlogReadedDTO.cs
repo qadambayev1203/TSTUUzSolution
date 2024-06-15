@@ -23,6 +23,8 @@ namespace Entities.DTO.BlogsDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public StatusConfReadedDTO? status_ { get; set; }
+        public DateTime? event_date { get; set; }
+        public DateTime? event_end_date { get; set; }
         public DateTime? crated_at { get; set; } 
         public DateTime? updated_at { get; set; }
         public FileConfReadedDTO? img_ { get; set; }

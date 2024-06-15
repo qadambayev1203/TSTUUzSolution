@@ -22,6 +22,8 @@ namespace Entities.DTO.BlogsDTOS
         public string text { get; set; }
         public int status_translation_id { get; set; }
         public IFormFile? img_up { get; set; }
+        public DateTime? event_date { get; set; }
+        public DateTime? event_end_date { get; set; }
         public int blog_category_translation_id { get; set; }
         public int? position { get; set; }
         public bool favorite { get; set; }

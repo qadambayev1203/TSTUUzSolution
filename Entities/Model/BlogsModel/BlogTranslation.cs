@@ -22,6 +22,8 @@ namespace Entities.Model.BlogsModel
         public string? text { get; set; }
         [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
         public StatusTranslation? status_translation_ { get; set; }
+        public DateTime? event_date { get; set; }
+        public DateTime? event_end_date { get; set; }
         public DateTime? crated_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
         [ForeignKey("FilesTranslation")] public int? img_translation_id { get; set; }

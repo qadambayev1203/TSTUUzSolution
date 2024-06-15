@@ -74,11 +74,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallblog")]
-        public IActionResult GetAllBlog(int queryNum, int pageNum, string? blog_category)
+        public IActionResult GetAllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Blog> blogs1 = _repository.AllBlog(queryNum, pageNum, blog_category);
+            IEnumerable<Blog> blogs1 = _repository.AllBlog(queryNum, pageNum, blog_category, favorite);
             var blogs = _mapper.Map<IEnumerable<BlogReadedDTO>>(blogs1);
             if (blogs == null) { }
             return Ok(blogs);
@@ -86,9 +86,9 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallblogselect")]
-        public IActionResult GetAllBlogSelect(string? blog_category)
+        public IActionResult GetAllBlogSelect(string? blog_category, bool? favorite)
         {
-            IEnumerable<Blog> blogs1 = _repository.AllBlogSelect(blog_category);
+            IEnumerable<Blog> blogs1 = _repository.AllBlogSelect(blog_category, favorite);
             var blogs = _mapper.Map<IEnumerable<BlogReadedSelectDTO>>(blogs1);
             if (blogs == null) { }
             return Ok(blogs);
@@ -96,11 +96,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
 
         [HttpGet("sitegetallblog")]
-        public IActionResult GetAllBlogSite(int queryNum, int pageNum, string? blog_category)
+        public IActionResult GetAllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Blog> blogs1 = _repository.AllBlogSite(queryNum, pageNum, blog_category);
+            IEnumerable<Blog> blogs1 = _repository.AllBlogSite(queryNum, pageNum, blog_category, favorite);
             var blogs = _mapper.Map<IEnumerable<BlogReadedSiteDTO>>(blogs1);
             if (blogs == null) { }
             return Ok(blogs);
@@ -253,11 +253,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallblogtranslation")]
-        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string? language_code, string? blog_category)
+        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string? language_code, string? blog_category, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum, language_code, blog_category);
+            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum, language_code, blog_category, favorite);
             var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedDTO>>(blogtranslations1);
             if (blogtranslations == null) { }
             return Ok(blogtranslations);
@@ -265,21 +265,21 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallblogtranslationselect/{language_code}")]
-        public IActionResult GetAllBlogTranslationSelect(string language_code, string? blog_category)
+        public IActionResult GetAllBlogTranslationSelect(string language_code, string? blog_category, bool? favorite)
         {
 
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslationSelect(language_code, blog_category);
+            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslationSelect(language_code, blog_category, favorite);
             var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedSelectDTO>>(blogtranslations1);
             if (blogtranslations == null) { }
             return Ok(blogtranslations);
         }
 
         [HttpGet("sitegetallblogtranslation")]
-        public IActionResult GetAllBlogTranslationSite(int queryNum, int pageNum, string? language_code, string? blog_category)
+        public IActionResult GetAllBlogTranslationSite(int queryNum, int pageNum, string? language_code, string? blog_category, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslationSite(queryNum, pageNum, language_code, blog_category);
+            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslationSite(queryNum, pageNum, language_code, blog_category, favorite);
             var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedSiteDTO>>(blogtranslations1);
             if (blogtranslations == null) { }
             return Ok(blogtranslations);

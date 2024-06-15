@@ -22,6 +22,8 @@ namespace Entities.DTO.BlogsDTOS
         public string? title { get; set; }
         public string? description { get; set; }
         public string? text { get; set; }
+        public DateTime? event_date { get; set; }
+        public DateTime? event_end_date { get; set; }
         public FileConfReadedDTO? img_ { get; set; }
         public BlogCategoryReadedConfDTO? blog_category_ { get; set; }
         public int? position { get; set; }
