@@ -188,6 +188,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                     return BadRequest();
                 }
                 var dbupdated = _mapper.Map<PersonData>(personData1);
+                dbupdated.persons_.status_id = dbupdated.status_id;
 
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
@@ -384,6 +385,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                 }
 
                 var dbupdated = _mapper.Map<PersonDataTranslation>(personDatatranslation1);
+                dbupdated.persons_translation_.status_translation_id = dbupdated.status_translation_id;
                 bool updatedcheck = _repository.UpdatePersonDataTranslation(id, dbupdated);
                 if (!updatedcheck)
                 {
