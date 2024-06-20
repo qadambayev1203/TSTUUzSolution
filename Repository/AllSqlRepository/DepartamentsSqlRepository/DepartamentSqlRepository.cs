@@ -233,6 +233,28 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
+        public IEnumerable<Departament> AllDepartamentTypeSite(string dep_type)
+        {
+            try
+            {
+                var departaments = new List<Departament>();
+                departaments = _context.departament_20ts24tu
+                   .Include(x => x.img_)
+                   .Include(x => x.departament_type_)
+                   .Include(x => x.status_)
+                   .Where(x => x.departament_type_.type == dep_type)
+                   .Where(x => x.status_.status != "Deleted")
+                   .ToList();
+
+                return departaments;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
         public IEnumerable<Departament> SelectDepartaments()
         {
             try
@@ -579,6 +601,34 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.img_)
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.departament_type_translation_.type == dep_type)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                    .ToList();
+
+
+
+                return departamentTranslations;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
+        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationTypeSite(string dep_type, string language_code)
+        {
+            try
+            {
+                var departamentTranslations = new List<DepartamentTranslation>();
+
+                departamentTranslations = _context.departament_translations_20ts24tu
+                    .Include(x => x.language_)
+                    .Include(x => x.status_translation_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                    .Include(x => x.img_)
+                    .Include(x => x.departament_type_translation_)
+                    .Where(x => x.departament_type_translation_.type == dep_type)
+                    .Where(x => x.status_translation_.status != "Deleted")
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                     .ToList();
 

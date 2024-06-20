@@ -131,6 +131,16 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
             return Ok(departaments);
         }
 
+        [HttpGet("getalldepartamenttypesite/{departament_type}")]
+        public IActionResult GetAllDepartamentTypeSite(string departament_type)
+        {
+
+            IEnumerable<Departament> departaments1 = _repository.AllDepartamentTypeSite(departament_type);
+            var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1);
+            if (departaments == null) { }
+            return Ok(departaments);
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpGet("selecteddepartament")]
         public IActionResult SelectDepartamentType()
@@ -341,6 +351,16 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationType(departament_type, language_code);
             var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedTypedDTO>>(departamenttranslations1);
+            if (departamenttranslations == null) { }
+            return Ok(departamenttranslations);
+        }
+
+        [HttpGet("getalldepartamenttranslationtypesite/{departament_type}")]
+        public IActionResult GetAllDepartamentTranslationChildSite(string departament_type, string? language_code)
+        {
+
+            IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationTypeSite(departament_type, language_code);
+            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteDTO>>(departamenttranslations1);
             if (departamenttranslations == null) { }
             return Ok(departamenttranslations);
         }

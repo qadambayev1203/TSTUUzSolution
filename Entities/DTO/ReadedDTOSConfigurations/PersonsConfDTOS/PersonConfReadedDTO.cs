@@ -1,6 +1,7 @@
 ﻿using Entities.DTO.EmployeeTypesDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.DepartamentConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.GenderConfDTOS;
 using Entities.Model.FileModel;
 using Entities.Model.GenderModel;
 using Entities.Model.StatusModel;
@@ -24,6 +25,7 @@ namespace Entities.DTO.ReadedDTOSConfigurations.PersonsConfDTOS
         public string? passport_text { get; set; }
         public string? passport_number { get; set; }
         public FileConfReadedDTO? img_ { get; set; }
+        public GenderConfReadedDTO? gender_ { get; set; }
         public EmployeeTypeReadedSiteDTO? employee_type_ { get; set; }
         public DepartamentConfReadedDTO? departament_ { get; set; }
     }
