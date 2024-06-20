@@ -16,6 +16,7 @@ namespace Entities.Model.InteractiveServicesModel
         [MaxLength(250)] public string? title { get; set; }
         [MaxLength(250)] public string? description { get; set; }
         [MaxLength(500)] public string? url_ { get; set; }
+        public bool? favorite { get; set; }
         [ForeignKey("Files")] public int? img_id { get; set; }
         public Files? img_ { get; set; }
         [ForeignKey("Files")] public int? icon_id { get; set; }

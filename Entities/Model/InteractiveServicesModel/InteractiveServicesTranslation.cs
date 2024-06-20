@@ -24,6 +24,7 @@ namespace Entities.Model.InteractiveServicesModel
         [ForeignKey("FilesTranslation")] public int? icon_id { get; set; }
         public FilesTranslation? icon_ { get; set; }
         [ForeignKey("Language")] public int? language_id { get; set; }
+        public bool? favorite { get; set; }
         public Language? language_ { get; set; }
         [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
         public StatusTranslation? status_translation_ { get; set; }

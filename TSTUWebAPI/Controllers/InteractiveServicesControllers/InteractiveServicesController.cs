@@ -37,7 +37,7 @@ namespace TSTUWebAPI.Controllers.InteractiveServicesControllers
         {
             var InteractiveServices = _mapper.Map<InteractiveServices>(InteractiveServices1);
             InteractiveServices.status_id = _status.GetStatusId("Active");
-            
+
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -89,11 +89,11 @@ namespace TSTUWebAPI.Controllers.InteractiveServicesControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallinteractiveservices")]
-        public IActionResult GetAllInteractiveServices(int queryNum, int pageNum)
+        public IActionResult GetAllInteractiveServices(int queryNum, int pageNum, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<InteractiveServices> InteractiveServicess1 = _repository.AllInteractiveServices(queryNum, pageNum);
+            IEnumerable<InteractiveServices> InteractiveServicess1 = _repository.AllInteractiveServices(queryNum, pageNum, favorite);
             var InteractiveServicess = _mapper.Map<IEnumerable<InteractiveServicesReadedDTO>>(InteractiveServicess1);
             if (InteractiveServicess == null) { }
 
@@ -116,11 +116,11 @@ namespace TSTUWebAPI.Controllers.InteractiveServicesControllers
         }
 
         [HttpGet("sitegetallinteractiveservices")]
-        public IActionResult GetAllInteractiveServicessite(int queryNum, int pageNum)
+        public IActionResult GetAllInteractiveServicessite(int queryNum, int pageNum, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<InteractiveServices> InteractiveServicess1 = _repository.AllInteractiveServicesSite(queryNum, pageNum);
+            IEnumerable<InteractiveServices> InteractiveServicess1 = _repository.AllInteractiveServicesSite(queryNum, pageNum, favorite);
             var InteractiveServicess = _mapper.Map<IEnumerable<InteractiveServicesReadedSiteDTO>>(InteractiveServicess1);
             if (InteractiveServicess == null) { }
 
@@ -289,11 +289,11 @@ namespace TSTUWebAPI.Controllers.InteractiveServicesControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallinteractiveservicestranslation")]
-        public IActionResult GetAllInteractiveServicesTranslation(int queryNum, int pageNum, string? language_code)
+        public IActionResult GetAllInteractiveServicesTranslation(int queryNum, int pageNum, string? language_code, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<InteractiveServicesTranslation> InteractiveServicestranslations1 = _repository.AllInteractiveServicesTranslation(queryNum, pageNum, language_code);
+            IEnumerable<InteractiveServicesTranslation> InteractiveServicestranslations1 = _repository.AllInteractiveServicesTranslation(queryNum, pageNum, language_code, favorite);
             var InteractiveServicestranslations = _mapper.Map<IEnumerable<InteractiveServicesTranslationReadedDTO>>(InteractiveServicestranslations1);
             if (InteractiveServicestranslations == null) { }
 
@@ -325,11 +325,11 @@ namespace TSTUWebAPI.Controllers.InteractiveServicesControllers
         }
 
         [HttpGet("sitegetallinteractiveservicestranslation")]
-        public IActionResult GetAllInteractiveServicesTranslationsite(int queryNum, int pageNum, string? language_code)
+        public IActionResult GetAllInteractiveServicesTranslationsite(int queryNum, int pageNum, string? language_code, bool? favorite)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<InteractiveServicesTranslation> InteractiveServicestranslations1 = _repository.AllInteractiveServicesTranslationSite(queryNum, pageNum, language_code);
+            IEnumerable<InteractiveServicesTranslation> InteractiveServicestranslations1 = _repository.AllInteractiveServicesTranslationSite(queryNum, pageNum, language_code, favorite);
             var InteractiveServicestranslations = _mapper.Map<IEnumerable<InteractiveServicesTranslationReadedSiteDTO>>(InteractiveServicestranslations1);
             if (InteractiveServicestranslations == null) { }
 
