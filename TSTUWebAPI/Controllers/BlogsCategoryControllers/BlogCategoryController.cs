@@ -16,7 +16,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
     public class BlogCategoryController : ControllerBase
     {
         private readonly IBlogCategoryRepository _repository;
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
         private readonly IStatusRepositoryStatic _status;
 
         public BlogCategoryController(IBlogCategoryRepository repository, IMapper mapper, IStatusRepositoryStatic _status1)
@@ -98,6 +98,18 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             {
 
             }
+            var blogCategory = _mapper.Map<BlogCategoryReadedSiteDTO>(blogCategory1);
+            if (blogCategory == null) { }
+
+            return Ok(blogCategory);
+        }
+
+        [HttpGet("sitegetbytitleblogcategory/{title}")]
+        public IActionResult GetByTitleBlogCategorySite(string title)
+        {
+            title = title.ToLower();
+            var blogCategory1 = _repository.AllBlogCategorySite(0, 0).FirstOrDefault(x => x.title.ToLower() == title);
+
             var blogCategory = _mapper.Map<BlogCategoryReadedSiteDTO>(blogCategory1);
             if (blogCategory == null) { }
 
