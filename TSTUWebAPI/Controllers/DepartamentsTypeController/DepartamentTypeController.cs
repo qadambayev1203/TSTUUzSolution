@@ -3,11 +3,8 @@ using Contracts.AllRepository.DepartamentsTypeRepository;
 using Contracts.AllRepository.StatusesRepository;
 using Entities.DTO.DepartamentTypeDTOS;
 using Entities.Model.AnyClasses;
-using Entities.Model.AppealsToTheRectorsModel;
-using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
@@ -100,6 +97,19 @@ namespace TSTUWebAPI.Controllers.DepartamentTypesTypeController
             {
 
             }
+            var departamentType = _mapper.Map<DepartamentTypeReadedSiteDTO>(departamentType1);
+            if (departamentType == null) { }
+
+            return Ok(departamentType);
+        }
+
+
+        [HttpGet("sitegetbytitledepartamenttype/{type}")]
+        public IActionResult GetByTitleDepartamentTypeSite(string type)
+        {
+            type = type.ToLower();
+            var departamentType1 = _repository.AllDepartamentTypeSite(0, 0).FirstOrDefault(x => x.type.ToLower() == type);
+
             var departamentType = _mapper.Map<DepartamentTypeReadedSiteDTO>(departamentType1);
             if (departamentType == null) { }
 
