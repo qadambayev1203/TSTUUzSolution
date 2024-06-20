@@ -219,6 +219,7 @@ namespace Repository.AllSqlRepository.InteractivesServicesSqlRepository
                 dbcheck.img_ = InteractiveServices.img_;
                 dbcheck.icon_ = InteractiveServices.icon_;
                 dbcheck.status_id = InteractiveServices.status_id;
+                dbcheck.favorite = InteractiveServices.favorite;
 
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;
@@ -500,6 +501,7 @@ namespace Repository.AllSqlRepository.InteractivesServicesSqlRepository
                 dbcheck.icon_ = interactiveservices.icon_;
                 dbcheck.language_id = interactiveservices.language_id;
                 dbcheck.status_translation_id = interactiveservices.status_translation_id;
+                dbcheck.favorite = interactiveservices.favorite;
 
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;
