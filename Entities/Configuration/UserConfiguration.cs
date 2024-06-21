@@ -23,16 +23,16 @@ namespace Entities.Configuration
                     login = "admin",
                     password = PasswordManager.EncryptPassword(("admin123").ToString()),
                     person_id = null,
-                    status_id = null
+                    status_id = 1
                 },
                 new User
                 {
                     id = 2,
                     user_type_id = 2,
-                    login = "aser",
+                    login = "user",
                     password = PasswordManager.EncryptPassword(("user12").ToString()),
                     person_id = null,
-                    status_id = null
+                    status_id = 1
                 }
                 );
             builder.HasIndex(u => u.login).IsUnique();

@@ -15,10 +15,10 @@ namespace Entities.Configuration
         public void Configure(EntityTypeBuilder<Employment> builder)
         {
             builder.HasData(
-                new Employment { id = 1, title = "Band" },
-                new Employment { id = 2, title = "Ishsiz" },
-                new Employment { id = 3, title = "Nafaqada" },
-                new Employment { id = 4, title = "Talaba" }
+                new Employment { id = 1,  status_id = 1, title = "Band" },
+                new Employment { id = 2,  status_id = 1, title = "Ishsiz" },
+                new Employment { id = 3,  status_id = 1, title = "Nafaqada" },
+                new Employment { id = 4,  status_id = 1, title = "Talaba" }
                 );
 
         }

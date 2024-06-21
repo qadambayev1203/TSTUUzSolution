@@ -423,11 +423,13 @@ namespace Entities.Migrations
                         new
                         {
                             id = 1,
+                            status_id = 1,
                             title = "O'zbekiston"
                         },
                         new
                         {
                             id = 2,
+                            status_id = 1,
                             title = "Boshqa"
                         });
                 });
@@ -587,7 +589,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 1,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2957),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3265),
                             departament_type_id = 1,
                             parent_id = 0,
                             status_id = 1,
@@ -596,7 +598,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 2,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2961),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3270),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -605,7 +607,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 3,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2963),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3284),
                             departament_type_id = 3,
                             parent_id = 1,
                             status_id = 1,
@@ -614,7 +616,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 4,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2965),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3286),
                             departament_type_id = 3,
                             parent_id = 1,
                             status_id = 1,
@@ -623,7 +625,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 5,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2966),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3287),
                             departament_type_id = 4,
                             parent_id = 1,
                             status_id = 1,
@@ -632,7 +634,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 6,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2968),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3289),
                             departament_type_id = 4,
                             parent_id = 1,
                             status_id = 1,
@@ -641,7 +643,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 7,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2970),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3291),
                             departament_type_id = 4,
                             parent_id = 1,
                             status_id = 1,
@@ -650,7 +652,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 63,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2972),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3293),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -659,7 +661,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 64,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2974),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3295),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -668,7 +670,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 65,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2976),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3302),
                             departament_type_id = 20,
                             parent_id = 1,
                             status_id = 1,
@@ -677,7 +679,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 66,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2982),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3307),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -686,7 +688,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 67,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2984),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3309),
                             departament_type_id = 21,
                             parent_id = 1,
                             status_id = 1,
@@ -695,7 +697,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 68,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2986),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3311),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -704,7 +706,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 69,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2988),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3313),
                             departament_type_id = 20,
                             parent_id = 1,
                             status_id = 1,
@@ -713,7 +715,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 70,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2990),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3315),
                             departament_type_id = 23,
                             parent_id = 1,
                             status_id = 1,
@@ -722,7 +724,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 71,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2991),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3317),
                             departament_type_id = 20,
                             parent_id = 1,
                             status_id = 1,
@@ -731,7 +733,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 72,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2993),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3318),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -740,7 +742,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 73,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2996),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3320),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -749,7 +751,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 74,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(2998),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3322),
                             departament_type_id = 24,
                             parent_id = 1,
                             status_id = 1,
@@ -758,7 +760,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 75,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3000),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3324),
                             departament_type_id = 25,
                             parent_id = 1,
                             status_id = 1,
@@ -767,7 +769,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 76,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3001),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3326),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -776,7 +778,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 77,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3003),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3331),
                             departament_type_id = 7,
                             parent_id = 1,
                             status_id = 1,
@@ -785,7 +787,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 8,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3006),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3332),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -794,7 +796,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 14,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3007),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3334),
                             departament_type_id = 5,
                             parent_id = 8,
                             status_id = 1,
@@ -803,7 +805,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 15,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3009),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3336),
                             departament_type_id = 6,
                             parent_id = 8,
                             status_id = 1,
@@ -812,7 +814,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 16,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3011),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3338),
                             departament_type_id = 6,
                             parent_id = 8,
                             status_id = 1,
@@ -821,7 +823,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 17,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3013),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3340),
                             departament_type_id = 7,
                             parent_id = 8,
                             status_id = 1,
@@ -830,7 +832,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 18,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3015),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3342),
                             departament_type_id = 7,
                             parent_id = 8,
                             status_id = 1,
@@ -839,7 +841,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 19,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3017),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3343),
                             departament_type_id = 7,
                             parent_id = 8,
                             status_id = 1,
@@ -848,7 +850,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 20,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3019),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3345),
                             departament_type_id = 8,
                             parent_id = 8,
                             status_id = 1,
@@ -857,7 +859,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 21,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3021),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3347),
                             departament_type_id = 6,
                             parent_id = 8,
                             status_id = 1,
@@ -866,7 +868,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 26,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3023),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3349),
                             departament_type_id = 11,
                             parent_id = 21,
                             status_id = 1,
@@ -875,7 +877,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 27,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3024),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3354),
                             departament_type_id = 11,
                             parent_id = 21,
                             status_id = 1,
@@ -884,7 +886,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 28,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3026),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3356),
                             departament_type_id = 7,
                             parent_id = 21,
                             status_id = 1,
@@ -893,7 +895,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 29,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3028),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3357),
                             departament_type_id = 7,
                             parent_id = 21,
                             status_id = 1,
@@ -902,7 +904,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 22,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3030),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3359),
                             departament_type_id = 9,
                             parent_id = 8,
                             status_id = 1,
@@ -911,7 +913,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 23,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3032),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3361),
                             departament_type_id = 10,
                             parent_id = 8,
                             status_id = 1,
@@ -920,7 +922,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 24,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3033),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3363),
                             departament_type_id = 10,
                             parent_id = 8,
                             status_id = 1,
@@ -929,7 +931,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 25,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3035),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3365),
                             departament_type_id = 10,
                             parent_id = 8,
                             status_id = 1,
@@ -938,7 +940,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 9,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3038),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3367),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -947,7 +949,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 30,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3039),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3368),
                             departament_type_id = 7,
                             parent_id = 9,
                             status_id = 1,
@@ -956,7 +958,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 31,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3041),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3370),
                             departament_type_id = 14,
                             parent_id = 9,
                             status_id = 1,
@@ -965,7 +967,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 32,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3047),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3372),
                             departament_type_id = 15,
                             parent_id = 9,
                             status_id = 1,
@@ -974,7 +976,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 33,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3049),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3377),
                             departament_type_id = 16,
                             parent_id = 9,
                             status_id = 1,
@@ -983,7 +985,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 34,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3051),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3381),
                             departament_type_id = 4,
                             parent_id = 9,
                             status_id = 1,
@@ -992,7 +994,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 35,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3053),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3383),
                             departament_type_id = 18,
                             parent_id = 9,
                             status_id = 1,
@@ -1001,7 +1003,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 36,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3055),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3385),
                             departament_type_id = 4,
                             parent_id = 9,
                             status_id = 1,
@@ -1010,7 +1012,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 37,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3056),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3387),
                             departament_type_id = 7,
                             parent_id = 9,
                             status_id = 1,
@@ -1019,7 +1021,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 10,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3058),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3389),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1028,7 +1030,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 38,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3060),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3391),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1037,7 +1039,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 39,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3062),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3393),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1046,7 +1048,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 40,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3064),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3394),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1055,7 +1057,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 41,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3066),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3396),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1064,7 +1066,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 42,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3068),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3409),
                             departament_type_id = 4,
                             parent_id = 10,
                             status_id = 1,
@@ -1073,7 +1075,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 43,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3070),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3414),
                             departament_type_id = 7,
                             parent_id = 10,
                             status_id = 1,
@@ -1082,7 +1084,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 44,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3071),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3416),
                             departament_type_id = 6,
                             parent_id = 10,
                             status_id = 1,
@@ -1091,7 +1093,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 45,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3073),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3417),
                             departament_type_id = 8,
                             parent_id = 10,
                             status_id = 1,
@@ -1100,7 +1102,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 11,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3075),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3419),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1109,7 +1111,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 46,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3077),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3421),
                             departament_type_id = 5,
                             parent_id = 11,
                             status_id = 1,
@@ -1118,7 +1120,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 47,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3078),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3423),
                             departament_type_id = 7,
                             parent_id = 11,
                             status_id = 1,
@@ -1127,7 +1129,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 48,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3080),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3425),
                             departament_type_id = 7,
                             parent_id = 11,
                             status_id = 1,
@@ -1136,7 +1138,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 49,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3083),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3426),
                             departament_type_id = 6,
                             parent_id = 11,
                             status_id = 1,
@@ -1145,7 +1147,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 50,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3084),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3428),
                             departament_type_id = 6,
                             parent_id = 11,
                             status_id = 1,
@@ -1154,7 +1156,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 51,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3087),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3430),
                             departament_type_id = 6,
                             parent_id = 11,
                             status_id = 1,
@@ -1163,7 +1165,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 12,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3088),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3432),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1172,7 +1174,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 52,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3090),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3435),
                             departament_type_id = 7,
                             parent_id = 12,
                             status_id = 1,
@@ -1181,7 +1183,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 53,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3092),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3443),
                             departament_type_id = 5,
                             parent_id = 12,
                             status_id = 1,
@@ -1190,7 +1192,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 56,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3094),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3445),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1199,7 +1201,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 57,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3095),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3447),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1208,7 +1210,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 58,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3097),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3449),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1217,7 +1219,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 59,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3099),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3451),
                             departament_type_id = 19,
                             parent_id = 53,
                             status_id = 1,
@@ -1226,7 +1228,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 60,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3101),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3453),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1235,7 +1237,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 61,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3102),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3455),
                             departament_type_id = 7,
                             parent_id = 53,
                             status_id = 1,
@@ -1244,7 +1246,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 54,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3104),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3457),
                             departament_type_id = 12,
                             parent_id = 12,
                             status_id = 1,
@@ -1253,7 +1255,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 55,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3106),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3586),
                             departament_type_id = 13,
                             parent_id = 12,
                             status_id = 1,
@@ -1262,7 +1264,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 13,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3108),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3588),
                             departament_type_id = 2,
                             parent_id = 1,
                             status_id = 1,
@@ -1271,7 +1273,7 @@ namespace Entities.Migrations
                         new
                         {
                             id = 62,
-                            crated_at = new DateTime(2024, 6, 20, 5, 54, 21, 819, DateTimeKind.Utc).AddTicks(3109),
+                            crated_at = new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3590),
                             departament_type_id = 6,
                             parent_id = 13,
                             status_id = 1,
@@ -1577,1218 +1579,1421 @@ namespace Entities.Migrations
                         new
                         {
                             id = 1,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Boʻzatov tumani"
                         },
                         new
                         {
                             id = 3,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Bandixon tumani"
                         },
                         new
                         {
                             id = 4,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Tuproqqal''a tumani"
                         },
                         new
                         {
                             id = 10,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Nukus shahar"
                         },
                         new
                         {
                             id = 12,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Amudaryo tumani"
                         },
                         new
                         {
                             id = 13,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Beruniy tumani"
                         },
                         new
                         {
                             id = 14,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Qonlikoʻl tumani"
                         },
                         new
                         {
                             id = 15,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Qoraoʻzak tumani"
                         },
                         new
                         {
                             id = 16,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Kegeyli tumani"
                         },
                         new
                         {
                             id = 17,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Qoʻngʻirot tumani"
                         },
                         new
                         {
                             id = 18,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Muynoq tumani"
                         },
                         new
                         {
                             id = 19,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Nukus tumani"
                         },
                         new
                         {
                             id = 20,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Taxtakoʻprik tumani"
                         },
                         new
                         {
                             id = 21,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Toʻrtkoʻl tumani"
                         },
                         new
                         {
                             id = 22,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Xoʻjayli tumani"
                         },
                         new
                         {
                             id = 23,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Chimboy tumani"
                         },
                         new
                         {
                             id = 24,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Shoʻmanay tumani"
                         },
                         new
                         {
                             id = 25,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Ellikqal''a tumani"
                         },
                         new
                         {
                             id = 26,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Buxoro shahar"
                         },
                         new
                         {
                             id = 27,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Buxoro tuman"
                         },
                         new
                         {
                             id = 28,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Vobkent tuman"
                         },
                         new
                         {
                             id = 29,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Gʻijduvon tuman"
                         },
                         new
                         {
                             id = 30,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Jondor tuman"
                         },
                         new
                         {
                             id = 32,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Kogon tuman"
                         },
                         new
                         {
                             id = 33,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Olot tuman"
                         },
                         new
                         {
                             id = 34,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Peshku tuman"
                         },
                         new
                         {
                             id = 35,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Romitan tuman"
                         },
                         new
                         {
                             id = 36,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Shofirkon tuman"
                         },
                         new
                         {
                             id = 37,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Qorakoʻl tuman"
                         },
                         new
                         {
                             id = 38,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Qorovulbozor tuman"
                         },
                         new
                         {
                             id = 39,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Samarqand shahar"
                         },
                         new
                         {
                             id = 40,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Oqdaryo tumani"
                         },
                         new
                         {
                             id = 41,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Bulungʻur tumani"
                         },
                         new
                         {
                             id = 42,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Jomboy tumani"
                         },
                         new
                         {
                             id = 43,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Kattaqoʻrgʻon tumani"
                         },
                         new
                         {
                             id = 44,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Kattaqoʻrgʻon shahar"
                         },
                         new
                         {
                             id = 45,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Qoʻshrabod tumani"
                         },
                         new
                         {
                             id = 46,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Narpay tumani"
                         },
                         new
                         {
                             id = 47,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Nurobod tumani"
                         },
                         new
                         {
                             id = 48,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Payariq tumani"
                         },
                         new
                         {
                             id = 49,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Pastdargʻom tumani"
                         },
                         new
                         {
                             id = 50,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Paxtachi tumani"
                         },
                         new
                         {
                             id = 51,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Samarqand tumani"
                         },
                         new
                         {
                             id = 53,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Tayloq tumani"
                         },
                         new
                         {
                             id = 54,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Urgut tumani"
                         },
                         new
                         {
                             id = 55,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Navoiy shahar"
                         },
                         new
                         {
                             id = 56,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Karmana tumani"
                         },
                         new
                         {
                             id = 57,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Navbaxor tumani"
                         },
                         new
                         {
                             id = 58,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Nurota tumani - Gʻozgʻon shahri"
                         },
                         new
                         {
                             id = 59,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Xatirchi tumani"
                         },
                         new
                         {
                             id = 60,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Qiziltepa tumani"
                         },
                         new
                         {
                             id = 61,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Konimex tumani"
                         },
                         new
                         {
                             id = 62,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Uchquduq tumani"
                         },
                         new
                         {
                             id = 63,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Zarafshon shahar"
                         },
                         new
                         {
                             id = 64,
+                            status_id = 1,
                             territorie_id = 11,
                             title = "Tomdi tumani"
                         },
                         new
                         {
                             id = 65,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Andijon shahar"
                         },
                         new
                         {
                             id = 66,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Xonobod shahar"
                         },
                         new
                         {
                             id = 67,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Andijon tumani"
                         },
                         new
                         {
                             id = 68,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Asaka tumani"
                         },
                         new
                         {
                             id = 69,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Baliqchi tumani"
                         },
                         new
                         {
                             id = 70,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Boʻz tumani"
                         },
                         new
                         {
                             id = 71,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Buloqboshi tumani"
                         },
                         new
                         {
                             id = 72,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Jalolquduq tumani"
                         },
                         new
                         {
                             id = 73,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Izboskan tumani"
                         },
                         new
                         {
                             id = 74,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Ulugʻnor tumani"
                         },
                         new
                         {
                             id = 75,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Qoʻrgʻontepa tumani"
                         },
                         new
                         {
                             id = 76,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Marxamat tumani"
                         },
                         new
                         {
                             id = 77,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Oltinkoʻl tumani"
                         },
                         new
                         {
                             id = 78,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Paxtaobod tumani"
                         },
                         new
                         {
                             id = 79,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Hoʻjaobod tumani"
                         },
                         new
                         {
                             id = 80,
+                            status_id = 1,
                             territorie_id = 12,
                             title = "Shaxrixon tumani"
                         },
                         new
                         {
                             id = 82,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Margʻilon shahar"
                         },
                         new
                         {
                             id = 83,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Fargʻona shahar"
                         },
                         new
                         {
                             id = 84,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Quvasoy shahar"
                         },
                         new
                         {
                             id = 85,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Qoʻqon shahar"
                         },
                         new
                         {
                             id = 86,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Bogʻdod tumani"
                         },
                         new
                         {
                             id = 87,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Beshariq tumani"
                         },
                         new
                         {
                             id = 88,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Buvayda tumani"
                         },
                         new
                         {
                             id = 89,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Dangʻara tumani"
                         },
                         new
                         {
                             id = 90,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Yozyovon tumani"
                         },
                         new
                         {
                             id = 91,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Oltiariq tumani"
                         },
                         new
                         {
                             id = 92,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Qoʻshtepa tumani"
                         },
                         new
                         {
                             id = 93,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Rishton tumani"
                         },
                         new
                         {
                             id = 94,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Soʻx tumani"
                         },
                         new
                         {
                             id = 95,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Toshloq tumani"
                         },
                         new
                         {
                             id = 96,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Uchkoʻprik tumani"
                         },
                         new
                         {
                             id = 97,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Fargʻona tumani"
                         },
                         new
                         {
                             id = 98,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Furqat tumani"
                         },
                         new
                         {
                             id = 99,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Oʻzbekiston tumani"
                         },
                         new
                         {
                             id = 100,
+                            status_id = 1,
                             territorie_id = 13,
                             title = "Quva tumani"
                         },
                         new
                         {
                             id = 101,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Angor tumani"
                         },
                         new
                         {
                             id = 102,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Boysun tumani"
                         },
                         new
                         {
                             id = 103,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Denov tumani"
                         },
                         new
                         {
                             id = 104,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Jarqoʻrgʻon tumani"
                         },
                         new
                         {
                             id = 105,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Qiziriq tumani"
                         },
                         new
                         {
                             id = 106,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Qumqoʻrgʻon tumani"
                         },
                         new
                         {
                             id = 107,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Muzrabot tumani"
                         },
                         new
                         {
                             id = 108,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Oltinsoy tumani"
                         },
                         new
                         {
                             id = 109,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Sariosiyo tumani"
                         },
                         new
                         {
                             id = 110,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Termiz tumani"
                         },
                         new
                         {
                             id = 111,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Termiz shahar"
                         },
                         new
                         {
                             id = 112,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Uzun tumani"
                         },
                         new
                         {
                             id = 113,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Sherobod tumani"
                         },
                         new
                         {
                             id = 114,
+                            status_id = 1,
                             territorie_id = 14,
                             title = "Shoʻrchi tumani"
                         },
                         new
                         {
                             id = 115,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Oqoltin tumani"
                         },
                         new
                         {
                             id = 116,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Boyovut tumani"
                         },
                         new
                         {
                             id = 117,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Guliston tumani"
                         },
                         new
                         {
                             id = 118,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Mirzaobod tumani"
                         },
                         new
                         {
                             id = 119,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Sayxunobod tumani"
                         },
                         new
                         {
                             id = 120,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Sirdaryo tumani"
                         },
                         new
                         {
                             id = 121,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Sardoba tumani"
                         },
                         new
                         {
                             id = 122,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Xovos tumani"
                         },
                         new
                         {
                             id = 123,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Guliston shahar"
                         },
                         new
                         {
                             id = 124,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Shirin shahar"
                         },
                         new
                         {
                             id = 126,
+                            status_id = 1,
                             territorie_id = 15,
                             title = "Yangier shahar"
                         },
                         new
                         {
                             id = 127,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Urganch shahar"
                         },
                         new
                         {
                             id = 128,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Bogʻot tumani"
                         },
                         new
                         {
                             id = 129,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Gurlan tumani"
                         },
                         new
                         {
                             id = 130,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Xozarasp tumani"
                         },
                         new
                         {
                             id = 131,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Xiva tumani"
                         },
                         new
                         {
                             id = 132,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Xonqa tumani"
                         },
                         new
                         {
                             id = 133,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Urganch tumani"
                         },
                         new
                         {
                             id = 134,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Qoʻshkoʻpir tumani"
                         },
                         new
                         {
                             id = 135,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Shovot tumani"
                         },
                         new
                         {
                             id = 136,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Yangiariq tumani"
                         },
                         new
                         {
                             id = 137,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Yangibozor tumani"
                         },
                         new
                         {
                             id = 138,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Angren shahar"
                         },
                         new
                         {
                             id = 139,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Bekobod shahar"
                         },
                         new
                         {
                             id = 140,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Olmaliq shahar"
                         },
                         new
                         {
                             id = 141,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Chirchiq shahar"
                         },
                         new
                         {
                             id = 142,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Bekobod tumani"
                         },
                         new
                         {
                             id = 143,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Boʻka tumani"
                         },
                         new
                         {
                             id = 144,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Boʻstonliq tumani"
                         },
                         new
                         {
                             id = 145,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Qibray tumani"
                         },
                         new
                         {
                             id = 146,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Zangiota tumani"
                         },
                         new
                         {
                             id = 148,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Quyichirchiq tumani"
                         },
                         new
                         {
                             id = 149,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Oqqoʻrgʻon tumani"
                         },
                         new
                         {
                             id = 150,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Oxongaron tumani"
                         },
                         new
                         {
                             id = 151,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Parkent tumani"
                         },
                         new
                         {
                             id = 152,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Pskent tumani"
                         },
                         new
                         {
                             id = 153,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Oʻrtachirchiq tumani - Yangihayot tumani"
                         },
                         new
                         {
                             id = 154,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Chinoz tumani"
                         },
                         new
                         {
                             id = 155,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Yuqorichirchiq tumani"
                         },
                         new
                         {
                             id = 156,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Yangiyoʻl tumani - Yangihayot tumani"
                         },
                         new
                         {
                             id = 158,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Qarshi shahar"
                         },
                         new
                         {
                             id = 159,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Gʻuzor tumani"
                         },
                         new
                         {
                             id = 160,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Qarshi tumani"
                         },
                         new
                         {
                             id = 161,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Kasbi tumani"
                         },
                         new
                         {
                             id = 162,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Koson tumani"
                         },
                         new
                         {
                             id = 163,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Kitob tumani"
                         },
                         new
                         {
                             id = 164,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Mirishkor tumani"
                         },
                         new
                         {
                             id = 165,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Muborak tumani"
                         },
                         new
                         {
                             id = 166,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Nishon tumani"
                         },
                         new
                         {
                             id = 167,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Chiroqchi tumani"
                         },
                         new
                         {
                             id = 168,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Shaxrisabz tumani"
                         },
                         new
                         {
                             id = 170,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Qamashi tumani"
                         },
                         new
                         {
                             id = 171,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Dexqonobod tumani"
                         },
                         new
                         {
                             id = 172,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Yakkabogʻ tumani"
                         },
                         new
                         {
                             id = 173,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Jizzax shahar"
                         },
                         new
                         {
                             id = 174,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Baxmal tumani"
                         },
                         new
                         {
                             id = 175,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Doʻstlik tumani"
                         },
                         new
                         {
                             id = 176,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Gʻallaorol tumani"
                         },
                         new
                         {
                             id = 177,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Sh.Rashidov tumani"
                         },
                         new
                         {
                             id = 178,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Zarbdor tumani"
                         },
                         new
                         {
                             id = 179,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Zafarobod tumani"
                         },
                         new
                         {
                             id = 180,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Zomin tumani"
                         },
                         new
                         {
                             id = 181,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Paxtakor tumani"
                         },
                         new
                         {
                             id = 182,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Mirzachoʻl tumani"
                         },
                         new
                         {
                             id = 183,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Forish tumani"
                         },
                         new
                         {
                             id = 184,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Yangiobod tumani"
                         },
                         new
                         {
                             id = 185,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Namangan shahar"
                         },
                         new
                         {
                             id = 186,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Mingbuloq tumani"
                         },
                         new
                         {
                             id = 189,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Pop tumani"
                         },
                         new
                         {
                             id = 190,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Norin tumani"
                         },
                         new
                         {
                             id = 191,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Toʻraqoʻrgʻon tumani"
                         },
                         new
                         {
                             id = 192,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Uychi tumani"
                         },
                         new
                         {
                             id = 194,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Chortoq tumani"
                         },
                         new
                         {
                             id = 195,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Chust tumani"
                         },
                         new
                         {
                             id = 196,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Yangiqoʻrgʻon tumani"
                         },
                         new
                         {
                             id = 198,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Yunusobod tumani"
                         },
                         new
                         {
                             id = 199,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Mirobod tumani"
                         },
                         new
                         {
                             id = 200,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Yakkasaroy tumani"
                         },
                         new
                         {
                             id = 201,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Olmazor tumani"
                         },
                         new
                         {
                             id = 202,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Bektemir tumani - Yangihayot tumani"
                         },
                         new
                         {
                             id = 203,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Yashnobod tumani"
                         },
                         new
                         {
                             id = 204,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Chilonzor tumani"
                         },
                         new
                         {
                             id = 205,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Uchtepa tumani"
                         },
                         new
                         {
                             id = 207,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Mirzo Ulugʻbek tumani"
                         },
                         new
                         {
                             id = 208,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Sergeli tumani - Yangihayot tumani"
                         },
                         new
                         {
                             id = 209,
+                            status_id = 1,
                             territorie_id = 10,
                             title = "Ishtixon tumani"
                         },
                         new
                         {
                             id = 210,
+                            status_id = 1,
                             territorie_id = 9,
                             title = "Kogon shahar"
                         },
                         new
                         {
                             id = 211,
+                            status_id = 1,
                             territorie_id = 19,
                             title = "Arnasoy tumani"
                         },
                         new
                         {
                             id = 212,
+                            status_id = 1,
                             territorie_id = 22,
                             title = "Shayxontoxur tumani"
                         },
                         new
                         {
                             id = 214,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Namangan tumani"
                         },
                         new
                         {
                             id = 215,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Uchqoʻrgʻon tumani"
                         },
                         new
                         {
                             id = 216,
+                            status_id = 1,
                             territorie_id = 21,
                             title = "Kosonsoy tumani"
                         },
                         new
                         {
                             id = 217,
+                            status_id = 1,
                             territorie_id = 16,
                             title = "Xiva shahar"
                         },
                         new
                         {
                             id = 218,
+                            status_id = 1,
                             territorie_id = 8,
                             title = "Taxiatosh"
                         },
                         new
                         {
                             id = 219,
+                            status_id = 1,
                             territorie_id = 18,
                             title = "Shaxrisabz shahar"
                         },
                         new
                         {
                             id = 220,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Toshkent tumani"
                         },
                         new
                         {
                             id = 221,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Yangiyoʻl shahar"
                         },
                         new
                         {
                             id = 222,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Ohangaron shahar"
                         },
                         new
                         {
                             id = 223,
+                            status_id = 1,
                             territorie_id = 17,
                             title = "Nurafshon shahar"
                         });
@@ -2914,21 +3119,25 @@ namespace Entities.Migrations
                         new
                         {
                             id = 1,
+                            status_id = 1,
                             title = "Band"
                         },
                         new
                         {
                             id = 2,
+                            status_id = 1,
                             title = "Ishsiz"
                         },
                         new
                         {
                             id = 3,
+                            status_id = 1,
                             title = "Nafaqada"
                         },
                         new
                         {
                             id = 4,
+                            status_id = 1,
                             title = "Talaba"
                         });
                 });
@@ -2971,6 +3180,7 @@ namespace Entities.Migrations
                             id = 1,
                             employment_id = 1,
                             language_id = 1,
+                            status_translation_id = 1,
                             title = "Busy"
                         },
                         new
@@ -2978,6 +3188,7 @@ namespace Entities.Migrations
                             id = 2,
                             employment_id = 2,
                             language_id = 1,
+                            status_translation_id = 1,
                             title = "Unemployed"
                         },
                         new
@@ -2985,6 +3196,7 @@ namespace Entities.Migrations
                             id = 3,
                             employment_id = 3,
                             language_id = 1,
+                            status_translation_id = 1,
                             title = "Retired"
                         },
                         new
@@ -2992,6 +3204,7 @@ namespace Entities.Migrations
                             id = 4,
                             employment_id = 4,
                             language_id = 1,
+                            status_translation_id = 1,
                             title = "Student"
                         });
                 });
@@ -4537,84 +4750,98 @@ namespace Entities.Migrations
                         {
                             id = 8,
                             country_id = 1,
+                            status_id = 1,
                             title = "Qoraqalpogʻiston Respublikasi"
                         },
                         new
                         {
                             id = 9,
                             country_id = 1,
+                            status_id = 1,
                             title = "Buxoro viloyati"
                         },
                         new
                         {
                             id = 10,
                             country_id = 1,
+                            status_id = 1,
                             title = "Samarqand viloyati"
                         },
                         new
                         {
                             id = 11,
                             country_id = 1,
+                            status_id = 1,
                             title = "Navoiy viloyati"
                         },
                         new
                         {
                             id = 12,
                             country_id = 1,
+                            status_id = 1,
                             title = "Andijon viloyati"
                         },
                         new
                         {
                             id = 13,
                             country_id = 1,
+                            status_id = 1,
                             title = "Fargʻona viloyati"
                         },
                         new
                         {
                             id = 14,
                             country_id = 1,
+                            status_id = 1,
                             title = "Surxondaryo viloyati"
                         },
                         new
                         {
                             id = 15,
                             country_id = 1,
+                            status_id = 1,
                             title = "Sirdaryo viloyati"
                         },
                         new
                         {
                             id = 16,
                             country_id = 1,
+                            status_id = 1,
                             title = "Xorazm viloyati"
                         },
                         new
                         {
                             id = 17,
                             country_id = 1,
+                            status_id = 1,
                             title = "Toshkent viloyati"
                         },
                         new
                         {
                             id = 18,
                             country_id = 1,
+                            status_id = 1,
                             title = "Qashqadaryo viloyati"
                         },
                         new
                         {
                             id = 19,
                             country_id = 1,
+                            status_id = 1,
                             title = "Jizzax viloyati"
                         },
                         new
                         {
                             id = 21,
                             country_id = 1,
+                            status_id = 1,
                             title = "Namangan viloyati"
                         },
                         new
                         {
                             id = 22,
                             country_id = 1,
+                            status_id = 1,
                             title = "Toshkent shahri"
                         });
                 });
@@ -4749,13 +4976,15 @@ namespace Entities.Migrations
                             id = 1,
                             login = "admin",
                             password = "X85cpohQrV+USeuUGKBe8qQ4PKBd1oT1MYOu8wOr2V4=",
+                            status_id = 1,
                             user_type_id = 1
                         },
                         new
                         {
                             id = 2,
-                            login = "aser",
+                            login = "user",
                             password = "5sI/jrzFz2ijUO3dRLlGnjdVl5zBYO4OInDwyb/qPYk=",
+                            status_id = 1,
                             user_type_id = 2
                         });
                 });
@@ -4785,11 +5014,13 @@ namespace Entities.Migrations
                         new
                         {
                             id = 1,
+                            status_id = 1,
                             type = "Admin"
                         },
                         new
                         {
                             id = 2,
+                            status_id = 1,
                             type = "User"
                         });
                 });

@@ -14,11 +14,11 @@ namespace Entities.Configuration
         public void Configure(EntityTypeBuilder<UserType> builder)
         {
             builder.HasData(
-                new UserType { id = 1, type="Admin" },
-                new UserType { id = 2, type = "User" }               
+                new UserType { id = 1, status_id = 1, type = "Admin" },
+                new UserType { id = 2, status_id = 1, type = "User" }
                 );
 
         }
     }
-   
+
 }

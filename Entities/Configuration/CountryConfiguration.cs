@@ -15,8 +15,8 @@ namespace Entities.Configuration
         public void Configure(EntityTypeBuilder<Country> builder)
         {
             builder.HasData(
-                new Country { id = 1, title = "O'zbekiston"},
-                new Country { id = 2, title = "Boshqa"}               
+                new Country { id = 1, title = "O'zbekiston", status_id=1},
+                new Country { id = 2, title = "Boshqa", status_id = 1 }               
                 );
 
         }
