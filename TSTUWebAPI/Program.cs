@@ -70,6 +70,8 @@ using System.Text;
 using TSTUWebAPI.Captcha;
 using TSTUWebAPI.Controllers.FileControllers;
 using Repository.AllSqlRepository.StatisticalsNumbersSqlRepository;
+using Contracts.AllRepository.FrontLogFilesRepository;
+using Repository.AllSqlRepository.FrontLogFilesSqlRepository;
 
 #endregion
 
@@ -235,6 +237,9 @@ try
 
     //StatisticalNumbers AND StatisticalNumbersTranslation
     builder.Services.AddScoped<IStatisticalNumbersRepository, StatisticalNumbersSqlRepository>();
+    
+    //FrontLogFiles
+    builder.Services.AddScoped<IFrontLogFileRepository, FrontLogFileSqlRepository>();
 
     #endregion
 
