@@ -11,6 +11,7 @@ namespace Contracts.AllRepository.PersonsDataRepository
     {
         //PersonData CRUD
         public IEnumerable<PersonData> AllPersonData(int queryNum, int pageNum);
+        public IEnumerable<PersonData> AllPersonDataDepId(int department_id);
         public IEnumerable<PersonData> AllPersonDataSite(int queryNum, int pageNum);
         public IEnumerable<PersonData> AllPersonDataEmployeeType(int queryNum, int pageNum, string employee_type);
         public IEnumerable<PersonData> AllPersonDataEmployeeTypeSite(int queryNum, int pageNum, string employee_type);
@@ -26,6 +27,7 @@ namespace Contracts.AllRepository.PersonsDataRepository
 
         //PersonDataTranslation CRUD
         public IEnumerable<PersonDataTranslation> AllPersonDataTranslation(int queryNum, int pageNum, string language_code);
+        public IEnumerable<PersonDataTranslation> AllPersonDataTranslationDepId(int department_uz_id, string language_code);
         public IEnumerable<PersonDataTranslation> AllPersonDataTranslationSite(int queryNum, int pageNum, string language_code);
         public IEnumerable<PersonDataTranslation> AllPersonDataTranslationEmployeeType(int queryNum, int pageNum, string language_code, string employee_type);
         public IEnumerable<PersonDataTranslation> AllPersonDataTranslationEmployeeTypeSite(int queryNum, int pageNum, string language_code, string employee_type);

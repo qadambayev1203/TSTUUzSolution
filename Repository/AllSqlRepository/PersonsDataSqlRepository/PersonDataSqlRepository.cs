@@ -74,6 +74,35 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 return Enumerable.Empty<PersonData>();
             }
         }
+
+        public IEnumerable<PersonData> AllPersonDataDepId(int department_id)
+        {
+            try
+            {
+                var personDatas = new List<PersonData>();
+                if (department_id != 0)
+                {
+                    personDatas = _context.persons_data_20ts24tu
+                        .Include(x => x.persons_).ThenInclude(y => y.img_)
+                        .Include(x => x.persons_).ThenInclude(y => y.departament_).ThenInclude(y => y.img_)
+                        .Include(x => x.persons_).ThenInclude(y => y.departament_)
+                        .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                        .Include(x => x.persons_).ThenInclude(y => y.gender_)
+                        .Include(x => x.status_)
+                        .Where(x => x.persons_.departament_id == department_id)
+                        .Where(x => x.status_.status != "Deleted")
+                        .ToList();
+
+                }
+
+                return personDatas;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return Enumerable.Empty<PersonData>();
+            }
+        }
         public IEnumerable<PersonData> AllPersonData(int queryNum, int pageNum)
         {
             try
@@ -456,6 +485,36 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                           .ToList();
 
                 }
+                return personDatasTranslation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.ToString());
+                return Enumerable.Empty<PersonDataTranslation>();
+            }
+        }
+        public IEnumerable<PersonDataTranslation> AllPersonDataTranslationDepId(int department_uz_id, string language_code)
+        {
+            try
+            {
+                var personDatasTranslation = new List<PersonDataTranslation>();
+                if (department_uz_id != 0)
+                {
+                    personDatasTranslation = _context.persons_data_translations_20ts24tu
+                        .Include(x => x.status_translation_)
+                        .Include(x => x.language_)
+                        .Include(x => x.persons_data_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.persons_)
+                        .Include(x => x.persons_translation_).ThenInclude(y => y.gender_)
+                        .Where(x => x.persons_data_.persons_.departament_id == department_uz_id)
+                        .Where(x => x.status_translation_.status != "Deleted")
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                        .ToList();
+
+                }
+
                 return personDatasTranslation;
             }
             catch (Exception ex)

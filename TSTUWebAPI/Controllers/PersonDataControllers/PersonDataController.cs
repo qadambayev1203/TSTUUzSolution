@@ -138,6 +138,16 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
 
         }
 
+        [HttpGet("sitegetallpersondatadepid/{department_id}")]
+        public IActionResult GetAllpersonDataDepId(int department_id)
+        {
+            IEnumerable<PersonData> personDatas1;
+            personDatas1 = _repository.AllPersonDataDepId(department_id);
+            var personDatas = _mapper.Map<IEnumerable<PersonDataReadedSiteDTO>>(personDatas1);
+            return Ok(personDatas);
+
+        }
+
         [HttpGet("sitegetbyidpersondata/{id}")]
         public IActionResult GetByIdpersonDatasite(int id)
         {
@@ -325,6 +335,15 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                 return Ok(personDatatranslationes);
             }
 
+        }
+
+        [HttpGet("sitegetallpersondatatranslationdepuzid/{department_uz_id}")]
+        public IActionResult GetAllpersonDataTranslationsiteDepUzId(int department_uz_id, string language_code)
+        {
+            IEnumerable<PersonDataTranslation> personDatatranslationes1;
+            personDatatranslationes1 = _repository.AllPersonDataTranslationDepId(department_uz_id, language_code);
+            var personDatatranslationes = _mapper.Map<IEnumerable<PersonDataTranslationReadedSiteDTO>>(personDatatranslationes1);
+            return Ok(personDatatranslationes);
         }
 
         [HttpGet("sitegetbyuzidpersondatatranslation/{uz_id}")]
