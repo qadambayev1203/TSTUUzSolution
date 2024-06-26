@@ -13,7 +13,7 @@ namespace Entities.DTO.EmployeeTypesDTOS
     {
         public int id { get; set; }
         public string title { get; set; }
-        public int employee_id { get; set; }
+        public EmployeeTypeReadedSiteDTO? employee_ { get; set; }
 
     }
 }

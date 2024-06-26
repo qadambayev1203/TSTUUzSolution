@@ -15,7 +15,7 @@ namespace Entities.DTO.EmployeeTypesDTOS
     {
         public int id { get; set; }
         public string title { get; set; }
-        public EmployeeTypeReadedDTO? employee_ { get; set; }
+        public EmployeeTypeReadedSiteDTO? employee_ { get; set; }
         public LanguageConfReadedDTO? language_ { get; set; }
         public StatusTranslationConfReadedDTO status_translation_ { get; set; }
 
