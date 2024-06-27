@@ -22,6 +22,7 @@ namespace Entities.DTO.PersonDTOS
         public string email { get; set; }
         public GenderConfReadedDTO? gender_ { get; set; }
         public DepartamentConfReadedDTO? departament_ { get; set; }
+        public FileConfReadedDTO? img_ { get; set; }
         public EmployeeTypeReadedSiteDTO? employee_type_ { get; set; }
 
     }

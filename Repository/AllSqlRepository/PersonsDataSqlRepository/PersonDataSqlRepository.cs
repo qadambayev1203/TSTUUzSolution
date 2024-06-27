@@ -298,7 +298,8 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             {
                 var personData = _context.persons_data_20ts24tu
                     .Where(x => x.status_.status != "Deleted")
-                    .Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+                    .Include(x => x.persons_).ThenInclude(y => y.img_)
+                    .Include(x => x.persons_).ThenInclude(y => y.departament_)
                         .Include(x => x.persons_).ThenInclude(y => y.gender_)
                         .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
                         .Include(x => x.status_)
@@ -390,7 +391,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 dbcheck.persons_.passport_text = personData.persons_.passport_text;
                 dbcheck.persons_.passport_number = personData.persons_.passport_number;
                 dbcheck.persons_.status_id = personData.persons_.status_id;
-                dbcheck.persons_.img_id = personData.persons_.img_id;
+                dbcheck.persons_.img_ = personData.persons_.img_;
                 dbcheck.persons_.departament_id = personData.persons_.departament_id;
                 dbcheck.persons_.employee_type_id = personData.persons_.employee_type_id;
 
