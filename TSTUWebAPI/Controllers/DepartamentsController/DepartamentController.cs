@@ -54,12 +54,27 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 };
             }
 
+            var Url1 = fileUpload.SaveFileAsync(departament1.img_icon_up);
+            if (Url1 == "File not found or empty!" || Url1 == "Invalid file extension!" || Url1 == "Error!")
+            {
+                return BadRequest("File created error!");
+            }
+            if (Url1 != null && Url1.Length > 0)
+            {
+                departament.img_icon_ = new Files
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url1
+                };
+            }
+
 
             int check = _repository.CreateDepartament(departament);
 
             if (check == 0)
             {
                 fileUpload.DeleteFileAsync(Url);
+                fileUpload.DeleteFileAsync(Url1);
                 return StatusCode(400);
             }
             CreatedItemId createdItemId = new CreatedItemId()
@@ -215,6 +230,20 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                     };
                 }
 
+                var Url1 = fileUpload.SaveFileAsync(departament1.img_icon_up);
+                if (Url1 == "File not found or empty!" || Url1 == "Invalid file extension!" || Url1 == "Error!")
+                {
+                    return BadRequest("File created error!");
+                }
+                if (Url1 != null && Url1.Length > 0)
+                {
+                    dbupdated.img_icon_ = new Files
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = Url1
+                    };
+                }
+
                 bool updatedcheck = _repository.UpdateDepartament(id, dbupdated);
                 if (!updatedcheck)
                 {
@@ -263,11 +292,26 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 };
             }
 
+            var Url1 = fileUpload.SaveFileAsync(departamenttranslation1.img_icon_up);
+            if (Url1 == "File not found or empty!" || Url1 == "Invalid file extension!" || Url1 == "Error!")
+            {
+                return BadRequest("File created error!");
+            }
+            if (Url1 != null && Url1.Length > 0)
+            {
+                departamenttranslation.img_icon_ = new FilesTranslation
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url1
+                };
+            }
+
             int check = _repository.CreateDepartamentTranslation(departamenttranslation);
 
             if (check == 0)
             {
                 fileUpload.DeleteFileAsync(Url);
+                fileUpload.DeleteFileAsync(Url1);
                 return StatusCode(400);
             }
             CreatedItemId createdItemId = new CreatedItemId()
@@ -430,6 +474,20 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                     {
                         title = Guid.NewGuid().ToString(),
                         url = Url
+                    };
+                }
+
+                var Url1 = fileUpload.SaveFileAsync(departamenttranslation1.img_icon_up);
+                if (Url1 == "File not found or empty!" || Url1 == "Invalid file extension!" || Url1 == "Error!")
+                {
+                    return BadRequest("File created error!");
+                }
+                if (Url1 != null && Url1.Length > 0)
+                {
+                    dbupdated.img_icon_ = new FilesTranslation
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = Url1
                     };
                 }
 

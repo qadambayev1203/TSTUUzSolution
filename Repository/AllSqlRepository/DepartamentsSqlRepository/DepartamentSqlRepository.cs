@@ -35,18 +35,18 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 var departaments = new List<Departament>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).ToList();
 
                 }
                 return departaments;
@@ -65,18 +65,18 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 var departaments = new List<Departament>();
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
                 }
                 else
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").ToList();
+                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").ToList();
 
                 }
                 return departaments;
@@ -135,7 +135,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
         {
             try
             {
-                var departament = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+                var departament = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
 
                 return departament;
             }
@@ -150,7 +150,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
         {
             try
             {
-                var departament = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").FirstOrDefault(x => x.id.Equals(id));
+                var departament = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").FirstOrDefault(x => x.id.Equals(id));
 
                 return departament;
             }
@@ -197,7 +197,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             {
                 var departaments = new List<Departament>();
                 departaments = _context.departament_20ts24tu
-                   .Include(x => x.img_)
+                   .Include(x => x.img_).Include(x => x.img_icon_)
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
                    .Where(x => x.parent_id == parent_id)
@@ -218,7 +218,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             {
                 var departaments = new List<Departament>();
                 departaments = _context.departament_20ts24tu
-                   .Include(x => x.img_)
+                   .Include(x => x.img_).Include(x => x.img_icon_)
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_)
                    .Where(x => x.departament_type_.type == dep_type)
@@ -239,7 +239,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             {
                 var departaments = new List<Departament>();
                 departaments = _context.departament_20ts24tu
-                   .Include(x => x.img_)
+                   .Include(x => x.img_).Include(x => x.img_icon_)
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_)
                    .Where(x => x.departament_type_.type == dep_type)
@@ -294,7 +294,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     departamentTranslations = _context.departament_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.departament_type_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
@@ -310,7 +310,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(queryNum * (queryNum - 1))
@@ -324,7 +324,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_)
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .ToList();
@@ -350,7 +350,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
@@ -366,7 +366,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
@@ -381,7 +381,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
@@ -449,7 +449,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_).FirstOrDefault(x => x.id.Equals(id));
                 return departamentTranslation;
             }
@@ -467,7 +467,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_).FirstOrDefault(x => x.departament_id.Equals(uz_id) && x.language_.code.Equals(language_code));
                 return departamentTranslation;
             }
@@ -486,7 +486,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .FirstOrDefault(x => x.departament_id.Equals(uz_id) && x.language_.code.Equals(language_code));
@@ -507,7 +507,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_)
+                        .Include(x => x.img_).Include(x => x.img_icon_)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Include(x => x.departament_type_translation_).FirstOrDefault(x => x.id.Equals(id));
                 return departamentTranslation;
@@ -570,7 +570,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.language_)
                     .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_)
+                    .Include(x => x.img_).Include(x => x.img_icon_)
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.status_translation_.status != "Deleted")
                     .Where(x => x.parent_id == parent_id)
@@ -598,7 +598,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.language_)
                     .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_)
+                    .Include(x => x.img_).Include(x => x.img_icon_)
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.departament_type_translation_.type == dep_type)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
@@ -625,7 +625,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.language_)
                     .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_)
+                    .Include(x => x.img_).Include(x => x.img_icon_)
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.departament_type_translation_.type == dep_type)
                     .Where(x => x.status_translation_.status != "Deleted")

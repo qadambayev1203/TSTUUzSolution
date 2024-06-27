@@ -29,6 +29,8 @@ namespace Entities.Model.DepartamentsModel
         public DateTime? updated_at { get; set; }
         [ForeignKey("FilesTranslation")] public int? img_id { get; set; }
         public FilesTranslation? img_ { get; set; }
+        [ForeignKey("FilesTranslation")] public int? img_icon_id { get; set; }
+        public FilesTranslation? img_icon_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
         [ForeignKey("DepartamentTypeTranslation")] public int? departament_type_translation_id { get; set; }

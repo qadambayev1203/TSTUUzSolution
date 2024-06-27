@@ -23,6 +23,7 @@ namespace Entities.DTO.DepartamentDTOS
         public int language_id { get; set; }
         public int status_translation_id { get; set; }
         public IFormFile? img_up { get; set; }
+        public IFormFile? img_icon_up { get; set; }
         public int? position { get; set; }
         public bool favorite { get; set; }
         public int departament_type_translation_id { get; set; }

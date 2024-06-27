@@ -26,6 +26,7 @@ namespace Entities.DTO.DepartamentDTOS
         public DateTime? crated_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }
         public FileConfReadedDTO? img_ { get; set; }
+        public FileConfReadedDTO? img_icon_ { get; set; }
         public int? position { get; set; }
         public bool? favorite { get; set; }
         public DepartamentTypeConfReadedDTO? departament_type_ { get; set; }

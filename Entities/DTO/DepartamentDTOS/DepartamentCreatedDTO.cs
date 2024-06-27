@@ -20,6 +20,7 @@ namespace Entities.DTO.DepartamentDTOS
         public string text { get; set; }
         public int parent_id { get; set; }
         public IFormFile? img_up { get; set; }
+        public IFormFile? img_icon_up { get; set; }
         public int? position { get; set; }
         public bool favorite { get; set; }
         public int departament_type_id { get; set; }
