@@ -90,6 +90,14 @@ namespace TSTUWebAPI.Controllers.EmployeeTypeControllers
             return Ok(EmployeeTypes);
         }
 
+        [HttpGet("sitegetemployeetypetitle/{title}")]
+        public IActionResult GetEmployeeTypesiteTitle(string title)
+        {
+            EmployeeType EmployeeTypes1 = _repository.AllEmployeeTypeSite(0, 0).FirstOrDefault(x=>x.title==title);
+            var EmployeeTypes = _mapper.Map<EmployeeTypeReadedSiteDTO>(EmployeeTypes1);
+            return Ok(EmployeeTypes);
+        }
+
         [HttpGet("sitegetbyidemployeetype/{id}")]
         public IActionResult GetByIdEmployeeTypesite(int id)
         {
