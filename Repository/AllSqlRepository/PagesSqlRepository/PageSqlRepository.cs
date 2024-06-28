@@ -204,7 +204,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 dbcheck.description = pages.description;
                 dbcheck.text = pages.text;
                 dbcheck.status_id = pages.status_id;
-                dbcheck.img_id = pages.img_id;
+                dbcheck.img_ = pages.img_;
                 dbcheck.position = pages.position;
                 dbcheck.favorite = pages.favorite;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
@@ -497,7 +497,7 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 dbcheck.text = pageTranslation.text;
                 dbcheck.page_id = pageTranslation.page_id;
                 dbcheck.status_translation_id = pageTranslation.status_translation_id;
-                dbcheck.img_translation_id = pageTranslation.img_translation_id;
+                dbcheck.img_translation_ = pageTranslation.img_translation_;
                 dbcheck.position = pageTranslation.position;
                 dbcheck.favorite = pageTranslation.favorite;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));

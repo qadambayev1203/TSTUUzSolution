@@ -207,7 +207,7 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
                 dbcheck.description = language.description;
                 dbcheck.code = language.code;
                 dbcheck.details = language.details;
-                dbcheck.img_id = language.img_id;
+                dbcheck.img_ = language.img_;
                 dbcheck.status_id = language.status_id;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;

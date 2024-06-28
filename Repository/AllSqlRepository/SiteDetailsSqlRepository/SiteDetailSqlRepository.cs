@@ -215,9 +215,9 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 }
                 dbcheck.title = site.title;
                 dbcheck.description = site.description;
-                dbcheck.logo_w_id = site.logo_w_id;
-                dbcheck.logo_b_id = site.logo_b_id;
-                dbcheck.favicon_id = site.favicon_id;
+                dbcheck.logo_w_ = site.logo_w_;
+                dbcheck.logo_b_ = site.logo_b_;
+                dbcheck.favicon_ = site.favicon_;
                 dbcheck.socials = site.socials;
                 dbcheck.details = site.details;
                 dbcheck.site_id = site.site_id;
@@ -501,9 +501,9 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 dbcheck.language_id = site.language_id;
                 dbcheck.title = site.title;
                 dbcheck.description = site.description;
-                dbcheck.logo_w_id = site.logo_w_id;
-                dbcheck.logo_b_id = site.logo_b_id;
-                dbcheck.favicon_id = site.favicon_id;
+                dbcheck.logo_w_ = site.logo_w_;
+                dbcheck.logo_b_ = site.logo_b_;
+                dbcheck.favicon_ = site.favicon_;
                 dbcheck.socials = site.socials;
                 dbcheck.details = site.details;
                 dbcheck.site_translation_id = site.site_translation_id;

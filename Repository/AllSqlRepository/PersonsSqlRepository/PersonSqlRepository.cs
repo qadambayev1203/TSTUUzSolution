@@ -210,7 +210,7 @@ namespace Repository.AllSqlRepository.PersonsSqlRepository
                 dbcheck.passport_text = person.passport_text;
                 dbcheck.passport_number = person.passport_number;
                 dbcheck.status_id = person.status_id;
-                dbcheck.img_id = person.img_id;
+                dbcheck.img_ = person.img_;
                 dbcheck.departament_id = person.departament_id;
                 dbcheck.employee_type_id = person.employee_type_id;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
