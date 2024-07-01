@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Entities.Model.StatusModel;
 using Newtonsoft.Json;
+using Entities.Model.BlogsModel;
 
 namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 {
@@ -177,8 +178,16 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 dbcheck.text = departament.text;
                 dbcheck.parent_id = departament.parent_id;
                 dbcheck.status_id = departament.status_id;
-                dbcheck.img_ = departament.img_;
-                dbcheck.img_icon_ = departament.img_icon_;
+                if (departament.img_ != null)
+                {
+                    dbcheck.img_ = departament.img_;
+                }
+                if (departament.img_icon_ != null)
+                {
+                    dbcheck.img_icon_ = departament.img_icon_;
+                }
+
+
                 dbcheck.position = departament.position;
                 dbcheck.favorite = departament.favorite;
                 dbcheck.departament_type_id = departament.departament_type_id;
@@ -586,8 +595,14 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 dbcheck.parent_id = departament.parent_id;
                 dbcheck.language_id = departament.language_id;
                 dbcheck.status_translation_id = departament.status_translation_id;
-                dbcheck.img_ = departament.img_;
-                dbcheck.img_icon_ = departament.img_icon_;
+                if (departament.img_ != null)
+                {
+                    dbcheck.img_ = departament.img_;
+                }
+                if (departament.img_icon_ != null)
+                {
+                    dbcheck.img_icon_ = departament.img_icon_;
+                }
                 dbcheck.position = departament.position;
                 dbcheck.favorite = departament.favorite;
                 dbcheck.departament_type_translation_id = departament.departament_type_translation_id;

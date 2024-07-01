@@ -1,5 +1,6 @@
 ﻿using Contracts.AllRepository.InteractiveServicesRepository;
 using Entities;
+using Entities.Model.DepartamentsModel;
 using Entities.Model.InteractiveServicesModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -216,8 +217,16 @@ namespace Repository.AllSqlRepository.InteractivesServicesSqlRepository
                 dbcheck.title = InteractiveServices.title;
                 dbcheck.description = InteractiveServices.description;
                 dbcheck.url_ = InteractiveServices.url_;
-                dbcheck.img_ = InteractiveServices.img_;
-                dbcheck.icon_ = InteractiveServices.icon_;
+                if (InteractiveServices.img_ != null)
+                {
+                    dbcheck.img_ = InteractiveServices.img_;
+                }
+                if (InteractiveServices.icon_ != null)
+                {
+                    dbcheck.icon_ = InteractiveServices.icon_;
+                }
+
+
                 dbcheck.status_id = InteractiveServices.status_id;
                 dbcheck.favorite = InteractiveServices.favorite;
 
@@ -497,8 +506,15 @@ namespace Repository.AllSqlRepository.InteractivesServicesSqlRepository
                 dbcheck.description = interactiveservices.description;
                 dbcheck.url_ = interactiveservices.url_;
                 dbcheck.interactive_services_id = interactiveservices.interactive_services_id;
-                dbcheck.img_ = interactiveservices.img_;
-                dbcheck.icon_ = interactiveservices.icon_;
+                if (interactiveservices.img_ != null)
+                {
+                    dbcheck.img_ = interactiveservices.img_;
+                }
+                if (interactiveservices.icon_ != null)
+                {
+                    dbcheck.icon_ = interactiveservices.icon_;
+                }
+
                 dbcheck.language_id = interactiveservices.language_id;
                 dbcheck.status_translation_id = interactiveservices.status_translation_id;
                 dbcheck.favorite = interactiveservices.favorite;

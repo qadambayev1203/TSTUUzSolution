@@ -391,7 +391,10 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 dbcheck.persons_.passport_text = personData.persons_.passport_text;
                 dbcheck.persons_.passport_number = personData.persons_.passport_number;
                 dbcheck.persons_.status_id = personData.persons_.status_id;
-                dbcheck.persons_.img_ = personData.persons_.img_;
+                if (personData.persons_.img_ != null)
+                {
+                    dbcheck.persons_.img_ = personData.persons_.img_;
+                }
                 dbcheck.persons_.departament_id = personData.persons_.departament_id;
                 dbcheck.persons_.employee_type_id = personData.persons_.employee_type_id;
 

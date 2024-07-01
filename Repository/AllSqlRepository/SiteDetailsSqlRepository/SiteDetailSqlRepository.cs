@@ -11,6 +11,7 @@ using Serilog;
 using Entities.Model.SitesModel;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using Entities.Model.PersonModel;
 
 namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
 {
@@ -215,9 +216,21 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 }
                 dbcheck.title = site.title;
                 dbcheck.description = site.description;
-                dbcheck.logo_w_ = site.logo_w_;
-                dbcheck.logo_b_ = site.logo_b_;
-                dbcheck.favicon_ = site.favicon_;
+                if (site.logo_w_ != null)
+                {
+                    dbcheck.logo_w_ = site.logo_w_;
+                }
+                if (site.logo_b_ != null)
+                {
+                    dbcheck.logo_b_ = site.logo_b_;
+                }
+                if (site.favicon_ != null)
+                {
+                    dbcheck.favicon_ = site.favicon_;
+                }
+
+
+
                 dbcheck.socials = site.socials;
                 dbcheck.details = site.details;
                 dbcheck.site_id = site.site_id;
@@ -501,9 +514,18 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 dbcheck.language_id = site.language_id;
                 dbcheck.title = site.title;
                 dbcheck.description = site.description;
-                dbcheck.logo_w_ = site.logo_w_;
-                dbcheck.logo_b_ = site.logo_b_;
-                dbcheck.favicon_ = site.favicon_;
+                if (site.logo_w_ != null)
+                {
+                    dbcheck.logo_w_ = site.logo_w_;
+                }
+                if (site.logo_b_ != null)
+                {
+                    dbcheck.logo_b_ = site.logo_b_;
+                }
+                if (site.favicon_ != null)
+                {
+                    dbcheck.favicon_ = site.favicon_;
+                }
                 dbcheck.socials = site.socials;
                 dbcheck.details = site.details;
                 dbcheck.site_translation_id = site.site_translation_id;

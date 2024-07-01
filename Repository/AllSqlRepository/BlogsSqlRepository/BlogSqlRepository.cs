@@ -280,7 +280,10 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 dbcheck.description = blog.description;
                 dbcheck.text = blog.text;
                 dbcheck.status_id = blog.status_id;
-                dbcheck.img_ = blog.img_;
+                if (blog.img_ != null)
+                {
+                    dbcheck.img_ = blog.img_;
+                }
                 dbcheck.blog_category_id = blog.blog_category_id;
                 dbcheck.position = blog.position;
                 dbcheck.favorite = blog.favorite;
@@ -630,7 +633,11 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 dbcheck.description = blog.description;
                 dbcheck.text = blog.text;
                 dbcheck.status_translation_id = blog.status_translation_id;
-                dbcheck.img_translation_ = blog.img_translation_;
+                if (blog.img_translation_ != null)
+                {
+                    dbcheck.img_translation_ = blog.img_translation_;
+                }
+
                 dbcheck.blog_category_translation_id = blog.blog_category_translation_id;
                 dbcheck.position = blog.position;
                 dbcheck.favorite = blog.favorite;

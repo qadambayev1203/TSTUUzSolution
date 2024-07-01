@@ -367,7 +367,11 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                 dbcheck.blog_id = menu.blog_id;
                 dbcheck.departament_id = menu.departament_id;
                 dbcheck.page_id = menu.page_id;
-                dbcheck.icon_ = menu.icon_;
+                if (menu.icon_ != null)
+                {
+                    dbcheck.icon_ = menu.icon_;
+                }
+
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;
             }
@@ -814,7 +818,10 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                 dbcheck.blog_translation_id = menu.blog_translation_id;
                 dbcheck.page_translation_id = menu.page_translation_id;
                 dbcheck.departament_translation_id = menu.departament_translation_id;
-                dbcheck.icon_ = menu.icon_;
+                if (menu.icon_ != null)
+                {
+                    dbcheck.icon_ = menu.icon_;
+                }
 
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;

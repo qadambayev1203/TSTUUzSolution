@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Entities.Model.SitesModel;
 
 namespace Repository.AllSqlRepository.StatisticalsNumbersSqlRepository
 {
@@ -210,7 +211,11 @@ namespace Repository.AllSqlRepository.StatisticalsNumbersSqlRepository
                 dbcheck.title = StatisticalNumbers.title;
                 dbcheck.description = StatisticalNumbers.description;
                 dbcheck.numbers = StatisticalNumbers.numbers;
-                dbcheck.icon_ = StatisticalNumbers.icon_;
+                if (StatisticalNumbers.icon_ != null)
+                {
+                    dbcheck.icon_ = StatisticalNumbers.icon_;
+                }
+
                 dbcheck.status_id = StatisticalNumbers.status_id;
 
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
@@ -479,7 +484,10 @@ namespace Repository.AllSqlRepository.StatisticalsNumbersSqlRepository
                 dbcheck.title = StatisticalNumbers.title;
                 dbcheck.description = StatisticalNumbers.description;
                 dbcheck.numbers = StatisticalNumbers.numbers;
-                dbcheck.icon_ = StatisticalNumbers.icon_;
+                if (StatisticalNumbers.icon_ != null)
+                {
+                    dbcheck.icon_ = StatisticalNumbers.icon_;
+                }
                 dbcheck.statistical_numbers_id = StatisticalNumbers.statistical_numbers_id;
                 dbcheck.language_id = StatisticalNumbers.language_id;
                 dbcheck.status_translation_id = StatisticalNumbers.status_translation_id;

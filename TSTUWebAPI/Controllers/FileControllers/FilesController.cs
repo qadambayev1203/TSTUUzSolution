@@ -125,8 +125,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                     return BadRequest();
                 }
 
-                if (files.url == null || files.url.Length == 0)
-                    return BadRequest();
+               
                 var file = _mapper.Map<Files>(files);
                 FileUploadRepository fileUpload = new FileUploadRepository();
                 var Url = fileUpload.SaveFileAsync(files.url, true);
@@ -290,8 +289,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 {
                     return BadRequest();
                 }
-                if (filestranslation1.url == null || filestranslation1.url.Length == 0)
-                    return BadRequest();
+                
                 var filesTranslation = _mapper.Map<FilesTranslation>(filestranslation1);
 
                 FileUploadRepository fileUpload = new FileUploadRepository();

@@ -2,6 +2,7 @@
 using Contracts.AllRepository.StatusesRepository;
 using Entities;
 using Entities.Model.GenderModel;
+using Entities.Model.InteractiveServicesModel;
 using Entities.Model.LanguagesModel;
 using Entities.Model.StatusModel;
 using Microsoft.EntityFrameworkCore;
@@ -207,7 +208,11 @@ namespace Repository.AllSqlRepository.LanguagesSqlRepository
                 dbcheck.description = language.description;
                 dbcheck.code = language.code;
                 dbcheck.details = language.details;
-                dbcheck.img_ = language.img_;
+                if (language.img_ != null)
+                {
+                    dbcheck.img_ = language.img_;
+                }
+                
                 dbcheck.status_id = language.status_id;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;

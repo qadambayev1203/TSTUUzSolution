@@ -12,6 +12,7 @@ using Entities.Model.NeighborhoodsModel;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Entities.Model.LanguagesModel;
 
 namespace Repository.AllSqlRepository.PagesSqlRepository
 {
@@ -204,7 +205,11 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 dbcheck.description = pages.description;
                 dbcheck.text = pages.text;
                 dbcheck.status_id = pages.status_id;
-                dbcheck.img_ = pages.img_;
+                if (pages.img_ != null)
+                {
+                    dbcheck.img_ = pages.img_;
+                }
+
                 dbcheck.position = pages.position;
                 dbcheck.favorite = pages.favorite;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
@@ -497,7 +502,10 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 dbcheck.text = pageTranslation.text;
                 dbcheck.page_id = pageTranslation.page_id;
                 dbcheck.status_translation_id = pageTranslation.status_translation_id;
-                dbcheck.img_translation_ = pageTranslation.img_translation_;
+                if (pageTranslation.img_translation_ != null)
+                {
+                    dbcheck.img_translation_ = pageTranslation.img_translation_;
+                }
                 dbcheck.position = pageTranslation.position;
                 dbcheck.favorite = pageTranslation.favorite;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));

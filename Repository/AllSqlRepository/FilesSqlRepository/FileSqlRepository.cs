@@ -131,7 +131,10 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                     return false;
                 }
                 filescheck.title = file.title;
-                filescheck.url = file.url;
+                if (file.url != null)
+                {
+                    filescheck.url = file.url;
+                }
                 filescheck.status_id = file.status_id;
                 filescheck.updated_at = DateTime.UtcNow;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(filescheck));
@@ -316,7 +319,10 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                     return false;
                 }
                 filescheck.title = filesTranslation.title;
-                filescheck.url = filesTranslation.url;
+                if (filesTranslation.url != null)
+                {
+                    filescheck.url = filesTranslation.url;
+                }
                 filescheck.status_translation_id = filesTranslation.status_translation_id;
                 filescheck.language_id = filesTranslation.language_id;
                 filescheck.files_id = filesTranslation.files_id;
