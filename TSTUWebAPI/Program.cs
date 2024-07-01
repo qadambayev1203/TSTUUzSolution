@@ -72,6 +72,7 @@ using TSTUWebAPI.Controllers.FileControllers;
 using Repository.AllSqlRepository.StatisticalsNumbersSqlRepository;
 using Contracts.AllRepository.FrontLogFilesRepository;
 using Repository.AllSqlRepository.FrontLogFilesSqlRepository;
+using Microsoft.Extensions.FileProviders;
 
 #endregion
 
@@ -237,7 +238,7 @@ try
 
     //StatisticalNumbers AND StatisticalNumbersTranslation
     builder.Services.AddScoped<IStatisticalNumbersRepository, StatisticalNumbersSqlRepository>();
-    
+
     //FrontLogFiles
     builder.Services.AddScoped<IFrontLogFileRepository, FrontLogFileSqlRepository>();
 
@@ -285,13 +286,12 @@ try
     builder.Logging.ClearProviders();
     builder.Logging.AddSerilog(logger);
     builder.Services.AddControllers();
-
+    builder.Services.AddDirectoryBrowser();
 
 
 
     var app = builder.Build();
 
-    //if (app.Environment.IsDevelopment())
     {
         app.UseDeveloperExceptionPage();
         app.UseSwagger();
@@ -305,7 +305,7 @@ try
     }
 
     app.UseHttpsRedirection();
-
+    app.UseStaticFiles();
     app.UseRouting();
 
     app.UseAuthentication();
@@ -313,7 +313,30 @@ try
 
     app.MapControllers();
 
+    var fileUploadsPath = Path.Combine(app.Environment.ContentRootPath, "file-uploads");
+
+    if (!Directory.Exists(fileUploadsPath))
+    {
+        Directory.CreateDirectory(fileUploadsPath);
+    }
+
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(fileUploadsPath),
+        RequestPath = "/file-uploads"
+    });
+
+    app.UseDirectoryBrowser(new DirectoryBrowserOptions
+    {
+        FileProvider = new PhysicalFileProvider(fileUploadsPath),
+        RequestPath = "/file-uploads"
+    });
     app.Run();
+
+
+
+
+
     #endregion
 
 }

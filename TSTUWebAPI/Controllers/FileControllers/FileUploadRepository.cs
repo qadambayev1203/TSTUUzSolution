@@ -2,16 +2,22 @@
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
-using Entities.Model.AnyClasses;
 
 namespace TSTUWebAPI.Controllers.FileControllers
 {
     public class FileUploadRepository
     {
-        private readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".mp4", ".avi", ".png", ".gif", ".doc", "docx", ".xlsx", ".pdf", ".ppt", ".pptx" };
+        private readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".mp4", ".avi", ".png", ".gif", ".doc", ".docx", ".xlsx", ".pdf", ".ppt", ".pptx" };
         private readonly string[] allowedExtensionsImg = { ".jpg", ".jpeg", ".png", ".gif" };
         private readonly string[] allowedExtensionsDoc = { ".doc", ".docx", ".pdf", ".ppt", ".pptx", ".xlsx" };
         private readonly string[] allowedExtensionsVideo = { ".mp4", ".avi" };
+
+        private readonly string fileUploadsPath;
+
+        public FileUploadRepository()
+        {
+            fileUploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "file-uploads");
+        }
 
         public string SaveFileAsync(IFormFile file, bool isFileSection = false)
         {
@@ -29,12 +35,17 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
             try
             {
-                using (var stream = new FileStream(Path.Combine(filePath), FileMode.Create))
+                if (!Directory.Exists(filePathStr))
+                {
+                    Directory.CreateDirectory(filePathStr);
+                }
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }
 
-                string newfilePath = GetNewFilePath(SessionClass.fileUploadsUrl + filePath);
+                string newfilePath = GetNewFilePath("/file-uploads/" + filePath);
 
                 return newfilePath;
             }
@@ -46,7 +57,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
         private string GetFilePath(string fileExtension, bool isFileSection)
         {
-            string basePath = isFileSection ? "file-uploads" : "file-uploads/attached";
+            string basePath = isFileSection ? fileUploadsPath : Path.Combine(fileUploadsPath, "attached");
 
             if (allowedExtensionsImg.Contains(fileExtension))
                 return Path.Combine(basePath, "images");
@@ -62,7 +73,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
         {
             try
             {
-                string filePath = Path.Combine(SessionClass.fileUploadsUrl, url);
+                string filePath = Path.Combine(fileUploadsPath, url);
                 File.Delete(filePath);
                 return true;
             }
