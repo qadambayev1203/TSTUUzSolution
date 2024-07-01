@@ -29,7 +29,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
             try
             {
-                using (var stream = new FileStream(Path.Combine("..", filePath), FileMode.Create))
+                using (var stream = new FileStream(Path.Combine(filePath), FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }
