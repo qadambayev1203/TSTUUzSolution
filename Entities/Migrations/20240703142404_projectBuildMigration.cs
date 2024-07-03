@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Entities.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class projectBuildMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -518,6 +518,7 @@ namespace Entities.Migrations
                     crated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     img_id = table.Column<int>(type: "integer", nullable: true),
+                    img_icon_id = table.Column<int>(type: "integer", nullable: true),
                     position = table.Column<int>(type: "integer", nullable: true),
                     favorite = table.Column<bool>(type: "boolean", nullable: true),
                     departament_type_id = table.Column<int>(type: "integer", nullable: true)
@@ -600,6 +601,7 @@ namespace Entities.Migrations
                     crated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     img_id = table.Column<int>(type: "integer", nullable: true),
+                    img_icon_id = table.Column<int>(type: "integer", nullable: true),
                     position = table.Column<int>(type: "integer", nullable: true),
                     favorite = table.Column<bool>(type: "boolean", nullable: true),
                     departament_type_translation_id = table.Column<int>(type: "integer", nullable: true),
@@ -1909,94 +1911,89 @@ namespace Entities.Migrations
             migrationBuilder.InsertData(
                 table: "user_types_20ts24tu",
                 columns: new[] { "id", "status_id", "type" },
-                values: new object[,]
-                {
-                    { 1, 1, "Admin" },
-                    { 2, 1, "User" }
-                });
+                values: new object[] { 1, 1, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "departament_20ts24tu",
-                columns: new[] { "id", "crated_at", "departament_type_id", "description", "favorite", "img_id", "parent_id", "position", "status_id", "text", "title", "title_short", "updated_at" },
+                columns: new[] { "id", "crated_at", "departament_type_id", "description", "favorite", "img_icon_id", "img_id", "parent_id", "position", "status_id", "text", "title", "title_short", "updated_at" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3265), 1, null, null, null, 0, null, 1, null, "Rektor", null, null },
-                    { 2, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3270), 2, null, null, null, 1, null, 1, null, "Rektorning birinchi o'rinbosari (xorijiy mutaxasis)", null, null },
-                    { 3, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3284), 3, null, null, null, 1, null, 1, null, "Universitetdagi istiqbolli va strategik vazifalarni amalga oshirish masalalari bo'yicha rektor maslahatchisi", null, null },
-                    { 4, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3286), 3, null, null, null, 1, null, 1, null, "Talabalar orasida ijtimoiy ma'naviy muhit barqarorligini ta'minlashga mas'ul bo'lgan rektor maslahatchisi", null, null },
-                    { 5, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3287), 4, null, null, null, 1, null, 1, null, "Kuzatuv kengashi", null, null },
-                    { 6, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3289), 4, null, null, null, 1, null, 1, null, "Jamoatchilik kengashi", null, null },
-                    { 7, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3291), 4, null, null, null, 1, null, 1, null, "Universitet kengashi", null, null },
-                    { 8, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3332), 2, null, null, null, 1, null, 1, null, "Akademik faoliyat bo'yicha prorektor", null, null },
-                    { 9, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3367), 2, null, null, null, 1, null, 1, null, "Yoshlar masalalari va ma'naviy - ma'rifiy ishlar bo'yicha birinchi prorektor", null, null },
-                    { 10, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3389), 2, null, null, null, 1, null, 1, null, "Ilmiy ishlar va innovatsiyalar bo'yicha prorektor", null, null },
-                    { 11, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3419), 2, null, null, null, 1, null, 1, null, "Xalqaro hamkorlik bo'yicha prorektor", null, null },
-                    { 12, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3432), 2, null, null, null, 1, null, 1, null, "Moliya - iqtisod ishlari bo'yicha prorektor", null, null },
-                    { 13, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3588), 2, null, null, null, 1, null, 1, null, "Ishlab chiqarish korxonalar bilan integratsiya bo'yicha prorektor", null, null },
-                    { 14, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3334), 5, null, null, null, 8, null, 1, null, "Akademik faoliyati boshqarmasi", null, null },
-                    { 15, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3336), 6, null, null, null, 8, null, 1, null, "Raqamli ta'lim texnologiyalari markazi", null, null },
-                    { 16, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3338), 6, null, null, null, 8, null, 1, null, "Axborot - resurs markazi", null, null },
-                    { 17, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3340), 7, null, null, null, 8, null, 1, null, "Tahririy nashriyoti va poligrafiya bo'limi", null, null },
-                    { 18, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3342), 7, null, null, null, 8, null, 1, null, "Magistratura bo'limi", null, null },
-                    { 19, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3343), 7, null, null, null, 8, null, 1, null, "Sirtqi bo'lim", null, null },
-                    { 20, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3345), 8, null, null, null, 8, null, 1, null, "O'quv ishlari bo'yicha assistent", null, null },
-                    { 21, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3347), 6, null, null, null, 8, null, 1, null, "Talabalarga xizmat ko'rsatish markazi (Ofis registrator)", null, null },
-                    { 22, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3359), 9, null, null, null, 8, null, 1, null, "Akademik litsey", null, null },
-                    { 23, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3361), 10, null, null, null, 8, null, 1, null, "Andijon transport texnikumi", null, null },
-                    { 24, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3363), 10, null, null, null, 8, null, 1, null, "Samarqand temir yo'l texnikumi", null, null },
-                    { 25, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3365), 10, null, null, null, 8, null, 1, null, "Nukus transport texnikumi", null, null },
-                    { 26, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3349), 11, null, null, null, 21, null, 1, null, "Akademik mobillilikni muvofiqlashtirish va talabalar registratsiyasi (admission ofisi) sektori", null, null },
-                    { 27, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3354), 11, null, null, null, 21, null, 1, null, "Talabalar bilan ishlash sektori", null, null },
-                    { 28, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3356), 7, null, null, null, 21, null, 1, null, "Ikkinchi bo'lim", null, null },
-                    { 29, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3357), 7, null, null, null, 21, null, 1, null, "Talabalarni turar joy bilan ta'minlash ishlarini muvofiqlashtiruvchi bo'lim", null, null },
-                    { 30, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3368), 7, null, null, null, 9, null, 1, null, "Yoshlar bilan ishlash, ma'naviy - ma'rifat bo'limi", null, null },
-                    { 31, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3370), 14, null, null, null, 9, null, 1, null, "Muzey", null, null },
-                    { 32, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3372), 15, null, null, null, 9, null, 1, null, "Psixolog", null, null },
-                    { 33, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3377), 16, null, null, null, 9, null, 1, null, "Sport inshootlari", null, null },
-                    { 34, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3381), 4, null, null, null, 9, null, 1, null, "Xotin - qizlar maslahat kengashi", null, null },
-                    { 35, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3383), 18, null, null, null, 9, null, 1, null, "TTJ (administratsiya va ishchi xodimlar)", null, null },
-                    { 36, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3385), 4, null, null, null, 9, null, 1, null, "Talabalar kengashi", null, null },
-                    { 37, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3387), 7, null, null, null, 9, null, 1, null, "Yoshlar ittifoqi", null, null },
-                    { 38, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3391), 7, null, null, null, 10, null, 1, null, "Ilmiy - tadqiqotlar, innovatsiyalar va ilmiy - pedagofik kadrlar tayyorlash bo'limi", null, null },
-                    { 39, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3393), 7, null, null, null, 10, null, 1, null, "Iqtidorli talabalarning ilmiy - tadqiqit faoliyatini tashkil etish bo'limi", null, null },
-                    { 40, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3394), 7, null, null, null, 10, null, 1, null, "Ilmiy - innovatsion va loyiha - konstruktorlik bo'limi", null, null },
-                    { 41, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3396), 7, null, null, null, 10, null, 1, null, "Ilmiy nashrlar bilan ishlash bo'limi", null, null },
-                    { 42, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3409), 4, null, null, null, 10, null, 1, null, "Ixtisoslashtirilgan ilmiy kengashlar", null, null },
-                    { 43, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3414), 7, null, null, null, 10, null, 1, null, "Ilmiy - innovatsion ishlanmalarni tijoratlashtirish bo'limi", null, null },
-                    { 44, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3416), 6, null, null, null, 10, null, 1, null, "Ilmiy - tadqiqot markazlari", null, null },
-                    { 45, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3417), 8, null, null, null, 10, null, 1, null, "Tadqiqot ishlari bo'yicha assistent", null, null },
-                    { 46, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3421), 5, null, null, null, 11, null, 1, null, "Xalqaro hamkorlik boshqarmasi", null, null },
-                    { 47, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3423), 7, null, null, null, 11, null, 1, null, "Akademik mobillik va xorijiy grantlar va institutlar bilan ishlash bo'limi", null, null },
-                    { 48, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3425), 7, null, null, null, 11, null, 1, null, "Xalqaro ta'lim dasturlari bilan ishlash bo'limi", null, null },
-                    { 49, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3426), 6, null, null, null, 11, null, 1, null, "O'zbekiston - Turkiya hamkorlik markazi", null, null },
-                    { 50, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3428), 6, null, null, null, 11, null, 1, null, "\"Language Club\" Xorijiy tillar markazi", null, null },
-                    { 51, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3430), 6, null, null, null, 11, null, 1, null, "Xorij bilan hamkorlik markazlari", null, null },
-                    { 52, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3435), 7, null, null, null, 12, null, 1, null, "Moliyalashtirish, buxgalteriya hisobi, hisoboti va tahlili bo'limi - Bosh hisobchi", null, null },
-                    { 53, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3443), 5, null, null, null, 12, null, 1, null, "Ishlar boshqarmasi", null, null },
-                    { 54, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3457), 12, null, null, null, 12, null, 1, null, "O'quv amaliyot poligoni", null, null },
-                    { 55, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3586), 13, null, null, null, 12, null, 1, null, "Omborxona", null, null },
-                    { 56, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3445), 7, null, null, null, 53, null, 1, null, "Xo'jalik bo'limi", null, null },
-                    { 57, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3447), 7, null, null, null, 53, null, 1, null, "Texnik ta'mirlash va tezkor qayta tiklash bo'limi", null, null },
-                    { 58, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3449), 7, null, null, null, 53, null, 1, null, "Fuqaro va mehnat muhofazasi bo'limi", null, null },
-                    { 59, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3451), 19, null, null, null, 53, null, 1, null, "Qozonxona", null, null },
-                    { 60, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3453), 7, null, null, null, 53, null, 1, null, "Transport xizmati bo'limi", null, null },
-                    { 61, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3455), 7, null, null, null, 53, null, 1, null, "Xavfsizlik xizmati bo'limi", null, null },
-                    { 62, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3590), 6, null, null, null, 13, null, 1, null, "Karera markazi", null, null },
-                    { 63, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3293), 7, null, null, null, 1, null, 1, null, "Birinchi bo'lim", null, null },
-                    { 64, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3295), 7, null, null, null, 1, null, 1, null, "Ta'lim sifatini nazorat qilish bo'limi", null, null },
-                    { 65, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3302), 20, null, null, null, 1, null, 1, null, "Ichki audit va moliyaviy nazorat xizmati", null, null },
-                    { 66, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3307), 7, null, null, null, 1, null, 1, null, "Korrupsiyaga qarshi kurashish \"Komplaens - nazorat\" tizimini boshqarish bo'limi", null, null },
-                    { 67, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3309), 21, null, null, null, 1, null, 1, null, "OTM kengashi kotibi", null, null },
-                    { 68, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3311), 2, null, null, null, 1, null, 1, null, "Fakultetlar", null, null },
-                    { 69, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3313), 20, null, null, null, 1, null, 1, null, "Rektor yordamchisi - protokol xizmati", null, null },
-                    { 70, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3315), 23, null, null, null, 1, null, 1, null, "Yuriskonsult", null, null },
-                    { 71, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3317), 20, null, null, null, 1, null, 1, null, "Matbuot xizmati", null, null },
-                    { 72, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3318), 7, null, null, null, 1, null, 1, null, "Inson resurslarini boshqarish bo'limi", null, null },
-                    { 73, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3320), 7, null, null, null, 1, null, 1, null, "Jismomniy va yuridik shaxslarning murojaatlari bilan ishlash, nazorat va monitoring bo'limi", null, null },
-                    { 74, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3322), 24, null, null, null, 1, null, 1, null, "Devonxona", null, null },
-                    { 75, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3324), 25, null, null, null, 1, null, 1, null, "Arxiv", null, null },
-                    { 76, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3326), 7, null, null, null, 1, null, 1, null, "Xalqaro rwytinglar bilan ishlash bo'limi", null, null },
-                    { 77, new DateTime(2024, 6, 21, 11, 46, 56, 520, DateTimeKind.Utc).AddTicks(3331), 7, null, null, null, 1, null, 1, null, "Raqamli transformatsiya bo'limi", null, null }
+                    { 1, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2931), 1, null, null, null, null, 0, null, 1, null, "Rektor", null, null },
+                    { 2, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2934), 2, null, null, null, null, 1, null, 1, null, "Rektorning birinchi o'rinbosari (xorijiy mutaxasis)", null, null },
+                    { 3, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2935), 3, null, null, null, null, 1, null, 1, null, "Universitetdagi istiqbolli va strategik vazifalarni amalga oshirish masalalari bo'yicha rektor maslahatchisi", null, null },
+                    { 4, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2937), 3, null, null, null, null, 1, null, 1, null, "Talabalar orasida ijtimoiy ma'naviy muhit barqarorligini ta'minlashga mas'ul bo'lgan rektor maslahatchisi", null, null },
+                    { 5, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2939), 4, null, null, null, null, 1, null, 1, null, "Kuzatuv kengashi", null, null },
+                    { 6, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2941), 4, null, null, null, null, 1, null, 1, null, "Jamoatchilik kengashi", null, null },
+                    { 7, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2942), 4, null, null, null, null, 1, null, 1, null, "Universitet kengashi", null, null },
+                    { 8, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2984), 2, null, null, null, null, 1, null, 1, null, "Akademik faoliyat bo'yicha prorektor", null, null },
+                    { 9, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3017), 2, null, null, null, null, 1, null, 1, null, "Yoshlar masalalari va ma'naviy - ma'rifiy ishlar bo'yicha birinchi prorektor", null, null },
+                    { 10, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3043), 2, null, null, null, null, 1, null, 1, null, "Ilmiy ishlar va innovatsiyalar bo'yicha prorektor", null, null },
+                    { 11, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3060), 2, null, null, null, null, 1, null, 1, null, "Xalqaro hamkorlik bo'yicha prorektor", null, null },
+                    { 12, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3071), 2, null, null, null, null, 1, null, 1, null, "Moliya - iqtisod ishlari bo'yicha prorektor", null, null },
+                    { 13, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3089), 2, null, null, null, null, 1, null, 1, null, "Ishlab chiqarish korxonalar bilan integratsiya bo'yicha prorektor", null, null },
+                    { 14, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2987), 5, null, null, null, null, 8, null, 1, null, "Akademik faoliyati boshqarmasi", null, null },
+                    { 15, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2989), 6, null, null, null, null, 8, null, 1, null, "Raqamli ta'lim texnologiyalari markazi", null, null },
+                    { 16, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2990), 6, null, null, null, null, 8, null, 1, null, "Axborot - resurs markazi", null, null },
+                    { 17, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2994), 7, null, null, null, null, 8, null, 1, null, "Tahririy nashriyoti va poligrafiya bo'limi", null, null },
+                    { 18, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2996), 7, null, null, null, null, 8, null, 1, null, "Magistratura bo'limi", null, null },
+                    { 19, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2997), 7, null, null, null, null, 8, null, 1, null, "Sirtqi bo'lim", null, null },
+                    { 20, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2999), 8, null, null, null, null, 8, null, 1, null, "O'quv ishlari bo'yicha assistent", null, null },
+                    { 21, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3000), 6, null, null, null, null, 8, null, 1, null, "Talabalarga xizmat ko'rsatish markazi (Ofis registrator)", null, null },
+                    { 22, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3010), 9, null, null, null, null, 8, null, 1, null, "Akademik litsey", null, null },
+                    { 23, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3012), 10, null, null, null, null, 8, null, 1, null, "Andijon transport texnikumi", null, null },
+                    { 24, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3013), 10, null, null, null, null, 8, null, 1, null, "Samarqand temir yo'l texnikumi", null, null },
+                    { 25, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3016), 10, null, null, null, null, 8, null, 1, null, "Nukus transport texnikumi", null, null },
+                    { 26, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3002), 11, null, null, null, null, 21, null, 1, null, "Akademik mobillilikni muvofiqlashtirish va talabalar registratsiyasi (admission ofisi) sektori", null, null },
+                    { 27, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3004), 11, null, null, null, null, 21, null, 1, null, "Talabalar bilan ishlash sektori", null, null },
+                    { 28, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3006), 7, null, null, null, null, 21, null, 1, null, "Ikkinchi bo'lim", null, null },
+                    { 29, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3008), 7, null, null, null, null, 21, null, 1, null, "Talabalarni turar joy bilan ta'minlash ishlarini muvofiqlashtiruvchi bo'lim", null, null },
+                    { 30, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3019), 7, null, null, null, null, 9, null, 1, null, "Yoshlar bilan ishlash, ma'naviy - ma'rifat bo'limi", null, null },
+                    { 31, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3021), 14, null, null, null, null, 9, null, 1, null, "Muzey", null, null },
+                    { 32, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3029), 15, null, null, null, null, 9, null, 1, null, "Psixolog", null, null },
+                    { 33, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3031), 16, null, null, null, null, 9, null, 1, null, "Sport inshootlari", null, null },
+                    { 34, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3033), 4, null, null, null, null, 9, null, 1, null, "Xotin - qizlar maslahat kengashi", null, null },
+                    { 35, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3038), 18, null, null, null, null, 9, null, 1, null, "TTJ (administratsiya va ishchi xodimlar)", null, null },
+                    { 36, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3040), 4, null, null, null, null, 9, null, 1, null, "Talabalar kengashi", null, null },
+                    { 37, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3042), 7, null, null, null, null, 9, null, 1, null, "Yoshlar ittifoqi", null, null },
+                    { 38, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3045), 7, null, null, null, null, 10, null, 1, null, "Ilmiy - tadqiqotlar, innovatsiyalar va ilmiy - pedagofik kadrlar tayyorlash bo'limi", null, null },
+                    { 39, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3047), 7, null, null, null, null, 10, null, 1, null, "Iqtidorli talabalarning ilmiy - tadqiqit faoliyatini tashkil etish bo'limi", null, null },
+                    { 40, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3048), 7, null, null, null, null, 10, null, 1, null, "Ilmiy - innovatsion va loyiha - konstruktorlik bo'limi", null, null },
+                    { 41, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3050), 7, null, null, null, null, 10, null, 1, null, "Ilmiy nashrlar bilan ishlash bo'limi", null, null },
+                    { 42, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3052), 4, null, null, null, null, 10, null, 1, null, "Ixtisoslashtirilgan ilmiy kengashlar", null, null },
+                    { 43, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3055), 7, null, null, null, null, 10, null, 1, null, "Ilmiy - innovatsion ishlanmalarni tijoratlashtirish bo'limi", null, null },
+                    { 44, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3057), 6, null, null, null, null, 10, null, 1, null, "Ilmiy - tadqiqot markazlari", null, null },
+                    { 45, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3058), 8, null, null, null, null, 10, null, 1, null, "Tadqiqot ishlari bo'yicha assistent", null, null },
+                    { 46, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3061), 5, null, null, null, null, 11, null, 1, null, "Xalqaro hamkorlik boshqarmasi", null, null },
+                    { 47, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3063), 7, null, null, null, null, 11, null, 1, null, "Akademik mobillik va xorijiy grantlar va institutlar bilan ishlash bo'limi", null, null },
+                    { 48, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3065), 7, null, null, null, null, 11, null, 1, null, "Xalqaro ta'lim dasturlari bilan ishlash bo'limi", null, null },
+                    { 49, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3066), 6, null, null, null, null, 11, null, 1, null, "O'zbekiston - Turkiya hamkorlik markazi", null, null },
+                    { 50, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3068), 6, null, null, null, null, 11, null, 1, null, "\"Language Club\" Xorijiy tillar markazi", null, null },
+                    { 51, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3070), 6, null, null, null, null, 11, null, 1, null, "Xorij bilan hamkorlik markazlari", null, null },
+                    { 52, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3073), 7, null, null, null, null, 12, null, 1, null, "Moliyalashtirish, buxgalteriya hisobi, hisoboti va tahlili bo'limi - Bosh hisobchi", null, null },
+                    { 53, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3074), 5, null, null, null, null, 12, null, 1, null, "Ishlar boshqarmasi", null, null },
+                    { 54, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3086), 12, null, null, null, null, 12, null, 1, null, "O'quv amaliyot poligoni", null, null },
+                    { 55, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3088), 13, null, null, null, null, 12, null, 1, null, "Omborxona", null, null },
+                    { 56, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3076), 7, null, null, null, null, 53, null, 1, null, "Xo'jalik bo'limi", null, null },
+                    { 57, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3078), 7, null, null, null, null, 53, null, 1, null, "Texnik ta'mirlash va tezkor qayta tiklash bo'limi", null, null },
+                    { 58, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3079), 7, null, null, null, null, 53, null, 1, null, "Fuqaro va mehnat muhofazasi bo'limi", null, null },
+                    { 59, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3081), 19, null, null, null, null, 53, null, 1, null, "Qozonxona", null, null },
+                    { 60, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3083), 7, null, null, null, null, 53, null, 1, null, "Transport xizmati bo'limi", null, null },
+                    { 61, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3084), 7, null, null, null, null, 53, null, 1, null, "Xavfsizlik xizmati bo'limi", null, null },
+                    { 62, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(3091), 6, null, null, null, null, 13, null, 1, null, "Karera markazi", null, null },
+                    { 63, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2945), 7, null, null, null, null, 1, null, 1, null, "Birinchi bo'lim", null, null },
+                    { 64, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2947), 7, null, null, null, null, 1, null, 1, null, "Ta'lim sifatini nazorat qilish bo'limi", null, null },
+                    { 65, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2949), 20, null, null, null, null, 1, null, 1, null, "Ichki audit va moliyaviy nazorat xizmati", null, null },
+                    { 66, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2950), 7, null, null, null, null, 1, null, 1, null, "Korrupsiyaga qarshi kurashish \"Komplaens - nazorat\" tizimini boshqarish bo'limi", null, null },
+                    { 67, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2956), 21, null, null, null, null, 1, null, 1, null, "OTM kengashi kotibi", null, null },
+                    { 69, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2957), 20, null, null, null, null, 1, null, 1, null, "Rektor yordamchisi - protokol xizmati", null, null },
+                    { 70, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2959), 23, null, null, null, null, 1, null, 1, null, "Yuriskonsult", null, null },
+                    { 71, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2966), 20, null, null, null, null, 1, null, 1, null, "Matbuot xizmati", null, null },
+                    { 72, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2973), 7, null, null, null, null, 1, null, 1, null, "Inson resurslarini boshqarish bo'limi", null, null },
+                    { 73, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2976), 7, null, null, null, null, 1, null, 1, null, "Jismomniy va yuridik shaxslarning murojaatlari bilan ishlash, nazorat va monitoring bo'limi", null, null },
+                    { 74, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2978), 24, null, null, null, null, 1, null, 1, null, "Devonxona", null, null },
+                    { 75, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2980), 25, null, null, null, null, 1, null, 1, null, "Arxiv", null, null },
+                    { 76, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2981), 7, null, null, null, null, 1, null, 1, null, "Xalqaro rwytinglar bilan ishlash bo'limi", null, null },
+                    { 77, new DateTime(2024, 7, 3, 14, 24, 2, 600, DateTimeKind.Utc).AddTicks(2983), 7, null, null, null, null, 1, null, 1, null, "Raqamli transformatsiya bo'limi", null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -2034,11 +2031,7 @@ namespace Entities.Migrations
             migrationBuilder.InsertData(
                 table: "users_20ts24tu",
                 columns: new[] { "id", "active", "created_at", "email", "login", "password", "person_id", "removed", "status_id", "token", "updated_at", "user_type_id" },
-                values: new object[,]
-                {
-                    { 1, null, null, null, "admin", "X85cpohQrV+USeuUGKBe8qQ4PKBd1oT1MYOu8wOr2V4=", null, null, 1, null, null, 1 },
-                    { 2, null, null, null, "user", "5sI/jrzFz2ijUO3dRLlGnjdVl5zBYO4OInDwyb/qPYk=", null, null, 1, null, null, 2 }
-                });
+                values: new object[] { 1, null, null, null, "AdminM2@AdminM", "1tbAsmQB//YpI29GD1c55XFuEYM3OsM3o2CrfgSMJFI=", null, null, 1, null, null, 1 });
 
             migrationBuilder.InsertData(
                 table: "districts_20ts24tu",
@@ -2442,6 +2435,11 @@ namespace Entities.Migrations
                 column: "departament_type_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_departament_20ts24tu_img_icon_id",
+                table: "departament_20ts24tu",
+                column: "img_icon_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_departament_20ts24tu_img_id",
                 table: "departament_20ts24tu",
                 column: "img_id");
@@ -2490,6 +2488,11 @@ namespace Entities.Migrations
                 name: "IX_departament_translations_20ts24tu_departament_type_translat~",
                 table: "departament_translations_20ts24tu",
                 column: "departament_type_translation_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_departament_translations_20ts24tu_img_icon_id",
+                table: "departament_translations_20ts24tu",
+                column: "img_icon_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_departament_translations_20ts24tu_img_id",
@@ -3340,6 +3343,13 @@ namespace Entities.Migrations
                 principalColumn: "id");
 
             migrationBuilder.AddForeignKey(
+                name: "FK_departament_20ts24tu_files_20ts24tu_img_icon_id",
+                table: "departament_20ts24tu",
+                column: "img_icon_id",
+                principalTable: "files_20ts24tu",
+                principalColumn: "id");
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_departament_20ts24tu_files_20ts24tu_img_id",
                 table: "departament_20ts24tu",
                 column: "img_id",
@@ -3376,6 +3386,13 @@ namespace Entities.Migrations
 
             migrationBuilder.AddForeignKey(
                 name: "FK_departament_translations_20ts24tu_files_translations_20ts24~",
+                table: "departament_translations_20ts24tu",
+                column: "img_icon_id",
+                principalTable: "files_translations_20ts24tu",
+                principalColumn: "id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_departament_translations_20ts24tu_files_translations_20ts2~1",
                 table: "departament_translations_20ts24tu",
                 column: "img_id",
                 principalTable: "files_translations_20ts24tu",
@@ -3469,6 +3486,10 @@ namespace Entities.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_departament_20ts24tu_files_20ts24tu_img_icon_id",
+                table: "departament_20ts24tu");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_departament_20ts24tu_files_20ts24tu_img_id",
                 table: "departament_20ts24tu");

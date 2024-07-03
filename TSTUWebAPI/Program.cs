@@ -246,30 +246,29 @@ try
 
     #region AnyServices
 
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("AllowSpecificOrigin",
-            builder =>
-            {
-                builder.WithOrigins("http://sayt.tstu.uz")
-                       .AllowAnyHeader()
-                       .AllowAnyMethod();
-            });
-    });
+    //builder.Services.AddCors(options =>
+    //{
+    //    options.AddPolicy("AllowSpecificOrigin",
+    //        builder =>
+    //        {
+    //            builder.WithOrigins("http://sayt.tstu.uz")
+    //                   .AllowAnyHeader()
+    //                   .AllowAnyMethod();
+    //        });
+    //});
 
     builder.Services.AddScoped<FileUploadRepository>();
     builder.Services.AddScoped<CaptchaCheck>();
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddControllers();
-    builder.Services.AddCors(opt =>
-    {
-        opt.AddPolicy("CorsPolicy", builder =>
-        builder.AllowAnyOrigin().AllowAnyHeader());
-    });
+    //builder.Services.AddCors(opt =>
+    //{
+    //    opt.AddPolicy("CorsPolicy", builder =>
+    //    builder.AllowAnyOrigin().AllowAnyHeader());
+    //});
 
 
     builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
 
 
@@ -309,7 +308,7 @@ try
 
     app.UseAuthentication();
     app.UseAuthorization();
-    app.UseCors("AllowSpecificOrigin");
+    //app.UseCors("AllowSpecificOrigin");
     app.MapControllers();
 
     var fileUploadsPath = Path.Combine(app.Environment.ContentRootPath, "file-uploads");
