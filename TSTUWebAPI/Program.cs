@@ -73,6 +73,8 @@ using Repository.AllSqlRepository.StatisticalsNumbersSqlRepository;
 using Contracts.AllRepository.FrontLogFilesRepository;
 using Repository.AllSqlRepository.FrontLogFilesSqlRepository;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Configuration;
+using System;
 
 #endregion
 
@@ -143,9 +145,14 @@ try
     #endregion
 
     #region DB
+
+    string? connectionString = builder.Environment.IsDevelopment()
+        ? builder.Configuration.GetConnectionString("DefaultConnection")
+        : builder.Configuration.GetConnectionString("DefaultConnectionServer");
+
     builder.Services.AddDbContext<RepositoryContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")
-                   ));
+                options.UseNpgsql(connectionString)
+                   );
     #endregion
 
     #region RepositorysServices
@@ -258,9 +265,13 @@ try
     //});
 
     builder.Services.AddScoped<FileUploadRepository>();
+
     builder.Services.AddScoped<CaptchaCheck>();
+
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
     builder.Services.AddControllers();
+
     //builder.Services.AddCors(opt =>
     //{
     //    opt.AddPolicy("CorsPolicy", builder =>
@@ -269,6 +280,7 @@ try
 
 
     builder.Services.AddControllers();
+
     builder.Services.AddEndpointsApiExplorer();
 
 
@@ -281,9 +293,13 @@ try
         .Enrich.FromLogContext()
         .Enrich.WithProperty("Application", "TSTUUzWebAPI")
         .CreateLogger();
+
     builder.Logging.ClearProviders();
+
     builder.Logging.AddSerilog(logger);
+
     builder.Services.AddControllers();
+
     builder.Services.AddDirectoryBrowser();
 
 
@@ -303,12 +319,17 @@ try
     }
 
     app.UseHttpsRedirection();
+
     app.UseStaticFiles();
+
     app.UseRouting();
 
     app.UseAuthentication();
+
     app.UseAuthorization();
+
     //app.UseCors("AllowSpecificOrigin");
+
     app.MapControllers();
 
     var fileUploadsPath = Path.Combine(app.Environment.ContentRootPath, "file-uploads");
