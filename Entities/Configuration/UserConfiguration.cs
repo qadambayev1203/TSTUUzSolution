@@ -20,8 +20,8 @@ namespace Entities.Configuration
                 {
                     id = 1,
                     user_type_id = 1,
-                    login = "AdminM2@AdminM",
-                    password = PasswordManager.EncryptPassword(("AdminM2@AdminMAdminM").ToString()),
+                    login = "admin",
+                    password = PasswordManager.EncryptPassword(("admin123").ToString()),
                     person_id = null,
                     status_id = 1
                 });
