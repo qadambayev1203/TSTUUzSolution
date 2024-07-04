@@ -8,6 +8,11 @@ namespace TSTUWebAPI.Controllers.FileControllers
 {
     public class FileUploadRepository
     {
+        private readonly string[] allowedExtensions = SessionClass.allowedExtensions;
+        private readonly string[] allowedExtensionsImg = SessionClass.allowedExtensionsImg;
+        private readonly string[] allowedExtensionsDoc = SessionClass.allowedExtensionsDoc;
+        private readonly string[] allowedExtensionsVideo = SessionClass.allowedExtensionsVideo;
+
         private readonly string fileUploadsPath;
 
         public FileUploadRepository()
@@ -22,7 +27,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
             var fileExtension = Path.GetExtension(file.FileName).ToLower();
 
-            if (!SessionClass.allowedExtensions.Contains(fileExtension))
+            if (!allowedExtensions.Contains(fileExtension))
                 return "Invalid file extension!";
 
             string filePathStr = GetFilePath(fileExtension, isFileSection);
@@ -40,7 +45,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 {
                     file.CopyTo(stream);
                 }
-
+                filePath = filePath.Split("file-uploads\\")[1];
                 string newfilePath = GetNewFilePath("/file-uploads/" + filePath);
 
                 return newfilePath;
@@ -55,11 +60,11 @@ namespace TSTUWebAPI.Controllers.FileControllers
         {
             string basePath = isFileSection ? fileUploadsPath : Path.Combine(fileUploadsPath, "attached");
 
-            if (SessionClass.allowedExtensionsImg.Contains(fileExtension))
+            if (allowedExtensionsImg.Contains(fileExtension))
                 return Path.Combine(basePath, "images");
-            else if (SessionClass.allowedExtensionsDoc.Contains(fileExtension))
+            else if (allowedExtensionsDoc.Contains(fileExtension))
                 return Path.Combine(basePath, "documents");
-            else if (SessionClass.allowedExtensionsVideo.Contains(fileExtension))
+            else if (allowedExtensionsVideo.Contains(fileExtension))
                 return Path.Combine(basePath, "videos");
 
             return Path.Combine(basePath, "any");
