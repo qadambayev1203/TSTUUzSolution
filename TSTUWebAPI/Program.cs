@@ -75,6 +75,7 @@ using Repository.AllSqlRepository.FrontLogFilesSqlRepository;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
 using System;
+using Entities.Model.AnyClasses;
 
 #endregion
 
@@ -348,9 +349,8 @@ try
         OnPrepareResponse = ctx =>
         {
             var fileExtension = Path.GetExtension(ctx.File.PhysicalPath);
-            var allowedExtensions = new[] { ".jpg", ".jpeg", ".mp4", ".avi", ".png", ".gif", ".doc", ".docx", ".xlsx", ".pdf", ".ppt", ".pptx" };
 
-            if (!allowedExtensions.Contains(fileExtension, StringComparer.OrdinalIgnoreCase))
+            if (!SessionClass.allowedExtensions.Contains(fileExtension, StringComparer.OrdinalIgnoreCase))
             {
                 ctx.Context.Response.StatusCode = StatusCodes.Status403Forbidden;
                 ctx.Context.Response.ContentLength = 0;
@@ -358,6 +358,7 @@ try
             }
         }
     });
+
     app.Run();
 
 

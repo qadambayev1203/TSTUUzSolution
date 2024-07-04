@@ -1,5 +1,6 @@
 ﻿using Contracts.AllRepository.FilesRepository;
 using Entities;
+using Entities.Model.AnyClasses;
 using Entities.Model.FileModel;
 using Entities.Model.SitesModel;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +18,8 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
 {
     public class FileSqlRepository : IFileRepository
     {
-        private readonly string[] allowedExtensionsImg = { ".jpg", ".jpeg", ".png", ".gif" };
-        private readonly string[] allowedExtensionsFile = { ".mp4", ".avi", ".doc", "docx", ".xlsx", ".docx", ".pdf", ".ppt", ".pptx" };
+        private readonly string[] allowedExtensionsImg = SessionClass.allowedExtensionsImg;
+        private readonly string[] allowedExtensionsFile = SessionClass.allowedExtensionsFile;
 
         private readonly RepositoryContext _context;
         private readonly ILogger<FileSqlRepository> _logger;

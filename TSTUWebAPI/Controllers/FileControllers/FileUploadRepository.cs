@@ -1,17 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Entities.Model.AnyClasses;
 using Microsoft.AspNetCore.Http;
 
 namespace TSTUWebAPI.Controllers.FileControllers
 {
     public class FileUploadRepository
     {
-        private readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".mp4", ".avi", ".png", ".gif", ".doc", ".docx", ".xlsx", ".pdf", ".ppt", ".pptx" };
-        private readonly string[] allowedExtensionsImg = { ".jpg", ".jpeg", ".png", ".gif" };
-        private readonly string[] allowedExtensionsDoc = { ".doc", ".docx", ".pdf", ".ppt", ".pptx", ".xlsx" };
-        private readonly string[] allowedExtensionsVideo = { ".mp4", ".avi" };
-
         private readonly string fileUploadsPath;
 
         public FileUploadRepository()
@@ -26,7 +22,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
             var fileExtension = Path.GetExtension(file.FileName).ToLower();
 
-            if (!allowedExtensions.Contains(fileExtension))
+            if (!SessionClass.allowedExtensions.Contains(fileExtension))
                 return "Invalid file extension!";
 
             string filePathStr = GetFilePath(fileExtension, isFileSection);
@@ -59,11 +55,11 @@ namespace TSTUWebAPI.Controllers.FileControllers
         {
             string basePath = isFileSection ? fileUploadsPath : Path.Combine(fileUploadsPath, "attached");
 
-            if (allowedExtensionsImg.Contains(fileExtension))
+            if (SessionClass.allowedExtensionsImg.Contains(fileExtension))
                 return Path.Combine(basePath, "images");
-            else if (allowedExtensionsDoc.Contains(fileExtension))
+            else if (SessionClass.allowedExtensionsDoc.Contains(fileExtension))
                 return Path.Combine(basePath, "documents");
-            else if (allowedExtensionsVideo.Contains(fileExtension))
+            else if (SessionClass.allowedExtensionsVideo.Contains(fileExtension))
                 return Path.Combine(basePath, "videos");
 
             return Path.Combine(basePath, "any");
