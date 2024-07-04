@@ -254,16 +254,27 @@ try
 
     #region AnyServices
 
-    //builder.Services.AddCors(options =>
-    //{
-    //    options.AddPolicy("AllowSpecificOrigin",
-    //        builder =>
-    //        {
-    //            builder.WithOrigins("http://sayt.tstu.uz")
-    //                   .AllowAnyHeader()
-    //                   .AllowAnyMethod();
-    //        });
-    //});
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAllOrigins",
+            builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+    });
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigin",
+            builder =>
+            {
+                builder.WithOrigins("http://sayt.tstu.uz")
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            });
+    });
 
     builder.Services.AddScoped<FileUploadRepository>();
 
@@ -330,6 +341,7 @@ try
     app.UseAuthorization();
 
     //app.UseCors("AllowSpecificOrigin");
+    app.UseCors("AllowAllOrigins");
 
     app.MapControllers();
 
