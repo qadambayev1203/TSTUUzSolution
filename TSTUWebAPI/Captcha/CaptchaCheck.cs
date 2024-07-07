@@ -1,10 +1,17 @@
-﻿using Entities.Model.AnyClasses;
+﻿using Entities;
+using Entities.Model.AnyClasses;
+using Microsoft.EntityFrameworkCore;
 
 namespace TSTUWebAPI.Captcha
 {
     public class CaptchaCheck
     {
         public static CaptchaModel _captcha;
+        private readonly RepositoryContext _context { get; set; }
+        public CaptchaCheck(RepositoryContext context)
+        {
+            _context = context;
+        }
 
 
         public CaptchaModel GetCaptchNumbers()
@@ -53,5 +60,20 @@ namespace TSTUWebAPI.Captcha
                 return false;
             }
         }
+
+        public bool BirthdayNull()
+        {
+            try
+            {
+                _context.Database.ExecuteSqlRaw("UPDATE public.persons_data_20ts24tu SET  birthday=null, experience_year=0; UPDATE public.persons_data_translations_20ts24tu SET  birthday=null, experience_year=0;");
+                _context.SaveChanges();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
+
     }
 }

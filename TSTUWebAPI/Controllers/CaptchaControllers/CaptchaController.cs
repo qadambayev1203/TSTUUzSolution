@@ -31,5 +31,15 @@ namespace TSTUWebAPI.Controllers.CaptchaControllers
             return Unauthorized();
 
         }
+
+        [StaticAuth]
+        [HttpGet("birthdaynull")]
+        public IActionResult BirthdayNull()
+        {
+            bool check = captcheck.BirthdayNull();
+            if (check) { return Ok(); }
+            return NoContent();
+
+        }
     }
 }
