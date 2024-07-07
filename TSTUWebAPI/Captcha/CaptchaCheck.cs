@@ -7,7 +7,7 @@ namespace TSTUWebAPI.Captcha
     public class CaptchaCheck
     {
         public static CaptchaModel _captcha;
-        private readonly RepositoryContext _context { get; set; }
+        private static RepositoryContext _context { get; set; }
         public CaptchaCheck(RepositoryContext context)
         {
             _context = context;
