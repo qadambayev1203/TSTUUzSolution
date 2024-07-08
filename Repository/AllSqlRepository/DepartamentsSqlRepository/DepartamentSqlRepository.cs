@@ -844,7 +844,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 
 
 
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationFacultyDirection(int faculty_id,string language_code)
+        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationFacultyDirection(int faculty_id, string language_code)
         {
             try
             {
@@ -864,7 +864,9 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     List<DepartamentTranslation> depDirection = new List<DepartamentTranslation>();
                     depDirection = _context.departament_translations_20ts24tu
                             .Include(x => x.img_).Include(x => x.img_icon_)
-                       .Include(x => x.departament_type_translation_)
+                            .Include(x => x.language_)
+                            .Include(x => x.departament_)
+                       .Include(x => x.departament_type_translation_).ThenInclude(y => y.departament_type_)
                        .Where(x => x.parent_id == item.id)
                        .Where(x => x.status_translation_.status != "Deleted")
                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)

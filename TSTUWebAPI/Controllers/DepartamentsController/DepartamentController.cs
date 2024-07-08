@@ -395,7 +395,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
 
             IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationFacultyDirection(faculty_id, language_code);
-            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteDTO>>(departamenttranslations1);
+            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteFacultyDTO>>(departamenttranslations1);
             if (departamenttranslations == null) { }
             return Ok(departamenttranslations);
         }
