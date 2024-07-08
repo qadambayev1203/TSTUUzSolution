@@ -267,7 +267,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<Departament> AllDepartamentTypeSite(string dep_type, int queryNum, int pageNum)
+        public IEnumerable<Departament> AllDepartamentTypeSite(string dep_type, int queryNum, int pageNum, bool? favorite)
         {
             try
             {
@@ -279,6 +279,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_)
                    .Where(x => x.departament_type_.type == dep_type)
+                   .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                    .Where(x => x.status_.status != "Deleted")
                         .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
@@ -291,6 +292,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_)
                    .Where(x => x.departament_type_.type == dep_type)
+                   .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                    .Where(x => x.status_.status != "Deleted")
                         .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
@@ -302,6 +304,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_)
                    .Where(x => x.departament_type_.type == dep_type)
+                   .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                    .Where(x => x.status_.status != "Deleted").ToList();
 
                 }
@@ -330,6 +333,42 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 
 
                 return departaments;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
+        public IEnumerable<Departament> AllDepartamentFacultyDirection(int faculty_id)
+        {
+            try
+            {
+                List<Departament> departaments_id = new List<Departament>();
+
+                departaments_id = _context.departament_20ts24tu.
+                    Where(x => (x.parent_id == faculty_id && x.departament_type_.type == "Kafedra"))
+                    .Where(x => x.status_.status != "Deleted")
+                   .Select(x => new Departament
+                   {
+                       id = x.id,
+                   }).ToList();
+                List<Departament> allDirection = new List<Departament>();
+                foreach (var item in departaments_id)
+                {
+                    List<Departament> depDirection = new List<Departament>();
+                    depDirection = _context.departament_20ts24tu
+                            .Include(x => x.img_).Include(x => x.img_icon_)
+                       .Include(x => x.departament_type_)
+                       .Where(x => x.parent_id == item.id)
+                       .Where(x => x.status_.status != "Deleted")
+                            .ToList();
+
+                    allDirection.AddRange(depDirection);
+                }
+
+                return allDirection;
             }
             catch (Exception ex)
             {
@@ -637,7 +676,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                     .Include(x => x.img_).Include(x => x.img_icon_)
-                    .Include(x => x.departament_type_translation_)
+                    .Include(x => x.departament_type_translation_).ThenInclude(x => x.departament_type_)
                     .Where(x => x.status_translation_.status != "Deleted")
                     .Where(x => x.parent_id == parent_id)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
@@ -712,7 +751,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationTypeSite(string dep_type, string language_code, int queryNum, int pageNum)
+        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationTypeSite(string dep_type, string language_code, int queryNum, int pageNum, bool? favorite)
         {
             try
             {
@@ -727,6 +766,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.departament_type_translation_.departament_type_.type == dep_type)
                     .Where(x => x.status_translation_.status != "Deleted")
+                    .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(10 * (queryNum - 1))
                         .Take(10)
@@ -744,6 +784,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.departament_type_translation_.departament_type_.type == dep_type)
                     .Where(x => x.status_translation_.status != "Deleted")
+                    .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Skip(queryNum * (queryNum - 1))
                         .Take(queryNum)
@@ -760,6 +801,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.departament_type_translation_.departament_type_.type == dep_type)
                     .Where(x => x.status_translation_.status != "Deleted")
+                    .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .ToList();
 
@@ -792,6 +834,46 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 
 
                 return departaments;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
+
+
+        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationFacultyDirection(int faculty_id,string language_code)
+        {
+            try
+            {
+                List<DepartamentTranslation> departaments_id = new List<DepartamentTranslation>();
+
+                departaments_id = _context.departament_translations_20ts24tu.
+                    Where(x => (x.parent_id == faculty_id && x.departament_type_translation_.departament_type_.type == "Kafedra"))
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                   .Select(x => new DepartamentTranslation
+                   {
+                       id = x.id,
+                   }).ToList();
+                List<DepartamentTranslation> allDirection = new List<DepartamentTranslation>();
+                foreach (var item in departaments_id)
+                {
+                    List<DepartamentTranslation> depDirection = new List<DepartamentTranslation>();
+                    depDirection = _context.departament_translations_20ts24tu
+                            .Include(x => x.img_).Include(x => x.img_icon_)
+                       .Include(x => x.departament_type_translation_)
+                       .Where(x => x.parent_id == item.id)
+                       .Where(x => x.status_translation_.status != "Deleted")
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                            .ToList();
+
+                    allDirection.AddRange(depDirection);
+                }
+
+                return allDirection;
             }
             catch (Exception ex)
             {

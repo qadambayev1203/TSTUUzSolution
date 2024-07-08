@@ -20,6 +20,7 @@ namespace Entities.DTO.DepartamentDTOS
         public string? title_short { get; set; }
         public string? title { get; set; }
         public int? parent_id { get; set; }
+        public DepartamentTypeConfReadedDTO? departament_type_ { get; set; }
 
     }
 }
