@@ -26,7 +26,7 @@ namespace Entities.DTO.DepartamentDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public int? parent_id { get; set; }
-        public LanguageConfReadedDTO? languages_ { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
         public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
         public DateTime? crated_at { get; set; } = DateTime.UtcNow;
         public DateTime? updated_at { get; set; }

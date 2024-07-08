@@ -24,7 +24,7 @@ namespace Entities.DTO.DepartamentDTOS
         public string? title_short { get; set; }
         public string? title { get; set; }
         public string? description { get; set; }
-        public LanguageConfReadedDTO? languages_ { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
         public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
         public DepartamentTypeTranslationConfReadedDTO? departament_type_translation_ { get; set; }
         public DepartamentConfReadedDTO? departament_ { get; set; }

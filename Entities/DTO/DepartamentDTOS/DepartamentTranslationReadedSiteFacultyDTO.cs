@@ -26,7 +26,7 @@ namespace Entities.DTO.DepartamentDTOS
         public string? description { get; set; }
         public string? text { get; set; }
         public int? parent_id { get; set; }
-        public LanguageConfReadedDTO? languages_ { get; set; }
+        public LanguageConfReadedDTO? language_ { get; set; }
         public FileTranslationConfReadedDTO? img_ { get; set; }
         public FileTranslationConfReadedDTO? img_icon_ { get; set; }
         public int? position { get; set; }

@@ -851,7 +851,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 List<DepartamentTranslation> departaments_id = new List<DepartamentTranslation>();
 
                 departaments_id = _context.departament_translations_20ts24tu.
-                    Where(x => (x.parent_id == faculty_id && x.departament_type_translation_.departament_type_.type == "Kafedra"))
+                    Where(x => (x.departament_.parent_id == faculty_id && x.departament_type_translation_.departament_type_.type == "Kafedra"))
                     .Where(x => x.status_translation_.status != "Deleted")
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                    .Select(x => new DepartamentTranslation
@@ -863,7 +863,8 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 {
                     List<DepartamentTranslation> depDirection = new List<DepartamentTranslation>();
                     depDirection = _context.departament_translations_20ts24tu
-                            .Include(x => x.img_).Include(x => x.img_icon_)
+                            .Include(x => x.img_)
+                            .Include(x => x.img_icon_)
                             .Include(x => x.language_)
                             .Include(x => x.departament_)
                        .Include(x => x.departament_type_translation_).ThenInclude(y => y.departament_type_)
