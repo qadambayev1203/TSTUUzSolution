@@ -678,7 +678,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Include(x => x.img_).Include(x => x.img_icon_)
                     .Include(x => x.departament_type_translation_).ThenInclude(x => x.departament_type_)
                     .Where(x => x.status_translation_.status != "Deleted")
-                    .Where(x => x.parent_id == parent_id)
+                    .Where(x => x.departament_.parent_id == parent_id)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                     .ToList();
 
