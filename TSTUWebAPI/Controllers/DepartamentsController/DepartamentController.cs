@@ -130,7 +130,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
 
             IEnumerable<Departament> departaments1 = _repository.AllDepartamentChild(parent_id);
-            var departaments = _mapper.Map<IEnumerable<DepartamentChildReadedSiteDTO>>(departaments1);
+            var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1);
             if (departaments == null) { }
             return Ok(departaments);
         }
@@ -385,7 +385,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
 
             IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationChild(parent_id, language_code);
-            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentChildTranslationReadedSiteDTO>>(departamenttranslations1);
+            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteFacultyDTO>>(departamenttranslations1);
             if (departamenttranslations == null) { }
             return Ok(departamenttranslations);
         }
