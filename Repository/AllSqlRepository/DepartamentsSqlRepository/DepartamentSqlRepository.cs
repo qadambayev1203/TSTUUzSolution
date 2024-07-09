@@ -347,26 +347,30 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             {
                 List<Departament> departaments_id = new List<Departament>();
 
-                departaments_id = _context.departament_20ts24tu.
-                    Where(x => (x.parent_id == faculty_id && x.departament_type_.type == "Kafedra"))
-                    .Where(x => x.status_.status != "Deleted")
-                   .Select(x => new Departament
-                   {
-                       id = x.id,
-                   }).ToList();
+                departaments_id = _context.departament_20ts24tu
+                     .Include(x => x.img_).Include(x => x.img_icon_)
+                       .Include(x => x.departament_type_)
+                       .Where(x => x.status_.status != "Deleted")
+                    .Where(x => (x.parent_id == faculty_id)).ToList();
+
                 List<Departament> allDirection = new List<Departament>();
                 foreach (var item in departaments_id)
                 {
-                    List<Departament> depDirection = new List<Departament>();
-                    depDirection = _context.departament_20ts24tu
-                            .Include(x => x.img_).Include(x => x.img_icon_)
-                       .Include(x => x.departament_type_)
-                       .Where(x => x.parent_id == item.id)
-                       .Where(x => x.status_.status != "Deleted")
-                            .ToList();
+                    if (item.departament_type_.type == "Kafedra")
+                    {
+                        List<Departament> depDirection = new List<Departament>();
+                        depDirection = _context.departament_20ts24tu
+                                .Include(x => x.img_).Include(x => x.img_icon_)
+                           .Include(x => x.departament_type_)
+                           .Where(x => x.parent_id == item.id)
+                           .Where(x => x.status_.status != "Deleted")
+                                .ToList();
 
-                    allDirection.AddRange(depDirection);
+                        allDirection.AddRange(depDirection);
+                    }
                 }
+
+                allDirection.AddRange(departaments_id);
 
                 return allDirection;
             }
@@ -850,31 +854,38 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             {
                 List<DepartamentTranslation> departaments_id = new List<DepartamentTranslation>();
 
-                departaments_id = _context.departament_translations_20ts24tu.
-                    Where(x => (x.departament_.parent_id == faculty_id && x.departament_type_translation_.departament_type_.type == "Kafedra"))
-                    .Where(x => x.status_translation_.status != "Deleted")
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                   .Select(x => new DepartamentTranslation
-                   {
-                       id = x.id,
-                   }).ToList();
-                List<DepartamentTranslation> allDirection = new List<DepartamentTranslation>();
-                foreach (var item in departaments_id)
-                {
-                    List<DepartamentTranslation> depDirection = new List<DepartamentTranslation>();
-                    depDirection = _context.departament_translations_20ts24tu
-                            .Include(x => x.img_)
+                departaments_id = _context.departament_translations_20ts24tu
+                    .Include(x => x.img_)
                             .Include(x => x.img_icon_)
                             .Include(x => x.language_)
                             .Include(x => x.departament_)
                        .Include(x => x.departament_type_translation_).ThenInclude(y => y.departament_type_)
-                       .Where(x => x.parent_id == item.id)
+                       .Where(x => x.departament_.parent_id == faculty_id)
                        .Where(x => x.status_translation_.status != "Deleted")
-                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                            .ToList();
+                       .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null).ToList();
 
-                    allDirection.AddRange(depDirection);
+                List<DepartamentTranslation> allDirection = new List<DepartamentTranslation>();
+                foreach (var item in departaments_id)
+                {
+                    if (item.departament_type_translation_.departament_type_.type == "Kafedra")
+                    {
+                        List<DepartamentTranslation> depDirection = new List<DepartamentTranslation>();
+                        depDirection = _context.departament_translations_20ts24tu
+                                .Include(x => x.img_)
+                                .Include(x => x.img_icon_)
+                                .Include(x => x.language_)
+                                .Include(x => x.departament_)
+                           .Include(x => x.departament_type_translation_).ThenInclude(y => y.departament_type_)
+                           .Where(x => x.parent_id == item.id)
+                           .Where(x => x.status_translation_.status != "Deleted")
+                           .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                                .ToList();
+
+                        allDirection.AddRange(depDirection);
+                    }
                 }
+
+                allDirection.AddRange(departaments_id);
 
                 return allDirection;
             }
