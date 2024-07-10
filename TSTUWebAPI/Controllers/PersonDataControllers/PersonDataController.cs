@@ -42,9 +42,9 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
             personData.status_id = _status.GetStatusId("Active");
             personData.persons_.status_id = _status.GetStatusId("Active");
 
-            UserCrudCreatedDTO userDTO;
+            UserCrudCreatedDTO userDTO = null;
 
-            if (personData1.login != null || personData1.password != null || personData1.login != "" || personData1.password != "")
+            if (personData1.login != null || personData1.password != null)
             {
                 userDTO = new UserCrudCreatedDTO
                 {
@@ -55,19 +55,9 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                 };
             }
 
-            else
-            {
-                userDTO = new UserCrudCreatedDTO
-                {
-                    login = personData1.persons_.firstName,
-                    password = PasswordManager.EncryptPassword(personData1.login + personData1.persons_.firstName + "123"),
-                    user_type_id = 0,
-                    person_id = 0
-                };
-            }
+           
 
             User user = _mapper.Map<User>(userDTO);
-            user.status_id = _status.GetStatusId("Active");
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 

@@ -14,6 +14,8 @@ using Entities.Model.PersonModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model;
 using Entities.Model.AnyClasses;
+using Entities.DTO.UserCrudDTOS;
+using Entities.DTO;
 
 namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
 {
@@ -262,14 +264,30 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 _context.persons_data_20ts24tu.Add(personData);
 
                 _context.SaveChanges();
+                if (user == null)
+                {
+                    int num = personData.persons_.id + 2024;
+                    string login = personData.persons_.firstName + num + "@" + "tstu";
+                    string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName + num));
+                    user = new User
+                    {
+                        login = login,
+                        password = password,
+                        user_type_id = 0,
+                        person_id = 0,
+                        status_id = 0
+                    };
+
+                }
 
                 user.person_id = personData.persons_id;
                 user.created_at = DateTime.UtcNow;
                 user.active = true;
                 user.removed = false;
                 user.email = personData.persons_.email;
-
-                user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == "Teacher").id;
+                user.status_id = personData.status_id;
+                string usType = SessionClass.UserTypeId(personData.persons_.employee_type_.title);
+                user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
                 _context.users_20ts24tu.Add(user);
 
                 _context.SaveChanges();

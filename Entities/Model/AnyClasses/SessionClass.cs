@@ -35,6 +35,32 @@ namespace Entities.Model.AnyClasses
         
         public static readonly string[] allowedExtensionsFile = { ".mp4", ".avi", ".doc", "docx", ".xlsx", ".docx", ".pdf", ".ppt", ".pptx" };
 
+        public static string UserTypeId(string emp_type)
+        {
+            switch (emp_type)
+            {
+                case "Katta o'qituvchi": return "Teacher";
+                case "Bitiruvchi": return "Graduate";
+                case "Dekan": return "Dean";
+                case "Rektor": return "Rector";
+                case "Prorektor": return "Vice-Rector";
+                case "Dekan o'rinbosari": return "DeputyDean";
+                case "Kafedra mudiri": return "HeadDepartment";
+                case "Professor": return "Teacher";
+                case "Dotsent": return "Teacher";
+                case "Assistent": return "Teacher";
+                case "Bo'lim boshlig'i": return "HeadDepartment";
+                case "Direktor": return "Director"; ;
+                case "Boshqarma boshlig'i": return "HeadDepartment";
+                case "Xodim": return "Staff";
+                case "Doktorant": return "DoctoralStudent";
+                case "Faxriy bitiruvchi": return "HonoraryGraduate";
+                case "Faxriy professor": return "HonoraryProfessor";
+                default:
+                    return ""; ;
+            }
+        }
+
     }
 }
 
