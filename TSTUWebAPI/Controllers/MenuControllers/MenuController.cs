@@ -311,10 +311,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
         {
 
             MenuTranslation Menutranslation1 = _repository.GetMenuTranslationByIdSite(uz_id, language_code);
-            if (Menutranslation1 == null)
-            {
-
-            }
+           
             var Menutranslation = _mapper.Map<MenuTranslationReadedSiteDTO>(Menutranslation1);
             if (Menutranslation == null) { }
             return Ok(Menutranslation);

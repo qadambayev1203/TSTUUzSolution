@@ -37,6 +37,6 @@ namespace Entities.DTO.MenuDTOS
         public BlogTranslationConfReadedDTO? blog_translation_ { get; set; }
         public PageTranslationConfReadedDTO? page_translation_ { get; set; }
         public DepartamentTranslationConfReadedDTO? departament_translation_ { get; set; }
-        public int? menu_id { get; set; }
+        public int? menu_id { get; set; } 
     }
 }

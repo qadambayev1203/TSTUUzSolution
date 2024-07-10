@@ -46,6 +46,6 @@ namespace Entities.Model.MenuModel
         [ForeignKey("Language")] public int? language_id { get; set; }
         public Language? language_ { get; set; }
         [ForeignKey("User")] public int? user_id { get; set; }
-        public User? user_ { get; set; }
+        public User? user_ { get; set; } 
     }
 }
