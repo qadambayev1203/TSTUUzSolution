@@ -57,7 +57,7 @@ namespace Entities.Model.AnyClasses
                 case "Faxriy bitiruvchi": return "HonoraryGraduate";
                 case "Faxriy professor": return "HonoraryProfessor";
                 default:
-                    return ""; ;
+                    return ""; 
             }
         }
 
