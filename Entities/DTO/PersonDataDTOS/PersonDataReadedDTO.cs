@@ -38,5 +38,9 @@ namespace Entities.DTO.PersonDataDTOS
         public string? portfolio_json { get; set; }
         public string? blog_json { get; set; }
         public StatusConfReadedDTO? status_ { get; set; }
+
+        // USER
+
+        public string? login { get; set; }
     }
 }

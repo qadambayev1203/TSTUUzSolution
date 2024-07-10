@@ -16,8 +16,16 @@ namespace Repository
         { }
 
         public async Task<User> LoginAsync(string login, string password, bool tracking, CancellationToken cancellationToken = default)
-        => await FindByCondition(x => x.login.Equals(login) && x.password.Equals(password), tracking).Include(u => u.user_type_).Where(u => u.status_.status != "Deleted").SingleOrDefaultAsync(cancellationToken);
-
+        {
+            return await FindByCondition(
+                    x => x.login.Equals(login) && x.password.Equals(password), tracking)
+                .Include(u => u.user_type_)
+                .Include(u => u.person_).ThenInclude(x => x.img_)
+                .Include(u => u.person_).ThenInclude(x => x.employee_type_)
+                .Include(u => u.person_).ThenInclude(x => x.departament_).ThenInclude(x => x.departament_type_)
+                .Where(u => u.status_.status != "Deleted")
+                .SingleOrDefaultAsync(cancellationToken);
+        }
 
 
     }

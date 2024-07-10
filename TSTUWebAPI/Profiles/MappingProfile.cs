@@ -79,6 +79,7 @@ using Entities.DTO.InteractiveServicesDTOS;
 using Entities.Model.InteractiveServicesModel;
 using Entities.DTO.StatisticalNumbersDTOS;
 using Entities.Model.StatisticalNumbersModel;
+using Entities.DTO.UserProfilDTOS;
 namespace TSTUWebAPI.Profiles
 {
 
@@ -147,6 +148,8 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<Person, PersonReadedConfigurDTO>();
                 CreateMap<Person, PesonConfDTO>();
                 CreateMap<Person, PesonSiteConfDTO>();
+                CreateMap<Person, PersonUserReadedDTO>();
+                CreateMap<PersonUserProfilUpdatedDTO, Person>();
 
 
                 CreateMap<PersonTranslationCreatedDTO, PersonTranslation>();
@@ -200,6 +203,7 @@ namespace TSTUWebAPI.Profiles
                 #region User CRUD DTOS
                 CreateMap<UserCrudCreatedDTO, User>();
                 CreateMap<UserCrudUpdatedDTO, User>();
+                CreateMap<UserProfilUpdatedDTO, User>();
                 CreateMap<User, UserCrudReadedDTO>();
                 CreateMap<User, UserConfReadedDTO>();
 

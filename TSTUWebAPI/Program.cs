@@ -76,6 +76,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Configuration;
 using System;
 using Entities.Model.AnyClasses;
+using Contracts.AllRepository.ProfilsRepository;
+using Repository.AllSqlRepository.ProfilsSqlRepopsitory;
 
 #endregion
 
@@ -249,6 +251,9 @@ try
 
     //FrontLogFiles
     builder.Services.AddScoped<IFrontLogFileRepository, FrontLogFileSqlRepository>();
+    
+    //UserProfils
+    builder.Services.AddScoped<IProfilRepository, ProfilSqlRepository>();
 
     #endregion
 

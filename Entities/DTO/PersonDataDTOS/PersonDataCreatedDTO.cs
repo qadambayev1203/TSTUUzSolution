@@ -33,5 +33,13 @@ namespace Entities.DTO.PersonDataDTOS
         public string? scientific_activity_json { get; set; }
         public string? portfolio_json { get; set; }
         public string? blog_json { get; set; }
+
+
+
+        // USER
+
+        public string? login { get; set; }
+        public string? password { get; set; }
+
     }
 }

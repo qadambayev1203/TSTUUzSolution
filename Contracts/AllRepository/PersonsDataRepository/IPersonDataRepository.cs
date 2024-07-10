@@ -1,4 +1,5 @@
-﻿using Entities.Model.PersonDataModel;
+﻿using Entities.Model;
+using Entities.Model.PersonDataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,12 @@ namespace Contracts.AllRepository.PersonsDataRepository
         public PersonData GetPersonDataByIdSite(int id);
         public PersonData GetPersonDataByPersonId(int person_id);
         public PersonData GetPersonDataByPersonIdSite(int person_id);
-        public int CreatePersonData(PersonData personData);
-        public bool UpdatePersonData(int id, PersonData personData);
+        public int CreatePersonData(PersonData personData, User user);
+        public bool UpdatePersonData(int id, PersonData personData, User user);
         public bool DeletePersonData(int id);
+
+        public User GetPersonUserById(int? person_id);
+
 
 
 

@@ -11,6 +11,8 @@ using Contracts.AllRepository.StatusesRepository;
 using Entities.Model.AppealsToTheRectorsModel;
 using Entities.Model.FileModel;
 using Entities.Model.PersonModel;
+using Entities.Model;
+using Entities.DTO.UserCrudDTOS;
 
 namespace TSTUWebAPI.Controllers.PersonDataControllers
 {
@@ -40,6 +42,33 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
             personData.status_id = _status.GetStatusId("Active");
             personData.persons_.status_id = _status.GetStatusId("Active");
 
+            UserCrudCreatedDTO userDTO;
+
+            if (personData1.login != null || personData1.password != null || personData1.login != "" || personData1.password != "")
+            {
+                userDTO = new UserCrudCreatedDTO
+                {
+                    login = personData1.login,
+                    password = PasswordManager.EncryptPassword(personData1.login + personData1.password),
+                    user_type_id = 0,
+                    person_id = 0
+                };
+            }
+
+            else
+            {
+                userDTO = new UserCrudCreatedDTO
+                {
+                    login = personData1.persons_.firstName,
+                    password = PasswordManager.EncryptPassword(personData1.login + personData1.persons_.firstName + "123"),
+                    user_type_id = 0,
+                    person_id = 0
+                };
+            }
+
+            User user = _mapper.Map<User>(userDTO);
+            user.status_id = _status.GetStatusId("Active");
+
             FileUploadRepository fileUpload = new FileUploadRepository();
 
             var Url = fileUpload.SaveFileAsync(personData1.img_up);
@@ -57,7 +86,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
             }
 
 
-            int check = _repository.CreatePersonData(personData);
+            int check = _repository.CreatePersonData(personData, user);
 
             if (check == 0)
             {
@@ -101,8 +130,11 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
         {
 
             PersonData personData1 = _repository.GetPersonDataById(id);
+            User user = _repository.GetPersonUserById(personData1.persons_id);
             var personData = _mapper.Map<PersonDataReadedDTO>(personData1);
-            if (personData == null) { }
+
+            personData.login = user.login;
+
             return Ok(personData);
         }
 
@@ -200,6 +232,22 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                 var dbupdated = _mapper.Map<PersonData>(personData1);
                 dbupdated.persons_.status_id = dbupdated.status_id;
 
+                UserCrudCreatedDTO userDTO = null;
+
+                if (personData1.login != null || personData1.password != null || personData1.login != "" || personData1.password != "")
+                {
+                    userDTO = new UserCrudCreatedDTO
+                    {
+                        login = personData1.login,
+                        password = PasswordManager.EncryptPassword(personData1.login + personData1.password),
+                        user_type_id = 0,
+                        person_id = 0
+                    };
+                }
+
+                User user = _mapper.Map<User>(userDTO);
+                user.status_id = personData1.status_id;
+
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -217,7 +265,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                     };
                 }
 
-                bool updatedcheck = _repository.UpdatePersonData(id, dbupdated);
+                bool updatedcheck = _repository.UpdatePersonData(id, dbupdated, user);
                 if (!updatedcheck)
                 {
                     return BadRequest();

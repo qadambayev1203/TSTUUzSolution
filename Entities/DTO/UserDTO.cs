@@ -8,14 +8,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.DTO.ReadedDTOSConfigurations.UserTypeConfDTOS;
+using Entities.DTO.PersonDTOS;
 
 namespace Entities.DTO
 {
     public class UserDTO
     {
-        public int Id { get; set; }
-        public required string Login { get; set; }
-        public string Email { get; set; }
-        public string UserType { get; set; }
+        public int id { get; set; }
+        public required string login { get; set; }
+        public UserTypeConfReadedDTO? user_type_ { get; set; }
+        public PersonUserReadedDTO? person_ { get; set; }
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Contracts;
+using Contracts.AllRepository.ProfilsRepository;
 using Entities.DTO;
+using Entities.DTO.UserProfilDTOS;
 using Entities.Model;
 using Entities.Model.AnyClasses;
 using Entities.Model.AppealsToTheRectorsModel;
@@ -9,6 +11,7 @@ using Entities.Model.SiteDetailsModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -29,6 +32,7 @@ namespace TSTUWebAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IRepositoryManager repositoryManager;
+        private readonly IProfilRepository _repository;
         private readonly IOptions<AppSettings> appSettings;
         private readonly IMapper mapper;
         private readonly JwtSecurityTokenHandler securityTokenHandler;
@@ -39,7 +43,7 @@ namespace TSTUWebAPI.Controllers
 
 
 
-        public UserController(IRepositoryManager repositoryManager, IOptions<AppSettings> appSettings, IMapper mapper, ILogger<UserController> logger, CaptchaCheck _captcheck)
+        public UserController(IRepositoryManager repositoryManager, IOptions<AppSettings> appSettings, IMapper mapper, ILogger<UserController> logger, CaptchaCheck _captcheck, IProfilRepository repository)
         {
             this.repositoryManager = repositoryManager;
             this.appSettings = appSettings;
@@ -47,6 +51,7 @@ namespace TSTUWebAPI.Controllers
             this.securityTokenHandler = new JwtSecurityTokenHandler();
             this._logger = logger;
             captcheck = _captcheck;
+            this._repository = repository;
         }
 
         [AllowAnonymous]
@@ -95,8 +100,6 @@ namespace TSTUWebAPI.Controllers
                         var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
                         authInfo.Token = securityTokenHandler.WriteToken(securityToken);
                         authInfo.UserDetails = mapper.Map<UserDTO>(user);
-
-                        authInfo.UserDetails.UserType = user.user_type_.type;
                     }
                     catch { }
                 }
@@ -106,7 +109,7 @@ namespace TSTUWebAPI.Controllers
                 }
 
                 SessionClass.token = "Bearer " + authInfo.Token;
-                SessionClass.id = authInfo.UserDetails.Id;
+                SessionClass.id = authInfo.UserDetails.id;
                 return Ok(authInfo);
             }
             return Unauthorized();
@@ -155,6 +158,56 @@ namespace TSTUWebAPI.Controllers
                     verification = true
                 };
                 return Ok(tokenVerify);
+
+            }
+            catch
+            {
+                _logger.LogInformation($"invalid token");
+                return StatusCode(401);
+            }
+        }
+
+
+        [Authorize]
+        [HttpPut("userprofilupdated")]
+        public IActionResult UserProfilUpdated(UserProfilUpdatedDTO user)
+        {
+            try
+            {
+                TokenCheckModel();
+                if (SessionClass.id != 0)
+                {
+                    User userU = mapper.Map<User>(user);
+
+                    FileUploadRepository fileUpload = new FileUploadRepository();
+
+                    var Url = fileUpload.SaveFileAsync(user.img_up);
+
+                    if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+                    {
+                        return BadRequest("File created error!");
+                    }
+                    if (Url != null && Url.Length > 0)
+                    {
+                        userU.person_.img_ = new Files
+                        {
+                            title = Guid.NewGuid().ToString(),
+                            url = Url
+                        };
+                    }
+
+                    if (userU != null)
+                    {
+                        string oldPassw = user.oldPassword;
+                        bool check = _repository.UpdateUserProfil(userU, oldPassw);
+                        if (check) { return Ok(true); }
+                    }
+                    return BadRequest();
+                }
+
+
+                return Unauthorized();
+
 
             }
             catch

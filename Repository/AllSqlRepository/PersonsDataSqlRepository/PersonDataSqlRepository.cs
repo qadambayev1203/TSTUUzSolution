@@ -12,6 +12,8 @@ using Contracts.AllRepository.PersonsDataRepository;
 using System.Net;
 using Entities.Model.PersonModel;
 using Entities.Model.DepartamentsModel;
+using Entities.Model;
+using Entities.Model.AnyClasses;
 
 namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
 {
@@ -242,7 +244,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
         }
 
-        public int CreatePersonData(PersonData personData)
+        public int CreatePersonData(PersonData personData, User user)
         {
             try
             {
@@ -258,7 +260,21 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 personData.birthday = utcDateTime;
 
                 _context.persons_data_20ts24tu.Add(personData);
+
                 _context.SaveChanges();
+
+                user.person_id = personData.persons_id;
+                user.created_at = DateTime.UtcNow;
+                user.active = true;
+                user.removed = false;
+                user.email = personData.persons_.email;
+
+                user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == "Teacher").id;
+                _context.users_20ts24tu.Add(user);
+
+                _context.SaveChanges();
+
+
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(personData));
 
                 return personData.id;
@@ -280,6 +296,12 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                     return false;
                 }
                 personData.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+
+                User user = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == personData.persons_id);
+                user.active = false;
+                user.removed = true;
+                user.status_id = personData.status_id;
+
                 _context.persons_data_20ts24tu.Update(personData);
                 _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(personData));
 
@@ -365,7 +387,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
         }
 
-        public bool UpdatePersonData(int id, PersonData personData)
+        public bool UpdatePersonData(int id, PersonData personData, User user)
         {
 
             try
@@ -419,6 +441,18 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 dbcheck.status_id = personData.status_id;
 
 
+                if (user != null)
+                {
+                    User userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
+
+                    userDB.updated_at = DateTime.UtcNow;
+                    userDB.email = personData.persons_.email;
+                    userDB.login = user.login;
+                    userDB.password = user.password;
+                    user.active = true;
+                    user.removed = false;
+                }
+
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;
             }
@@ -428,6 +462,34 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 return false;
             }
 
+        }
+
+        public User GetPersonUserById(int? person_id)
+        {
+            try
+            {
+                if (person_id != null || person_id != 0)
+                {
+                    User user = _context.users_20ts24tu.FirstOrDefault(x => (x.status_.status != "Deleted") && x.person_id == person_id);
+
+                    User userGet = new User
+                    {
+                        user_type_id = 0,
+                        login = user.login,
+                        password = null,
+                        person_id = person_id,
+                        status_id = 0
+                    };
+
+                    return userGet;
+                }
+                return null;
+
+            }
+            catch
+            {
+                return null;
+            }
         }
 
 
@@ -974,6 +1036,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 _logger.LogError("Error " + ex.ToString()); return false;
             }
         }
+
 
     }
 }
