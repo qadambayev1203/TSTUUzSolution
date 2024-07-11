@@ -251,90 +251,79 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
 
         public int CreatePersonData(PersonData personData, User user)
         {
+            if (personData == null)
+            {
+                return 0;
+            }
+
             try
             {
-                if (personData == null)
-                {
-                    return 0;
-                }
-
-                DateTime localDateTime = DateTime.Parse(personData.birthday.ToString());
-                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
-                DateTime utcDateTime = localDateTime.ToUniversalTime();
-
+                DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
                 personData.birthday = utcDateTime;
 
                 _context.persons_data_20ts24tu.Add(personData);
-
                 _context.SaveChanges();
-                try
+
+                if (user == null)
                 {
-                    if (user == null)
+                    int num = personData.persons_.id + 2024;
+                    string login = $"{personData.persons_.firstName.Trim()}{num}@tstu";
+                    string password = PasswordManager.EncryptPassword(login + personData.persons_.firstName.Trim() + num);
+
+                    user = new User
                     {
-                        int num = personData.persons_.id + 2024;
-                        string login = personData.persons_.firstName.Trim() + num + "@" + "tstu";
-                        string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName.Trim() + num));
-                        user = new User
-                        {
-                            login = login,
-                            password = password,
-                            user_type_id = 0,
-                            person_id = 0,
-                            status_id = 0
-                        };
-
-                    }
-
-                    user.person_id = personData.persons_id;
-                    user.created_at = DateTime.UtcNow;
-                    user.active = true;
-                    user.removed = false;
-                    user.email = personData.persons_.email;
-                    user.status_id = personData.status_id;
-
-                    string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
-                    string usType = SessionClass.UserTypeId(emp);
-                    user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
-                    _context.users_20ts24tu.Add(user);
-
-                    _context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError("Error " + ex.ToString());
-
-                    using (var scope = _scopeFactory.CreateScope())
-                    {
-                        var newContext = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
-
-                        if (personData.id > 0)
-                        {
-                            var person_ = personData.persons_;
-                            newContext.persons_data_20ts24tu.Remove(personData);
-                            newContext.SaveChanges();
-                            if (person_.id > 0)
-                            {
-                                newContext.persons_20ts24tu.Remove(person_);
-                                newContext.SaveChanges();
-                            }
-                        }
-
-                    }
-                   
-                    return 0;
+                        login = login,
+                        password = password,
+                        user_type_id = 0,
+                        person_id = 0,
+                        status_id = 0
+                    };
                 }
 
+                user.person_id = personData.persons_id;
+                user.created_at = DateTime.UtcNow;
+                user.active = true;
+                user.removed = false;
+                user.email = personData.persons_.email;
+                user.status_id = personData.status_id;
 
-                _logger.LogInformation($"Created " + JsonConvert.SerializeObject(personData));
+                string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id)?.title;
+                string usType = SessionClass.UserTypeId(emp);
+                user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType)?.id ?? 0;
+
+                _context.users_20ts24tu.Add(user);
+                _context.SaveChanges();
+
+                _logger.LogInformation($"Created {JsonConvert.SerializeObject(personData)}");
 
                 return personData.id;
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error: " + ex.ToString());
+
+                if (personData.id > 0)
+                {
+                    using (var scope = _scopeFactory.CreateScope())
+                    {
+                        var newContext = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+                        var person_ = personData.persons_;
+
+                        newContext.persons_data_20ts24tu.Remove(personData);
+                        newContext.SaveChanges();
+
+                        if (person_.id > 0)
+                        {
+                            newContext.persons_20ts24tu.Remove(person_);
+                            newContext.SaveChanges();
+                        }
+                    }
+                }
+
                 return 0;
             }
         }
+
 
         public bool DeletePersonData(int id)
         {
@@ -439,20 +428,12 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
 
         public bool UpdatePersonData(int id, PersonData personData, User user)
         {
-
             try
             {
                 var dbcheck = GetPersonDataById(id);
-                if (dbcheck is null)
-                {
-                    return false;
-                }
+                if (dbcheck is null) return false;
 
-                DateTime localDateTime = DateTime.Parse(personData.birthday.ToString());
-                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
-                DateTime utcDateTime = localDateTime.ToUniversalTime();
-
-                personData.birthday = utcDateTime;
+                personData.birthday = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
 
                 dbcheck.persons_.firstName = personData.persons_.firstName;
                 dbcheck.persons_.lastName = personData.persons_.lastName;
@@ -463,10 +444,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 dbcheck.persons_.passport_text = personData.persons_.passport_text;
                 dbcheck.persons_.passport_number = personData.persons_.passport_number;
                 dbcheck.persons_.status_id = personData.persons_.status_id;
-                if (personData.persons_.img_ != null)
-                {
-                    dbcheck.persons_.img_ = personData.persons_.img_;
-                }
+                if (personData.persons_.img_ != null) dbcheck.persons_.img_ = personData.persons_.img_;
                 dbcheck.persons_.departament_id = personData.persons_.departament_id;
                 dbcheck.persons_.employee_type_id = personData.persons_.employee_type_id;
 
@@ -490,10 +468,9 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 dbcheck.blog_json = personData.blog_json;
                 dbcheck.status_id = personData.status_id;
 
-
                 if (user != null)
                 {
-                    User userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
+                    var userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
 
                     if (userDB != null)
                     {
@@ -501,24 +478,22 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                         userDB.email = personData.persons_.email;
                         userDB.login = user.login.Trim();
                         userDB.password = user.password.Trim();
-                        user.active = true;
-                        user.removed = false;
+                        userDB.active = true;
+                        userDB.removed = false;
                         string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
-                        string usType = SessionClass.UserTypeId(emp);
-                        user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
+                        userDB.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id;
                     }
                     else
                     {
                         int num = personData.persons_.id + 2024;
-                        string login = personData.persons_.firstName.Trim() + num + "@" + "tstu";
-                        string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName.Trim() + num));
+                        string login = $"{personData.persons_.firstName.Trim()}{num}@tstu";
+                        string password = PasswordManager.EncryptPassword(login + personData.persons_.firstName.Trim() + num);
                         string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
-                        string usType = SessionClass.UserTypeId(emp);
                         user = new User
                         {
                             login = login,
                             password = password,
-                            user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id,
+                            user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id,
                             person_id = personData.persons_id,
                             status_id = personData.status_id,
                             created_at = DateTime.UtcNow,
@@ -527,22 +502,19 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                             email = personData.persons_.email
                         };
                         _context.users_20ts24tu.Add(user);
-
-
                     }
                 }
 
-
-                _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+                _logger.LogInformation($"Updated {JsonConvert.SerializeObject(dbcheck)}");
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError($"Error {ex}");
                 return false;
             }
-
         }
+
 
         public User GetPersonUserById(int? person_id)
         {
