@@ -465,16 +465,43 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 {
                     User userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
 
-                    userDB.updated_at = DateTime.UtcNow;
-                    userDB.email = personData.persons_.email;
-                    userDB.login = user.login.Trim();
-                    userDB.password = user.password.Trim();
-                    user.active = true;
-                    user.removed = false;
-                    string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
-                    string usType = SessionClass.UserTypeId(emp);
-                    user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
+                    if (userDB != null)
+                    {
+                        userDB.updated_at = DateTime.UtcNow;
+                        userDB.email = personData.persons_.email;
+                        userDB.login = user.login.Trim();
+                        userDB.password = user.password.Trim();
+                        user.active = true;
+                        user.removed = false;
+                        string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
+                        string usType = SessionClass.UserTypeId(emp);
+                        user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
+                    }
+                    else
+                    {
+                        int num = personData.persons_.id + 2024;
+                        string login = personData.persons_.firstName.Trim() + num + "@" + "tstu";
+                        string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName.Trim() + num));
+                        string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
+                        string usType = SessionClass.UserTypeId(emp);
+                        user = new User
+                        {
+                            login = login,
+                            password = password,
+                            user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id,
+                            person_id = personData.persons_id,
+                            status_id = personData.status_id,
+                            created_at = DateTime.UtcNow,
+                            active = true,
+                            removed = false,
+                            email = personData.persons_.email
+                        };
+                        _context.users_20ts24tu.Add(user);
+
+
+                    }
                 }
+
 
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;

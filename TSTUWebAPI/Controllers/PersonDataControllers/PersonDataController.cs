@@ -226,7 +226,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
 
                 UserCrudCreatedDTO userDTO = null;
 
-                if (personData1.login != null || personData1.password != null || personData1.login != "" || personData1.password != "")
+                if (personData1.login != null || personData1.password != null)
                 {
                     userDTO = new UserCrudCreatedDTO
                     {
@@ -238,7 +238,6 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                 }
 
                 User user = _mapper.Map<User>(userDTO);
-                user.status_id = personData1.status_id;
 
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
