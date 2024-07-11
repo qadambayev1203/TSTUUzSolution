@@ -264,35 +264,54 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 _context.persons_data_20ts24tu.Add(personData);
 
                 _context.SaveChanges();
-                if (user == null)
+                try
                 {
-                    int num = personData.persons_.id + 2024;
-                    string login = personData.persons_.firstName.Trim() + num + "@" + "tstu";
-                    string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName.Trim() + num));
-                    user = new User
+                    if (user == null)
                     {
-                        login = login,
-                        password = password,
-                        user_type_id = 0,
-                        person_id = 0,
-                        status_id = 0
-                    };
+                        int num = personData.persons_.id + 2024;
+                        string login = personData.persons_.firstName.Trim() + num + "@" + "tstu";
+                        string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName.Trim() + num));
+                        user = new User
+                        {
+                            login = login,
+                            password = password,
+                            user_type_id = 0,
+                            person_id = 0,
+                            status_id = 0
+                        };
 
+                    }
+
+                    user.person_id = personData.persons_id;
+                    user.created_at = DateTime.UtcNow;
+                    user.active = true;
+                    user.removed = false;
+                    user.email = personData.persons_.email;
+                    user.status_id = personData.status_id;
+
+                    string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
+                    string usType = SessionClass.UserTypeId(emp);
+                    user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
+                    _context.users_20ts24tu.Add(user);
+
+                    _context.SaveChanges();
                 }
-
-                user.person_id = personData.persons_id;
-                user.created_at = DateTime.UtcNow;
-                user.active = true;
-                user.removed = false;
-                user.email = personData.persons_.email;
-                user.status_id = personData.status_id;
-
-                string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
-                string usType = SessionClass.UserTypeId(emp);
-                user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
-                _context.users_20ts24tu.Add(user);
-
-                _context.SaveChanges();
+                catch (Exception ex)
+                {
+                    _logger.LogError("Error " + ex.ToString());
+                    if (!(personData.id > 0))
+                    {
+                        var person_ = personData.persons_;
+                        _context.persons_data_20ts24tu.Remove(personData);
+                        _context.SaveChanges();
+                        if (!(person_.id > 0))
+                        {
+                            _context.persons_20ts24tu.Remove(person_);
+                            _context.SaveChanges();
+                        }
+                    }
+                    return 0;
+                }
 
 
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(personData));
