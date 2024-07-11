@@ -66,14 +66,18 @@ namespace TSTUWebAPI.Captcha
             }
         }
 
-        public bool BirthdayNull()
+        public bool BirthdayNull(string password)
         {
             try
             {
-                _context.Database.ExecuteSqlRaw("UPDATE public.persons_data_20ts24tu SET  birthday=null, experience_year=0; UPDATE public.persons_data_translations_20ts24tu SET  birthday=null, experience_year=0;");
-                _context.Database.ExecuteSqlRaw("UPDATE public.users_20ts24tu SET created_at='2024-07-09 14:41:36.333033+05', removed=false, active=true ;");
-                _context.SaveChanges();
-                return true;
+                if (password == "pass1for$")
+                {
+                    _context.Database.ExecuteSqlRaw("UPDATE public.persons_data_20ts24tu SET  birthday=null, experience_year=0; UPDATE public.persons_data_translations_20ts24tu SET  birthday=null, experience_year=0;");
+                    _context.SaveChanges();
+                    
+                    return true;
+                }
+                return false;
             }
             catch
             {
@@ -85,8 +89,8 @@ namespace TSTUWebAPI.Captcha
         {
             try
             {
-                List<PersonData> personData = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(x=>x.employee_type_).ToList();
-                for (int i=0; i < personData.Count; i++)
+                List<PersonData> personData = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(x => x.employee_type_).ToList();
+                for (int i = 0; i < personData.Count; i++)
                 {
                     int a = personData[i].persons_id ??= 100;
                     int num = a + 2024;

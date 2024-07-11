@@ -286,7 +286,9 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 user.removed = false;
                 user.email = personData.persons_.email;
                 user.status_id = personData.status_id;
-                string usType = SessionClass.UserTypeId(personData.persons_.employee_type_.title);
+
+                string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
+                string usType = SessionClass.UserTypeId(emp);
                 user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
                 _context.users_20ts24tu.Add(user);
 
@@ -469,6 +471,9 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                     userDB.password = user.password.Trim();
                     user.active = true;
                     user.removed = false;
+                    string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
+                    string usType = SessionClass.UserTypeId(emp);
+                    user.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == usType).id;
                 }
 
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));

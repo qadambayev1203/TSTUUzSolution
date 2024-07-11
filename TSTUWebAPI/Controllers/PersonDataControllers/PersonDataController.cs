@@ -122,8 +122,10 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
             PersonData personData1 = _repository.GetPersonDataById(id);
             User user = _repository.GetPersonUserById(personData1.persons_id);
             var personData = _mapper.Map<PersonDataReadedDTO>(personData1);
-
-            personData.login = user.login;
+            if (user != null)
+            {
+                personData.login = user.login;
+            }
 
             return Ok(personData);
         }

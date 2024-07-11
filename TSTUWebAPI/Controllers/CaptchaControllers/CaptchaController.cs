@@ -34,9 +34,9 @@ namespace TSTUWebAPI.Controllers.CaptchaControllers
 
         [StaticAuth]
         [HttpGet("birthdaynull")]
-        public IActionResult BirthdayNull()
+        public IActionResult BirthdayNull(string password)
         {
-            bool check = captcheck.BirthdayNull();
+            bool check = captcheck.BirthdayNull(password);
             if (check) { return Ok(); }
             return NoContent();
 
