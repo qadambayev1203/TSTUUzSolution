@@ -48,8 +48,8 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
             {
                 userDTO = new UserCrudCreatedDTO
                 {
-                    login = personData1.login,
-                    password = PasswordManager.EncryptPassword(personData1.login + personData1.password),
+                    login = personData1.login.Trim(),
+                    password = PasswordManager.EncryptPassword(personData1.login.Trim() + personData1.password.Trim()),
                     user_type_id = 0,
                     person_id = 0
                 };
@@ -228,8 +228,8 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                 {
                     userDTO = new UserCrudCreatedDTO
                     {
-                        login = personData1.login,
-                        password = PasswordManager.EncryptPassword(personData1.login + personData1.password),
+                        login = personData1.login.Trim(),
+                        password = PasswordManager.EncryptPassword(personData1.login.Trim() + personData1.password.Trim()),
                         user_type_id = 0,
                         person_id = 0
                     };

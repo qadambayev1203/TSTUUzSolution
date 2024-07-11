@@ -267,8 +267,8 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 if (user == null)
                 {
                     int num = personData.persons_.id + 2024;
-                    string login = personData.persons_.firstName + num + "@" + "tstu";
-                    string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName + num));
+                    string login = personData.persons_.firstName.Trim() + num + "@" + "tstu";
+                    string password = PasswordManager.EncryptPassword(login + (personData.persons_.firstName.Trim() + num));
                     user = new User
                     {
                         login = login,
@@ -465,8 +465,8 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
 
                     userDB.updated_at = DateTime.UtcNow;
                     userDB.email = personData.persons_.email;
-                    userDB.login = user.login;
-                    userDB.password = user.password;
+                    userDB.login = user.login.Trim();
+                    userDB.password = user.password.Trim();
                     user.active = true;
                     user.removed = false;
                 }

@@ -84,22 +84,23 @@ namespace TSTUWebAPI.Captcha
         {
             try
             {
-                List<PersonData> personData = _context.persons_data_20ts24tu.Include(x => x.persons_).ToList();
-                foreach (var item in personData)
+                List<PersonData> personData = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(x=>x.employee_type_).ToList();
+                for (int i=0; i < personData.Count; i++)
                 {
-                    int a = item.persons_id ??= 100;
+                    int a = personData[i].persons_id ??= 100;
                     int num = a + 2024;
-                    string login = item.persons_.firstName + num + "@" + "tstu";
-                    string password = PasswordManager.EncryptPassword(login + (item.persons_.firstName + num));
+                    string login = personData[i].persons_.firstName.Trim() + num + "@" + "tstu";
+                    string password = PasswordManager.EncryptPassword(login + (personData[i].persons_.firstName.Trim() + num));
                     User user = new User
                     {
                         login = login,
                         password = password,
-                        user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(item.persons_.employee_type_.title)).id,
-                        person_id = item.persons_id,
+                        user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(personData[i].persons_.employee_type_.title.Trim())).id,
+                        person_id = personData[i].persons_id,
                         status_id = 1
                     };
                     _context.users_20ts24tu.Add(user);
+                    _context.SaveChanges();
                 }
 
                 return true;
@@ -112,7 +113,7 @@ namespace TSTUWebAPI.Captcha
         }
 
 
-        
+
 
     }
 }
