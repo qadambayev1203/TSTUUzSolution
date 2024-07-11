@@ -16,6 +16,7 @@ using Entities.Model;
 using Entities.Model.AnyClasses;
 using Entities.DTO.UserCrudDTOS;
 using Entities.DTO;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
 {
@@ -23,10 +24,12 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
     {
         private readonly RepositoryContext _context;
         private readonly ILogger<PersonDataSqlRepository> _logger;
-        public PersonDataSqlRepository(RepositoryContext repositoryContext, ILogger<PersonDataSqlRepository> logger)
+        private readonly IServiceScopeFactory _scopeFactory;
+        public PersonDataSqlRepository(RepositoryContext repositoryContext, ILogger<PersonDataSqlRepository> logger, IServiceScopeFactory scopeFactory)
         {
             _context = repositoryContext;
             _logger = logger;
+            _scopeFactory = scopeFactory;
         }
 
 
@@ -299,17 +302,25 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 catch (Exception ex)
                 {
                     _logger.LogError("Error " + ex.ToString());
-                    if (!(personData.id > 0))
+
+                    using (var scope = _scopeFactory.CreateScope())
                     {
-                        var person_ = personData.persons_;
-                        _context.persons_data_20ts24tu.Remove(personData);
-                        _context.SaveChanges();
-                        if (!(person_.id > 0))
+                        var newContext = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+
+                        if (personData.id > 0)
                         {
-                            _context.persons_20ts24tu.Remove(person_);
-                            _context.SaveChanges();
+                            var person_ = personData.persons_;
+                            newContext.persons_data_20ts24tu.Remove(personData);
+                            newContext.SaveChanges();
+                            if (person_.id > 0)
+                            {
+                                newContext.persons_20ts24tu.Remove(person_);
+                                newContext.SaveChanges();
+                            }
                         }
+
                     }
+                   
                     return 0;
                 }
 
