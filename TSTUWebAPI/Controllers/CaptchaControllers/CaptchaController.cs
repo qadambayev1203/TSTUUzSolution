@@ -42,14 +42,14 @@ namespace TSTUWebAPI.Controllers.CaptchaControllers
 
         }
 
-        [StaticAuth]
-        [HttpGet("alluserprofilcreated")]
-        public IActionResult AllUserProfilCreated()
-        {
-            bool check = captcheck.AllUserLoginPasswordCreated();
-            if (check) { return Ok(); }
-            return NoContent();
+        //[StaticAuth]
+        //[HttpGet("alluserprofilcreated")]
+        //public IActionResult AllUserProfilCreated()
+        //{
+        //    bool check = captcheck.AllUserLoginPasswordCreated();
+        //    if (check) { return Ok(); }
+        //    return NoContent();
 
-        }
+        //}
     }
 }

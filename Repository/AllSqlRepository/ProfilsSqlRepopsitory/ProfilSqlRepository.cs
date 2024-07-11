@@ -59,6 +59,7 @@ namespace Repository.AllSqlRepository.ProfilsSqlRepopsitory
                     userDb.person_.lastName = user.person_.lastName;
                     userDb.person_.fathers_name = user.person_.fathers_name;
                     userDb.person_.email = user.person_.email;
+                    userDb.updated_at = DateTime.UtcNow;
 
                     if (user.person_.img_ != null)
                     {

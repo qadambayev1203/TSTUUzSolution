@@ -71,6 +71,7 @@ namespace TSTUWebAPI.Captcha
             try
             {
                 _context.Database.ExecuteSqlRaw("UPDATE public.persons_data_20ts24tu SET  birthday=null, experience_year=0; UPDATE public.persons_data_translations_20ts24tu SET  birthday=null, experience_year=0;");
+                _context.Database.ExecuteSqlRaw("UPDATE public.users_20ts24tu SET created_at='2024-07-09 14:41:36.333033+05', removed=false, active=true ;");
                 _context.SaveChanges();
                 return true;
             }

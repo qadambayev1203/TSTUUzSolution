@@ -37,6 +37,8 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                     users = _context.users_20ts24tu.Include(x => x.user_type_)
                         .Include(x => x.person_).ThenInclude(y => y.img_)
                         .Include(x => x.person_).ThenInclude(y => y.departament_).ThenInclude(y=>y.departament_type_)
+                        .Include(x => x.person_).ThenInclude(y => y.gender_)
+                        .Include(x => x.person_).ThenInclude(y => y.employee_type_)
                         .Include(x => x.status_)
                         .Skip(10 * (pageNum - 1))
                         .Take(10)
@@ -46,9 +48,11 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 else if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
+                    users = _context.users_20ts24tu.Include(x => x.user_type_)
+                        .Include(x => x.person_).ThenInclude(y => y.img_)
                         .Include(x => x.person_).ThenInclude(y => y.departament_).ThenInclude(y => y.departament_type_)
-
+                        .Include(x => x.person_).ThenInclude(y => y.gender_)
+                        .Include(x => x.person_).ThenInclude(y => y.employee_type_)
                         .Include(x => x.status_)
                          .Skip(queryNum * (pageNum - 1)).Take(queryNum)
                         .ToList();
@@ -56,11 +60,12 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 }
                 else
                 {
-                    users = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
+                    users = _context.users_20ts24tu.Include(x => x.user_type_)
+                        .Include(x => x.person_).ThenInclude(y => y.img_)
                         .Include(x => x.person_).ThenInclude(y => y.departament_).ThenInclude(y => y.departament_type_)
-
+                        .Include(x => x.person_).ThenInclude(y => y.gender_)
+                        .Include(x => x.person_).ThenInclude(y => y.employee_type_)
                         .Include(x => x.status_)
-
                         .ToList();
 
                 }
@@ -82,6 +87,8 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                     return 0;
                 }
                 user.created_at = DateTime.UtcNow;
+                user.removed = false;
+                user.active = true;
                 _context.users_20ts24tu.Add(user);
                 _context.SaveChanges();
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(user));
@@ -121,9 +128,11 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
         {
             try
             {
-                var user = _context.users_20ts24tu.Include(x => x.user_type_).Include(x => x.person_).ThenInclude(y => y.img_)
+                var user = _context.users_20ts24tu.Include(x => x.user_type_)
+                        .Include(x => x.person_).ThenInclude(y => y.img_)
                         .Include(x => x.person_).ThenInclude(y => y.departament_).ThenInclude(y => y.departament_type_)
-
+                        .Include(x => x.person_).ThenInclude(y => y.gender_)
+                        .Include(x => x.person_).ThenInclude(y => y.employee_type_)
                         .Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
                 return user;
             }
@@ -166,6 +175,7 @@ namespace Repository.AllSqlRepository.UsersSqlRepository
                 dbcheck.status_id = user.status_id;
                 dbcheck.removed = user.removed;
                 dbcheck.active = user.active;
+                dbcheck.updated_at = DateTime.UtcNow;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
                 return true;
             }
