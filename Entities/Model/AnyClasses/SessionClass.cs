@@ -26,13 +26,13 @@ namespace Entities.Model.AnyClasses
         public static string fileUploadsUrl = @"";
 
         public static readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".mp4", ".avi", ".png", ".gif", ".doc", ".docx", ".xlsx", ".pdf", ".ppt", ".pptx" };
-        
+
         public static readonly string[] allowedExtensionsImg = { ".jpg", ".jpeg", ".png", ".gif" };
-        
+
         public static readonly string[] allowedExtensionsDoc = { ".doc", ".docx", ".pdf", ".ppt", ".pptx", ".xlsx" };
-        
+
         public static readonly string[] allowedExtensionsVideo = { ".mp4", ".avi" };
-        
+
         public static readonly string[] allowedExtensionsFile = { ".mp4", ".avi", ".doc", "docx", ".xlsx", ".docx", ".pdf", ".ppt", ".pptx" };
 
         public static string UserTypeId(string emp_type)
@@ -57,7 +57,7 @@ namespace Entities.Model.AnyClasses
                 case "Faxriy bitiruvchi": return "HonoraryGraduate";
                 case "Faxriy professor": return "HonoraryProfessor";
                 default:
-                    return ""; 
+                    return "";
             }
         }
 

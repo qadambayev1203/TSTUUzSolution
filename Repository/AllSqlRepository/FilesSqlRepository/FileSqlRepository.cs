@@ -153,25 +153,31 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
         {
             try
             {
-
-                var files = new List<Files>();
-                files = _context.files_20ts24tu.Where(x => x.status_.status != "Deleted")
-                    .Where((image != null) ? ((image == true) ? (y => allowedExtensionsImg.Any(ext => y.url.EndsWith(ext))) : (y => allowedExtensionsFile.Any(ext => y.url.EndsWith(ext)))) : (y => y.url != null))
-                    .Where(x => !x.url.StartsWith("file-uploads/attached"))
+                var files = _context.files_20ts24tu
+                    .Where(x => x.status_.status != "Deleted" && !x.url.Contains("attached"))
+                    .Where(image != null
+                        ? image == true
+                            ? y => allowedExtensionsImg.Any(ext => y.url.EndsWith(ext))
+                            : y => allowedExtensionsFile.Any(ext => y.url.EndsWith(ext))
+                        : y => y.url != null)
                     .Select(x => new Files
                     {
                         id = x.id,
                         title = x.title,
                         url = x.url
-                    }).ToList();
+                    })
+                    .ToList();
+
                 return files;
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error: " + ex.ToString());
                 return null;
             }
         }
+
+
 
 
 
@@ -346,23 +352,25 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
                 var files = new List<FilesTranslation>();
                 files = _context.files_translations_20ts24tu
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Where(x => x.status_translation_.status != "Deleted")
-                    .Where(x => !x.url.StartsWith("file-uploads/attached"))
-                    .Where((image != null) ? ((image == true) ? (y => allowedExtensionsImg.Any(ext => y.url.EndsWith(ext))) : (y => allowedExtensionsFile.Any(ext => y.url.EndsWith(ext)))) : (y => y.url != null))
-                    .Select(x => new FilesTranslation
-                    {
-                        id = x.id,
-                        title = x.title,
-                        files_id = x.files_id,
-                        url = x.url,
-                    }).ToList();
+                    .Where(x => x.status_translation_.status != "Deleted" && !x.url.Contains("attached"))
+                    .Where(image != null
+                        ? image == true
+                            ? y => allowedExtensionsImg.Any(ext => y.url.EndsWith(ext))
+                            : y => allowedExtensionsFile.Any(ext => y.url.EndsWith(ext))
+                        : y => y.url != null).Select(x => new FilesTranslation
+                        {
+                            id = x.id,
+                            title = x.title,
+                            files_id = x.files_id,
+                            url = x.url,
+                        }).ToList();
 
                 return files;
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error " + ex.ToString());
-                return null;
+                return Enumerable.Empty<FilesTranslation>();
             }
         }
 

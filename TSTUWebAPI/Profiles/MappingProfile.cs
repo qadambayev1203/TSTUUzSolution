@@ -251,6 +251,7 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<Departament, DepartamentChildReadedSiteDTO>();
                 CreateMap<Departament, DepartamentConfReadedDTO>();
                 CreateMap<Departament, DepartamentConfReadedFacultyDTO>();
+                CreateMap<Departament, DepartamentStructureReadedDTO>();
 
 
                 CreateMap<DepartamentTranslationCreatedDTO, DepartamentTranslation>();
@@ -262,6 +263,7 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<DepartamentTranslation, DepartamentTranslationReadedSiteFacultyDTO>();
                 CreateMap<DepartamentTranslation, DepartamentChildTranslationReadedSiteDTO>();
                 CreateMap<DepartamentTranslation, DepartamentTranslationConfReadedDTO>();
+                CreateMap<DepartamentTranslation, DepartamentTranslationStructureReadedDTO>();
 
 
                 #endregion

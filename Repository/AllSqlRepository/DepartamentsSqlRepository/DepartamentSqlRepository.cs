@@ -387,12 +387,12 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             {
                 var departaments = new List<Departament>();
                 departaments = _context.departament_20ts24tu
-                   .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
-                   .Select(x=>new Departament
+                   .Where(x => x.status_.status != "Deleted")
+                   .Select(x => new Departament
                    {
-                       id=x.id,
-                       title=x.title,
-                       parent_id=x.parent_id,
+                       id = x.id,
+                       title = x.title,
+                       parent_id = x.parent_id,
                    })
                    .ToList();
 
@@ -401,7 +401,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             catch (Exception ex)
             {
                 _logger.LogError($"Error" + ex.ToString());
-                return null;
+                return Enumerable.Empty<Departament>();
             }
         }
 
@@ -918,33 +918,32 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationStructure(int parent_id, string language_code)
+        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationStructure(string language_code)
         {
             try
             {
-                var departamentTranslations = new List<DepartamentTranslation>();
+                var departaments = new List<DepartamentTranslation>();
+                departaments = _context.departament_translations_20ts24tu
+                   .Where(x => x.status_translation_.status != "Deleted")
+                   .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                   .Select(x => new DepartamentTranslation
+                   {
+                       id = x.id,
+                       title = x.title,
+                       parent_id = x.parent_id,
+                       departament_id=x.departament_id
+                   })
+                   .ToList();
 
-                departamentTranslations = _context.departament_translations_20ts24tu
-                    .Include(x => x.language_)
-                    .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_).Include(x => x.img_icon_)
-                    .Include(x => x.departament_type_translation_).ThenInclude(x => x.departament_type_)
-                    .Where(x => x.status_translation_.status != "Deleted")
-                    .Where(x => x.departament_.parent_id == parent_id)
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .ToList();
-
-
-
-                return departamentTranslations;
+                return departaments;
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error" + ex.ToString());
-                return null;
+                return Enumerable.Empty<DepartamentTranslation>();
             }
-        }
 
+
+        }
     }
 }
