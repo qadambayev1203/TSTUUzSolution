@@ -381,6 +381,30 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
+        public IEnumerable<Departament> AllDepartamentStructure()
+        {
+            try
+            {
+                var departaments = new List<Departament>();
+                departaments = _context.departament_20ts24tu
+                   .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
+                   .Select(x=>new Departament
+                   {
+                       id=x.id,
+                       title=x.title,
+                       parent_id=x.parent_id,
+                   })
+                   .ToList();
+
+                return departaments;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
 
 
 
@@ -846,8 +870,6 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-
-
         public IEnumerable<DepartamentTranslation> AllDepartamentTranslationFacultyDirection(int faculty_id, string language_code)
         {
             try
@@ -895,5 +917,34 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 return null;
             }
         }
+
+        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationStructure(int parent_id, string language_code)
+        {
+            try
+            {
+                var departamentTranslations = new List<DepartamentTranslation>();
+
+                departamentTranslations = _context.departament_translations_20ts24tu
+                    .Include(x => x.language_)
+                    .Include(x => x.status_translation_)
+                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
+                    .Include(x => x.img_).Include(x => x.img_icon_)
+                    .Include(x => x.departament_type_translation_).ThenInclude(x => x.departament_type_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .Where(x => x.departament_.parent_id == parent_id)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                    .ToList();
+
+
+
+                return departamentTranslations;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error" + ex.ToString());
+                return null;
+            }
+        }
+
     }
 }
