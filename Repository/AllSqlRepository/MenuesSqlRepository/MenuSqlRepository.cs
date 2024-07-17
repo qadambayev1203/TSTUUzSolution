@@ -132,7 +132,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -245,7 +245,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -271,7 +271,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return 0;
             }
         }
@@ -293,7 +293,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -317,7 +317,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -340,7 +340,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -377,7 +377,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
 
@@ -514,7 +514,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -644,7 +644,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -670,7 +670,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return 0;
             }
         }
@@ -692,7 +692,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -716,7 +716,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -740,7 +740,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -765,7 +765,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -789,7 +789,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -828,7 +828,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
 
@@ -845,7 +845,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }

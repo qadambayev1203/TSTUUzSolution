@@ -47,7 +47,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
                 return 0;
             }
         }
@@ -75,7 +75,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
                 return 0;
             }
         }
@@ -89,7 +89,7 @@ namespace Repository.AllSqlRepository.StatusesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
                 return false;
             }
         }

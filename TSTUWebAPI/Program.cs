@@ -387,6 +387,6 @@ try
 }
 catch (Exception ex)
 {
-    Log.Fatal(ex.ToString());
+    Log.Fatal(ex.Message);
     throw;
 }

@@ -56,7 +56,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -95,7 +95,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -118,7 +118,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return 0;
             }
@@ -142,7 +142,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return false;
             }
@@ -161,7 +161,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -180,7 +180,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -205,7 +205,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return false;
             }
@@ -261,7 +261,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -315,7 +315,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -338,7 +338,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return 0;
             }
@@ -362,7 +362,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return false;
             }
@@ -380,7 +380,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -398,7 +398,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -418,7 +418,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -437,7 +437,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return null;
             }
@@ -464,7 +464,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
 
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
 
                 return false;
             }
@@ -475,7 +475,7 @@ namespace Repository.AllSqlRepository.DepartamentsDetailSqlRepository
             try { _context.SaveChanges(); return true; }
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
                 return false;
             }
         }

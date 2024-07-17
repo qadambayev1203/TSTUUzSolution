@@ -58,7 +58,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<Files>();
             }
         }
@@ -79,7 +79,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return 0;
             }
 
@@ -102,7 +102,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -116,7 +116,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -144,7 +144,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -172,7 +172,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error: " + ex.ToString());
+                _logger.LogError("Error: " + ex.Message);
                 return null;
             }
         }
@@ -218,7 +218,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return new List<FilesTranslation>();
             }
         }
@@ -239,7 +239,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return 0;
             }
         }
@@ -262,7 +262,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -278,7 +278,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -293,7 +293,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -311,7 +311,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -340,7 +340,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -369,7 +369,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<FilesTranslation>();
             }
         }
@@ -379,7 +379,7 @@ namespace Repository.AllSqlRepository.FilesSqlRepository
             try { _context.SaveChanges(); return true; }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString()); return false;
+                _logger.LogError("Error " + ex.Message); return false;
             }
         }
 

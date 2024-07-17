@@ -15,7 +15,7 @@ namespace Repository.AllSqlRepository.FrontLogFilesSqlRepository
         {
             try
             {
-                _logger.LogError("Error <Front>" + ex.ToString());
+                _logger.LogError("Error <Front>" + ex.Message);
                 return true;
             }
             catch (Exception ex1)

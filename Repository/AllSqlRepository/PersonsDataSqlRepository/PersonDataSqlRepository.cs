@@ -77,7 +77,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonData>();
             }
         }
@@ -106,7 +106,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonData>();
             }
         }
@@ -150,7 +150,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonData>();
             }
         }
@@ -197,7 +197,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonData>();
             }
         }
@@ -244,7 +244,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonData>();
             }
         }
@@ -300,7 +300,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error: " + ex.ToString());
+                _logger.LogError("Error: " + ex.Message);
 
                 if (personData.id > 0)
                 {
@@ -348,7 +348,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -369,7 +369,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -385,7 +385,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -405,7 +405,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -421,7 +421,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -607,7 +607,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonDataTranslation>();
             }
         }
@@ -637,7 +637,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonDataTranslation>();
             }
         }
@@ -695,7 +695,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonDataTranslation>();
             }
         }
@@ -757,7 +757,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonDataTranslation>();
             }
         }
@@ -818,7 +818,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<PersonDataTranslation>();
             }
         }
@@ -851,7 +851,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return 0;
             }
         }
@@ -874,7 +874,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
         }
@@ -897,7 +897,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -917,7 +917,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -941,7 +941,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -963,7 +963,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -984,7 +984,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -1007,7 +1007,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return null;
             }
         }
@@ -1075,7 +1075,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString());
+                _logger.LogError("Error " + ex.Message);
                 return false;
             }
 
@@ -1085,7 +1085,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
             try { _context.SaveChanges(); return true; }
             catch (Exception ex)
             {
-                _logger.LogError("Error " + ex.ToString()); return false;
+                _logger.LogError("Error " + ex.Message); return false;
             }
         }
 

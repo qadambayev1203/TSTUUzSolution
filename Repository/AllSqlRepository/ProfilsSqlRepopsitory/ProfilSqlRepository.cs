@@ -39,7 +39,7 @@ namespace Repository.AllSqlRepository.ProfilsSqlRepopsitory
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.ToString());
+                _logger.LogError($"Error" + ex.Message);
                 return null;
             }
         }
