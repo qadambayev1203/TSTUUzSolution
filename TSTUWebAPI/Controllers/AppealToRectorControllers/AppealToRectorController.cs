@@ -55,7 +55,6 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                 }
 
                 var AppealToRector = _mapper.Map<AppealToRector>(AppealToRector1);
-                AppealToRector.birthday = DateTime.UtcNow;
                 FileUploadRepository fileUpload = new FileUploadRepository();
                 var Url = fileUpload.SaveFileAsync(AppealToRector1.file_upload_);
                 if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")

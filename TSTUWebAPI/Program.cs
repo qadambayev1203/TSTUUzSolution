@@ -78,6 +78,8 @@ using System;
 using Entities.Model.AnyClasses;
 using Contracts.AllRepository.ProfilsRepository;
 using Repository.AllSqlRepository.ProfilsSqlRepopsitory;
+using Contracts.AllRepository.AppealToEmployeesRepository;
+using Repository.AllSqlRepository.AppealToEmployeesSqlRepository;
 
 #endregion
 
@@ -233,6 +235,9 @@ try
 
     //AppealToRector AND AppealToRectorTranslation
     builder.Services.AddScoped<IAppealToRectorRepository, AppealToRectorSqlRepository>();
+
+    //AppealToEmployee AND AppealToEmployeeTranslation
+    builder.Services.AddScoped<IAppealToEmployeeRepository, AppealToEmployeeSqlRepository>();
 
     //MenuType AND MenuTypeTranslation
     builder.Services.AddScoped<IMenuTypeRepository, MenuTypeSqlRepository>();

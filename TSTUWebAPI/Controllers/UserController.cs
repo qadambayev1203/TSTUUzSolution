@@ -145,6 +145,7 @@ namespace TSTUWebAPI.Controllers
                 if (user_id != 0)
                 {
                     SessionClass.id = user_id;
+                    SessionClass.token = token1;
                 }
                 var check = principal.Identity.IsAuthenticated;
 

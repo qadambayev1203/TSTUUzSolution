@@ -80,6 +80,8 @@ using Entities.Model.InteractiveServicesModel;
 using Entities.DTO.StatisticalNumbersDTOS;
 using Entities.Model.StatisticalNumbersModel;
 using Entities.DTO.UserProfilDTOS;
+using Entities.DTO.AppealsToEmployeeDTOS;
+using Entities.Model.AppealToEmployeeModel;
 namespace TSTUWebAPI.Profiles
 {
 
@@ -143,6 +145,7 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<PersonUpdatedDTO, Person>();
                 CreateMap<PersonUpdatedDataDTO, Person>();
                 CreateMap<Person, PersonReadedDTO>();
+                CreateMap<Person, PersonUserDTO>();
                 CreateMap<Person, PersonReadedSiteDTO>();
                 CreateMap<Person, PersonConfReadedDTO>();
                 CreateMap<Person, PersonReadedConfigurDTO>();
@@ -206,6 +209,7 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<UserProfilUpdatedDTO, User>();
                 CreateMap<User, UserCrudReadedDTO>();
                 CreateMap<User, UserConfReadedDTO>();
+                CreateMap<User, UserFIODTO>();
 
                 #endregion
 
@@ -514,6 +518,18 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<AppealToRectorTranslation, AppealToRectorTranslationReadedDTO>();
                 CreateMap<AppealToRectorTranslation, AppealTranslationEmailCheckStatusDTO>();
 
+
+                #endregion
+
+                #region AppealToEmployee DTOS
+                CreateMap<AppealToEmployeeCreatedDTO, AppealToEmployee>();
+                CreateMap<AppealToEmployee, AppealToEmployeeReadedDTO>();
+                CreateMap<AppealToEmployee, AppealToEmployeeReadedAdminDTO>();
+
+
+                CreateMap<AppealToEmployeeTranslationCreatedDTO, AppealToEmployeeTranslation>();
+                CreateMap<AppealToEmployeeTranslation, AppealToEmployeeTranslationReadedDTO>();
+                CreateMap<AppealToEmployeeTranslation, AppealToEmployeeTranslationReadedAdminDTO>();
 
                 #endregion
 

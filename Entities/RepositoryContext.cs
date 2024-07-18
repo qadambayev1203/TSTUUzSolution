@@ -1,6 +1,7 @@
 ﻿using Entities.Configuration;
 using Entities.Model;
 using Entities.Model.AppealsToTheRectorsModel;
+using Entities.Model.AppealToEmployeeModel;
 using Entities.Model.BlogsCategoryModel;
 using Entities.Model.BlogsModel;
 using Entities.Model.CountrysModel;
@@ -170,7 +171,8 @@ namespace Entities
         public DbSet<InteractiveServicesTranslation> interactive_services_translations_20ts24tu { get; set; }
         public DbSet<StatisticalNumbers> statistical_numbers_20ts24tu { get; set; }
         public DbSet<StatisticalNumbersTranslation> statistical_numbers_translations_20ts24tu { get; set; }
-
+        public DbSet<AppealToEmployee> appeal_to_employee_20ts24tu { get; set; }
+        public DbSet<AppealToEmployeeTranslation> appeal_to_employee_translation_20ts24tu { get; set; }
 
     }
 
