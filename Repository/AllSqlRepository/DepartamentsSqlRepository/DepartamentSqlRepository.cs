@@ -173,6 +173,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     return false;
                 }
                 dbcheck.title_short = departament.title_short;
+                dbcheck.hemis_id = departament.hemis_id;
                 dbcheck.title = departament.title;
                 dbcheck.description = departament.description;
                 dbcheck.text = departament.text;

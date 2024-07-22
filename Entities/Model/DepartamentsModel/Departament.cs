@@ -31,5 +31,6 @@ namespace Entities.Model.DepartamentsModel
         public bool? favorite { get; set; }
         [ForeignKey("DepartamentType")] public int? departament_type_id { get; set; }
         public DepartamentType? departament_type_ { get; set; }
+        [MaxLength(100)] public string? hemis_id { get; set; }
     }
 }
