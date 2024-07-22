@@ -137,16 +137,18 @@ namespace TSTUWebAPI.Controllers
         //            return BadRequest("Captcha failed!");
         //        }
 
-        //        hemis
+
+        //        //hemis
         //        string passportNumber = "AA1234567";
         //        string pinfl = "12345678901234";
 
         //        try
         //        {
-        //            var url = "https://api.example.com/data";
+        //            var url = "https://student.tstu.uz/rest/v1/account/me";
 
         //            var request = new HttpRequestMessage(HttpMethod.Get, url);
-        //            request.Headers.Add("Authorization", credentials.hemis_token);
+        //            request.Headers.Add("Authorization", $"Bearer {credentials.hemis_token}");
+        //            request.Headers.Add("accept", "application/json");
 
         //            var response = await _httpClient.SendAsync(request);
 
@@ -156,8 +158,16 @@ namespace TSTUWebAPI.Controllers
         //            {
         //                var jsonDocument = JsonDocument.Parse(responseContent);
         //                var root = jsonDocument.RootElement;
-        //                passportNumber = root.GetProperty("passportNumber").GetString() != null ? root.GetProperty("passportNumber").GetString() : passportNumber;
-        //                passportNumber = root.GetProperty("pinfl").GetString() != null ? root.GetProperty("pinfl").GetString() : pinfl;
+
+        //                if (root.TryGetProperty("data", out JsonElement dataElement))
+        //                {
+        //                    passportNumber = dataElement.GetProperty("passport_number").GetString() != null ? dataElement.GetProperty("passport_number").GetString() : passportNumber;
+        //                    pinfl = dataElement.GetProperty("passport_pin").GetString() != null ? dataElement.GetProperty("passport_pin").GetString() : pinfl;
+        //                }
+        //                else
+        //                {
+        //                    return BadRequest("Hemis token invalid");
+        //                }
         //            }
         //            else
         //            {
@@ -168,7 +178,7 @@ namespace TSTUWebAPI.Controllers
         //        {
         //            return BadRequest("Hemis token invalid");
         //        }
-        //        endhemis
+        //        // endhemis
 
         //        user = await repositoryManager.User.LoginAsyncHemis(passportNumber, pinfl, false, cancelationToken);
         //        if (user != null)
