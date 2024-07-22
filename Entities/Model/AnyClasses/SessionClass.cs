@@ -63,6 +63,6 @@ namespace Entities.Model.AnyClasses
 
     }
 }
-
+ 
 //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhbGwiLCJyb2xlIjoiQW55IiwibmJmIjoxNzExNjk3MDUxLCJleHAiOjE3MTE2OTcwNTIsImlhdCI6MTcxMTY5NzA1MX0.o64p8lC1PMQDjPsmH6dWR1N-tuyTEG9-v0NHfJVHdlk";
 // Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxIiwibmFtZWlkIjoiYWRtaW4iLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MjA3NzcyMzIsImV4cCI6MTcyMjUwNTIzMiwiaWF0IjoxNzIwNzc3MjMyfQ.zM94IbSebsy8OXQGcLcKGG2jnrxR4sPm_0E3eG4X43Q

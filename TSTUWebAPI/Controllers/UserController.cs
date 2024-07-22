@@ -21,6 +21,7 @@ using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using TSTUWebAPI.Captcha;
 using TSTUWebAPI.Controllers.FileControllers;
 
@@ -40,10 +41,9 @@ namespace TSTUWebAPI.Controllers
         private UserAuthInfoDTO authInfo;
         private User user;
         private readonly CaptchaCheck captcheck;
+        private readonly HttpClient _httpClient;
 
-
-
-        public UserController(IRepositoryManager repositoryManager, IOptions<AppSettings> appSettings, IMapper mapper, ILogger<UserController> logger, CaptchaCheck _captcheck, IProfilRepository repository)
+        public UserController(IRepositoryManager repositoryManager, IOptions<AppSettings> appSettings, IMapper mapper, ILogger<UserController> logger, CaptchaCheck _captcheck, IProfilRepository repository, HttpClient httpClient)
         {
             this.repositoryManager = repositoryManager;
             this.appSettings = appSettings;
@@ -52,6 +52,7 @@ namespace TSTUWebAPI.Controllers
             this._logger = logger;
             captcheck = _captcheck;
             this._repository = repository;
+            _httpClient = httpClient;
         }
 
         [AllowAnonymous]
@@ -114,6 +115,99 @@ namespace TSTUWebAPI.Controllers
             }
             return Unauthorized();
         }
+
+
+        //[AllowAnonymous]
+        //[HttpPost("loginhemis")]
+        //public async Task<ActionResult<UserAuthInfoDTO>> LoginAsyncHemis([FromBody] UserCredentialsHemis credentials, CancellationToken cancelationToken)
+        //{
+        //    var token = HttpContext.Request.Headers["Authorization"];
+        //    if (token == SessionClass.tokenCheck || token == SessionClass.token)
+        //    {
+        //        authInfo = new UserAuthInfoDTO();
+        //        if (credentials == null)
+        //        {
+        //            return BadRequest("No data");
+        //        }
+
+
+        //        var capt = captcheck.CheckCaptcha(credentials.CaptchaNumbersSumm);
+        //        if (!capt)
+        //        {
+        //            return BadRequest("Captcha failed!");
+        //        }
+
+        //        hemis
+        //        string passportNumber = "AA1234567";
+        //        string pinfl = "12345678901234";
+
+        //        try
+        //        {
+        //            var url = "https://api.example.com/data";
+
+        //            var request = new HttpRequestMessage(HttpMethod.Get, url);
+        //            request.Headers.Add("Authorization", credentials.hemis_token);
+
+        //            var response = await _httpClient.SendAsync(request);
+
+        //            var responseContent = await response.Content.ReadAsStringAsync();
+
+        //            if (response.IsSuccessStatusCode)
+        //            {
+        //                var jsonDocument = JsonDocument.Parse(responseContent);
+        //                var root = jsonDocument.RootElement;
+        //                passportNumber = root.GetProperty("passportNumber").GetString() != null ? root.GetProperty("passportNumber").GetString() : passportNumber;
+        //                passportNumber = root.GetProperty("pinfl").GetString() != null ? root.GetProperty("pinfl").GetString() : pinfl;
+        //            }
+        //            else
+        //            {
+        //                return BadRequest("Hemis token invalid");
+        //            }
+        //        }
+        //        catch
+        //        {
+        //            return BadRequest("Hemis token invalid");
+        //        }
+        //        endhemis
+
+        //        user = await repositoryManager.User.LoginAsyncHemis(passportNumber, pinfl, false, cancelationToken);
+        //        if (user != null)
+        //        {
+        //            _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
+        //            try
+        //            {
+        //                var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
+        //                var tokenDescriptoir = new SecurityTokenDescriptor()
+        //                {
+        //                    Subject = new ClaimsIdentity(
+        //                        new Claim[]
+        //                        {
+        //                    new Claim("UserId", user.id.ToString()),
+        //                    new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
+        //                    new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
+        //                        }
+        //                       ),
+        //                    Expires = DateTime.UtcNow.AddDays(20),
+        //                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+        //                };
+        //                var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
+        //                authInfo.Token = securityTokenHandler.WriteToken(securityToken);
+        //                authInfo.UserDetails = mapper.Map<UserDTO>(user);
+        //            }
+        //            catch { }
+        //        }
+        //        if (string.IsNullOrEmpty(authInfo?.Token))
+        //        {
+        //            return Unauthorized("Hemis token invalid");
+        //        }
+
+        //        SessionClass.token = "Bearer " + authInfo.Token;
+        //        SessionClass.id = authInfo.UserDetails.id;
+        //        return Ok(authInfo);
+        //    }
+        //    return Unauthorized();
+        //}
+
 
         [Authorize]
         [HttpGet("verification")]

@@ -321,6 +321,7 @@ try
     builder.Logging.AddSerilog(logger);
 
     builder.Services.AddControllers();
+    builder.Services.AddHttpClient();
 
     builder.Services.AddDirectoryBrowser();
 
