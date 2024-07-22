@@ -258,8 +258,11 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
 
             try
             {
-                DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
-                personData.birthday = utcDateTime;
+                if (personData.birthday != null)
+                {
+                    DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
+                    personData.birthday = utcDateTime;
+                }
 
                 _context.persons_data_20ts24tu.Add(personData);
                 _context.SaveChanges();
@@ -268,7 +271,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 {
                     int num = personData.persons_.id + 2024;
                     string login = $"{personData.persons_.firstName.Trim()}{num}@tstu";
-                    string password = PasswordManager.EncryptPassword(login + personData.persons_.firstName.Trim() + num);
+                    string password = PasswordManager.EncryptPassword(login + $"{personData.persons_.firstName.Trim()}{num}");
 
                     user = new User
                     {
@@ -433,7 +436,11 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 var dbcheck = GetPersonDataById(id);
                 if (dbcheck is null) return false;
 
-                personData.birthday = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
+                if (personData.birthday != null)
+                {
+                    DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
+                    personData.birthday = utcDateTime;
+                }
 
                 dbcheck.persons_.firstName = personData.persons_.firstName;
                 dbcheck.persons_.lastName = personData.persons_.lastName;

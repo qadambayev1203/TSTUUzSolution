@@ -12,10 +12,14 @@ namespace TSTUWebAPI.Captcha
     public class CaptchaCheck
     {
         public static CaptchaModel _captcha;
+        private readonly IServiceScopeFactory _scopeFactory;
+
         private static RepositoryContext _context { get; set; }
-        public CaptchaCheck(RepositoryContext context)
+        public CaptchaCheck(RepositoryContext context, IServiceScopeFactory scopeFactory)
         {
             _context = context;
+            _scopeFactory = scopeFactory;
+            _scopeFactory = scopeFactory;
         }
 
 
@@ -74,7 +78,7 @@ namespace TSTUWebAPI.Captcha
                 {
                     _context.Database.ExecuteSqlRaw("UPDATE public.persons_data_20ts24tu SET  birthday=null, experience_year=0; UPDATE public.persons_data_translations_20ts24tu SET  birthday=null, experience_year=0;");
                     _context.SaveChanges();
-                    
+
                     return true;
                 }
                 return false;
@@ -89,23 +93,26 @@ namespace TSTUWebAPI.Captcha
         {
             try
             {
-                List<PersonData> personData = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(x => x.employee_type_).ToList();
-                for (int i = 0; i < personData.Count; i++)
+
+                List<User> users = new List<User>();
+                users = _context.users_20ts24tu.ToList();
+
+                foreach (User user in users)
                 {
-                    int a = personData[i].persons_id ??= 100;
-                    int num = a + 2024;
-                    string login = personData[i].persons_.firstName.Trim() + num + "@" + "tstu";
-                    string password = PasswordManager.EncryptPassword(login + (personData[i].persons_.firstName.Trim() + num));
-                    User user = new User
+                    using (var scope = _scopeFactory.CreateScope())
                     {
-                        login = login,
-                        password = password,
-                        user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(personData[i].persons_.employee_type_.title.Trim())).id,
-                        person_id = personData[i].persons_id,
-                        status_id = 1
-                    };
-                    _context.users_20ts24tu.Add(user);
-                    _context.SaveChanges();
+                        try
+                        {
+                            var newContext = scope.ServiceProvider.GetRequiredService<RepositoryContext>();
+                            string password = PasswordManager.EncryptPassword(user.login + user.login.Split("@")[0]);
+                            user.password = password;
+                            newContext.SaveChanges();
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
                 }
 
                 return true;
