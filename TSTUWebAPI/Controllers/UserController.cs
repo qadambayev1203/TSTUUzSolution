@@ -54,169 +54,141 @@ namespace TSTUWebAPI.Controllers
             this._repository = repository;
             _httpClient = httpClient;
         }
-
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<UserAuthInfoDTO>> LoginAsync([FromBody] UserCredentials credentials, CancellationToken cancelationToken)
+        public async Task<ActionResult<UserAuthInfoDTO>> LoginAsync([FromBody] UserCredentials credentials, CancellationToken cancellationToken)
         {
-            var token = HttpContext.Request.Headers["Authorization"];
-            if (token == SessionClass.tokenCheck || token == SessionClass.token)
-            {
-                authInfo = new UserAuthInfoDTO();
-                if (credentials == null)
-                {
-                    return BadRequest("No data");
-                }
-
-
-                var capt = captcheck.CheckCaptcha(credentials.CaptchaNumbersSumm);
-                if (!capt)
-                {
-                    return BadRequest("Captcha failed!");
-                }
-
-                credentials.Password = PasswordManager.EncryptPassword((credentials.Login + credentials.Password).ToString());
-
-
-                user = await repositoryManager.User.LoginAsync(credentials.Login, credentials.Password, false, cancelationToken);
-                if (user != null)
-                {
-                    _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
-                    try
-                    {
-                        var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-                        var tokenDescriptoir = new SecurityTokenDescriptor()
-                        {
-                            Subject = new ClaimsIdentity(
-                                new Claim[]
-                                {
-                            new Claim("UserId", user.id.ToString()),
-                            new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
-                            new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
-                                }
-                               ),
-                            Expires = DateTime.UtcNow.AddDays(20),
-                            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                        };
-                        var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
-                        authInfo.Token = securityTokenHandler.WriteToken(securityToken);
-                        authInfo.UserDetails = mapper.Map<UserDTO>(user);
-                    }
-                    catch { }
-                }
-                if (string.IsNullOrEmpty(authInfo?.Token))
-                {
-                    return Unauthorized("Error login or password");
-                }
-
-                SessionClass.token = "Bearer " + authInfo.Token;
-                SessionClass.id = authInfo.UserDetails.id;
-                return Ok(authInfo);
-            }
-            return Unauthorized();
+            return await HandleLoginAsync(credentials, cancellationToken, false, credentials.CaptchaNumbersSumm);
         }
-
 
         //[AllowAnonymous]
         //[HttpPost("loginhemis")]
-        //public async Task<ActionResult<UserAuthInfoDTO>> LoginAsyncHemis([FromBody] UserCredentialsHemis credentials, CancellationToken cancelationToken)
+        //public async Task<ActionResult<UserAuthInfoDTO>> LoginAsyncHemis([FromBody] UserCredentialsHemis credentials, CancellationToken cancellationToken)
         //{
-        //    var token = HttpContext.Request.Headers["Authorization"];
-        //    if (token == SessionClass.tokenCheck || token == SessionClass.token)
+        //    if (credentials == null)
         //    {
-        //        authInfo = new UserAuthInfoDTO();
-        //        if (credentials == null)
+        //        return BadRequest("No data");
+        //    }
+
+        //    string passportNumber = "AA1234567";
+        //    string pinfl = "12345678901234";
+
+        //    try
+        //    {
+        //        var url = "https://student.tstu.uz/rest/v1/account/me";
+        //        var request = new HttpRequestMessage(HttpMethod.Get, url);
+        //        request.Headers.Add("Authorization", $"Bearer {credentials.hemis_token}");
+        //        request.Headers.Add("accept", "application/json");
+
+        //        var response = await _httpClient.SendAsync(request);
+        //        var responseContent = await response.Content.ReadAsStringAsync();
+
+        //        if (response.IsSuccessStatusCode)
         //        {
-        //            return BadRequest("No data");
-        //        }
+        //            var jsonDocument = JsonDocument.Parse(responseContent);
+        //            var root = jsonDocument.RootElement;
 
-
-        //        var capt = captcheck.CheckCaptcha(credentials.CaptchaNumbersSumm);
-        //        if (!capt)
-        //        {
-        //            return BadRequest("Captcha failed!");
-        //        }
-
-
-        //        //hemis
-        //        string passportNumber = "AA1234567";
-        //        string pinfl = "12345678901234";
-
-        //        try
-        //        {
-        //            var url = "https://student.tstu.uz/rest/v1/account/me";
-
-        //            var request = new HttpRequestMessage(HttpMethod.Get, url);
-        //            request.Headers.Add("Authorization", $"Bearer {credentials.hemis_token}");
-        //            request.Headers.Add("accept", "application/json");
-
-        //            var response = await _httpClient.SendAsync(request);
-
-        //            var responseContent = await response.Content.ReadAsStringAsync();
-
-        //            if (response.IsSuccessStatusCode)
+        //            if (root.TryGetProperty("data", out JsonElement dataElement))
         //            {
-        //                var jsonDocument = JsonDocument.Parse(responseContent);
-        //                var root = jsonDocument.RootElement;
-
-        //                if (root.TryGetProperty("data", out JsonElement dataElement))
-        //                {
-        //                    passportNumber = dataElement.GetProperty("passport_number").GetString() != null ? dataElement.GetProperty("passport_number").GetString() : passportNumber;
-        //                    pinfl = dataElement.GetProperty("passport_pin").GetString() != null ? dataElement.GetProperty("passport_pin").GetString() : pinfl;
-        //                }
-        //                else
-        //                {
-        //                    return BadRequest("Hemis token invalid");
-        //                }
+        //                passportNumber = dataElement.GetProperty("passport_number").GetString() ?? passportNumber;
+        //                pinfl = dataElement.GetProperty("passport_pin").GetString() ?? pinfl;
         //            }
         //            else
         //            {
         //                return BadRequest("Hemis token invalid");
         //            }
         //        }
-        //        catch
+        //        else
         //        {
         //            return BadRequest("Hemis token invalid");
         //        }
-        //        // endhemis
-
-        //        user = await repositoryManager.User.LoginAsyncHemis(passportNumber, pinfl, false, cancelationToken);
-        //        if (user != null)
-        //        {
-        //            _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
-        //            try
-        //            {
-        //                var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-        //                var tokenDescriptoir = new SecurityTokenDescriptor()
-        //                {
-        //                    Subject = new ClaimsIdentity(
-        //                        new Claim[]
-        //                        {
-        //                    new Claim("UserId", user.id.ToString()),
-        //                    new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
-        //                    new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
-        //                        }
-        //                       ),
-        //                    Expires = DateTime.UtcNow.AddDays(20),
-        //                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-        //                };
-        //                var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
-        //                authInfo.Token = securityTokenHandler.WriteToken(securityToken);
-        //                authInfo.UserDetails = mapper.Map<UserDTO>(user);
-        //            }
-        //            catch { }
-        //        }
-        //        if (string.IsNullOrEmpty(authInfo?.Token))
-        //        {
-        //            return Unauthorized("Hemis token invalid");
-        //        }
-
-        //        SessionClass.token = "Bearer " + authInfo.Token;
-        //        SessionClass.id = authInfo.UserDetails.id;
-        //        return Ok(authInfo);
         //    }
-        //    return Unauthorized();
+        //    catch
+        //    {
+        //        return BadRequest("Hemis token invalid");
+        //    }
+
+        //    var hemisCredentials = new UserCredentials
+        //    {
+        //        Login = passportNumber,
+        //        Password = pinfl,
+        //        CaptchaNumbersSumm = credentials.CaptchaNumbersSumm
+        //    };
+
+        //    return await HandleLoginAsync(hemisCredentials, cancellationToken, true, credentials.CaptchaNumbersSumm);
         //}
+
+        private async Task<ActionResult<UserAuthInfoDTO>> HandleLoginAsync(UserCredentials credentials, CancellationToken cancellationToken, bool isHemis, int captcha)
+        {
+            var token = HttpContext.Request.Headers["Authorization"];
+            if (token != SessionClass.tokenCheck && token != SessionClass.token)
+            {
+                return Unauthorized();
+            }
+
+            if (credentials == null)
+            {
+                return BadRequest("No data");
+            }
+
+            var capt = captcheck.CheckCaptcha(captcha);
+            if (!capt)
+            {
+                return BadRequest("Captcha failed!");
+            }
+
+            credentials.Password = !isHemis ? credentials.Password = PasswordManager.EncryptPassword((credentials.Login + credentials.Password).ToString()) : credentials.Password;
+
+            var user = isHemis ? await repositoryManager.User.LoginAsyncHemis(credentials.Login, credentials.Password, false, cancellationToken)
+                                : await repositoryManager.User.LoginAsync(credentials.Login, credentials.Password, false, cancellationToken);
+
+            if (user == null)
+            {
+                return Unauthorized("Error login");
+            }
+
+            if (isHemis)
+            {
+                _logger.LogInformation($"Get By Passport number and Pinfl - User {JsonConvert.SerializeObject(credentials)}");
+            }
+            else
+            {
+                _logger.LogInformation($"Get By Login and Password - User {JsonConvert.SerializeObject(credentials)}");
+            }
+
+            try
+            {
+                var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new[]
+                    {
+                new Claim("UserId", user.id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
+                new Claim(ClaimTypes.Role, user.user_type_.type.ToString())
+            }),
+                    Expires = DateTime.UtcNow.AddDays(20),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var securityToken = securityTokenHandler.CreateToken(tokenDescriptor);
+                var authInfo = new UserAuthInfoDTO
+                {
+                    Token = securityTokenHandler.WriteToken(securityToken),
+                    UserDetails = mapper.Map<UserDTO>(user)
+                };
+
+                SessionClass.token = "Bearer " + authInfo.Token;
+                SessionClass.id = authInfo.UserDetails.id;
+
+                return Ok(authInfo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error generating token");
+                return Unauthorized("Error generating token");
+            }
+        }
 
 
         [Authorize]
@@ -225,15 +197,15 @@ namespace TSTUWebAPI.Controllers
         {
             try
             {
-                string token1 = HttpContext.Request.Headers["Authorization"].ToString();
-                int prefixLength = "Bearer ".Length;
-                string token = token1.Substring(prefixLength);
+                string authorizationHeader = HttpContext.Request.Headers["Authorization"].ToString();
+                string token = authorizationHeader.Substring("Bearer ".Length);
                 if (string.IsNullOrEmpty(token))
-                    return BadRequest();
+                {
+                    return BadRequest("Token is empty");
+                }
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-
 
                 var validationParameters = new TokenValidationParameters
                 {
@@ -245,82 +217,82 @@ namespace TSTUWebAPI.Controllers
                 };
 
                 var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-                int user_id = Convert.ToInt32(principal.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
-                if (user_id != 0)
-                {
-                    SessionClass.id = user_id;
-                    SessionClass.token = token1;
-                }
-                var check = principal.Identity.IsAuthenticated;
+                int userId = Convert.ToInt32(principal.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
 
-                if (!check)
+                if (userId == 0)
                 {
-                    return StatusCode(401);
+                    return Unauthorized("Invalid user ID");
                 }
 
-                TokenVerify tokenVerify = new TokenVerify()
-                {
-                    verification = true
-                };
-                return Ok(tokenVerify);
+                SessionClass.id = userId;
+                SessionClass.token = authorizationHeader;
 
+                if (!principal.Identity.IsAuthenticated)
+                {
+                    return Unauthorized("Authentication failed");
+                }
+
+                return Ok(new TokenVerify { verification = true });
             }
-            catch
+            catch (Exception ex)
             {
-                _logger.LogInformation($"invalid token");
-                return StatusCode(401);
+                _logger.LogError(ex, "Invalid token");
+                return Unauthorized("Invalid token");
             }
         }
 
 
         [Authorize]
         [HttpPut("userprofilupdated")]
-        public IActionResult UserProfilUpdated(UserProfilUpdatedDTO user)
+        public async Task<IActionResult> UserProfilUpdatedAsync(UserProfilUpdatedDTO user)
         {
             try
             {
-                TokenCheckModel();
-                if (SessionClass.id != 0)
+                var tokenCheckResult = TokenCheckModel();
+
+                if (SessionClass.id == 0)
                 {
-                    User userU = mapper.Map<User>(user);
-
-                    FileUploadRepository fileUpload = new FileUploadRepository();
-
-                    var Url = fileUpload.SaveFileAsync(user.img_up);
-
-                    if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
-                    {
-                        return BadRequest("File created error!");
-                    }
-                    if (Url != null && Url.Length > 0)
-                    {
-                        userU.person_.img_ = new Files
-                        {
-                            title = Guid.NewGuid().ToString(),
-                            url = Url
-                        };
-                    }
-
-                    if (userU != null)
-                    {
-                        string oldPassw = user.oldPassword;
-                        bool check = _repository.UpdateUserProfil(userU, oldPassw);
-                        if (check) { return Ok(true); }
-                    }
-                    return BadRequest();
+                    return Unauthorized();
                 }
 
+                var userU = mapper.Map<User>(user);
 
-                return Unauthorized();
+                var fileUpload = new FileUploadRepository();
+                var url = fileUpload.SaveFileAsync(user.img_up);
 
+                if (url == "File not found or empty!" || url == "Invalid file extension!" || url == "Error!")
+                {
+                    return BadRequest("File creation error!");
+                }
 
+                if (!string.IsNullOrEmpty(url))
+                {
+                    userU.person_.img_ = new Files
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = url
+                    };
+                }
+
+                if (userU != null)
+                {
+                    var oldPassw = user.oldPassword;
+                    var updateResult = _repository.UpdateUserProfil(userU, oldPassw);
+                    if (updateResult)
+                    {
+                        return Ok(true);
+                    }
+                }
+
+                return BadRequest("Profile update failed");
             }
-            catch
+            catch (Exception ex)
             {
-                _logger.LogInformation($"invalid token");
-                return StatusCode(401);
+                _logger.LogError(ex, "An error occurred while updating the user profile");
+                return StatusCode(401, "Bad Request");
             }
         }
+
 
     }
 
