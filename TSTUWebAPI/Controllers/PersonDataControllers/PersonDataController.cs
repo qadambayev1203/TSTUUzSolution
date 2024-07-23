@@ -226,7 +226,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
 
                 UserCrudCreatedDTO userDTO = null;
 
-                if (personData1.login != null || personData1.password != null)
+                if (personData1.password != null)
                 {
                     userDTO = new UserCrudCreatedDTO
                     {
