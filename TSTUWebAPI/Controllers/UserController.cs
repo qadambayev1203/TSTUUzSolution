@@ -244,57 +244,6 @@ namespace TSTUWebAPI.Controllers
             }
         }
 
-        //[Authorize]
-        //[HttpGet("refreshtoken")]
-        //public IActionResult RefreshToken()
-        //{
-        //    try
-        //    {
-        //        string authorizationHeader = HttpContext.Request.Headers["Authorization"].ToString();
-        //        string token = authorizationHeader.Substring("Bearer ".Length);
-        //        if (string.IsNullOrEmpty(token))
-        //        {
-        //            return BadRequest("Token is empty");
-        //        }
-
-        //        var tokenHandler = new JwtSecurityTokenHandler();
-        //        var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-
-        //        var validationParameters = new TokenValidationParameters
-        //        {
-        //            ValidateIssuerSigningKey = true,
-        //            IssuerSigningKey = new SymmetricSecurityKey(key),
-        //            ValidateIssuer = false,
-        //            ValidateAudience = false,
-        //            ClockSkew = TimeSpan.Zero
-        //        };
-
-        //        var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-        //        int userId = Convert.ToInt32(principal.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
-
-        //        if (userId == 0)
-        //        {
-        //            return Unauthorized("Invalid user ID");
-        //        }
-
-        //        SessionClass.id = userId;
-        //        SessionClass.token = authorizationHeader;
-
-        //        if (!principal.Identity.IsAuthenticated)
-        //        {
-        //            return Unauthorized("Authentication failed");
-        //        }
-
-
-
-                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Invalid token");
-        //        return Unauthorized("Invalid token");
-        //    }
-        //}
 
 
         [Authorize]
@@ -347,6 +296,7 @@ namespace TSTUWebAPI.Controllers
                 return StatusCode(401, "Bad Request");
             }
         }
+
 
 
     }

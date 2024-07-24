@@ -40,6 +40,16 @@ namespace Repository
                 .SingleOrDefaultAsync(cancellationToken);
         }
 
-
+        public async Task<User> RefreshToken(int user_id, bool tracking, CancellationToken cancellationToken = default)
+        {
+            return await FindByCondition(
+                    x => x.id.Equals(user_id), tracking)
+                .Include(u => u.user_type_)
+                .Include(u => u.person_).ThenInclude(x => x.img_)
+                .Include(u => u.person_).ThenInclude(x => x.employee_type_)
+                .Include(u => u.person_).ThenInclude(x => x.departament_).ThenInclude(x => x.departament_type_)
+                .Where(u => u.status_.status != "Deleted")
+                .SingleOrDefaultAsync(cancellationToken);
+        }
     }
 }
