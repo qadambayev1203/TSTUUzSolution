@@ -18,7 +18,6 @@ namespace Entities.DTO.DepartamentDTOS
     {
         public int id { get; set; }
         public string? title_short { get; set; }
-        public string? hemis_id { get; set; }
         public string? title { get; set; }
         public string? description { get; set; }
         public string? text { get; set; }

@@ -112,10 +112,10 @@ namespace TSTUWebAPI.Controllers
         //    {
         //        Login = passportNumber,
         //        Password = pinfl,
-        //        CaptchaNumbersSumm = credentials.CaptchaNumbersSumm
+        //        CaptchaNumbersSumm = 0
         //    };
 
-        //    return await HandleLoginAsync(hemisCredentials, cancellationToken, true, credentials.CaptchaNumbersSumm);
+        //    return await HandleLoginAsync(hemisCredentials, cancellationToken, true, 0);
         //}
 
         private async Task<ActionResult<UserAuthInfoDTO>> HandleLoginAsync(UserCredentials credentials, CancellationToken cancellationToken, bool isHemis, int captcha)
@@ -131,10 +131,13 @@ namespace TSTUWebAPI.Controllers
                 return BadRequest("No data");
             }
 
-            var capt = captcheck.CheckCaptcha(captcha);
-            if (!capt)
+            if (!isHemis)
             {
-                return BadRequest("Captcha failed!");
+                var capt = captcheck.CheckCaptcha(captcha);
+                if (!capt)
+                {
+                    return BadRequest("Captcha failed!");
+                }
             }
 
             credentials.Password = !isHemis ? credentials.Password = PasswordManager.EncryptPassword((credentials.Login + credentials.Password).ToString()) : credentials.Password;
@@ -240,6 +243,58 @@ namespace TSTUWebAPI.Controllers
                 return Unauthorized("Invalid token");
             }
         }
+
+        //[Authorize]
+        //[HttpGet("refreshtoken")]
+        //public IActionResult RefreshToken()
+        //{
+        //    try
+        //    {
+        //        string authorizationHeader = HttpContext.Request.Headers["Authorization"].ToString();
+        //        string token = authorizationHeader.Substring("Bearer ".Length);
+        //        if (string.IsNullOrEmpty(token))
+        //        {
+        //            return BadRequest("Token is empty");
+        //        }
+
+        //        var tokenHandler = new JwtSecurityTokenHandler();
+        //        var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
+
+        //        var validationParameters = new TokenValidationParameters
+        //        {
+        //            ValidateIssuerSigningKey = true,
+        //            IssuerSigningKey = new SymmetricSecurityKey(key),
+        //            ValidateIssuer = false,
+        //            ValidateAudience = false,
+        //            ClockSkew = TimeSpan.Zero
+        //        };
+
+        //        var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+        //        int userId = Convert.ToInt32(principal.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value);
+
+        //        if (userId == 0)
+        //        {
+        //            return Unauthorized("Invalid user ID");
+        //        }
+
+        //        SessionClass.id = userId;
+        //        SessionClass.token = authorizationHeader;
+
+        //        if (!principal.Identity.IsAuthenticated)
+        //        {
+        //            return Unauthorized("Authentication failed");
+        //        }
+
+
+
+                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Invalid token");
+        //        return Unauthorized("Invalid token");
+        //    }
+        //}
 
 
         [Authorize]
