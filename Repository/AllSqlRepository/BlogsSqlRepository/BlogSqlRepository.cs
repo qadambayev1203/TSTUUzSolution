@@ -35,7 +35,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             try
             {
                 int pageSize = queryNum > 0 ? Math.Min(queryNum, 200) : 10;
-                int skip = pageSize * (pageNum - 1);
+                int skip = pageNum > 0 ? pageSize * (pageNum - 1) : 1;
 
                 if (start_time.HasValue)
                 {
@@ -319,7 +319,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             try
             {
                 int pageSize = queryNum > 0 ? Math.Min(queryNum, 200) : 10;
-                int skip = pageSize * (pageNum - 1);
+                int skip = pageNum > 0 ? pageSize * (pageNum - 1) : 1;
 
                 if (start_time.HasValue)
                 {
