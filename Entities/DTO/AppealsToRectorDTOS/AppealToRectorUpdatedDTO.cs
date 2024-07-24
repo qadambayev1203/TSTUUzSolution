@@ -16,6 +16,6 @@ namespace Entities.DTO.AppealsToRectorDTOS
 {
     public class AppealToRectorUpdatedDTO
     {
-        public int status_id { get; set; }
+        public bool? confirm { get; set; }
     }
 }

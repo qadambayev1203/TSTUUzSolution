@@ -13,6 +13,7 @@ using Entities.Model.StatusModel;
 using Newtonsoft.Json;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonDataModel;
+using Entities.Model.AppealsToTheRectorsModel;
 
 namespace Repository.AllSqlRepository.BlogsSqlRepository
 {
@@ -29,49 +30,57 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
 
         #region Blog CRUD
-        public IEnumerable<Blog> AllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite)
+        public IEnumerable<Blog> AllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             try
             {
-                var blogs = new List<Blog>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    blogs = _context.blogs_20ts24tu
-                        .Include(x => x.status_)
-                        .Include(x => x.img_)
-                        .Include(x => x.blog_category_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
-                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
+                int pageSize = queryNum > 0 ? Math.Min(queryNum, 200) : 10;
+                int skip = pageSize * (pageNum - 1);
 
-                }
-                if (queryNum != 0 && pageNum != 0)
+                if (start_time.HasValue)
                 {
-                    if (queryNum > 200) { queryNum = 200; }
-                    blogs = _context.blogs_20ts24tu
-                        .Include(x => x.status_)
-                        .Include(x => x.img_)
-                        .Include(x => x.blog_category_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
-                        .Skip(queryNum * (pageNum - 1))
-                        .Take(queryNum).ToList();
-
+                    var time = start_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        start_time = time.ToUniversalTime();
+                    }
                 }
-                else
+
+                if (end_time.HasValue)
                 {
-                    blogs = _context.blogs_20ts24tu
-                        .Include(x => x.status_)
-                        .Include(x => x.img_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
-                        .Include(x => x.blog_category_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_).ToList();
-
+                    var time = end_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        end_time = time.ToUniversalTime();
+                    }
                 }
+
+
+                IQueryable<Blog> query = _context.blogs_20ts24tu
+                    .Include(x => x.status_)
+                    .Include(x => x.img_)
+                    .Include(x => x.blog_category_)
+                    .Include(x => x.user_).ThenInclude(y => y.user_type_);
+
+                if (favorite == true)
+                {
+                    query = query.Where(x => x.favorite == true);
+                }
+
+                if (start_time != null && end_time != null)
+                {
+                    query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
+                }
+
+                if (!string.IsNullOrEmpty(blog_category))
+                {
+                    query = query.Where(x => x.blog_category_.title.Equals(blog_category));
+                }
+
+                var blogs = query.Skip(skip).Take(pageSize).ToList();
+
                 return blogs;
+
             }
             catch (Exception ex)
             {
@@ -305,68 +314,69 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
 
         #region BlogTranslation CRUD
-        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite)
+        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             try
             {
-                var blogTranslations = new List<BlogTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    blogTranslations = _context.blogs_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_translation_)
-                        .Include(x => x.blog_)
-                        .Include(x => x.img_translation_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
-                        .Skip(10 * (pageNum - 1))
-                        .Take(10)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .ToList();
+                int pageSize = queryNum > 0 ? Math.Min(queryNum, 200) : 10;
+                int skip = pageSize * (pageNum - 1);
 
-                }
-                if (queryNum != 0 && pageNum != 0)
+                if (start_time.HasValue)
                 {
-                    if (queryNum > 200) { queryNum = 200; }
-                    blogTranslations = _context.blogs_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_translation_)
-                        .Include(x => x.blog_)
-                        .Include(x => x.img_translation_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(queryNum * (pageNum - 1))
-                        .Take(queryNum)
-                        .ToList();
-
+                    var time = start_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        start_time = time.ToUniversalTime();
+                    }
                 }
-                else
+
+                if (end_time.HasValue)
                 {
-                    blogTranslations = _context.blogs_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_translation_)
-                        .Include(x => x.blog_)
-                        .Include(x => x.img_translation_)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
-
+                    var time = end_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        end_time = time.ToUniversalTime();
+                    }
                 }
+
+                IQueryable<BlogTranslation> query = _context.blogs_translations_20ts24tu
+                    .Include(x => x.language_)
+                    .Include(x => x.status_translation_)
+                    .Include(x => x.blog_category_translation_)
+                    .Include(x => x.blog_)
+                    .Include(x => x.img_translation_)
+                    .Include(x => x.user_).ThenInclude(y => y.user_type_);
+
+                if (favorite == true)
+                {
+                    query = query.Where(x => x.favorite == true);
+                }
+
+                if (start_time != null && end_time != null)
+                {
+                    query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
+                }
+
+                if (!string.IsNullOrEmpty(blog_category))
+                {
+                    query = query.Where(x => x.blog_category_translation_.title.Equals(blog_category));
+                }
+
+                if (!string.IsNullOrEmpty(language_code))
+                {
+                    query = query.Where(x => x.language_.code.Equals(language_code));
+                }
+
+                var blogTranslations = query.Skip(skip).Take(pageSize).ToList();
+
                 return blogTranslations;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error" + ex.Message);
+                _logger.LogError($"Error: {ex.Message}");
                 return null;
             }
+
         }
 
         public IEnumerable<BlogTranslation> AllBlogTranslationSelect(string language_code, string? blog_category, bool? favorite)

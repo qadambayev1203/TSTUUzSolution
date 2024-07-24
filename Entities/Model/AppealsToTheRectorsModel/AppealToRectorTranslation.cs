@@ -43,8 +43,7 @@ namespace Entities.Model.AppealsToTheRectorsModel
         [ForeignKey("FilesTranslation")] public int? file_translation_id { get; set; }
         public FilesTranslation file_translation_ { get; set; }
         public string appeal { get; set; }
-        [ForeignKey("StatusTranslation")] public int? status_translation_id { get; set; }
-        public StatusTranslation status_translation_ { get; set; }
+        public bool? confirm { get; set; }
         public DateTime created_at { get; set; }
     }
 }

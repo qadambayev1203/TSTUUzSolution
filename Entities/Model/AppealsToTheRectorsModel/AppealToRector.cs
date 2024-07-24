@@ -35,13 +35,12 @@ namespace Entities.Model.AppealsToTheRectorsModel
         [ForeignKey("Employment")] public int? employe_id { get; set; }
         public Employment? employe_ { get; set; }
         [MaxLength(50)] public string telephone_number_one { get; set; }
-        [MaxLength(50)]public string telephone_number_two { get; set; }
-        [MaxLength(150)]public string email { get; set; }
+        [MaxLength(50)] public string telephone_number_two { get; set; }
+        [MaxLength(150)] public string email { get; set; }
         [ForeignKey("Files")] public int? file_id { get; set; }
         public Files file_ { get; set; }
         public string appeal { get; set; }
-        [ForeignKey("Status")] public int? status_id { get; set; }
-        public Status status_ { get; set; }
+        public bool? confirm { get; set; }
         public DateTime created_at { get; set; }
 
 

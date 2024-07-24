@@ -18,7 +18,8 @@ namespace Entities.DTO.AppealsToRectorDTOS
 {
     public class AppealToRectorTranslationUpdatedDTO
     {
-        
-        public int status_translation_id { get; set; }
+
+        public bool? confirm { get; set; }
+
     }
 }

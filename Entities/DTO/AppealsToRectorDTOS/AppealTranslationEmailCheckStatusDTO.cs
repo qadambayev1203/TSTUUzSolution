@@ -12,7 +12,8 @@ namespace Entities.DTO.AppealsToRectorDTOS
     {
         public int id { get; set; }
         public string appeal { get; set; }
-        public StatusTranslationConfReadedDTO status_translation_ { get; set; }
+        public bool? confirm { get; set; }
+
 
     }
 }

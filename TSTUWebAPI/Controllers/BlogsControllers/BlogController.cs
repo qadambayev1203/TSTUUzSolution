@@ -74,11 +74,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallblog")]
-        public IActionResult GetAllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite)
+        public IActionResult GetAllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Blog> blogs1 = _repository.AllBlog(queryNum, pageNum, blog_category, favorite);
+            IEnumerable<Blog> blogs1 = _repository.AllBlog(queryNum, pageNum, blog_category, favorite, start_time, end_time);
             var blogs = _mapper.Map<IEnumerable<BlogReadedDTO>>(blogs1);
             if (blogs == null) { }
             return Ok(blogs);
@@ -253,11 +253,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallblogtranslation")]
-        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string? language_code, string? blog_category, bool? favorite)
+        public IActionResult GetAllBlogTranslation(int queryNum, int pageNum, string? language_code, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum, language_code, blog_category, favorite);
+            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum, language_code, blog_category, favorite, start_time, end_time);
             var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedDTO>>(blogtranslations1);
             if (blogtranslations == null) { }
             return Ok(blogtranslations);

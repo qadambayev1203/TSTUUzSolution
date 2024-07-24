@@ -22,15 +22,13 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
     public class AppealToRectorController : ControllerBase
     {
         private readonly IAppealToRectorRepository _repository;
-        private readonly IStatusRepositoryStatic _status;
         private readonly IMapper _mapper;
         private readonly CaptchaCheck captcheck;
-        public AppealToRectorController(IAppealToRectorRepository repository, IMapper mapper, CaptchaCheck _captcha, IStatusRepositoryStatic _status1)
+        public AppealToRectorController(IAppealToRectorRepository repository, IMapper mapper, CaptchaCheck _captcha)
         {
             _repository = repository;
             _mapper = mapper;
             captcheck = _captcha;
-            _status = _status1;
         }
 
 
@@ -67,12 +65,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                     title = Guid.NewGuid().ToString(),
                     url = Url
                 };
-                AppealToRector.status_id = _status.GetStatusId("Active");
-
-                var time = AppealToRector1.birthday.ToUniversalTime();
-                AppealToRector.birthday = time;
-                AppealToRector.created_at = DateTime.UtcNow;
-
+                AppealToRector.confirm = false;
 
                 int id = _repository.CreateAppealToRector(AppealToRector);
 
@@ -96,11 +89,11 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallappealtorector")]
-        public IActionResult GetAllAppealToRector(int queryNum, int pageNum)
+        public IActionResult GetAllAppealToRector(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<AppealToRector> AppealToRectors1 = _repository.AllAppealToRector(queryNum, pageNum);
+            IEnumerable<AppealToRector> AppealToRectors1 = _repository.AllAppealToRector(queryNum, pageNum, start_time, end_time);
             var AppealToRectors = _mapper.Map<IEnumerable<AppealToRectorReadedDTO>>(AppealToRectors1);
             if (AppealToRectors == null) { }
 
@@ -123,32 +116,15 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("deleteappealtorector/{id}")]
-        public IActionResult DeleteAppealToRector(int id)
-        {
-            bool check = _repository.DeleteAppealToRector(id);
-            if (!check)
-            {
-                return BadRequest();
-            }
-            bool check2 = _repository.SaveChanges();
-            if (!check2)
-            {
-                return BadRequest();
-            }
-            return Ok("Deleted");
-        }
-
-        [Authorize(Roles = "Admin")]
         [HttpPut("updateappealtorector/{id}")]
-        public IActionResult UpdateAppealToRector(int status_id, int id)
+        public IActionResult UpdateAppealToRector(bool confirm, int id)
         {
             try
             {
                 var AppealToRectorcheck = _repository.GetAppealToRectorById(id);
                 AppealToRectorUpdatedDTO AppealToRector1 = new AppealToRectorUpdatedDTO()
                 {
-                    status_id = status_id
+                    confirm = confirm
                 };
                 if (AppealToRectorcheck == null || AppealToRector1 == null)
                 {
@@ -231,11 +207,9 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                     url = Url
                 };
 
-                AppealToRectortranslation.status_translation_id = _status.GetStatusTranslationId("Active",(int)AppealToRectortranslation.language_id);
+                AppealToRectortranslation.confirm = false;
 
-                var time = AppealToRectortranslation1.birthday.ToUniversalTime();
-                AppealToRectortranslation.birthday = time;
-                AppealToRectortranslation.created_at = DateTime.UtcNow; ;
+
 
 
                 int id = _repository.CreateAppealToRectorTranslation(AppealToRectortranslation);
@@ -262,11 +236,11 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallappealtorectortranslation")]
-        public IActionResult GetAllAppealToRectorTranslation(int queryNum, int pageNum, string? language_code)
+        public IActionResult GetAllAppealToRectorTranslation(int queryNum, int pageNum, string? language_code, DateTime? start_time, DateTime? end_time)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<AppealToRectorTranslation> AppealToRectortranslations1 = _repository.AllAppealToRectorTranslation(queryNum, pageNum, language_code);
+            IEnumerable<AppealToRectorTranslation> AppealToRectortranslations1 = _repository.AllAppealToRectorTranslation(queryNum, pageNum, language_code, start_time, end_time);
             var AppealToRectortranslations = _mapper.Map<IEnumerable<AppealToRectorTranslationReadedDTO>>(AppealToRectortranslations1);
             if (AppealToRectortranslations == null) { }
 
@@ -286,32 +260,15 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("deleteappealtorectortranslation/{id}")]
-        public IActionResult DeleteAppealToRectorTranslation(int id)
-        {
-            bool check = _repository.DeleteAppealToRectorTranslation(id);
-            if (!check)
-            {
-                return BadRequest();
-            }
-            bool check2 = _repository.SaveChanges();
-            if (!check2)
-            {
-                return BadRequest();
-            }
-            return Ok("Deleted");
-        }
-
-        [Authorize(Roles = "Admin")]
         [HttpPut("updateappealtorectortranslation/{id}")]
-        public IActionResult UpdateAppealToRectorTranslation(int status_translation_id, int id)
+        public IActionResult UpdateAppealToRectorTranslation(bool confirm, int id)
         {
             try
             {
                 var AppealToRectortranslationch = _repository.GetAppealToRectorTranslationById(id);
                 AppealToRectorTranslationUpdatedDTO AppealToRectortranslation1 = new AppealToRectorTranslationUpdatedDTO()
                 {
-                    status_translation_id = status_translation_id,
+                    confirm = confirm,
                 };
                 if (AppealToRectortranslationch == null || AppealToRectortranslation1 == null)
                 {

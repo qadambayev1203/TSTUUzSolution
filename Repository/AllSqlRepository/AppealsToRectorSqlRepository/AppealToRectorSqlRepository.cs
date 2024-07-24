@@ -23,12 +23,30 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
 
 
         #region AppealToRector CRUD
-        public IEnumerable<AppealToRector> AllAppealToRector(int queryNum, int pageNum)
+        public IEnumerable<AppealToRector> AllAppealToRector(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time)
         {
             try
             {
+                if (start_time.HasValue)
+                {
+                    var time = start_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        start_time = time.ToUniversalTime();
+                    }
+                }
+
+                if (end_time.HasValue)
+                {
+                    var time = end_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        end_time = time.ToUniversalTime();
+                    }
+                }
+
+
                 IQueryable<AppealToRector> AppealToRectors = _context.appeals_to_rectors_20ts24tu
-                        .Include(x => x.status_)
                         .Include(x => x.country_)
                         .Include(x => x.territorie_)
                         .Include(x => x.district_)
@@ -37,12 +55,19 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Include(x => x.employe_)
                         .Include(x => x.file_);
 
+
                 if (queryNum == 0 && pageNum != 0)
                 {
 
                     AppealToRectors.Skip(10 * (pageNum - 1)).Take(10).ToList();
 
                 }
+
+                if (start_time != null && end_time != null)
+                {
+                    AppealToRectors.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+                }
+
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
@@ -71,6 +96,15 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                 {
                     return 0;
                 }
+
+                if (AppealToRector.birthday.Kind != DateTimeKind.Utc)
+                {
+                    AppealToRector.birthday = AppealToRector.birthday.ToUniversalTime();
+                }
+
+                AppealToRector.created_at = DateTime.UtcNow;
+
+
                 _context.appeals_to_rectors_20ts24tu.Add(AppealToRector);
                 _context.SaveChanges();
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(AppealToRector));
@@ -84,34 +118,11 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             }
         }
 
-        public bool DeleteAppealToRector(int id)
-        {
-            try
-            {
-                var AppealToRector = GetAppealToRectorById(id);
-                if (AppealToRector == null)
-                {
-                    return false;
-                }
-                AppealToRector.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
-                _context.appeals_to_rectors_20ts24tu.Update(AppealToRector);
-                _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(AppealToRector));
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error" + ex.Message);
-                return false;
-            }
-        }
-
         public AppealToRector GetAppealToRectorById(int id)
         {
             try
             {
                 var AppealToRector = _context.appeals_to_rectors_20ts24tu
-                        .Include(x => x.status_)
                         .Include(x => x.country_)
                         .Include(x => x.territorie_)
                         .Include(x => x.district_)
@@ -140,7 +151,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                 {
                     return false;
                 }
-                AppealToRectorcheck.status_id = AppealToRector.status_id;
+                AppealToRectorcheck.confirm = AppealToRector.confirm;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(AppealToRector));
                 return true;
             }
@@ -160,7 +171,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                     {
                         id = y.id,
                         appeal = y.appeal,
-                        status_ = y.status_
+                        confirm = y.confirm
                     }).ToList();
                 return appealToRectorsStatus;
             }
@@ -177,13 +188,30 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
 
 
         #region AppealToRectorTranslation CRUD
-        public IEnumerable<AppealToRectorTranslation> AllAppealToRectorTranslation(int queryNum, int pageNum, string language_code)
+        public IEnumerable<AppealToRectorTranslation> AllAppealToRectorTranslation(int queryNum, int pageNum, string language_code, DateTime? start_time, DateTime? end_time)
         {
             try
             {
+                if (start_time.HasValue)
+                {
+                    var time = start_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        start_time = time.ToUniversalTime();
+                    }
+                }
+
+                if (end_time.HasValue)
+                {
+                    var time = end_time.Value;
+                    if (time.Kind != DateTimeKind.Utc)
+                    {
+                        end_time = time.ToUniversalTime();
+                    }
+                }
+
                 IQueryable<AppealToRectorTranslation> AppealToRectorTranslations = _context.appeals_to_rectors_translations_20ts24tu
                         .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
                         .Include(x => x.country_translation_)
                         .Include(x => x.territorie_translation_id)
                         .Include(x => x.district_translation_)
@@ -201,6 +229,12 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .ToList();
 
                 }
+
+                if (start_time != null && end_time != null)
+                {
+                    AppealToRectorTranslations.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+                }
+
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
@@ -227,12 +261,20 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
         {
             try
             {
-                AppealToRectorTranslation.status_translation_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Active")).id;
+                AppealToRectorTranslation.confirm = false;
 
                 if (AppealToRectorTranslation == null)
                 {
                     return 0;
                 }
+
+                if (AppealToRectorTranslation.birthday.Kind != DateTimeKind.Utc)
+                {
+                    AppealToRectorTranslation.birthday = AppealToRectorTranslation.birthday.ToUniversalTime();
+                }
+
+                AppealToRectorTranslation.created_at = DateTime.UtcNow;
+
                 _context.appeals_to_rectors_translations_20ts24tu.Add(AppealToRectorTranslation);
                 _context.SaveChanges();
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(AppealToRectorTranslation));
@@ -246,28 +288,6 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             }
         }
 
-        public bool DeleteAppealToRectorTranslation(int id)
-        {
-            try
-            {
-                var AppealToRectorTranslation = GetAppealToRectorTranslationById(id);
-                if (AppealToRectorTranslation == null)
-                {
-                    return false;
-                }
-                AppealToRectorTranslation.status_translation_id = (_context.statuses_translations_20ts24tu
-                    .FirstOrDefault(x => x.status == "Deleted" && x.language_id == AppealToRectorTranslation.language_id)).id;
-                _context.appeals_to_rectors_translations_20ts24tu.Update(AppealToRectorTranslation);
-                _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(AppealToRectorTranslation));
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error" + ex.Message);
-                return false;
-            }
-        }
 
         public AppealToRectorTranslation GetAppealToRectorTranslationById(int id)
         {
@@ -275,7 +295,6 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             {
                 var AppealToRectorTranslation = _context.appeals_to_rectors_translations_20ts24tu
                         .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
                         .Include(x => x.country_translation_)
                         .Include(x => x.territorie_translation_id)
                         .Include(x => x.district_translation_)
@@ -302,7 +321,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                 {
                     return false;
                 }
-                AppealToRectorcheck.status_translation_id = AppealToRectorTranslation.status_translation_id;
+                AppealToRectorcheck.confirm = AppealToRectorTranslation.confirm;
                 _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(AppealToRectorTranslation));
                 return true;
             }
@@ -324,7 +343,7 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                     {
                         id = y.id,
                         appeal = y.appeal,
-                        status_translation_ = y.status_translation_
+                        confirm = y.confirm
                     }).ToList();
                 return appealToRectorsStatus;
             }

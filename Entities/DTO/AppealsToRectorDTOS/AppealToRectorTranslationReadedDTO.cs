@@ -29,7 +29,8 @@ namespace Entities.DTO.AppealsToRectorDTOS
         public string email { get; set; }
         public FileTranslationConfReadedDTO file_translation_ { get; set; }
         public string appeal { get; set; }
-        public StatusTranslationConfReadedDTO status_translation_ { get; set; }
+        public bool? confirm { get; set; }
+
         public DateTime created_at { get; set; }
     }
 }

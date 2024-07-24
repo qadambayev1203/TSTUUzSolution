@@ -11,7 +11,7 @@ namespace Contracts.AllRepository.BlogsRepository
     public interface IBlogRepository
     {
         //Blog CRUD
-        public IEnumerable<Blog> AllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite);
+        public IEnumerable<Blog> AllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time);
         public IEnumerable<Blog> AllBlogSelect(string? blog_category, bool? favorite);
         public IEnumerable<Blog> AllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite);
         public Blog GetBlogById(int id);
@@ -23,7 +23,7 @@ namespace Contracts.AllRepository.BlogsRepository
 
 
         //BlogTranslation CRUD
-        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite);
+        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time);
         public IEnumerable<BlogTranslation> AllBlogTranslationSelect(string language_code, string? blog_category, bool? favorite);
         public IEnumerable<BlogTranslation> AllBlogTranslationSite(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite);
         public BlogTranslation GetBlogTranslationById(int id);

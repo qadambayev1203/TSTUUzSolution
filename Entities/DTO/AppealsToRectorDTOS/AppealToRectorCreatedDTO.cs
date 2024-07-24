@@ -11,9 +11,9 @@ namespace Entities.DTO.AppealsToRectorDTOS
     public class AppealToRectorCreatedDTO
     {
         public int country_id { get; set; }
-        public int territorie_id { get; set; }
-        public int district_id { get; set; }
-        public int neighborhood_id { get; set; }
+        public int? territorie_id { get; set; }
+        public int? district_id { get; set; }
+        public int? neighborhood_id { get; set; }
         public string addres { get; set; }
         public string fio_ { get; set; }
         public DateTime birthday { get; set; }

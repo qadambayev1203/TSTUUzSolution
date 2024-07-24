@@ -40,7 +40,7 @@ namespace Entities.DTO.AppealsToRectorDTOS
         public string email { get; set; }
         public FileConfReadedDTO file_ { get; set; }
         public string appeal { get; set; }
-        public StatusConfReadedDTO status_ { get; set; }
+        public bool? confirm { get; set; }
         public DateTime created_at { get; set; }
     }
 }
