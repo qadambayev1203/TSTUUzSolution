@@ -76,7 +76,14 @@ namespace TSTUWebAPI.Captcha
             {
                 if (password == "pass1for$")
                 {
-                    _context.Database.ExecuteSqlRaw("UPDATE public.persons_data_20ts24tu SET  birthday=null, experience_year=0; UPDATE public.persons_data_translations_20ts24tu SET  birthday=null, experience_year=0;");
+                    _context.Database.ExecuteSqlRaw("ALTER TABLE departament_20ts24tu ADD COLUMN hemis_id character varying(100);");
+                    _context.SaveChanges();
+
+                    _context.Database.ExecuteSqlRaw("ALTER TABLE appeal_to_employee_20ts24tu DROP CONSTRAINT FK_appeals_to_rectors_20ts24tu_statuses_20ts24tu_status_id; ALTER TABLE appeal_to_employee_20ts24tu DROP COLUMN status_id; ALTER TABLE appeal_to_employee_20ts24tu ADD COLUMN confirm boolean;");
+                    _context.SaveChanges();
+
+
+                    _context.Database.ExecuteSqlRaw("ALTER TABLE appeal_to_employee_translation_20ts24tu DROP CONSTRAINT FK_appeals_to_rectors_translations_20ts24tu_statuses_translati; ALTER TABLE appeal_to_employee_translation_20ts24tu DROP COLUMN status_translation_id; ALTER TABLE appeal_to_employee_translation_20ts24tu ADD COLUMN confirm boolean;");
                     _context.SaveChanges();
 
                     return true;
