@@ -31,26 +31,7 @@ namespace TSTUWebAPI.Controllers.CaptchaControllers
             return Unauthorized();
 
         }
-
-        [StaticAuth]
-        [HttpGet("birthdaynull")]
-        public IActionResult BirthdayNull(string password)
-        {
-            bool check = captcheck.BirthdayNull(password);
-            if (check) { return Ok(); }
-            return NoContent();
-
-        }
-
-        //[StaticAuth]
-        //[HttpGet("alluserprofilcreated")]
-        //public IActionResult AllUserProfilCreated()
-        //{
-        //    //bool check = captcheck.AllUserLoginPasswordCreated();
-        //    bool check = captcheck.BirthdayNull("pass1for$");
-        //    if (check) { return Ok(); }
-        //    return NoContent();
-
-        //}
+       
+       
     }
 }
