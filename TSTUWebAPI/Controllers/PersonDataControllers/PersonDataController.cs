@@ -55,7 +55,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
                 };
             }
 
-           
+
 
             User user = _mapper.Map<User>(userDTO);
 
@@ -226,7 +226,7 @@ namespace TSTUWebAPI.Controllers.PersonDataControllers
 
                 UserCrudCreatedDTO userDTO = null;
 
-                if (personData1.password != null)
+                if ((personData1.password != null && personData1.password != "null") && (personData1.login != null && personData1.login != "null"))
                 {
                     userDTO = new UserCrudCreatedDTO
                     {
