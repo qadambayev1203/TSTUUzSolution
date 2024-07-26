@@ -29,20 +29,16 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             {
                 if (start_time.HasValue)
                 {
-                    var time = start_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        start_time = time.ToUniversalTime();
-                    }
+                    var time = start_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
                 }
 
                 if (end_time.HasValue)
                 {
-                    var time = end_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        end_time = time.ToUniversalTime();
-                    }
+                    var time = end_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
                 }
 
 
@@ -56,30 +52,26 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Include(x => x.file_);
 
 
-                if (queryNum == 0 && pageNum != 0)
-                {
 
-                    AppealToRectors.Skip(10 * (pageNum - 1)).Take(10).ToList();
-
-                }
 
                 if (start_time != null && end_time != null)
                 {
-                    AppealToRectors.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+                    AppealToRectors = AppealToRectors.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+                }
+                if (queryNum == 0 && pageNum != 0)
+                {
+
+                    AppealToRectors = AppealToRectors.Skip(10 * (pageNum - 1)).Take(10);
+
                 }
 
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    AppealToRectors.Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+                    AppealToRectors = AppealToRectors.Skip(queryNum * (pageNum - 1)).Take(queryNum);
 
                 }
-                else
-                {
-                    AppealToRectors.ToList();
-
-                }
-                return AppealToRectors;
+                return AppealToRectors.ToList();
             }
             catch (Exception ex)
             {
@@ -97,9 +89,12 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                     return 0;
                 }
 
-                if (AppealToRector.birthday.Kind != DateTimeKind.Utc)
+                if (AppealToRector.birthday.HasValue)
                 {
-                    AppealToRector.birthday = AppealToRector.birthday.ToUniversalTime();
+                    if (AppealToRector.birthday.Value.Kind != DateTimeKind.Utc)
+                    {
+                        AppealToRector.birthday = AppealToRector.birthday.Value.ToUniversalTime().AddDays(1);
+                    }
                 }
 
                 AppealToRector.created_at = DateTime.UtcNow;
@@ -194,20 +189,16 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
             {
                 if (start_time.HasValue)
                 {
-                    var time = start_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        start_time = time.ToUniversalTime();
-                    }
+                    var time = start_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
                 }
 
                 if (end_time.HasValue)
                 {
-                    var time = end_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        end_time = time.ToUniversalTime();
-                    }
+                    var time = end_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
                 }
 
                 IQueryable<AppealToRectorTranslation> AppealToRectorTranslations = _context.appeals_to_rectors_translations_20ts24tu
@@ -218,36 +209,29 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                         .Include(x => x.neighborhood_translation_)
                         .Include(x => x.gender_translation_)
                         .Include(x => x.employe_translation_)
-                        .Include(x => x.file_translation_);
+                        .Include(x => x.file_translation_)
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
+
+
+                if (start_time != null && end_time != null)
+                {
+                    AppealToRectorTranslations = AppealToRectorTranslations.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+                }
 
                 if (queryNum == 0 && pageNum != 0)
                 {
 
-                    AppealToRectorTranslations.Skip(10 * (pageNum - 1))
-                        .Take(10)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .ToList();
-
-                }
-
-                if (start_time != null && end_time != null)
-                {
-                    AppealToRectorTranslations.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+                    AppealToRectorTranslations = AppealToRectorTranslations.Skip(10 * (pageNum - 1))
+                        .Take(10);
                 }
 
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    AppealToRectorTranslations.Skip(queryNum * (pageNum - 1))
-                        .Take(queryNum)
-                        .ToList();
-
+                    AppealToRectorTranslations = AppealToRectorTranslations.Skip(queryNum * (pageNum - 1))
+                        .Take(queryNum);
                 }
-                else
-                {
-                    AppealToRectorTranslations.ToList();
 
-                }
                 return AppealToRectorTranslations;
             }
             catch (Exception ex)
@@ -267,10 +251,14 @@ namespace Repository.AllSqlRepository.AppealsToRectorSqlRepository
                 {
                     return 0;
                 }
-
-                if (AppealToRectorTranslation.birthday.Kind != DateTimeKind.Utc)
+                if (AppealToRectorTranslation.birthday.HasValue)
                 {
-                    AppealToRectorTranslation.birthday = AppealToRectorTranslation.birthday.ToUniversalTime();
+
+                    if (AppealToRectorTranslation.birthday.Value.Kind != DateTimeKind.Utc)
+                    {
+                        AppealToRectorTranslation.birthday = AppealToRectorTranslation.birthday.Value.ToUniversalTime();
+                        AppealToRectorTranslation.birthday = AppealToRectorTranslation.birthday.Value.AddDays(1);
+                    }
                 }
 
                 AppealToRectorTranslation.created_at = DateTime.UtcNow;

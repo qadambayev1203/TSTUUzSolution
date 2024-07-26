@@ -261,6 +261,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 if (personData.birthday != null)
                 {
                     DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
+                    utcDateTime = utcDateTime.AddDays(1);
                     personData.birthday = utcDateTime;
                 }
 
@@ -439,6 +440,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 if (personData.birthday != null)
                 {
                     DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
+                    utcDateTime = utcDateTime.AddDays(1);
                     personData.birthday = utcDateTime;
                 }
 
@@ -842,6 +844,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 DateTime localDateTime = DateTime.Parse(personDataTranslation.birthday.ToString());
                 localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
                 DateTime utcDateTime = localDateTime.ToUniversalTime();
+                utcDateTime = utcDateTime.AddDays(1);
 
                 personDataTranslation.birthday = utcDateTime;
                 personDataTranslation.persons_translation_.language_id = personDataTranslation.language_id;
@@ -1033,6 +1036,7 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 DateTime localDateTime = DateTime.Parse(personData.birthday.ToString());
                 localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
                 DateTime utcDateTime = localDateTime.ToUniversalTime();
+                utcDateTime = utcDateTime.AddDays(1);
 
                 personData.birthday = utcDateTime;
                 personData.persons_translation_.language_id = personData.language_id;

@@ -34,26 +34,20 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
         {
             try
             {
-                int pageSize = queryNum > 0 ? Math.Min(queryNum, 200) : 10;
-                int skip = pageNum > 0 ? pageSize * (pageNum - 1) : 1;
-
                 if (start_time.HasValue)
                 {
-                    var time = start_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        start_time = time.ToUniversalTime();
-                    }
+                    var time = start_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
                 }
 
                 if (end_time.HasValue)
                 {
-                    var time = end_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        end_time = time.ToUniversalTime();
-                    }
+                    var time = end_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
                 }
+
 
 
                 IQueryable<Blog> query = _context.blogs_20ts24tu
@@ -69,7 +63,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
                 if (start_time != null && end_time != null)
                 {
-                    query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
+                    query = query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
                 }
 
                 if (!string.IsNullOrEmpty(blog_category))
@@ -77,9 +71,21 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                     query = query.Where(x => x.blog_category_.title.Equals(blog_category));
                 }
 
-                var blogs = query.Skip(skip).Take(pageSize).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (pageNum - 1)).Take(10);
 
-                return blogs;
+                }
+                if (queryNum != 0 && pageNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    query = query.Take(queryNum);
+
+                }
+
+                return query.ToList();
+
+
 
             }
             catch (Exception ex)
@@ -179,10 +185,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 DateTime localDateTime = DateTime.Parse(blog.event_date.ToString());
                 localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
                 DateTime utcDateTime = localDateTime.ToUniversalTime();
+                utcDateTime = utcDateTime.AddDays(1);
 
                 DateTime localDateTime1 = DateTime.Parse(blog.event_end_date.ToString());
                 localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
                 DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+                utcDateTime1 = utcDateTime1.AddDays(1);
 
                 blog.event_date = utcDateTime;
                 blog.event_end_date = utcDateTime1;
@@ -274,10 +282,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 DateTime localDateTime = DateTime.Parse(blog.event_date.ToString());
                 localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
                 DateTime utcDateTime = localDateTime.ToUniversalTime();
+                utcDateTime = utcDateTime.AddDays(1);
 
                 DateTime localDateTime1 = DateTime.Parse(blog.event_end_date.ToString());
                 localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
                 DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+                utcDateTime1 = utcDateTime1.AddDays(1);
 
                 blog.event_date = utcDateTime;
                 blog.event_end_date = utcDateTime1;
@@ -318,25 +328,18 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
         {
             try
             {
-                int pageSize = queryNum > 0 ? Math.Min(queryNum, 200) : 10;
-                int skip = pageNum > 0 ? pageSize * (pageNum - 1) : 1;
-
                 if (start_time.HasValue)
                 {
-                    var time = start_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        start_time = time.ToUniversalTime();
-                    }
+                    var time = start_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
                 }
 
                 if (end_time.HasValue)
                 {
-                    var time = end_time.Value;
-                    if (time.Kind != DateTimeKind.Utc)
-                    {
-                        end_time = time.ToUniversalTime();
-                    }
+                    var time = end_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
                 }
 
                 IQueryable<BlogTranslation> query = _context.blogs_translations_20ts24tu
@@ -354,7 +357,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
                 if (start_time != null && end_time != null)
                 {
-                    query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
+                    query = query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
                 }
 
                 if (!string.IsNullOrEmpty(blog_category))
@@ -367,9 +370,19 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                     query = query.Where(x => x.language_.code.Equals(language_code));
                 }
 
-                var blogTranslations = query.Skip(skip).Take(pageSize).ToList();
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (pageNum - 1)).Take(10);
 
-                return blogTranslations;
+                }
+                if (queryNum != 0 && pageNum != 0)
+                {
+                    if (queryNum > 200) { queryNum = 200; }
+                    query = query.Take(queryNum);
+
+                }
+
+                return query.ToList();
             }
             catch (Exception ex)
             {
@@ -490,10 +503,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 DateTime localDateTime = DateTime.Parse(blogTranslation.event_date.ToString());
                 localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
                 DateTime utcDateTime = localDateTime.ToUniversalTime();
+                utcDateTime = utcDateTime.AddDays(1);
 
                 DateTime localDateTime1 = DateTime.Parse(blogTranslation.event_end_date.ToString());
                 localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
                 DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+                utcDateTime1 = utcDateTime1.AddDays(1);
 
                 blogTranslation.event_date = utcDateTime;
                 blogTranslation.event_end_date = utcDateTime1;
@@ -628,10 +643,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 DateTime localDateTime = DateTime.Parse(blog.event_date.ToString());
                 localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
                 DateTime utcDateTime = localDateTime.ToUniversalTime();
+                utcDateTime = utcDateTime.AddDays(1);
 
                 DateTime localDateTime1 = DateTime.Parse(blog.event_end_date.ToString());
                 localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
                 DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
+                utcDateTime1 = utcDateTime1.AddDays(1);
 
                 blog.event_date = utcDateTime;
                 blog.event_end_date = utcDateTime1;
