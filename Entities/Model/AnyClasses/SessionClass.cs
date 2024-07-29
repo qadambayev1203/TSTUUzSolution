@@ -25,9 +25,9 @@ namespace Entities.Model.AnyClasses
 
         public static string fileUploadsUrl = @"";
 
-        public static readonly string[] allowedExtensions = { ".jpg", ".jpeg", ".mp4", ".avi", ".png", ".gif", ".doc", ".docx", ".xlsx", ".pdf", ".ppt", ".pptx" };
+        public static readonly string[] allowedExtensions = { ".jpg", ".jfif", ".jpeg", ".mp4", ".avi", ".png", ".gif", ".doc", ".docx", ".xlsx", ".pdf", ".ppt", ".pptx" };
 
-        public static readonly string[] allowedExtensionsImg = { ".jpg", ".jpeg", ".png", ".gif" };
+        public static readonly string[] allowedExtensionsImg = { ".jpg", ".jfif", ".jpeg", ".png", ".gif" };
 
         public static readonly string[] allowedExtensionsDoc = { ".doc", ".docx", ".pdf", ".ppt", ".pptx", ".xlsx" };
 
@@ -63,5 +63,5 @@ namespace Entities.Model.AnyClasses
 
     }
 }
- 
+
 //"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhbGwiLCJyb2xlIjoiQW55IiwibmJmIjoxNzExNjk3MDUxLCJleHAiOjE3MTE2OTcwNTIsImlhdCI6MTcxMTY5NzA1MX0.o64p8lC1PMQDjPsmH6dWR1N-tuyTEG9-v0NHfJVHdlk";
