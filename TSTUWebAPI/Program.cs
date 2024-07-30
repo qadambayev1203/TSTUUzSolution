@@ -80,6 +80,8 @@ using Contracts.AllRepository.ProfilsRepository;
 using Repository.AllSqlRepository.ProfilsSqlRepopsitory;
 using Contracts.AllRepository.AppealToEmployeesRepository;
 using Repository.AllSqlRepository.AppealToEmployeesSqlRepository;
+using Contracts.AllRepository.DocumentTeacher110Repository;
+using Repository.AllSqlRepository.DocumentsTeacher110SqlRepository;
 
 #endregion
 
@@ -256,9 +258,12 @@ try
 
     //FrontLogFiles
     builder.Services.AddScoped<IFrontLogFileRepository, FrontLogFileSqlRepository>();
-    
+
     //UserProfils
     builder.Services.AddScoped<IProfilRepository, ProfilSqlRepository>();
+
+    //DocumentTeacher110
+    builder.Services.AddScoped<IDocumentTeacher110Repository, DocumentTeacher110SqlRepository>();
 
     #endregion
 

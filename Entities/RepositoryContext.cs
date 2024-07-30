@@ -9,6 +9,7 @@ using Entities.Model.DepartamentDetailsModel;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DepartamentsTypeModel;
 using Entities.Model.DistrictsModel;
+using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.EmployeeTypesModel;
 using Entities.Model.EmploymentModel;
 using Entities.Model.FileModel;
@@ -173,6 +174,8 @@ namespace Entities
         public DbSet<StatisticalNumbersTranslation> statistical_numbers_translations_20ts24tu { get; set; }
         public DbSet<AppealToEmployee> appeal_to_employee_20ts24tu { get; set; }
         public DbSet<AppealToEmployeeTranslation> appeal_to_employee_translation_20ts24tu { get; set; }
+        public DbSet<DocumentTeacher110> doucument_teacher_110_20ts24tu { get; set; }
+        public DbSet<DocumentTeacher110Set> doucument_teacher_110_set_20ts24tu { get; set; }
 
     }
 

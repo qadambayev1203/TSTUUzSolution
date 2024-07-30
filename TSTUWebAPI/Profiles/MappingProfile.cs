@@ -82,6 +82,8 @@ using Entities.Model.StatisticalNumbersModel;
 using Entities.DTO.UserProfilDTOS;
 using Entities.DTO.AppealsToEmployeeDTOS;
 using Entities.Model.AppealToEmployeeModel;
+using Entities.Model.DocumentTeacher110Model;
+using Entities.DTO.DocumentTeacher110DTOS;
 namespace TSTUWebAPI.Profiles
 {
 
@@ -604,6 +606,12 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationReadedDTO>();
                 CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationReadedSiteDTO>();
                 CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationConfReadedDTO>();
+                #endregion
+
+                #region DocumentTeacher110 DTOS
+                CreateMap<DocumentTeacher110CreatedDTO, DocumentTeacher110>();
+                CreateMap<DocumentTeacher110UpdatedDTO, DocumentTeacher110>();
+                CreateMap<DocumentTeacher110, DocumentTeacher110ReadedDTO>();
                 #endregion
 
             }
