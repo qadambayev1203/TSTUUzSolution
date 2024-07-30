@@ -19,13 +19,40 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         }
 
 
-        public IEnumerable<DocumentTeacher110> AllDocumentTeacher110()
+        public IEnumerable<DocumentTeacher110> AllDocumentTeacher110(int? parent_id, bool parent)
         {
             try
             {
-                var documentTeacher110 = new List<DocumentTeacher110>();
-                documentTeacher110 = _context.document_teacher_110_20ts24tu.Include(x => x.status_).ToList();
-                return documentTeacher110;
+                IQueryable<DocumentTeacher110> documentTeacher110 = _context.document_teacher_110_20ts24tu
+                    .Where(x => x.status_.status != "Deleted");
+
+                if (parent_id != null && parent)
+                {
+                    documentTeacher110 = documentTeacher110.Where(x => x.parent_id == parent_id);
+                }
+
+                return documentTeacher110.ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<DocumentTeacher110>();
+            }
+        }
+
+        public IEnumerable<DocumentTeacher110> AllDocumentTeacher110Admin(int? parent_id, bool parent)
+        {
+            try
+            {
+                IQueryable<DocumentTeacher110> documentTeacher110 = _context.document_teacher_110_20ts24tu
+                    .Include(x => x.status_);
+
+                if (parent_id != null && parent)
+                {
+                    documentTeacher110 = documentTeacher110.Where(x => x.parent_id == parent_id);
+                }
+
+                return documentTeacher110.ToList();
             }
             catch (Exception ex)
             {
@@ -79,6 +106,23 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         }
 
         public DocumentTeacher110 GetDocumentTeacher110ById(int id)
+        {
+            try
+            {
+                var documentTeacher110 = _context.document_teacher_110_20ts24tu
+                    .Where(x => x.status_.status != "Deleted")
+                    .FirstOrDefault(x => x.id.Equals(id));
+
+                return documentTeacher110 ?? new DocumentTeacher110();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return new DocumentTeacher110();
+            }
+        }
+
+        public DocumentTeacher110 GetDocumentTeacher110ByIdAdmin(int id)
         {
             try
             {

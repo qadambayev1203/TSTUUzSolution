@@ -46,22 +46,41 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(createdItemId);
         }
 
-        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "")]
         [HttpGet("getalldocumentteacher110")]
-        public IActionResult GetAllDocumentTeacher110()
+        public IActionResult GetAllDocumentTeacher110(bool parent, int? parent_id)
         {
-            IEnumerable<DocumentTeacher110> documentTeacher110Map = _repository.AllDocumentTeacher110();
+            IEnumerable<DocumentTeacher110> documentTeacher110Map = _repository.AllDocumentTeacher110(parent_id, parent);
             var documentTeacher110 = _mapper.Map<IEnumerable<DocumentTeacher110ReadedDTO>>(documentTeacher110Map);
 
             return Ok(documentTeacher110);
         }
 
         //[Authorize(Roles = "Admin")]
+        [HttpGet("getalldocumentteacher110admin")]
+        public IActionResult GetAllDocumentTeacher110Admin(bool parent, int? parent_id)
+        {
+            IEnumerable<DocumentTeacher110> documentTeacher110Map = _repository.AllDocumentTeacher110Admin(parent_id, parent);
+            var documentTeacher110 = _mapper.Map<IEnumerable<DocumentTeacher110AdminReadedDTO>>(documentTeacher110Map);
+
+            return Ok(documentTeacher110);
+        }
+
+        //[Authorize(Roles = "")]
         [HttpGet("getbyiddocumentteacher110/{id}")]
         public IActionResult GetByIdDocumentTeacher110(int id)
         {
             DocumentTeacher110 documentTeacher110Map = _repository.GetDocumentTeacher110ById(id);
             var documentTeacher110 = _mapper.Map<DocumentTeacher110ReadedDTO>(documentTeacher110Map);
+            return Ok(documentTeacher110);
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpGet("getbyiddocumentteacher110admin/{id}")]
+        public IActionResult GetByIdDocumentTeacher110Admin(int id)
+        {
+            DocumentTeacher110 documentTeacher110Map = _repository.GetDocumentTeacher110ByIdAdmin(id);
+            var documentTeacher110 = _mapper.Map<DocumentTeacher110AdminReadedDTO>(documentTeacher110Map);
             return Ok(documentTeacher110);
         }
 
