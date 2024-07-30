@@ -1,6 +1,8 @@
 ﻿using Contracts.AllRepository.DocumentTeacher110Repository;
 using Entities;
+using Entities.Model.AnyClasses;
 using Entities.Model.DocumentTeacher110Model;
+using Entities.Model.PersonModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -23,15 +25,29 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         }
 
 
-        public IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110Set(int person_id)
+        public IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110Set(int oldYear, int newYear)
         {
             try
             {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                int person_id;
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+
+                }
+                else
+                {
+                    return Enumerable.Empty<DocumentTeacher110Set>();
+                }
+
+
                 IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
                     .Include(x => x.person_)
                     .Include(x => x.file_)
                     .Include(x => x.document_)
-                    .Where(x => x.status_.status != "Deleted" && x.person_id == person_id);
+                    .Where(x => x.status_.status != "Deleted" && x.person_id == person_id)
+                    .Where(x => x.old_year == oldYear && x.new_year == newYear);
 
                 return documentTeacher110.ToList();
             }
@@ -42,15 +58,17 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             }
         }
 
-        public IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetAdmin(int person_id)
+        public IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetDocList(int oldYear, int newYear, int person_id)
         {
             try
             {
+
                 IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
                     .Include(x => x.person_)
                     .Include(x => x.file_)
                     .Include(x => x.document_)
-                    .Where(x => x.person_id == person_id);
+                    .Where(x => x.person_id == person_id)
+                    .Where(x => x.old_year == oldYear && x.new_year == newYear);
 
                 return documentTeacher110.ToList();
             }
@@ -58,6 +76,47 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             {
                 _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<DocumentTeacher110Set>();
+            }
+        }
+
+        public IEnumerable<DocumentTeacher110SetList> AllDocumentTeacher110SetAdmin(int oldYear, int newYear)
+        {
+            try
+            {
+                List<DocumentTeacher110SetList> documentList = new List<DocumentTeacher110SetList>();
+
+                List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
+                    .Where(x => x.old_year == oldYear && x.new_year == newYear)
+                    .GroupBy(x => x.person_.id)
+                    .SelectMany(g => g.Select(x => new Person
+                    {
+                        id = x.person_.id,
+                        firstName = x.person_.firstName,
+                        lastName = x.person_.lastName,
+                        fathers_name = x.person_.fathers_name,
+                        employee_type_id = 0,
+                        departament_id = 0
+                    })).ToList();
+
+                foreach (Person person in personsIdList)
+                {
+                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person.id).ToList();
+
+                    DocumentTeacher110SetList document = new DocumentTeacher110SetList()
+                    {
+                        person_ = person,
+                        documents_teacher_ = docList
+                    };
+                    documentList.Add(document);
+
+                }
+
+                return documentList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<DocumentTeacher110SetList>();
             }
         }
 
@@ -69,6 +128,20 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 {
                     return 0;
                 }
+
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                int person_id;
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+
+                }
+                else
+                {
+                    return 0;
+                }
+
+                documentTeacher110Set.person_id = person_id;
                 _context.document_teacher_110_set_20ts24tu.Add(documentTeacher110Set);
                 _context.SaveChanges();
                 int id = documentTeacher110Set.id;
@@ -155,6 +228,19 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return false;
                 }
 
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                int person_id;
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+
+                }
+                else
+                {
+                    return false;
+                }
+                documentTeacher110.person_id = person_id;
+
                 dbcheck.person_id = documentTeacher110.person_id;
                 dbcheck.old_year = documentTeacher110.old_year;
                 dbcheck.new_year = documentTeacher110.new_year;
@@ -176,5 +262,6 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 return false;
             }
         }
+
     }
 }

@@ -85,6 +85,7 @@ using Entities.Model.AppealToEmployeeModel;
 using Entities.Model.DocumentTeacher110Model;
 using Entities.DTO.DocumentTeacher110DTOS;
 using Newtonsoft.Json;
+using Entities.DTO.DocumentTeacher110SetDTOS;
 namespace TSTUWebAPI.Profiles
 {
 
@@ -620,6 +621,13 @@ namespace TSTUWebAPI.Profiles
                                                                   .ToList()) : null));
                 CreateMap<DocumentSequenceItemDTO, Tuple<int, int>>()
                                                .ConstructUsing(src => new Tuple<int, int>(src.sequence_number, src.department_id));
+                #endregion
+
+                #region DocumentTeacher110 DTOS
+                CreateMap<DocumentTeacher110SetUpdatedDTO, DocumentTeacher110Set>();
+                CreateMap<DocumentTeacher110Set, DocumentTeacher110ReadedDTO>();
+                CreateMap<DocumentTeacher110Set, DocumentTeacher110AdminReadedDTO>();
+                CreateMap<DocumentTeacher110SetCreatedDTO, DocumentTeacher110Set>();               
                 #endregion
 
             }

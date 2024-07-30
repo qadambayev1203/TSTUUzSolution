@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Entities.DTO.DocumentTeacher110SetDTOS
 {
-    public class DocumentTeacher110SetCratedDTO
+    public class DocumentTeacher110SetCreatedDTO
     {
-        public int? person_id { get; set; }
         public int? old_year { get; set; }
         public int? new_year { get; set; }
         public int? document_id { get; set; }

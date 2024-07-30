@@ -265,6 +265,9 @@ try
     //DocumentTeacher110
     builder.Services.AddScoped<IDocumentTeacher110Repository, DocumentTeacher110SqlRepository>();
 
+    //DocumentTeacher110Set
+    builder.Services.AddScoped<IDocumentTeacher110SetRepository, DocumentsTeacher110SetSqlRepository>();
+
     #endregion
 
     #region AnyServices

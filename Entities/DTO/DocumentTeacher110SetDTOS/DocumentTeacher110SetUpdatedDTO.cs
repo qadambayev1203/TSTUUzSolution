@@ -14,7 +14,6 @@ namespace Entities.DTO.DocumentTeacher110SetDTOS
 {
     public class DocumentTeacher110SetUpdatedDTO
     {
-        public int? person_id { get; set; }
         public int? old_year { get; set; }
         public int? new_year { get; set; }
         public int? document_id { get; set; }

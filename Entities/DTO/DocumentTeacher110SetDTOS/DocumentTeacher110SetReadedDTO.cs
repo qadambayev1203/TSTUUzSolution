@@ -20,7 +20,5 @@ namespace Entities.DTO.DocumentTeacher110SetDTOS
         public double? score { get; set; }
         public bool? rejection { get; set; }
         public string? reason_for_rejection { get; set; }
-        public DateTime? created_at { get; set; }
-        public DateTime? updated_at { get; set; }
     }
 }
