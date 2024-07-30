@@ -25,7 +25,10 @@ namespace Entities.Model.DocumentTeacher110Model
         public double? score { get; set; }
         public int? sequence_status { get; set; }
         public string? reason_for_rejection { get; set; }
+        public bool? rejection { get; set; }
         [ForeignKey("Status")] public int? status_id { get; set; }
         public Status? status_ { get; set; }
+        public DateTime? created_at { get; set; }
+        public DateTime? updated_at { get; set; }
     }
 }

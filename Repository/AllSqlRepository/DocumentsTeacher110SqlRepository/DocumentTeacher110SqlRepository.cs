@@ -86,7 +86,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         {
             try
             {
-                var documentTeacher110 = GetDocumentTeacher110ById(id);
+                var documentTeacher110 = GetDocumentTeacher110ByIdAdmin(id);
                 if (documentTeacher110 == null)
                 {
                     return false;
@@ -143,7 +143,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         {
             try
             {
-                var dbcheck = GetDocumentTeacher110ById(id);
+                var dbcheck = GetDocumentTeacher110ByIdAdmin(id);
                 if (dbcheck is null)
                 {
                     return false;
