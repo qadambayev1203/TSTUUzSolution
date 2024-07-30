@@ -30,7 +30,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             try
             {
                 var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-                int person_id;
+                int person_id = 3;
                 if (user != null && user.person_id != 0 && user.person_id != null)
                 {
                     person_id = user.person_id ??= 0;
@@ -79,44 +79,69 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             }
         }
 
-        public IEnumerable<DocumentTeacher110SetList> AllDocumentTeacher110SetAdmin(int oldYear, int newYear)
+        public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear)
         {
             try
             {
-                List<DocumentTeacher110SetList> documentList = new List<DocumentTeacher110SetList>();
-
                 List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
-                    .Where(x => x.old_year == oldYear && x.new_year == newYear)
-                    .GroupBy(x => x.person_.id)
-                    .SelectMany(g => g.Select(x => new Person
-                    {
-                        id = x.person_.id,
-                        firstName = x.person_.firstName,
-                        lastName = x.person_.lastName,
-                        fathers_name = x.person_.fathers_name,
-                        employee_type_id = 0,
-                        departament_id = 0
-                    })).ToList();
-
-                foreach (Person person in personsIdList)
+                .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+                .Include(x => x.person_)
+                .AsEnumerable()
+                .GroupBy(x => x.person_id)
+                .Select(g => g.First())
+                .Select(x => new Person
                 {
-                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person.id).ToList();
+                    id = x.person_.id,
+                    firstName = x.person_.firstName,
+                    lastName = x.person_.lastName,
+                    fathers_name = x.person_.fathers_name,
+                    employee_type_id = 0,
+                    departament_id = 0
+                })
+                .ToList();
 
-                    DocumentTeacher110SetList document = new DocumentTeacher110SetList()
-                    {
-                        person_ = person,
-                        documents_teacher_ = docList
-                    };
-                    documentList.Add(document);
 
-                }
-
-                return documentList;
+                return personsIdList;
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error " + ex.Message);
-                return Enumerable.Empty<DocumentTeacher110SetList>();
+                return Enumerable.Empty<Person>();
+            }
+        }
+
+        public DocumentTeacher110SetList DocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
+        {
+            try
+            {
+
+                var person = _context.persons_20ts24tu
+                    .Where(x => x.id == person_id)
+                    .Select(x => new Person
+                    {
+                        id = x.id,
+                        firstName = x.firstName,
+                        lastName = x.lastName,
+                        fathers_name = x.fathers_name,
+                        employee_type_id = 0,
+                        departament_id = 0
+                    }).FirstOrDefault();
+
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id).ToList();
+
+                DocumentTeacher110SetList document = new DocumentTeacher110SetList()
+                {
+                    person_ = person,
+                    documents_teacher_ = docList
+                };
+
+
+                return document;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return new DocumentTeacher110SetList();
             }
         }
 
@@ -130,7 +155,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 }
 
                 var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-                int person_id;
+                int person_id = 3;
                 if (user != null && user.person_id != 0 && user.person_id != null)
                 {
                     person_id = user.person_id ??= 0;

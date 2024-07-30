@@ -2,10 +2,12 @@
 using Contracts.AllRepository.DocumentTeacher110Repository;
 using Contracts.AllRepository.StatusesRepository;
 using Entities.DTO.DocumentTeacher110SetDTOS;
+using Entities.DTO.PersonDTOS;
 using Entities.Model.AnyClasses;
 using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.FileModel;
 using Entities.Model.MenuModel;
+using Entities.Model.PersonModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TSTUWebAPI.Controllers.FileControllers;
@@ -82,12 +84,21 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         }
 
         //[Authorize(Roles = "Admin")]
+        [HttpGet("getdocumentteacher110setadmin")]
+        public IActionResult GetDocumentTeacher110SetAdmin(int oldYear, int newYear,int person_id)
+        {
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear,newYear,person_id);
+            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO>(documentMap);
+            return Ok(document);
+        }
+
+        //[Authorize(Roles = "Admin")]
         [HttpGet("getalldocumentteacher110setadmin")]
         public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear)
         {
-            IEnumerable<DocumentTeacher110SetList> documentTeacher110SetMap = _repository.AllDocumentTeacher110SetAdmin(oldYear,newYear);
-            var documentTeacher110Set = _mapper.Map<IEnumerable<DocumentTeacher110SetListReadedDTO>>(documentTeacher110SetMap);
-            return Ok(documentTeacher110Set);
+            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear);
+            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            return Ok(personList);
         }
 
         //[Authorize(Roles = "")]

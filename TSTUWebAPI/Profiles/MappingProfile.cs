@@ -625,9 +625,10 @@ namespace TSTUWebAPI.Profiles
 
                 #region DocumentTeacher110 DTOS
                 CreateMap<DocumentTeacher110SetUpdatedDTO, DocumentTeacher110Set>();
-                CreateMap<DocumentTeacher110Set, DocumentTeacher110ReadedDTO>();
-                CreateMap<DocumentTeacher110Set, DocumentTeacher110AdminReadedDTO>();
+                CreateMap<DocumentTeacher110Set, DocumentTeacher110SetReadedDTO>();
+                CreateMap<DocumentTeacher110Set, DocumentTeacher110SetAdminReadedDTO>();
                 CreateMap<DocumentTeacher110SetCreatedDTO, DocumentTeacher110Set>();               
+                CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO>();
                 #endregion
 
             }
