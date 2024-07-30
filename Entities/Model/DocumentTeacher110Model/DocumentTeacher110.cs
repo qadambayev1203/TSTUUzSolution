@@ -1,4 +1,5 @@
 ﻿using Entities.Model.StatusModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,8 +21,18 @@ namespace Entities.Model.DocumentTeacher110Model
         public bool? two_indicator { get; set; }
         public double? max_score { get; set; }
         public string? description { get; set; }
-        public List<Tuple<int, int>>? document_sequence { get; set; }
         [ForeignKey("Status")] public int? status_id { get; set; }
         public Status? status_ { get; set; }
+
+        [NotMapped]
+        public List<Tuple<int, int>>? document_sequence
+        {
+            get => string.IsNullOrEmpty(document_sequence_string)
+                   ? null
+                   : JsonConvert.DeserializeObject<List<Tuple<int, int>>>(document_sequence_string);
+            set => document_sequence_string = JsonConvert.SerializeObject(value);
+        }
+
+        public string? document_sequence_string { get; set; }
     }
 }

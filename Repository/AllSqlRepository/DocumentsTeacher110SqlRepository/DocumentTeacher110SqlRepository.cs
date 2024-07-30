@@ -24,7 +24,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             try
             {
                 var documentTeacher110 = new List<DocumentTeacher110>();
-                documentTeacher110 = _context.doucument_teacher_110_20ts24tu.Include(x => x.status_).ToList();
+                documentTeacher110 = _context.document_teacher_110_20ts24tu.Include(x => x.status_).ToList();
                 return documentTeacher110;
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 {
                     return 0;
                 }
-                _context.doucument_teacher_110_20ts24tu.Add(documentTeacher110);
+                _context.document_teacher_110_20ts24tu.Add(documentTeacher110);
                 _context.SaveChanges();
                 int id = documentTeacher110.id;
                 _logger.LogInformation($"Created " + JsonConvert.SerializeObject(documentTeacher110));
@@ -65,7 +65,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return false;
                 }
                 documentTeacher110.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
-                _context.doucument_teacher_110_20ts24tu.Update(documentTeacher110);
+                _context.document_teacher_110_20ts24tu.Update(documentTeacher110);
                 _context.SaveChanges();
                 _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(documentTeacher110));
 
@@ -82,7 +82,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         {
             try
             {
-                var documentTeacher110 = _context.doucument_teacher_110_20ts24tu
+                var documentTeacher110 = _context.document_teacher_110_20ts24tu
                     .Include(x => x.status_)
                     .FirstOrDefault(x => x.id.Equals(id));
 
