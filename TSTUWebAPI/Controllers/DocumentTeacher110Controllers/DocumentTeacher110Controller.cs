@@ -56,7 +56,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110);
         }
 
-        [Authorize(Roles = "")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("getalldocumentteacher110select")]
         public IActionResult GetAllDocumentTeacher110Select()
         {
