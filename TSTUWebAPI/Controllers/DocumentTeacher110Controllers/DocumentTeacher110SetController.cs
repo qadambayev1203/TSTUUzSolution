@@ -8,6 +8,7 @@ using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.FileModel;
 using Entities.Model.MenuModel;
 using Entities.Model.PersonModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TSTUWebAPI.Controllers.FileControllers;
@@ -30,14 +31,14 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         }
 
 
-        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin,Teacher")]
         [HttpPost("createdocumentteacher110set")]
         public IActionResult CreateDocumentTeacher110Set(DocumentTeacher110SetCreatedDTO documentTeacher110Set)
         {
             var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
             documentTeacher110SetMap.status_id = _status.GetStatusId("Active");
             documentTeacher110SetMap.created_at = DateTime.UtcNow;
-
+            documentTeacher110SetMap.sequence_status = 1;
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -73,11 +74,11 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(createdItemId);
         }
 
-        //[Authorize(Roles = "")]
+        //[Authorize(Roles = "Teacher")]
         [HttpGet("getalldocumentteacher110set")]
         public IActionResult GetAllDocumentTeacher110Set(int oldYear, int newYear)
         {
-            IEnumerable<DocumentTeacher110Set> documentTeacher110SetMap = _repository.AllDocumentTeacher110Set(oldYear,newYear);
+            IEnumerable<DocumentTeacher110Set> documentTeacher110SetMap = _repository.AllDocumentTeacher110Set(oldYear, newYear);
             var documentTeacher110Set = _mapper.Map<IEnumerable<DocumentTeacher110SetReadedDTO>>(documentTeacher110SetMap);
 
             return Ok(documentTeacher110Set);
@@ -85,9 +86,9 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
 
         //[Authorize(Roles = "Admin")]
         [HttpGet("getdocumentteacher110setadmin")]
-        public IActionResult GetDocumentTeacher110SetAdmin(int oldYear, int newYear,int person_id)
+        public IActionResult GetDocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
         {
-            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear,newYear,person_id);
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear, newYear, person_id);
             var document = _mapper.Map<DocumentTeacher110SetListReadedDTO>(documentMap);
             return Ok(document);
         }
@@ -101,7 +102,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(personList);
         }
 
-        //[Authorize(Roles = "")]
+        //[Authorize(Roles = "Teacher")]
         [HttpGet("getbyiddocumentteacher110set/{id}")]
         public IActionResult GetByIdDocumentTeacher110Set(int id)
         {
@@ -131,7 +132,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok("Deleted");
         }
 
-        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin,Teacher")]
         [HttpPut("updatedocumentteacher110set/{id}")]
         public IActionResult UpdateDocumentTeacher110Set(DocumentTeacher110SetUpdatedDTO documentTeacher110Set, int id)
         {

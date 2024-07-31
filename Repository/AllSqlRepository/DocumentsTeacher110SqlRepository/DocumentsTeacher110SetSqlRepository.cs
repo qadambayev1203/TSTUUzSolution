@@ -30,7 +30,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             try
             {
                 var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-                int person_id = 3;
+                int person_id;
                 if (user != null && user.person_id != 0 && user.person_id != null)
                 {
                     person_id = user.person_id ??= 0;
@@ -155,7 +155,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 }
 
                 var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-                int person_id = 3;
+                int person_id;
                 if (user != null && user.person_id != 0 && user.person_id != null)
                 {
                     person_id = user.person_id ??= 0;
@@ -207,11 +207,22 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         {
             try
             {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                int person_id;
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+                }
+                else
+                {
+                    return null;
+                }
+
                 var documentTeacher110 = _context.document_teacher_110_set_20ts24tu
                     .Include(x => x.person_)
                     .Include(x => x.file_)
                     .Include(x => x.document_)
-                    .Where(x => x.status_.status != "Deleted")
+                    .Where(x => x.status_.status != "Deleted" && x.person_id == person_id)
                     .FirstOrDefault(x => x.id.Equals(id));
 
                 return documentTeacher110 ?? new DocumentTeacher110Set();
