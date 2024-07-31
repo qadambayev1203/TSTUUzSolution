@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using Entities.Model.StatusModel;
 using Newtonsoft.Json;
 using Entities.Model.BlogsModel;
+using Entities.Model.AnyClasses;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 {
@@ -29,28 +31,33 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 
 
         //Departament CRUD
-        public IEnumerable<Departament> AllDepartament(int queryNum, int pageNum)
+        public QueryList<Departament> AllDepartament(int queryNum, int pageNum)
         {
             try
             {
-                var departaments = new List<Departament>();
+                IQueryable<Departament> query = _context.departament_20ts24tu.Include(x => x.img_)
+                    .Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_);
+                int length = query.Count();
+
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    query = query.Skip(10 * (pageNum - 1)).Take(10);
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+                    query = query.Skip(queryNum * (pageNum - 1)).Take(queryNum);
 
                 }
-                else
+
+                QueryList<Departament> departaments = new QueryList<Departament>
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).ToList();
-
-                }
+                    length = length,
+                    query_list = query.ToList()
+                };
                 return departaments;
+
             }
             catch (Exception ex)
             {
@@ -59,27 +66,32 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<Departament> AllDepartamentSite(int queryNum, int pageNum)
+        public QueryList<Departament> AllDepartamentSite(int queryNum, int pageNum)
         {
             try
             {
-                var departaments = new List<Departament>();
+                IQueryable<Departament> query = _context.departament_20ts24tu.Include(x => x.img_)
+                    .Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_)
+                    .Where(x => x.status_.status != "Deleted");
+                int length = query.Count();
+
                 if (queryNum == 0 && pageNum != 0)
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").Skip(10 * (pageNum - 1)).Take(10).ToList();
+                    query = query.Skip(10 * (pageNum - 1)).Take(10);
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+                    query = query.Skip(queryNum * (pageNum - 1)).Take(queryNum);
 
                 }
-                else
+
+                QueryList<Departament> departaments = new QueryList<Departament>
                 {
-                    departaments = _context.departament_20ts24tu.Include(x => x.img_).Include(x => x.img_icon_).Include(x => x.departament_type_).Include(x => x.status_).Where(x => x.status_.status != "Deleted").ToList();
-
-                }
+                    length = length,
+                    query_list = query.ToList()
+                };
                 return departaments;
             }
             catch (Exception ex)
@@ -223,42 +235,32 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<Departament> AllDepartamentType(string dep_type, int queryNum, int pageNum)
+        public QueryList<Departament> AllDepartamentType(string dep_type, int queryNum, int pageNum)
         {
             try
             {
-                var departaments = new List<Departament>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    departaments = _context.departament_20ts24tu
+                IQueryable<Departament> query = _context.departament_20ts24tu
                         .Include(x => x.img_).Include(x => x.img_icon_)
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_)
-                   .Where(x => x.departament_type_.type == dep_type)
-                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
+                   .Where(x => x.departament_type_.type == dep_type);
 
+                int length = query.Count();
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (pageNum - 1)).Take(10);
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                   .Include(x => x.departament_type_)
-                   .Include(x => x.status_)
-                   .Where(x => x.departament_type_.type == dep_type)
-                        .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
-
+                    query = query.Skip(queryNum * (pageNum - 1)).Take(queryNum);
                 }
-                else
+                QueryList<Departament> departaments = new QueryList<Departament>
                 {
-                    departaments = _context.departament_20ts24tu
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                   .Include(x => x.departament_type_)
-                   .Include(x => x.status_)
-                   .Where(x => x.departament_type_.type == dep_type)
-                  .ToList();
-
-                }
+                    length = length,
+                    query_list = query.ToList()
+                };
                 return departaments;
             }
             catch (Exception ex)
@@ -268,47 +270,36 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<Departament> AllDepartamentTypeSite(string dep_type, int queryNum, int pageNum, bool? favorite)
+        public QueryList<Departament> AllDepartamentTypeSite(string dep_type, int queryNum, int pageNum, bool? favorite)
         {
             try
             {
-                var departaments = new List<Departament>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    departaments = _context.departament_20ts24tu
+                IQueryable<Departament> query = _context.departament_20ts24tu
                         .Include(x => x.img_).Include(x => x.img_icon_)
                    .Include(x => x.departament_type_)
                    .Include(x => x.status_)
                    .Where(x => x.departament_type_.type == dep_type)
                    .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                   .Where(x => x.status_.status != "Deleted")
-                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
+                   .Where(x => x.status_.status != "Deleted");
+
+                int length = query.Count();
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (pageNum - 1)).Take(10);
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departaments = _context.departament_20ts24tu
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                   .Include(x => x.departament_type_)
-                   .Include(x => x.status_)
-                   .Where(x => x.departament_type_.type == dep_type)
-                   .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                   .Where(x => x.status_.status != "Deleted")
-                        .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+                    query = query.Skip(queryNum * (pageNum - 1)).Take(queryNum);
 
                 }
-                else
+                QueryList<Departament> departaments = new QueryList<Departament>
                 {
-                    departaments = _context.departament_20ts24tu
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                   .Include(x => x.departament_type_)
-                   .Include(x => x.status_)
-                   .Where(x => x.departament_type_.type == dep_type)
-                   .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                   .Where(x => x.status_.status != "Deleted").ToList();
-
-                }
+                    length = length,
+                    query_list = query.ToList()
+                };
                 return departaments;
             }
             catch (Exception ex)
@@ -411,52 +402,37 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
 
 
         //DepartamentTranslation CRUD
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslation(int queryNum, int pageNum, string language_code)
+        public QueryList<DepartamentTranslation> AllDepartamentTranslation(int queryNum, int pageNum, string language_code)
         {
             try
             {
-                var departamentTranslations = new List<DepartamentTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    departamentTranslations = _context.departament_translations_20ts24tu
+                IQueryable<DepartamentTranslation> query = _context.departament_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.departament_type_translation_)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10 * (queryNum - 1))
-                        .Take(10)
-                        .ToList();
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
+
+                int length = query.Count();
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (queryNum - 1)).Take(10);
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                        .Include(x => x.departament_type_translation_)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(queryNum * (queryNum - 1))
-                        .Take(queryNum)
-                        .ToList();
-
+                    query = query.Take(queryNum);
                 }
-                else
+
+                QueryList<DepartamentTranslation> departamentTranslations = new QueryList<DepartamentTranslation>
                 {
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                        .Include(x => x.departament_type_translation_)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .ToList();
+                    length = length,
+                    query_list = query.ToList()
+                };
 
-                }
                 return departamentTranslations;
             }
             catch (Exception ex)
@@ -466,55 +442,41 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationSite(int queryNum, int pageNum, string language_code)
+        public QueryList<DepartamentTranslation> AllDepartamentTranslationSite(int queryNum, int pageNum, string language_code)
         {
             try
             {
-                var departamentTranslations = new List<DepartamentTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    departamentTranslations = _context.departament_translations_20ts24tu
+                IQueryable<DepartamentTranslation> query = _context.departament_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                         .Include(x => x.img_).Include(x => x.img_icon_)
                         .Include(x => x.departament_type_translation_)
                         .Where(x => x.status_translation_.status != "Deleted")
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10 * (queryNum - 1))
-                        .Take(10)
-                        .ToList();
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
+
+                int length = query.Count();
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (queryNum - 1))
+                        .Take(10);
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                        .Include(x => x.departament_type_translation_)
-                        .Where(x => x.status_translation_.status != "Deleted")
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(queryNum * (queryNum - 1))
-                        .Take(queryNum)
-                        .ToList();
+                    query = query.Skip(queryNum * (queryNum - 1))
+                        .Take(queryNum);
 
                 }
-                else
+
+                QueryList<DepartamentTranslation> departamentTranslations = new QueryList<DepartamentTranslation>
                 {
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                        .Include(x => x.img_).Include(x => x.img_icon_)
-                        .Include(x => x.departament_type_translation_)
-                        .Where(x => x.status_translation_.status != "Deleted")
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .ToList();
+                    length = length,
+                    query_list = query.ToList()
+                };
 
-                }
                 return departamentTranslations;
             }
             catch (Exception ex)
@@ -722,55 +684,40 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationType(string dep_type, string language_code, int queryNum, int pageNum)
+        public QueryList<DepartamentTranslation> AllDepartamentTranslationType(string dep_type, string language_code, int queryNum, int pageNum)
         {
             try
             {
-                var departamentTranslations = new List<DepartamentTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    departamentTranslations = _context.departament_translations_20ts24tu
+                IQueryable<DepartamentTranslation> query = _context.departament_translations_20ts24tu
                          .Include(x => x.language_)
                     .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
                     .Include(x => x.img_).Include(x => x.img_icon_)
                     .Include(x => x.departament_type_translation_)
                     .Where(x => x.departament_type_translation_.type == dep_type)
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10 * (queryNum - 1))
-                        .Take(10)
-                        .ToList();
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
+
+                int length = query.Count();
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (queryNum - 1))
+                        .Take(10);
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                         .Include(x => x.language_)
-                    .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_).Include(x => x.img_icon_)
-                    .Include(x => x.departament_type_translation_)
-                    .Where(x => x.departament_type_translation_.type == dep_type)
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(queryNum * (queryNum - 1))
-                        .Take(queryNum)
-                        .ToList();
-
+                    query = query.Skip(queryNum * (queryNum - 1))
+                        .Take(queryNum);
                 }
-                else
+
+                QueryList<DepartamentTranslation> departamentTranslations = new QueryList<DepartamentTranslation>
                 {
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                         .Include(x => x.language_)
-                    .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_).Include(x => x.img_icon_)
-                    .Include(x => x.departament_type_translation_)
-                    .Where(x => x.departament_type_translation_.type == dep_type)
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .ToList();
+                    length = length,
+                    query_list = query.ToList()
+                };
 
-                }
                 return departamentTranslations;
             }
             catch (Exception ex)
@@ -780,14 +727,11 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
             }
         }
 
-        public IEnumerable<DepartamentTranslation> AllDepartamentTranslationTypeSite(string dep_type, string language_code, int queryNum, int pageNum, bool? favorite)
+        public QueryList<DepartamentTranslation> AllDepartamentTranslationTypeSite(string dep_type, string language_code, int queryNum, int pageNum, bool? favorite)
         {
             try
             {
-                var departamentTranslations = new List<DepartamentTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    departamentTranslations = _context.departament_translations_20ts24tu
+                IQueryable<DepartamentTranslation> query = _context.departament_translations_20ts24tu
                          .Include(x => x.language_)
                     .Include(x => x.status_translation_)
                         .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
@@ -796,45 +740,30 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                     .Where(x => x.departament_type_translation_.departament_type_.type == dep_type)
                     .Where(x => x.status_translation_.status != "Deleted")
                     .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(10 * (queryNum - 1))
-                        .Take(10)
-                        .ToList();
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
+
+                int length = query.Count();
+
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (queryNum - 1)).Take(10);
 
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                         .Include(x => x.language_)
-                    .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_).Include(x => x.img_icon_)
-                    .Include(x => x.departament_type_translation_)
-                    .Where(x => x.departament_type_translation_.departament_type_.type == dep_type)
-                    .Where(x => x.status_translation_.status != "Deleted")
-                    .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(queryNum * (queryNum - 1))
-                        .Take(queryNum)
-                        .ToList();
+                    query = query.Skip(queryNum * (queryNum - 1))
+                        .Take(queryNum);
 
                 }
-                else
+
+                QueryList<DepartamentTranslation> departamentTranslations = new QueryList<DepartamentTranslation>
                 {
-                    departamentTranslations = _context.departament_translations_20ts24tu
-                         .Include(x => x.language_)
-                    .Include(x => x.status_translation_)
-                        .Include(x => x.departament_).ThenInclude(y => y.departament_type_)
-                    .Include(x => x.img_).Include(x => x.img_icon_)
-                    .Include(x => x.departament_type_translation_)
-                    .Where(x => x.departament_type_translation_.departament_type_.type == dep_type)
-                    .Where(x => x.status_translation_.status != "Deleted")
-                    .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .ToList();
+                    length = length,
+                    query_list = query.ToList()
+                };
 
-                }
                 return departamentTranslations;
             }
             catch (Exception ex)
@@ -932,7 +861,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                        id = x.id,
                        title = x.title,
                        parent_id = x.parent_id,
-                       departament_id=x.departament_id
+                       departament_id = x.departament_id
                    })
                    .ToList();
 

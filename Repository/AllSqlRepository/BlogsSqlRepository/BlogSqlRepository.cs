@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonDataModel;
 using Entities.Model.AppealsToTheRectorsModel;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Entities.Model.AnyClasses;
 
 namespace Repository.AllSqlRepository.BlogsSqlRepository
 {
@@ -30,10 +32,11 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
 
         #region Blog CRUD
-        public IEnumerable<Blog> AllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
+        public QueryList<Blog> AllBlog(int queryNum, int pageNum, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             try
             {
+                int length = 0;
                 if (start_time.HasValue)
                 {
                     var time = start_time.Value.ToUniversalTime();
@@ -71,6 +74,8 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                     query = query.Where(x => x.blog_category_.title.Equals(blog_category));
                 }
 
+                length = query.Count();
+
                 if (queryNum == 0 && pageNum != 0)
                 {
                     query = query.Skip(10 * (pageNum - 1)).Take(10);
@@ -83,7 +88,13 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
                 }
 
-                return query.ToList();
+                QueryList<Blog> blogList = new QueryList<Blog>()
+                {
+                    length = length,
+                    query_list = query.ToList()
+                };
+
+                return blogList;
 
 
 
@@ -95,13 +106,11 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public IEnumerable<Blog> AllBlogSelect(string? blog_category, bool? favorite)
+        public QueryList<Blog> AllBlogSelect(string? blog_category, bool? favorite)
         {
             try
             {
-                var blogs = new List<Blog>();
-
-                blogs = _context.blogs_20ts24tu
+                IQueryable<Blog> query = _context.blogs_20ts24tu
                         .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                 .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                 .Select(x => new Blog
@@ -111,10 +120,16 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                     title = x.title,
                     description = x.description,
                     status_ = x.status_
-                })
-                .ToList();
+                });
+                int length = query.Count();
 
-                return blogs;
+                QueryList<Blog> blogList = new QueryList<Blog>()
+                {
+                    length = length,
+                    query_list = query.ToList()
+                };
+
+                return blogList;
             }
             catch (Exception ex)
             {
@@ -122,49 +137,39 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 return null;
             }
         }
-        public IEnumerable<Blog> AllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite)
+        public QueryList<Blog> AllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite)
         {
             try
             {
-                var blogs = new List<Blog>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    blogs = _context.blogs_20ts24tu
+
+                IQueryable<Blog> query = _context.blogs_20ts24tu
                         .Include(x => x.status_)
                         .Include(x => x.img_)
                         .Include(x => x.blog_category_).Where(x => x.status_.status != "Deleted")
                         .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
+                        .Include(x => x.user_).ThenInclude(y => y.user_type_);
 
+                int length = query.Count();
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (pageNum - 1)).Take(10);
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    blogs = _context.blogs_20ts24tu
-                        .Include(x => x.status_)
-                        .Include(x => x.img_)
-                        .Include(x => x.blog_category_).Where(x => x.status_.status != "Deleted")
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Skip(queryNum * (pageNum - 1))
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
-                        .Take(queryNum).ToList();
+                    query = query.Take(queryNum);
 
                 }
-                else
+
+                QueryList<Blog> blogList = new QueryList<Blog>()
                 {
-                    blogs = _context.blogs_20ts24tu
-                        .Include(x => x.status_)
-                        .Include(x => x.img_)
-                        .Include(x => x.blog_category_).Where(x => x.status_.status != "Deleted")
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_).ToList();
+                    length = length,
+                    query_list = query.ToList()
+                };
 
-                }
-                return blogs;
+                return blogList;
             }
             catch (Exception ex)
             {
@@ -324,7 +329,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
 
         #region BlogTranslation CRUD
-        public IEnumerable<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
+        public QueryList<BlogTranslation> AllBlogTranslation(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             try
             {
@@ -370,6 +375,8 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                     query = query.Where(x => x.language_.code.Equals(language_code));
                 }
 
+                int length = query.Count();
+
                 if (queryNum == 0 && pageNum != 0)
                 {
                     query = query.Skip(10 * (pageNum - 1)).Take(10);
@@ -382,7 +389,13 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
                 }
 
-                return query.ToList();
+                QueryList<BlogTranslation> blogs_ = new QueryList<BlogTranslation>
+                {
+                    length = length,
+                    query_list = query.ToList()
+                };
+
+                return blogs_;
             }
             catch (Exception ex)
             {
@@ -392,14 +405,11 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
 
         }
 
-        public IEnumerable<BlogTranslation> AllBlogTranslationSelect(string language_code, string? blog_category, bool? favorite)
+        public QueryList<BlogTranslation> AllBlogTranslationSelect(string language_code, string? blog_category, bool? favorite)
         {
             try
             {
-                var blogTranslations = new List<BlogTranslation>();
-
-                blogTranslations = _context.blogs_translations_20ts24tu
-
+                IQueryable<BlogTranslation> query = _context.blogs_translations_20ts24tu
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
                         .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                      .Where((blog_category != null) ? x => x.blog_category_translation_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
@@ -411,11 +421,17 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         description = x.description,
                         status_translation_ = x.status_translation_,
                         blog_id = x.blog_id
-                    })
-                    .ToList();
+                    });
+                int length = query.Count();
 
 
-                return blogTranslations;
+                QueryList<BlogTranslation> blogs_ = new QueryList<BlogTranslation>
+                {
+                    length = length,
+                    query_list = query.ToList()
+                };
+
+                return blogs_;
             }
             catch (Exception ex)
             {
@@ -424,14 +440,11 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public IEnumerable<BlogTranslation> AllBlogTranslationSite(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite)
+        public QueryList<BlogTranslation> AllBlogTranslationSite(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite)
         {
             try
             {
-                var blogTranslations = new List<BlogTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    blogTranslations = _context.blogs_translations_20ts24tu
+                IQueryable<BlogTranslation> query = _context.blogs_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
                         .Include(x => x.blog_category_translation_)
@@ -440,49 +453,32 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                         .Where(x => x.status_translation_.status != "Deleted")
                         .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Skip(10 * (pageNum - 1))
-                        .Take(10)
                         .Where((blog_category != null) ? x => x.blog_category_translation_.blog_category_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .ToList();
+                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
 
+
+                int length = query.Count();
+
+                if (queryNum == 0 && pageNum != 0)
+                {
+                    query = query.Skip(10 * (pageNum - 1))
+                        .Take(10);
                 }
                 if (queryNum != 0 && pageNum != 0)
                 {
                     if (queryNum > 200) { queryNum = 200; }
-                    blogTranslations = _context.blogs_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_translation_)
-                        .Include(x => x.blog_)
-                        .Include(x => x.img_translation_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where(x => x.status_translation_.status != "Deleted")
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((blog_category != null) ? x => x.blog_category_translation_.blog_category_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Skip(queryNum * (pageNum - 1))
-                        .Take(queryNum)
-                        .ToList();
-
+                    query = query.Skip(queryNum * (pageNum - 1))
+                        .Take(queryNum);
                 }
-                else
+
+
+                QueryList<BlogTranslation> blogs_ = new QueryList<BlogTranslation>
                 {
-                    blogTranslations = _context.blogs_translations_20ts24tu
-                        .Include(x => x.language_)
-                        .Include(x => x.status_translation_)
-                        .Include(x => x.blog_category_translation_)
-                        .Include(x => x.blog_)
-                        .Include(x => x.img_translation_)
-                        .Where(x => x.status_translation_.status != "Deleted")
-                        .Include(x => x.user_).ThenInclude(y => y.user_type_)
-                        .Where((favorite == true) ? x => x.favorite == true : x => x != null)
-                        .Where((blog_category != null) ? x => x.blog_category_translation_.blog_category_.title.Equals(blog_category) : x => x.blog_category_translation_.title != null)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(200).ToList();
+                    length = length,
+                    query_list = query.ToList()
+                };
 
-                }
-                return blogTranslations;
+                return blogs_;
             }
             catch (Exception ex)
             {

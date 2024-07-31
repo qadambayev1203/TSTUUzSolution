@@ -40,6 +40,26 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             }
         }
 
+        public IEnumerable<DocumentTeacher110> AllDocumentTeacher110Select()
+        {
+            try
+            {
+                IQueryable<DocumentTeacher110> documentTeacher110 = _context.document_teacher_110_20ts24tu
+                    .Where(x => x.status_.status != "Deleted")
+                    .Select(x => new DocumentTeacher110
+                    {
+                        id = x.id,
+                        title = x.title
+                    });
+                return documentTeacher110.ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<DocumentTeacher110>();
+            }
+        }
+
         public IEnumerable<DocumentTeacher110> AllDocumentTeacher110Admin(int? parent_id, bool parent)
         {
             try

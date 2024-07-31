@@ -92,10 +92,16 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Departament> departaments1 = _repository.AllDepartament(queryNum, pageNum);
-            var departaments = _mapper.Map<IEnumerable<DepartamentReadedDTO>>(departaments1);
-            if (departaments == null) { }
-            return Ok(departaments);
+            QueryList<Departament> departaments1 = _repository.AllDepartament(queryNum, pageNum);
+            var departaments = _mapper.Map<IEnumerable<DepartamentReadedDTO>>(departaments1.query_list);
+
+            ResponseModel<DepartamentReadedDTO> response = new ResponseModel<DepartamentReadedDTO>
+            {
+                length = departaments1.length,
+                list = departaments
+            };
+
+            return Ok(response);
         }
 
         [Authorize(Roles = "Admin")]
@@ -104,13 +110,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
 
             Departament departament1 = _repository.GetDepartamentById(id);
-            if (departament1 == null)
-            {
-
-            }
             var departament = _mapper.Map<DepartamentReadedDTO>(departament1);
-            if (departament == null) { }
-
             return Ok(departament);
         }
 
@@ -119,10 +119,16 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Departament> departaments1 = _repository.AllDepartamentSite(queryNum, pageNum);
-            var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1);
-            if (departaments == null) { }
-            return Ok(departaments);
+            QueryList<Departament> departaments1 = _repository.AllDepartamentSite(queryNum, pageNum);
+            var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1.query_list);
+
+            ResponseModel<DepartamentReadedSiteDTO> response = new ResponseModel<DepartamentReadedSiteDTO>
+            {
+                length = departaments1.length,
+                list = departaments
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("sitegetalldepartamentchild/{parent_id}")]
@@ -131,7 +137,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             IEnumerable<Departament> departaments1 = _repository.AllDepartamentChild(parent_id);
             var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1);
-            if (departaments == null) { }
+
             return Ok(departaments);
         }
 
@@ -141,7 +147,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             IEnumerable<Departament> departaments1 = _repository.AllDepartamentFacultyDirection(faculty_id);
             var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1);
-            if (departaments == null) { }
+
             return Ok(departaments);
         }
 
@@ -151,10 +157,16 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Departament> departaments1 = _repository.AllDepartamentType(departament_type, queryNum, pageNum);
-            var departaments = _mapper.Map<IEnumerable<DepartamentReadedTypedDTO>>(departaments1);
-            if (departaments == null) { }
-            return Ok(departaments);
+            QueryList<Departament> departaments1 = _repository.AllDepartamentType(departament_type, queryNum, pageNum);
+            var departaments = _mapper.Map<IEnumerable<DepartamentReadedTypedDTO>>(departaments1.query_list);
+
+            ResponseModel<DepartamentReadedTypedDTO> response = new ResponseModel<DepartamentReadedTypedDTO>
+            {
+                length = departaments1.length,
+                list = departaments
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("getalldepartamenttypesite/{departament_type}")]
@@ -162,10 +174,16 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Departament> departaments1 = _repository.AllDepartamentTypeSite(departament_type, queryNum, pageNum, favorite);
-            var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1);
-            if (departaments == null) { }
-            return Ok(departaments);
+            QueryList<Departament> departaments1 = _repository.AllDepartamentTypeSite(departament_type, queryNum, pageNum, favorite);
+            var departaments = _mapper.Map<IEnumerable<DepartamentReadedSiteDTO>>(departaments1.query_list);
+
+            ResponseModel<DepartamentReadedSiteDTO> response = new ResponseModel<DepartamentReadedSiteDTO>
+            {
+                length = departaments1.length,
+                list = departaments
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("selecteddepartament")]
@@ -174,7 +192,6 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             IEnumerable<Departament> departaments1 = _repository.SelectDepartaments();
             var departaments = _mapper.Map<IEnumerable<DepartamentSelectedReadedDTO>>(departaments1);
-            if (departaments == null) { }
             return Ok(departaments);
         }
 
@@ -192,10 +209,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
 
             Departament departament1 = _repository.GetDepartamentByIdSite(id);
-            if (departament1 == null)
-            {
 
-            }
             var departament = _mapper.Map<DepartamentReadedSiteDTO>(departament1);
             if (departament == null) { }
 
@@ -349,10 +363,15 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslation(queryNum, pageNum, language_code);
-            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedDTO>>(departamenttranslations1);
-            if (departamenttranslations == null) { }
-            return Ok(departamenttranslations);
+            QueryList<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslation(queryNum, pageNum, language_code);
+            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedDTO>>(departamenttranslations1.query_list);
+
+            ResponseModel<DepartamentTranslationReadedDTO> response = new ResponseModel<DepartamentTranslationReadedDTO>
+            {
+                length = departamenttranslations1.length,
+                list = departamenttranslations
+            };
+            return Ok(response);
         }
 
         [Authorize(Roles = "Admin")]
@@ -362,7 +381,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             DepartamentTranslation departamenttranslation1 = _repository.GetDepartamentTranslationById(uz_id, language_code);
             var departamenttranslation = _mapper.Map<DepartamentTranslationReadedDTO>(departamenttranslation1);
-            if (departamenttranslation == null) { }
+
             return Ok(departamenttranslation);
         }
 
@@ -382,10 +401,15 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationSite(queryNum, pageNum, language_code);
-            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteDTO>>(departamenttranslations1);
-            if (departamenttranslations == null) { }
-            return Ok(departamenttranslations);
+            QueryList<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationSite(queryNum, pageNum, language_code);
+            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteDTO>>(departamenttranslations1.query_list);
+
+            ResponseModel<DepartamentTranslationReadedSiteDTO> response = new ResponseModel<DepartamentTranslationReadedSiteDTO>
+            {
+                length = departamenttranslations1.length,
+                list = departamenttranslations
+            };
+            return Ok(response);
         }
 
         [HttpGet("sitegetalldepartamenttranslationchild/{parent_id}")]
@@ -394,17 +418,17 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationChild(parent_id, language_code);
             var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteFacultyDTO>>(departamenttranslations1);
-            if (departamenttranslations == null) { }
+
             return Ok(departamenttranslations);
         }
-        
+
         [HttpGet("sitegetalldepartamenttranslationfacultychild/{faculty_id}")]
         public IActionResult GetAllDepartamentTranslationFacultyChildDirection(int faculty_id, string? language_code)
         {
 
             IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationFacultyDirection(faculty_id, language_code);
             var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteFacultyDTO>>(departamenttranslations1);
-            if (departamenttranslations == null) { }
+
             return Ok(departamenttranslations);
         }
 
@@ -414,7 +438,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.SelectDepartamentsTranslation(language_code);
             var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationSelectedReadedDTO>>(departamenttranslations1);
-            if (departamenttranslations == null) { }
+
             return Ok(departamenttranslations);
         }
 
@@ -433,10 +457,15 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationType(departament_type, language_code, queryNum, pageNum);
-            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedTypedDTO>>(departamenttranslations1);
-            if (departamenttranslations == null) { }
-            return Ok(departamenttranslations);
+            QueryList<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationType(departament_type, language_code, queryNum, pageNum);
+            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedTypedDTO>>(departamenttranslations1.query_list);
+
+            ResponseModel<DepartamentTranslationReadedTypedDTO> response = new ResponseModel<DepartamentTranslationReadedTypedDTO>
+            {
+                length = departamenttranslations1.length,
+                list = departamenttranslations
+            };
+            return Ok(response);
         }
 
         [HttpGet("getalldepartamenttranslationtypesite/{departament_type_uz}")]
@@ -444,10 +473,15 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationTypeSite(departament_type_uz, language_code, queryNum, pageNum, favorite);
-            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteDTO>>(departamenttranslations1);
-            if (departamenttranslations == null) { }
-            return Ok(departamenttranslations);
+            QueryList<DepartamentTranslation> departamenttranslations1 = _repository.AllDepartamentTranslationTypeSite(departament_type_uz, language_code, queryNum, pageNum, favorite);
+            var departamenttranslations = _mapper.Map<IEnumerable<DepartamentTranslationReadedSiteDTO>>(departamenttranslations1.query_list);
+
+            ResponseModel<DepartamentTranslationReadedSiteDTO> response = new ResponseModel<DepartamentTranslationReadedSiteDTO>
+            {
+                length = departamenttranslations1.length,
+                list = departamenttranslations
+            };
+            return Ok(response);
         }
 
         [HttpGet("sitegetbyiddepartamenttranslation/{id}")]
@@ -456,7 +490,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             DepartamentTranslation departamenttranslation1 = _repository.GetDepartamentTranslationByIdSite(id);
             var departamenttranslation = _mapper.Map<DepartamentTranslationReadedSiteDTO>(departamenttranslation1);
-            if (departamenttranslation == null) { }
+
             return Ok(departamenttranslation);
         }
 
@@ -466,7 +500,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
 
             DepartamentTranslation departamenttranslation1 = _repository.GetDepartamentTranslationByIdSite(uz_id, language_code);
             var departamenttranslation = _mapper.Map<DepartamentTranslationReadedSiteDTO>(departamenttranslation1);
-            if (departamenttranslation == null) { }
+
             return Ok(departamenttranslation);
         }
 

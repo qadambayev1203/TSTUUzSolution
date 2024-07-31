@@ -56,6 +56,16 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110);
         }
 
+        //[Authorize(Roles = "")]
+        [HttpGet("getalldocumentteacher110select")]
+        public IActionResult GetAllDocumentTeacher110Select()
+        {
+            IEnumerable<DocumentTeacher110> documentTeacher110Map = _repository.AllDocumentTeacher110Select();
+            var documentTeacher110 = _mapper.Map<IEnumerable<DocumentTeacher110SelectDTO>>(documentTeacher110Map);
+            return Ok(documentTeacher110);
+        }
+
+
         //[Authorize(Roles = "Admin")]
         [HttpGet("getalldocumentteacher110admin")]
         public IActionResult GetAllDocumentTeacher110Admin(bool parent, int? parent_id)

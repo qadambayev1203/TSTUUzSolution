@@ -613,6 +613,7 @@ namespace TSTUWebAPI.Profiles
                 #region DocumentTeacher110 DTOS
                 CreateMap<DocumentTeacher110UpdatedDTO, DocumentTeacher110>();
                 CreateMap<DocumentTeacher110, DocumentTeacher110ReadedDTO>();
+                CreateMap<DocumentTeacher110, DocumentTeacher110SelectDTO>();
                 CreateMap<DocumentTeacher110, DocumentTeacher110AdminReadedDTO>();
                 CreateMap<DocumentTeacher110CreatedDTO, DocumentTeacher110>()
                                                                  .ForMember(dest => dest.document_sequence_string, opt => 

@@ -11,6 +11,7 @@ namespace Contracts.AllRepository.DocumentTeacher110Repository
     {
         //DocumentTeacher110 CRUD
         public IEnumerable<DocumentTeacher110> AllDocumentTeacher110(int? parent_id, bool parent);
+        public IEnumerable<DocumentTeacher110> AllDocumentTeacher110Select();
         public IEnumerable<DocumentTeacher110> AllDocumentTeacher110Admin(int? parent_id, bool parent);
         public DocumentTeacher110 GetDocumentTeacher110ById(int id);
         public DocumentTeacher110 GetDocumentTeacher110ByIdAdmin(int id);

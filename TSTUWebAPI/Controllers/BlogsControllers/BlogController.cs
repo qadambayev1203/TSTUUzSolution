@@ -78,20 +78,31 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Blog> blogs1 = _repository.AllBlog(queryNum, pageNum, blog_category, favorite, start_time, end_time);
-            var blogs = _mapper.Map<IEnumerable<BlogReadedDTO>>(blogs1);
-            if (blogs == null) { }
-            return Ok(blogs);
+            QueryList<Blog> blogList = _repository.AllBlog(queryNum, pageNum, blog_category, favorite, start_time, end_time);
+            IEnumerable<BlogReadedDTO> blogs = _mapper.Map<IEnumerable<BlogReadedDTO>>(blogList.query_list);
+
+            ResponseModel<BlogReadedDTO> response = new ResponseModel<BlogReadedDTO>
+            {
+                length = blogList.length,
+                list = blogs,
+            };
+
+            return Ok(response);
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getallblogselect")]
         public IActionResult GetAllBlogSelect(string? blog_category, bool? favorite)
         {
-            IEnumerable<Blog> blogs1 = _repository.AllBlogSelect(blog_category, favorite);
-            var blogs = _mapper.Map<IEnumerable<BlogReadedSelectDTO>>(blogs1);
-            if (blogs == null) { }
-            return Ok(blogs);
+            QueryList<Blog> blogList = _repository.AllBlogSelect(blog_category, favorite);
+            var blogs = _mapper.Map<IEnumerable<BlogReadedSelectDTO>>(blogList.query_list);
+            ResponseModel<BlogReadedSelectDTO> response = new ResponseModel<BlogReadedSelectDTO>
+            {
+                length = blogList.length,
+                list = blogs,
+            };
+
+            return Ok(response);
         }
 
 
@@ -100,10 +111,15 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<Blog> blogs1 = _repository.AllBlogSite(queryNum, pageNum, blog_category, favorite);
-            var blogs = _mapper.Map<IEnumerable<BlogReadedSiteDTO>>(blogs1);
-            if (blogs == null) { }
-            return Ok(blogs);
+            QueryList<Blog> blogList = _repository.AllBlogSite(queryNum, pageNum, blog_category, favorite);
+            var blogs = _mapper.Map<IEnumerable<BlogReadedSiteDTO>>(blogList.query_list);
+            ResponseModel<BlogReadedSiteDTO> response = new ResponseModel<BlogReadedSiteDTO>
+            {
+                length = blogList.length,
+                list = blogs,
+            };
+
+            return Ok(response);
         }
 
         [Authorize(Roles = "Admin")]
@@ -257,10 +273,15 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslation(queryNum, pageNum, language_code, blog_category, favorite, start_time, end_time);
-            var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedDTO>>(blogtranslations1);
-            if (blogtranslations == null) { }
-            return Ok(blogtranslations);
+            QueryList<BlogTranslation> blogList = _repository.AllBlogTranslation(queryNum, pageNum, language_code, blog_category, favorite, start_time, end_time);
+            var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedDTO>>(blogList.query_list);
+            ResponseModel<BlogTranslationReadedDTO> response = new ResponseModel<BlogTranslationReadedDTO>
+            {
+                length = blogList.length,
+                list = blogtranslations,
+            };
+
+            return Ok(response);
         }
 
         [Authorize(Roles = "Admin")]
@@ -268,10 +289,15 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         public IActionResult GetAllBlogTranslationSelect(string language_code, string? blog_category, bool? favorite)
         {
 
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslationSelect(language_code, blog_category, favorite);
-            var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedSelectDTO>>(blogtranslations1);
-            if (blogtranslations == null) { }
-            return Ok(blogtranslations);
+            QueryList<BlogTranslation> blogList = _repository.AllBlogTranslationSelect(language_code, blog_category, favorite);
+            var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedSelectDTO>>(blogList.query_list);
+            ResponseModel<BlogTranslationReadedSelectDTO> response = new ResponseModel<BlogTranslationReadedSelectDTO>
+            {
+                length = blogList.length,
+                list = blogtranslations,
+            };
+
+            return Ok(response);
         }
 
         [HttpGet("sitegetallblogtranslation")]
@@ -279,10 +305,15 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            IEnumerable<BlogTranslation> blogtranslations1 = _repository.AllBlogTranslationSite(queryNum, pageNum, language_code, blog_category_uz, favorite);
-            var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedSiteDTO>>(blogtranslations1);
-            if (blogtranslations == null) { }
-            return Ok(blogtranslations);
+            QueryList<BlogTranslation> blogList = _repository.AllBlogTranslationSite(queryNum, pageNum, language_code, blog_category_uz, favorite);
+            var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedSiteDTO>>(blogList.query_list);
+            ResponseModel<BlogTranslationReadedSiteDTO> response = new ResponseModel<BlogTranslationReadedSiteDTO>
+            {
+                length = blogList.length,
+                list = blogtranslations,
+            };
+
+            return Ok(response);
         }
 
         [Authorize(Roles = "Admin")]
