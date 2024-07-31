@@ -616,19 +616,19 @@ namespace TSTUWebAPI.Profiles
                 CreateMap<DocumentTeacher110, DocumentTeacher110SelectDTO>();
                 CreateMap<DocumentTeacher110, DocumentTeacher110AdminReadedDTO>();
                 CreateMap<DocumentTeacher110CreatedDTO, DocumentTeacher110>()
-                                                                 .ForMember(dest => dest.document_sequence_string, opt => 
+                                                                 .ForMember(dest => dest.document_sequence_string, opt =>
                                                                   opt.MapFrom(src => src.document_sequence != null ? JsonConvert
-                                                                  .SerializeObject(src.document_sequence.Select(ds => new Tuple<int, int>(ds.sequence_number, ds.department_id))
+                                                                  .SerializeObject(src.document_sequence.Select(ds => new DocumentSequenceItemDTO { sequence_number = ds.sequence_number, profil_user_id = ds.profil_user_id })
                                                                   .ToList()) : null));
-                CreateMap<DocumentSequenceItemDTO, Tuple<int, int>>()
-                                               .ConstructUsing(src => new Tuple<int, int>(src.sequence_number, src.department_id));
+
+
                 #endregion
 
                 #region DocumentTeacher110 DTOS
                 CreateMap<DocumentTeacher110SetUpdatedDTO, DocumentTeacher110Set>();
                 CreateMap<DocumentTeacher110Set, DocumentTeacher110SetReadedDTO>();
                 CreateMap<DocumentTeacher110Set, DocumentTeacher110SetAdminReadedDTO>();
-                CreateMap<DocumentTeacher110SetCreatedDTO, DocumentTeacher110Set>();               
+                CreateMap<DocumentTeacher110SetCreatedDTO, DocumentTeacher110Set>();
                 CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO>();
                 #endregion
 

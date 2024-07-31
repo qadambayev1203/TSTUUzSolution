@@ -19,7 +19,7 @@ namespace Entities.DTO.DocumentTeacher110DTOS
         public bool? two_indicator { get; set; }
         public double? max_score { get; set; }
         public string? description { get; set; }
-        public List<Tuple<int, int>>? document_sequence { get; set; }
+        public List<DocumentSequenceItemDTO>? document_sequence { get; set; }
         public StatusConfReadedDTO? status_ { get; set; }
     }
 }

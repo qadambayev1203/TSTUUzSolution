@@ -1,4 +1,5 @@
-﻿using Entities.Model.StatusModel;
+﻿using Entities.DTO.DocumentTeacher110DTOS;
+using Entities.Model.StatusModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,11 @@ namespace Entities.Model.DocumentTeacher110Model
         public Status? status_ { get; set; }
 
         [NotMapped]
-        public List<Tuple<int, int>>? document_sequence
+        public List<DocumentSequenceItemDTO>? document_sequence
         {
             get => string.IsNullOrEmpty(document_sequence_string)
-                   ? null
-                   : JsonConvert.DeserializeObject<List<Tuple<int, int>>>(document_sequence_string);
+                    ? null
+                    : JsonConvert.DeserializeObject<List<DocumentSequenceItemDTO>>(document_sequence_string);
             set => document_sequence_string = JsonConvert.SerializeObject(value);
         }
 
