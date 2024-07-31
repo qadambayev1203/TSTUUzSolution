@@ -87,7 +87,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 list = blogs,
             };
 
-            return Ok(response);
+            return Ok(blogs);
         }
 
         [Authorize(Roles = "Admin")]
@@ -102,7 +102,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 list = blogs,
             };
 
-            return Ok(response);
+            return Ok(blogs);
         }
 
 
@@ -281,7 +281,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 list = blogtranslations,
             };
 
-            return Ok(response);
+            return Ok(blogtranslations);
         }
 
         [Authorize(Roles = "Admin")]
@@ -297,7 +297,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 list = blogtranslations,
             };
 
-            return Ok(response);
+            return Ok(blogtranslations);
         }
 
         [HttpGet("sitegetallblogtranslation")]

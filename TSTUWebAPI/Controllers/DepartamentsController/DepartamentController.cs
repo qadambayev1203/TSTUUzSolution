@@ -101,7 +101,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 list = departaments
             };
 
-            return Ok(response);
+            return Ok(departaments);
         }
 
         [Authorize(Roles = "Admin")]
@@ -166,7 +166,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 list = departaments
             };
 
-            return Ok(response);
+            return Ok(departaments);
         }
 
         [HttpGet("getalldepartamenttypesite/{departament_type}")]
@@ -371,7 +371,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 length = departamenttranslations1.length,
                 list = departamenttranslations
             };
-            return Ok(response);
+            return Ok(departamenttranslations);
         }
 
         [Authorize(Roles = "Admin")]
@@ -465,7 +465,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 length = departamenttranslations1.length,
                 list = departamenttranslations
             };
-            return Ok(response);
+            return Ok(departamenttranslations);
         }
 
         [HttpGet("getalldepartamenttranslationtypesite/{departament_type_uz}")]
