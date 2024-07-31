@@ -31,7 +31,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         }
 
 
-        //[Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher")]
         [HttpPost("createdocumentteacher110set")]
         public IActionResult CreateDocumentTeacher110Set(DocumentTeacher110SetCreatedDTO documentTeacher110Set)
         {
@@ -74,7 +74,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(createdItemId);
         }
 
-        //[Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher")]
         [HttpGet("getalldocumentteacher110set")]
         public IActionResult GetAllDocumentTeacher110Set(int oldYear, int newYear)
         {
@@ -84,7 +84,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(documentTeacher110Set);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("getdocumentteacher110setadmin")]
         public IActionResult GetDocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
         {
@@ -93,7 +93,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(document);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("getalldocumentteacher110setadmin")]
         public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear)
         {
@@ -102,7 +102,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(personList);
         }
 
-        //[Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher")]
         [HttpGet("getbyiddocumentteacher110set/{id}")]
         public IActionResult GetByIdDocumentTeacher110Set(int id)
         {
@@ -111,7 +111,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(documentTeacher110Set);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("getbyiddocumentteacher110setadmin/{id}")]
         public IActionResult GetByIdDocumentTeacher110SetAdmin(int id)
         {
@@ -120,7 +120,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(documentTeacher110Set);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("deletedocumentteacher110set/{id}")]
         public IActionResult DeleteDocumentTeacher110Set(int id)
         {
@@ -132,7 +132,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok("Deleted");
         }
 
-        //[Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher")]
         [HttpPut("updatedocumentteacher110set/{id}")]
         public IActionResult UpdateDocumentTeacher110Set(DocumentTeacher110SetUpdatedDTO documentTeacher110Set, int id)
         {

@@ -24,7 +24,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             _status = _status1;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("createdocumentteacher110")]
         public IActionResult CreateDocumentTeacher110(DocumentTeacher110CreatedDTO documentTeacher110)
         {
@@ -46,7 +46,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(createdItemId);
         }
 
-        //[Authorize(Roles = "")]
+        [Authorize(Roles = "Admin,Teacher")]
         [HttpGet("getalldocumentteacher110")]
         public IActionResult GetAllDocumentTeacher110(bool parent, int? parent_id)
         {
@@ -56,7 +56,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110);
         }
 
-        //[Authorize(Roles = "")]
+        [Authorize(Roles = "")]
         [HttpGet("getalldocumentteacher110select")]
         public IActionResult GetAllDocumentTeacher110Select()
         {
@@ -66,7 +66,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         }
 
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("getalldocumentteacher110admin")]
         public IActionResult GetAllDocumentTeacher110Admin(bool parent, int? parent_id)
         {
@@ -76,7 +76,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110);
         }
 
-        //[Authorize(Roles = "")]
+        [Authorize(Roles = "Admin,Teacher")]
         [HttpGet("getbyiddocumentteacher110/{id}")]
         public IActionResult GetByIdDocumentTeacher110(int id)
         {
@@ -85,7 +85,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("getbyiddocumentteacher110admin/{id}")]
         public IActionResult GetByIdDocumentTeacher110Admin(int id)
         {
@@ -94,7 +94,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110);
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("deletedocumentteacher110/{id}")]
         public IActionResult DeleteDocumentTeacher110(int id)
         {
@@ -106,7 +106,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok("Deleted");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("updatedocumentteacher110/{id}")]
         public IActionResult UpdateDocumentTeacher110(DocumentTeacher110UpdatedDTO documentTeacher110, int id)
         {
