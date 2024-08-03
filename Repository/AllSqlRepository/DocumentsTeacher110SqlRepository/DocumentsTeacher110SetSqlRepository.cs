@@ -453,5 +453,36 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             }
         }
 
+        public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int document_id)
+        {
+            try
+            {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                int person_id;
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+                }
+                else
+                {
+                    return null;
+                }
+
+                var documentTeacher110 = _context.document_teacher_110_set_20ts24tu
+                    .Include(x => x.person_)
+                    .Include(x => x.file_)
+                    .Include(x => x.document_)
+                    .Where(x => x.status_.status != "Deleted" && x.person_id == person_id)
+                    .Where(x => x.document_id.Equals(document_id)).ToList();
+
+                return documentTeacher110 ?? Enumerable.Empty<DocumentTeacher110Set>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<DocumentTeacher110Set>();
+            }
+        }
+
     }
 }

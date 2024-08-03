@@ -16,6 +16,7 @@ namespace Contracts.AllRepository.DocumentTeacher110Repository
         public DocumentTeacher110SetList DocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id);
         public DocumentTeacher110SetList DocumentTeacher110SetConfirmDep(int oldYear, int newYear, int person_id);
         public DocumentTeacher110Set GetDocumentTeacher110SetById(int id);
+        public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int document_id);
         public DocumentTeacher110Set GetDocumentTeacher110SetByIdAdmin(int id);
         public int CreateDocumentTeacher110Set(DocumentTeacher110Set documentTeacher110Set);
         public bool UpdateDocumentTeacher110Set(int id, DocumentTeacher110Set documentTeacher110Set);

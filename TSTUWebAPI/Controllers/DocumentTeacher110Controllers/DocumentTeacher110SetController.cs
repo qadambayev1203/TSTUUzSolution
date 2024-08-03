@@ -11,6 +11,7 @@ using Entities.Model.PersonModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using TSTUWebAPI.Controllers.FileControllers;
 
 namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
@@ -127,6 +128,15 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         {
             DocumentTeacher110Set documentTeacher110SetMap = _repository.GetDocumentTeacher110SetById(id);
             var documentTeacher110Set = _mapper.Map<DocumentTeacher110SetReadedDTO>(documentTeacher110SetMap);
+            return Ok(documentTeacher110Set);
+        }
+
+        [Authorize(Roles = "Teacher")]
+        [HttpGet("getbydocumentiddocumentteacher110set/{document_id}")]
+        public IActionResult GetByDocumentIdDocumentTeacher110Set(int document_id)
+        {
+            IEnumerable<DocumentTeacher110Set> documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByDocumentId(document_id);
+            var documentTeacher110Set = _mapper.Map<IEnumerable<DocumentTeacher110SetReadedDTO>>(documentTeacher110SetMap);
             return Ok(documentTeacher110Set);
         }
 
