@@ -172,8 +172,6 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 dbcheck.title = documentTeacher110.title;
                 dbcheck.parent_id = documentTeacher110.parent_id;
                 dbcheck.indicator = documentTeacher110.indicator;
-                dbcheck.one_indicator = documentTeacher110.one_indicator;
-                dbcheck.two_indicator = documentTeacher110.two_indicator;
                 dbcheck.max_score = documentTeacher110.max_score;
                 dbcheck.description = documentTeacher110.description;
                 dbcheck.document_sequence_string = documentTeacher110.document_sequence_string;
