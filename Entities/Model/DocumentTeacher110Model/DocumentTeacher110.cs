@@ -18,8 +18,6 @@ namespace Entities.Model.DocumentTeacher110Model
         public string? title { get; set; }
         public int? parent_id { get; set; }
         public bool? indicator { get; set; }
-        public bool? one_indicator { get; set; }
-        public bool? two_indicator { get; set; }
         public double? max_score { get; set; }
         public string? description { get; set; }
         [ForeignKey("Status")] public int? status_id { get; set; }

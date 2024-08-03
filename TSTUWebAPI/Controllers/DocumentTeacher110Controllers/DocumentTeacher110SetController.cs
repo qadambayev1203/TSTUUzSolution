@@ -39,6 +39,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             documentTeacher110SetMap.status_id = _status.GetStatusId("Active");
             documentTeacher110SetMap.created_at = DateTime.UtcNow;
             documentTeacher110SetMap.sequence_status = 1;
+            documentTeacher110SetMap.rejection = false;
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -89,7 +90,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         public IActionResult GetDocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
         {
             DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear, newYear, person_id);
-            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO>(documentMap);
+            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetAdminReadedDTO>>(documentMap);
             return Ok(document);
         }
 
@@ -100,6 +101,24 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear);
             var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
             return Ok(personList);
+        }
+
+        [Authorize(Roles = "HeadDepartment")]
+        [HttpGet("getalldocumentteacher110setdepartament")]
+        public IActionResult GetAllDocumentTeacher110SetDepartament(int oldYear, int newYear)
+        {
+            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationDepartament(oldYear, newYear);
+            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            return Ok(personList);
+        }
+
+        [Authorize(Roles = "HeadDepartment")]
+        [HttpGet("getdocumentteacher110setdepartament")]
+        public IActionResult GetDocumentTeacher110SetDepartament(int oldYear, int newYear, int person_id)
+        {
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear, newYear, person_id);
+            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>(documentMap);
+            return Ok(document);
         }
 
         [Authorize(Roles = "Teacher")]
@@ -145,6 +164,8 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
 
                 var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
 
+                documentTeacher110SetMap.sequence_status = 1;
+
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
                 var Url = fileUpload.SaveFileAsync(documentTeacher110Set.file_up);
@@ -169,6 +190,28 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
                 }
 
                 return Ok("Updated");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+        [Authorize(Roles = "Admin,HeadDepartment")]
+        [HttpPut("confirmdocumentteacher110set/{id}")]
+        public IActionResult ConfirmDocumentTeacher110Set(int id, bool confirm, string? reason_for_rejection)
+        {
+            try
+            {
+
+                bool updatedcheck = _repository.ConfirmDocumentTeacher110Set(id, confirm, reason_for_rejection);
+                if (!updatedcheck)
+                {
+                    return BadRequest("Not Confirmed");
+                }
+
+                return Ok("Confirmed");
             }
             catch
             {

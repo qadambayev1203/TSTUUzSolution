@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Entities.DTO.DocumentTeacher110SetDTOS
 {
-    public class DocumentTeacher110SetListReadedDTO
+    public class DocumentTeacher110SetListReadedDTO<T>
     {
         public PersonUserDTO person_ { get; set; }
-        public List<DocumentTeacher110SetAdminReadedDTO> documents_teacher_ { get; set; }
+        public List<T> documents_teacher_ { get; set; }
     }
 }
