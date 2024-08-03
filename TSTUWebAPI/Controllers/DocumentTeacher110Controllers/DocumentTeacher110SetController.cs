@@ -38,7 +38,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
             documentTeacher110SetMap.status_id = _status.GetStatusId("Active");
             documentTeacher110SetMap.created_at = DateTime.UtcNow;
-            documentTeacher110SetMap.sequence_status = 1;
+            documentTeacher110SetMap.sequence_status = 2;
             documentTeacher110SetMap.rejection = false;
 
             FileUploadRepository fileUpload = new FileUploadRepository();
@@ -116,7 +116,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         [HttpGet("getdocumentteacher110setdepartament")]
         public IActionResult GetDocumentTeacher110SetDepartament(int oldYear, int newYear, int person_id)
         {
-            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear, newYear, person_id);
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetConfirmDep(oldYear, newYear, person_id);
             var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>(documentMap);
             return Ok(document);
         }
@@ -164,7 +164,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
 
                 var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
 
-                documentTeacher110SetMap.sequence_status = 1;
+                documentTeacher110SetMap.sequence_status = 2;
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

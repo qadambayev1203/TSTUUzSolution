@@ -136,14 +136,14 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         {
             try
             {
-                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
                 if (user != null)
                 {
 
 
                     List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
                     .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-                    .Where(x => x.status_.status != "Deleted")
+                    .Where(x => x.status_.status != "Deleted" && x.sequence_status == 2)
                     .Where(x => x.person_.departament_id == user.person_.departament_id)
                     .Include(x => x.person_)
                     .AsEnumerable()
@@ -212,7 +212,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         {
             try
             {
-                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
 
                 if (user != null)
                 {
@@ -230,7 +230,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                         departament_id = 0
                     }).FirstOrDefault();
 
-                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocListAll(oldYear, newYear, person_id).ToList();
+                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocListAll(oldYear, newYear, person_id).Where(x => x.sequence_status == 2).ToList();
 
                     DocumentTeacher110SetList document = new DocumentTeacher110SetList()
                     {
@@ -273,6 +273,9 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 }
 
                 documentTeacher110Set.person_id = person_id;
+
+
+
                 _context.document_teacher_110_set_20ts24tu.Add(documentTeacher110Set);
                 _context.SaveChanges();
                 int id = documentTeacher110Set.id;
