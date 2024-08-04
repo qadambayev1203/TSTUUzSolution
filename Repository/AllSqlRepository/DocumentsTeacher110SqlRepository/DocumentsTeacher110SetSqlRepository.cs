@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
 {
@@ -585,7 +586,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             try
             {
 
-                //ScoreOptimize(person_id);          //Score
+                ScoreOptimize(person_id);          //Score
 
                 IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
                     .Include(x => x.person_)
@@ -611,70 +612,70 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             }
         }
 
-        //private void ScoreOptimize(int person_id)
-        //{
+        private void ScoreOptimize(int person_id)
+        {
 
-        //    try
-        //    {
-        //        var result = _context.document_teacher_110_set_20ts24tu
-        //       .Join(_context.document_teacher_110_20ts24tu,
-        //             dset => dset.document_id,
-        //             dget => dget.id,
-        //             (dset, dget) => new { dset, dget })
-        //       .Where(x => x.dget.indicator == false && x.dset.person_id == person_id)
-        //       .GroupBy(x => new { x.dget.parent_id, x.dget.max_score })
-        //       .Select(g => new
-        //       {
-        //           parent_id = g.Key.parent_id,
-        //           max_score = g.Key.max_score
-        //       })
-        //       .ToList();
-
-
-        //        foreach (var document in result)
-        //        {
-        //            int totalScore = Convert.ToInt32(_context.document_teacher_110_set_20ts24tu
-        //                                .Join(_context.document_teacher_110_20ts24tu,
-        //                                      dset => dset.document_id,
-        //                                      dget => dget.id,
-        //                                      (dset, dget) => new { dset, dget })
-        //                                .Where(x => x.dget.parent_id == document.parent_id)
-        //                                .Sum(x => x.dset.score));
-
-        //            if (totalScore > 0 && totalScore > document.max_score)
-        //            {
-        //                List<int> resultIds = _context.document_teacher_110_set_20ts24tu
-        //                    .Join(_context.document_teacher_110_20ts24tu,
-        //                          dset => dset.document_id,
-        //                          dget => dget.id,
-        //                          (dset, dget) => new { dset, dget })
-        //                    .Where(x => x.dget.parent_id == 21)
-        //                    .Select(x => x.dset.id)
-        //                    .ToList();
-
-        //                if (resultIds.Count > 0)
-        //                {
-        //                    double? one_ball = document.max_score * 1.0 / resultIds.Count;
-
-        //                    if (one_ball is not null)
-        //                    {
-        //                        string ids = string.Join(",", resultIds);
-
-        //                        _context.Database.ExecuteSqlRaw($"UPDATE document_teacher_110_set_20ts24tu SET score = {one_ball} WHERE id IN ({ids});");
-        //                        _context.SaveChanges();
-        //                    }
-        //                }
-
-        //            }
-
-        //        }
-        //    }
-        //    catch
-        //    {
-        //    }
+            try
+            {
+                var result = _context.document_teacher_110_set_20ts24tu
+               .Join(_context.document_teacher_110_20ts24tu,
+                     dset => dset.document_id,
+                     dget => dget.id,
+                     (dset, dget) => new { dset, dget })
+               .Where(x => x.dget.indicator == false && x.dset.person_id == person_id)
+               .GroupBy(x => new { x.dget.parent_id, x.dget.max_score })
+               .Select(g => new
+               {
+                   parent_id = g.Key.parent_id,
+                   max_score = g.Key.max_score
+               })
+               .ToList();
 
 
-        //}
+                foreach (var document in result)
+                {
+                    int totalScore = Convert.ToInt32(_context.document_teacher_110_set_20ts24tu
+                                        .Join(_context.document_teacher_110_20ts24tu,
+                                              dset => dset.document_id,
+                                              dget => dget.id,
+                                              (dset, dget) => new { dset, dget })
+                                        .Where(x => x.dget.parent_id == document.parent_id)
+                                        .Sum(x => x.dset.score));
+
+                    if (totalScore > 0 && totalScore > document.max_score)
+                    {
+                        List<int> resultIds = _context.document_teacher_110_set_20ts24tu
+                            .Join(_context.document_teacher_110_20ts24tu,
+                                  dset => dset.document_id,
+                                  dget => dget.id,
+                                  (dset, dget) => new { dset, dget })
+                            .Where(x => x.dget.parent_id == document.parent_id)
+                            .Select(x => x.dset.id)
+                            .ToList();
+
+                        if (resultIds.Count > 0)
+                        {
+                            double? proportional = document.max_score * 1.0 / totalScore;
+
+                            if (proportional is not null)
+                            {
+                                string ids = string.Join(",", resultIds);
+
+                                _context.Database.ExecuteSqlRaw($"UPDATE document_teacher_110_set_20ts24tu SET score = score * {proportional} WHERE id IN ({ids});");
+                                _context.SaveChanges();
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            catch
+            {
+            }
+
+
+        }
 
         #endregion
 
