@@ -1,8 +1,13 @@
 ﻿using Contracts.AllRepository.DocumentTeacher110Repository;
 using Entities;
+using Entities.DTO.DocumentTeacher110SetDTOS;
+using Entities.DTO.PersonDTOS;
 using Entities.Model.AnyClasses;
 using Entities.Model.DocumentTeacher110Model;
+using Entities.Model.FileModel;
 using Entities.Model.PersonModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -25,6 +30,8 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
         }
 
 
+        #region Teacher
+
         public IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110Set(int oldYear, int newYear)
         {
             try
@@ -41,213 +48,14 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return Enumerable.Empty<DocumentTeacher110Set>();
                 }
 
+                IEnumerable<DocumentTeacher110Set> documentTeacher110 = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false);
 
-                IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
-                    .Include(x => x.person_)
-                    .Include(x => x.file_)
-                    .Include(x => x.document_)
-                    .Where(x => x.status_.status != "Deleted" && x.person_id == person_id)
-                    .Where(x => x.old_year == oldYear && x.new_year == newYear);
-
-                return documentTeacher110.ToList();
+                return documentTeacher110;
             }
             catch (Exception ex)
             {
                 _logger.LogError("Error " + ex.Message);
                 return Enumerable.Empty<DocumentTeacher110Set>();
-            }
-        }
-
-        private IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetDocList(int oldYear, int newYear, int person_id)
-        {
-            try
-            {
-
-                IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
-                    .Include(x => x.person_)
-                    .Include(x => x.file_)
-                    .Include(x => x.document_)
-                    .Where(x => x.person_id == person_id)
-                    .Where(x => x.old_year == oldYear && x.new_year == newYear);
-
-                return documentTeacher110.ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return Enumerable.Empty<DocumentTeacher110Set>();
-            }
-        }
-
-        private IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetDocListAll(int oldYear, int newYear, int person_id)
-        {
-            try
-            {
-
-                IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
-                    .Include(x => x.person_)
-                    .Include(x => x.file_)
-                    .Include(x => x.document_)
-                    .Where(x => x.person_id == person_id)
-                    .Where(x => x.status_.status == "Deleted")
-                    .Where(x => x.old_year == oldYear && x.new_year == newYear);
-
-                return documentTeacher110.ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return Enumerable.Empty<DocumentTeacher110Set>();
-            }
-        }
-
-        public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear)
-        {
-            try
-            {
-                List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
-                .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-                .Include(x => x.person_)
-                .AsEnumerable()
-                .GroupBy(x => x.person_id)
-                .Select(g => g.First())
-                .Select(x => new Person
-                {
-                    id = x.person_.id,
-                    firstName = x.person_.firstName,
-                    lastName = x.person_.lastName,
-                    fathers_name = x.person_.fathers_name,
-                    employee_type_id = 0,
-                    departament_id = 0
-                })
-                .ToList();
-
-
-                return personsIdList;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return Enumerable.Empty<Person>();
-            }
-        }
-
-        public IEnumerable<Person> AllDocumentTeacher110SetConfirmationDepartament(int oldYear, int newYear)
-        {
-            try
-            {
-                var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
-                if (user != null)
-                {
-
-
-                    List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
-                    .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-                    .Where(x => x.status_.status != "Deleted" && x.sequence_status == 2)
-                    .Where(x => x.person_.departament_id == user.person_.departament_id)
-                    .Include(x => x.person_)
-                    .AsEnumerable()
-                    .GroupBy(x => x.person_id)
-                    .Select(g => g.First())
-                    .Select(x => new Person
-                    {
-                        id = x.person_.id,
-                        firstName = x.person_.firstName,
-                        lastName = x.person_.lastName,
-                        fathers_name = x.person_.fathers_name,
-                        employee_type_id = 0,
-                        departament_id = 0
-                    })
-                    .ToList();
-
-
-                    return personsIdList;
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return Enumerable.Empty<Person>();
-            }
-        }
-
-        public DocumentTeacher110SetList DocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
-        {
-            try
-            {
-
-                var person = _context.persons_20ts24tu
-                    .Where(x => x.id == person_id)
-                    .Select(x => new Person
-                    {
-                        id = x.id,
-                        firstName = x.firstName,
-                        lastName = x.lastName,
-                        fathers_name = x.fathers_name,
-                        employee_type_id = 0,
-                        departament_id = 0
-                    }).FirstOrDefault();
-
-                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id).ToList();
-
-                DocumentTeacher110SetList document = new DocumentTeacher110SetList()
-                {
-                    person_ = person,
-                    documents_teacher_ = docList
-                };
-
-
-                return document;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return new DocumentTeacher110SetList();
-            }
-        }
-
-        public DocumentTeacher110SetList DocumentTeacher110SetConfirmDep(int oldYear, int newYear, int person_id)
-        {
-            try
-            {
-                var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
-
-                if (user != null)
-                {
-                    var person = _context.persons_20ts24tu
-                    .Where(x => x.id == person_id)
-                    .Where(x => x.status_.status != "Deleted")
-                    .Where(x => x.departament_id == user.person_.departament_id)
-                    .Select(x => new Person
-                    {
-                        id = x.id,
-                        firstName = x.firstName,
-                        lastName = x.lastName,
-                        fathers_name = x.fathers_name,
-                        employee_type_id = 0,
-                        departament_id = 0
-                    }).FirstOrDefault();
-
-                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocListAll(oldYear, newYear, person_id).Where(x => x.sequence_status == 2).ToList();
-
-                    DocumentTeacher110SetList document = new DocumentTeacher110SetList()
-                    {
-                        person_ = person,
-                        documents_teacher_ = docList
-                    };
-
-
-                    return document;
-                }
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return new DocumentTeacher110SetList();
             }
         }
 
@@ -274,7 +82,11 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
 
                 documentTeacher110Set.person_id = person_id;
 
-
+                var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == documentTeacher110Set.document_id);
+                if (document.indicator == true)
+                {
+                    return 0;
+                }
 
                 _context.document_teacher_110_set_20ts24tu.Add(documentTeacher110Set);
                 _context.SaveChanges();
@@ -343,26 +155,6 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             }
         }
 
-        public DocumentTeacher110Set GetDocumentTeacher110SetByIdAdmin(int id)
-        {
-            try
-            {
-                var documentTeacher110 = _context.document_teacher_110_set_20ts24tu
-                    .Include(x => x.person_)
-                    .Include(x => x.file_)
-                    .Include(x => x.document_)
-                    .Include(x => x.status_)
-                    .FirstOrDefault(x => x.id.Equals(id));
-
-                return documentTeacher110 ?? new DocumentTeacher110Set();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return new DocumentTeacher110Set();
-            }
-        }
-
         public bool UpdateDocumentTeacher110Set(int id, DocumentTeacher110Set documentTeacher110)
         {
             try
@@ -396,49 +188,10 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 }
                 dbcheck.comment = documentTeacher110.comment;
 
-                _context.Update(dbcheck);
-                _context.SaveChanges();
-                _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return false;
-            }
-        }
-
-        public bool ConfirmDocumentTeacher110Set(int id, bool confirm, string? reason_for_rejection)
-        {
-            try
-            {
-                var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
-                if (dbcheck is null)
+                var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == dbcheck.document_id);
+                if (document.indicator == true)
                 {
                     return false;
-                }
-
-                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-                int person_id;
-                if (user != null && user.person_id != 0 && user.person_id != null)
-                {
-                    person_id = user.person_id ??= 0;
-
-                }
-                else
-                {
-                    return false;
-                }
-                if (!confirm)
-                {
-                    dbcheck.rejection = true;
-                    dbcheck.reason_for_rejection = reason_for_rejection;
-                    dbcheck.sequence_status = 1;
-                }
-                else if (confirm)
-                {
-                    dbcheck.rejection = false;
-                    dbcheck.sequence_status = dbcheck.sequence_status + 1;
                 }
 
                 _context.Update(dbcheck);
@@ -483,6 +236,442 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 return Enumerable.Empty<DocumentTeacher110Set>();
             }
         }
+
+
+
+        #endregion
+
+
+        #region Admin
+
+        public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear)
+        {
+            try
+            {
+                List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
+                .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+                .Include(x => x.person_)
+                .AsEnumerable()
+                .GroupBy(x => x.person_id)
+                .Select(g => g.First())
+                .Select(x => new Person
+                {
+                    id = x.person_.id,
+                    firstName = x.person_.firstName,
+                    lastName = x.person_.lastName,
+                    fathers_name = x.person_.fathers_name,
+                    employee_type_id = 0,
+                    departament_id = 0
+                })
+                .ToList();
+
+
+                return personsIdList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<Person>();
+            }
+        }
+
+        public DocumentTeacher110SetList DocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
+        {
+            try
+            {
+
+                var person = _context.persons_20ts24tu
+                    .Where(x => x.id == person_id)
+                    .Select(x => new Person
+                    {
+                        id = x.id,
+                        firstName = x.firstName,
+                        lastName = x.lastName,
+                        fathers_name = x.fathers_name,
+                        employee_type_id = 0,
+                        departament_id = 0
+                    }).FirstOrDefault();
+
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, true).ToList();
+
+                DocumentTeacher110SetList document = new DocumentTeacher110SetList()
+                {
+                    person_ = person,
+                    documents_teacher_ = docList
+                };
+
+
+                return document;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return new DocumentTeacher110SetList();
+            }
+        }
+
+        public DocumentTeacher110Set GetDocumentTeacher110SetByIdAdmin(int id)
+        {
+            try
+            {
+                var documentTeacher110 = _context.document_teacher_110_set_20ts24tu
+                    .Include(x => x.person_)
+                    .Include(x => x.file_)
+                    .Include(x => x.document_)
+                    .Include(x => x.status_)
+                    .FirstOrDefault(x => x.id.Equals(id));
+
+                return documentTeacher110 ?? new DocumentTeacher110Set();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return new DocumentTeacher110Set();
+            }
+        }
+
+
+
+        #endregion
+
+
+        #region Head of Departament 
+
+        public IEnumerable<Person> AllDocumentTeacher110SetConfirmationDepartament(int oldYear, int newYear)
+        {
+            try
+            {
+                var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
+                if (user != null)
+                {
+
+
+                    List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
+                    .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+                    .Where(x => x.status_.status != "Deleted" && x.sequence_status == 2)
+                    .Where(x => x.person_.departament_id == user.person_.departament_id)
+                    .Include(x => x.person_)
+                    .AsEnumerable()
+                    .GroupBy(x => x.person_id)
+                    .Select(g => g.First())
+                    .Select(x => new Person
+                    {
+                        id = x.person_.id,
+                        firstName = x.person_.firstName,
+                        lastName = x.person_.lastName,
+                        fathers_name = x.person_.fathers_name,
+                        employee_type_id = 0,
+                        departament_id = 0
+                    })
+                    .ToList();
+
+
+                    return personsIdList;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<Person>();
+            }
+        }
+
+        public DocumentTeacher110SetList DocumentTeacher110SetConfirmDep(int oldYear, int newYear, int person_id)
+        {
+            try
+            {
+                var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
+
+                if (user != null)
+                {
+                    var person = _context.persons_20ts24tu
+                    .Where(x => x.id == person_id)
+                    .Where(x => x.status_.status != "Deleted")
+                    .Where(x => x.departament_id == user.person_.departament_id)
+                    .Select(x => new Person
+                    {
+                        id = x.id,
+                        firstName = x.firstName,
+                        lastName = x.lastName,
+                        fathers_name = x.fathers_name,
+                        employee_type_id = 0,
+                        departament_id = 0
+                    }).FirstOrDefault();
+
+                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false).Where(x => x.sequence_status == 2).ToList();
+
+                    DocumentTeacher110SetList document = new DocumentTeacher110SetList()
+                    {
+                        person_ = person,
+                        documents_teacher_ = docList
+                    };
+
+
+                    return document;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return new DocumentTeacher110SetList();
+            }
+        }
+
+        public bool ConfirmDocumentTeacher110Set(int id, bool confirm, string? reason_for_rejection)
+        {
+            try
+            {
+                var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
+                if (dbcheck is null)
+                {
+                    return false;
+                }
+
+                if (!confirm)
+                {
+                    dbcheck.rejection = true;
+                    dbcheck.reason_for_rejection = reason_for_rejection;
+                    dbcheck.sequence_status = 1;
+                }
+                else if (confirm)
+                {
+                    dbcheck.rejection = false;
+                    dbcheck.sequence_status = dbcheck.sequence_status + 1;
+
+                }
+
+                _context.Update(dbcheck);
+                _context.SaveChanges();
+                _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return false;
+            }
+        }
+
+
+        #endregion
+
+
+        #region Study department
+
+        public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear)
+        {
+            try
+            {
+
+                List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
+                .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+                .Where(x => x.status_.status != "Deleted" && x.sequence_status == 3)
+                .Include(x => x.person_)
+                .AsEnumerable()
+                .GroupBy(x => x.person_id)
+                .Select(g => g.First())
+                .Select(x => new Person
+                {
+                    id = x.person_.id,
+                    firstName = x.person_.firstName,
+                    lastName = x.person_.lastName,
+                    fathers_name = x.person_.fathers_name,
+                    employee_type_id = 0,
+                    departament_id = 0
+                })
+                .ToList();
+
+
+                return personsIdList;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<Person>();
+            }
+        }
+
+        public DocumentTeacher110SetList DocumentTeacher110SetConfirmStudyDep(int oldYear, int newYear, int person_id)
+        {
+            try
+            {
+                var person = _context.persons_20ts24tu
+                .Where(x => x.id == person_id)
+                .Where(x => x.status_.status != "Deleted")
+                .Select(x => new Person
+                {
+                    id = x.id,
+                    firstName = x.firstName,
+                    lastName = x.lastName,
+                    fathers_name = x.fathers_name,
+                    employee_type_id = 0,
+                    departament_id = 0
+                }).FirstOrDefault();
+
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false).Where(x => x.sequence_status == 3).ToList();
+
+                DocumentTeacher110SetList document = new DocumentTeacher110SetList()
+                {
+                    person_ = person,
+                    documents_teacher_ = docList
+                };
+
+
+                return document;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return new DocumentTeacher110SetList();
+            }
+        }
+
+        public bool ConfirmDocumentTeacher110SetStudyDep(int id, bool confirm, DocumentTeacher110Set teacher110Set)
+        {
+            try
+            {
+                var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
+                if (dbcheck is null)
+                {
+                    return false;
+                }
+
+                if (!confirm)
+                {
+                    dbcheck.rejection = true;
+                    dbcheck.reason_for_rejection = teacher110Set.reason_for_rejection;
+                    dbcheck.sequence_status = 1;
+                }
+                else if (confirm)
+                {
+                    dbcheck.rejection = false;
+                    dbcheck.sequence_status = dbcheck.sequence_status + 1;
+
+                    dbcheck.score = teacher110Set.score;
+                    if (dbcheck.document_.max_score <= teacher110Set.score)
+                    {
+                        dbcheck.score = dbcheck.document_.max_score;
+                    }
+
+                }
+
+                _context.Update(dbcheck);
+                _context.SaveChanges();
+                _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return false;
+            }
+        }
+
+
+
+        #endregion region
+
+
+        #region Any
+
+        private IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetDocList(int oldYear, int newYear, int person_id, bool admin)
+        {
+            try
+            {
+
+                //ScoreOptimize(person_id);          //Score
+
+                IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
+                    .Include(x => x.person_)
+                    .Include(x => x.file_)
+                    .Include(x => x.document_)
+                    .Where(x => x.person_id == person_id)
+                    .Where(x => x.old_year == oldYear && x.new_year == newYear);
+
+                if (!admin)
+                {
+                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status == "Deleted");
+                }
+
+                return documentTeacher110.ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error " + ex.Message);
+                return Enumerable.Empty<DocumentTeacher110Set>();
+            }
+        }
+
+        //private void ScoreOptimize(int person_id)
+        //{
+
+        //    try
+        //    {
+        //        var result = _context.document_teacher_110_set_20ts24tu
+        //       .Join(_context.document_teacher_110_20ts24tu,
+        //             dset => dset.document_id,
+        //             dget => dget.id,
+        //             (dset, dget) => new { dset, dget })
+        //       .Where(x => x.dget.indicator == false && x.dset.person_id == person_id)
+        //       .GroupBy(x => new { x.dget.parent_id, x.dget.max_score })
+        //       .Select(g => new
+        //       {
+        //           parent_id = g.Key.parent_id,
+        //           max_score = g.Key.max_score
+        //       })
+        //       .ToList();
+
+
+        //        foreach (var document in result)
+        //        {
+        //            int totalScore = Convert.ToInt32(_context.document_teacher_110_set_20ts24tu
+        //                                .Join(_context.document_teacher_110_20ts24tu,
+        //                                      dset => dset.document_id,
+        //                                      dget => dget.id,
+        //                                      (dset, dget) => new { dset, dget })
+        //                                .Where(x => x.dget.parent_id == document.parent_id)
+        //                                .Sum(x => x.dset.score));
+
+        //            if (totalScore > 0 && totalScore > document.max_score)
+        //            {
+        //                List<int> resultIds = _context.document_teacher_110_set_20ts24tu
+        //                    .Join(_context.document_teacher_110_20ts24tu,
+        //                          dset => dset.document_id,
+        //                          dget => dget.id,
+        //                          (dset, dget) => new { dset, dget })
+        //                    .Where(x => x.dget.parent_id == 21)
+        //                    .Select(x => x.dset.id)
+        //                    .ToList();
+
+        //                if (resultIds.Count > 0)
+        //                {
+        //                    double? one_ball = document.max_score * 1.0 / resultIds.Count;
+
+        //                    if (one_ball is not null)
+        //                    {
+        //                        string ids = string.Join(",", resultIds);
+
+        //                        _context.Database.ExecuteSqlRaw($"UPDATE document_teacher_110_set_20ts24tu SET score = {one_ball} WHERE id IN ({ids});");
+        //                        _context.SaveChanges();
+        //                    }
+        //                }
+
+        //            }
+
+        //        }
+        //    }
+        //    catch
+        //    {
+        //    }
+
+
+        //}
+
+        #endregion
 
     }
 }

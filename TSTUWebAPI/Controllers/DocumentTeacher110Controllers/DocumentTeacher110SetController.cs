@@ -32,6 +32,8 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         }
 
 
+        #region Teacher
+
         [Authorize(Roles = "Admin,Teacher")]
         [HttpPost("createdocumentteacher110set")]
         public IActionResult CreateDocumentTeacher110Set(DocumentTeacher110SetCreatedDTO documentTeacher110Set)
@@ -86,81 +88,6 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             return Ok(documentTeacher110Set);
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet("getdocumentteacher110setadmin")]
-        public IActionResult GetDocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
-        {
-            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear, newYear, person_id);
-            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetAdminReadedDTO>>(documentMap);
-            return Ok(document);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("getalldocumentteacher110setadmin")]
-        public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear)
-        {
-            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear);
-            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
-            return Ok(personList);
-        }
-
-        [Authorize(Roles = "HeadDepartment")]
-        [HttpGet("getalldocumentteacher110setdepartament")]
-        public IActionResult GetAllDocumentTeacher110SetDepartament(int oldYear, int newYear)
-        {
-            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationDepartament(oldYear, newYear);
-            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
-            return Ok(personList);
-        }
-
-        [Authorize(Roles = "HeadDepartment")]
-        [HttpGet("getdocumentteacher110setdepartament")]
-        public IActionResult GetDocumentTeacher110SetDepartament(int oldYear, int newYear, int person_id)
-        {
-            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetConfirmDep(oldYear, newYear, person_id);
-            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>(documentMap);
-            return Ok(document);
-        }
-
-        [Authorize(Roles = "Teacher")]
-        [HttpGet("getbyiddocumentteacher110set/{id}")]
-        public IActionResult GetByIdDocumentTeacher110Set(int id)
-        {
-            DocumentTeacher110Set documentTeacher110SetMap = _repository.GetDocumentTeacher110SetById(id);
-            var documentTeacher110Set = _mapper.Map<DocumentTeacher110SetReadedDTO>(documentTeacher110SetMap);
-            return Ok(documentTeacher110Set);
-        }
-
-        [Authorize(Roles = "Teacher")]
-        [HttpGet("getbydocumentiddocumentteacher110set/{document_id}")]
-        public IActionResult GetByDocumentIdDocumentTeacher110Set(int document_id)
-        {
-            IEnumerable<DocumentTeacher110Set> documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByDocumentId(document_id);
-            var documentTeacher110Set = _mapper.Map<IEnumerable<DocumentTeacher110SetReadedDTO>>(documentTeacher110SetMap);
-            return Ok(documentTeacher110Set);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("getbyiddocumentteacher110setadmin/{id}")]
-        public IActionResult GetByIdDocumentTeacher110SetAdmin(int id)
-        {
-            DocumentTeacher110Set documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByIdAdmin(id);
-            var documentTeacher110Set = _mapper.Map<DocumentTeacher110SetAdminReadedDTO>(documentTeacher110SetMap);
-            return Ok(documentTeacher110Set);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("deletedocumentteacher110set/{id}")]
-        public IActionResult DeleteDocumentTeacher110Set(int id)
-        {
-            bool check = _repository.DeleteDocumentTeacher110Set(id);
-            if (!check)
-            {
-                return BadRequest("Not Deleted");
-            }
-            return Ok("Deleted");
-        }
-
         [Authorize(Roles = "Admin,Teacher")]
         [HttpPut("updatedocumentteacher110set/{id}")]
         public IActionResult UpdateDocumentTeacher110Set(DocumentTeacher110SetUpdatedDTO documentTeacher110Set, int id)
@@ -208,8 +135,93 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
 
         }
 
+        [Authorize(Roles = "Admin,Teacher")]
+        [HttpDelete("deletedocumentteacher110set/{id}")]
+        public IActionResult DeleteDocumentTeacher110Set(int id)
+        {
+            bool check = _repository.DeleteDocumentTeacher110Set(id);
+            if (!check)
+            {
+                return BadRequest("Not Deleted");
+            }
+            return Ok("Deleted");
+        }
+
+        [Authorize(Roles = "Teacher")]
+        [HttpGet("getbyiddocumentteacher110set/{id}")]
+        public IActionResult GetByIdDocumentTeacher110Set(int id)
+        {
+            DocumentTeacher110Set documentTeacher110SetMap = _repository.GetDocumentTeacher110SetById(id);
+            var documentTeacher110Set = _mapper.Map<DocumentTeacher110SetReadedDTO>(documentTeacher110SetMap);
+            return Ok(documentTeacher110Set);
+        }
+
+        [Authorize(Roles = "Teacher")]
+        [HttpGet("getbydocumentiddocumentteacher110set/{document_id}")]
+        public IActionResult GetByDocumentIdDocumentTeacher110Set(int document_id)
+        {
+            IEnumerable<DocumentTeacher110Set> documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByDocumentId(document_id);
+            var documentTeacher110Set = _mapper.Map<IEnumerable<DocumentTeacher110SetReadedDTO>>(documentTeacher110SetMap);
+            return Ok(documentTeacher110Set);
+        }
+
+        #endregion
+
+
+        #region Admin
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getdocumentteacher110setadmin")]
+        public IActionResult GetDocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id)
+        {
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetAdmin(oldYear, newYear, person_id);
+            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetAdminReadedDTO>>(documentMap);
+            return Ok(document);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getalldocumentteacher110setadmin")]
+        public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear)
+        {
+            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear);
+            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            return Ok(personList);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getbyiddocumentteacher110setadmin/{id}")]
+        public IActionResult GetByIdDocumentTeacher110SetAdmin(int id)
+        {
+            DocumentTeacher110Set documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByIdAdmin(id);
+            var documentTeacher110Set = _mapper.Map<DocumentTeacher110SetAdminReadedDTO>(documentTeacher110SetMap);
+            return Ok(documentTeacher110Set);
+        }
+
+        #endregion
+
+
+        #region Head of Departament 
+
+        [Authorize(Roles = "HeadDepartment")]
+        [HttpGet("getalldocumentteacher110setdepartament")]
+        public IActionResult GetAllDocumentTeacher110SetDepartament(int oldYear, int newYear)
+        {
+            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationDepartament(oldYear, newYear);
+            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            return Ok(personList);
+        }
+
+        [Authorize(Roles = "HeadDepartment")]
+        [HttpGet("getdocumentteacher110setdepartament")]
+        public IActionResult GetDocumentTeacher110SetDepartament(int oldYear, int newYear, int person_id)
+        {
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetConfirmDep(oldYear, newYear, person_id);
+            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>(documentMap);
+            return Ok(document);
+        }
+
         [Authorize(Roles = "Admin,HeadDepartment")]
-        [HttpPut("confirmdocumentteacher110set/{id}")]
+        [HttpPut("confirmheaddepartamentdocument110/{id}")]
         public IActionResult ConfirmDocumentTeacher110Set(int id, bool confirm, string? reason_for_rejection)
         {
             try
@@ -229,6 +241,63 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             }
 
         }
+
+
+        #endregion
+
+
+        #region Study department
+
+        [Authorize(Roles = "StudyDepartment")]
+        [HttpGet("getalldocumentteacher110setstudydepartament")]
+        public IActionResult GetAllDocumentTeacher110SetStudyDepartament(int oldYear, int newYear)
+        {
+            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationStudyDep(oldYear, newYear);
+            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            return Ok(personList);
+        }
+
+        [Authorize(Roles = "StudyDepartment")]
+        [HttpGet("getdocumentteacher110setstudydepartament")]
+        public IActionResult GetDocumentTeacher110SetStudyDepartament(int oldYear, int newYear, int person_id)
+        {
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetConfirmStudyDep(oldYear, newYear, person_id);
+            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>(documentMap);
+            return Ok(document);
+        }
+
+        [Authorize(Roles = "Admin,StudyDepartment")]
+        [HttpPut("confirmstudydepartamentdocument110/{id}")]
+        public IActionResult ConfirmDocumentTeacher110SetStudyDep(int id, DocumentTeacher110SetConfirmStudyDepDTO confirmStudyDepDTO)
+        {
+            try
+            {
+                if (confirmStudyDepDTO == null)
+                {
+                    return BadRequest();
+                }
+
+                var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(confirmStudyDepDTO);
+
+                bool updatedcheck = _repository.ConfirmDocumentTeacher110SetStudyDep(id, confirmStudyDepDTO.confirm, documentTeacher110SetMap);
+                if (!updatedcheck)
+                {
+                    return BadRequest("Not Confirmed");
+                }
+
+                return Ok("Confirmed");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+
+
+        #endregion region
+
 
 
     }
