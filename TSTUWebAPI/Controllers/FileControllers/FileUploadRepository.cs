@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Entities.Model.AnyClasses;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 
 namespace TSTUWebAPI.Controllers.FileControllers
 {
@@ -13,7 +14,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
         private readonly string[] allowedExtensionsDoc = SessionClass.allowedExtensionsDoc;
         private readonly string[] allowedExtensionsVideo = SessionClass.allowedExtensionsVideo;
 
-        private readonly string fileUploadsPath;
+        private static string fileUploadsPath;
 
         public FileUploadRepository()
         {
@@ -74,12 +75,14 @@ namespace TSTUWebAPI.Controllers.FileControllers
         {
             try
             {
-                string filePath = Path.Combine(fileUploadsPath, url);
+                fileUploadsPath = GetNewFilePath(fileUploadsPath.Split("\\file-uploads")[0]);
+                string filePath = GetNewFilePath(Path.Combine(fileUploadsPath, url.TrimStart('/')));
                 File.Delete(filePath);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                Log.Error(ex, "Failed to delete file: {FilePath}");
                 return false;
             }
         }
