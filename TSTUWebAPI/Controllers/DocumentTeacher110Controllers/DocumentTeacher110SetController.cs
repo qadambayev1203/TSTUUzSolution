@@ -158,9 +158,9 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
 
         [Authorize(Roles = "Teacher")]
         [HttpGet("getbydocumentiddocumentteacher110set/{document_id}")]
-        public IActionResult GetByDocumentIdDocumentTeacher110Set(int document_id)
+        public IActionResult GetByDocumentIdDocumentTeacher110Set(int oldYear, int newYear, int document_id)
         {
-            IEnumerable<DocumentTeacher110Set> documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByDocumentId(document_id);
+            IEnumerable<DocumentTeacher110Set> documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByDocumentId(oldYear, newYear, document_id);
             var documentTeacher110Set = _mapper.Map<IEnumerable<DocumentTeacher110SetReadedDTO>>(documentTeacher110SetMap);
             return Ok(documentTeacher110Set);
         }

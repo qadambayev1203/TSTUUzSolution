@@ -71,17 +71,23 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return 0;
                 }
 
-                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                var user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 int person_id;
                 if (user != null && user.person_id != 0 && user.person_id != null)
                 {
                     person_id = user.person_id ??= 0;
-
                 }
                 else
                 {
                     return 0;
                 }
+
+
+                if (user.user_type_.type == "Teacher")
+                {
+                    return 0;
+                }
+
 
                 documentTeacher110Set.person_id = person_id;
 
@@ -168,20 +174,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return false;
                 }
 
-                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-                int person_id;
-                if (user != null && user.person_id != 0 && user.person_id != null)
-                {
-                    person_id = user.person_id ??= 0;
 
-                }
-                else
-                {
-                    return false;
-                }
-                documentTeacher110.person_id = person_id;
-
-                dbcheck.person_id = documentTeacher110.person_id;
                 dbcheck.old_year = documentTeacher110.old_year;
                 dbcheck.new_year = documentTeacher110.new_year;
                 dbcheck.document_id = documentTeacher110.document_id;
@@ -209,7 +202,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             }
         }
 
-        public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int document_id)
+        public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int oldYear, int newYear, int document_id)
         {
             try
             {
@@ -229,6 +222,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     .Include(x => x.file_)
                     .Include(x => x.document_)
                     .Where(x => x.status_.status != "Deleted" && x.person_id == person_id)
+                    .Where(x => x.old_year == oldYear && x.new_year == newYear)
                     .Where(x => x.document_id.Equals(document_id)).ToList();
 
                 return documentTeacher110 ?? Enumerable.Empty<DocumentTeacher110Set>();
