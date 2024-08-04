@@ -83,7 +83,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 }
 
 
-                if (user.user_type_.type == "Teacher")
+                if (user.user_type_.type != "Teacher")
                 {
                     return 0;
                 }
