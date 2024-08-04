@@ -50,6 +50,8 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
 
                 IEnumerable<DocumentTeacher110Set> documentTeacher110 = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false);
 
+
+
                 return documentTeacher110;
             }
             catch (Exception ex)
@@ -592,9 +594,12 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     .Where(x => x.person_id == person_id)
                     .Where(x => x.old_year == oldYear && x.new_year == newYear);
 
+
+
                 if (!admin)
                 {
-                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status == "Deleted");
+                    documentTeacher110 = documentTeacher110.Include(x => x.status_).Where(x => x.status_.status != "Deleted");
+
                 }
 
                 return documentTeacher110.ToList();
