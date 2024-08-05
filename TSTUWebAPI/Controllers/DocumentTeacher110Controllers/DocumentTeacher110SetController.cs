@@ -43,6 +43,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
             documentTeacher110SetMap.created_at = DateTime.UtcNow;
             documentTeacher110SetMap.sequence_status = 2;
             documentTeacher110SetMap.rejection = false;
+            documentTeacher110SetMap.reason_for_rejection = "";
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -102,6 +103,8 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
                 var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
 
                 documentTeacher110SetMap.sequence_status = 2;
+                documentTeacher110SetMap.rejection = false;
+                documentTeacher110SetMap.reason_for_rejection = "";
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

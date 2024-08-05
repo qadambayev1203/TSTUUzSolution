@@ -427,6 +427,14 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 {
                     return false;
                 }
+                var headDepartamentId = _context.users_20ts24tu
+                   .Where(x => x.id == SessionClass.id)
+                   .Select(x => x.person_.departament_id).FirstOrDefault();
+
+                if (dbcheck.sequence_status != 2 || dbcheck.person_.departament_id != headDepartamentId)
+                {
+                    return false;
+                }
 
                 if (!confirm)
                 {
@@ -533,6 +541,11 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
             {
                 var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
                 if (dbcheck is null)
+                {
+                    return false;
+                }
+
+                if (dbcheck.sequence_status != 3)
                 {
                     return false;
                 }
