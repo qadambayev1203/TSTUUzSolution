@@ -49,11 +49,16 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return Enumerable.Empty<DocumentTeacher110Set>();
                 }
 
-                IEnumerable<DocumentTeacher110Set> documentTeacher110 = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false);
+                IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
+                   .Include(x => x.person_)
+                   .Include(x => x.file_)
+                   .Include(x => x.document_)
+                   .Where(x => x.person_id == person_id)
+                   .Where(x => x.status_.status != "Deleted")
+                   .Where(x => x.old_year == oldYear && x.new_year == newYear);
 
 
-
-                return documentTeacher110;
+                return documentTeacher110.ToList();
             }
             catch (Exception ex)
             {
@@ -119,6 +124,10 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 {
                     return false;
                 }
+                if (documentTeacher110.sequence_status == 4)
+                {
+                    return false;
+                }
                 documentTeacher110.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
                 _context.document_teacher_110_set_20ts24tu.Update(documentTeacher110);
                 _context.SaveChanges();
@@ -174,10 +183,18 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return false;
                 }
 
+                if (dbcheck.sequence_status == 4)
+                {
+                    return false;
+                }
 
                 dbcheck.old_year = documentTeacher110.old_year;
                 dbcheck.new_year = documentTeacher110.new_year;
                 dbcheck.document_id = documentTeacher110.document_id;
+                dbcheck.sequence_status = 2;
+                dbcheck.rejection = false;
+                dbcheck.reason_for_rejection = "";
+
                 if (documentTeacher110.file_ != null)
                 {
                     dbcheck.file_ = documentTeacher110.file_;
@@ -560,7 +577,6 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 {
                     dbcheck.rejection = false;
                     dbcheck.sequence_status = dbcheck.sequence_status + 1;
-
                     dbcheck.score = teacher110Set.score;
                     if (dbcheck.document_.max_score <= teacher110Set.score)
                     {
@@ -604,13 +620,43 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
 
 
 
+
+
+                if (admin)
+                {
+                    documentTeacher110 = documentTeacher110.Include(x => x.status_);
+                }
                 if (!admin)
                 {
-                    documentTeacher110 = documentTeacher110.Include(x => x.status_).Where(x => x.status_.status != "Deleted");
+                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted");
 
                 }
 
-                return documentTeacher110.ToList();
+                List<DocumentTeacher110Set> response = documentTeacher110.ToList();
+
+                if (response != null)
+                {
+                    for (int i = 0; i < response.Count(); i++)
+                    {
+                        string titleDoc = response[i].document_.title;
+
+                        int? docParentId = response[i].document_.parent_id;
+
+                        while (docParentId > 0)
+                        {
+                            var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == docParentId);
+                            titleDoc = $"{document.title} - {titleDoc}";
+                            docParentId = document.parent_id;
+                        }
+
+                        response[i].document_.title = titleDoc;
+
+                    }
+                }
+
+
+
+                return response;
             }
             catch (Exception ex)
             {

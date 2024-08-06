@@ -28,6 +28,12 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         [HttpPost("createdocumentteacher110")]
         public IActionResult CreateDocumentTeacher110(DocumentTeacher110CreatedDTO documentTeacher110)
         {
+
+            if (documentTeacher110.parent_id==0 || documentTeacher110.max_score==0)
+            {
+                return BadRequest("parent_id and max_score cannot be 0");
+            }
+
             var documentTeacher110Map = _mapper.Map<DocumentTeacher110>(documentTeacher110);
             documentTeacher110Map.status_id = _status.GetStatusId("Active");
             int id = _repository.CreateDocumentTeacher110(documentTeacher110Map);
@@ -112,9 +118,15 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         {
             try
             {
+
                 if (documentTeacher110 == null)
                 {
                     return BadRequest();
+                }
+
+                if (documentTeacher110.parent_id == 0 || documentTeacher110.max_score == 0)
+                {
+                    return BadRequest("parent_id and max_score cannot be 0");
                 }
 
                 var documentTeacher110Map = _mapper.Map<DocumentTeacher110>(documentTeacher110);

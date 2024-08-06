@@ -38,6 +38,12 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         [HttpPost("createdocumentteacher110set")]
         public IActionResult CreateDocumentTeacher110Set(DocumentTeacher110SetCreatedDTO documentTeacher110Set)
         {
+
+            if (documentTeacher110Set.old_year==0||documentTeacher110Set.new_year==0||documentTeacher110Set.document_id==0)
+            {
+                return BadRequest("old_year, new_year and document_id cannot be 0");
+            }
+
             var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
             documentTeacher110SetMap.status_id = _status.GetStatusId("Active");
             documentTeacher110SetMap.created_at = DateTime.UtcNow;
@@ -100,11 +106,14 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
                     return BadRequest();
                 }
 
+                if (documentTeacher110Set.old_year == 0 || documentTeacher110Set.new_year == 0 || documentTeacher110Set.document_id == 0)
+                {
+                    return BadRequest("old_year, new_year and document_id cannot be 0");
+                }
+
                 var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
 
-                documentTeacher110SetMap.sequence_status = 2;
-                documentTeacher110SetMap.rejection = false;
-                documentTeacher110SetMap.reason_for_rejection = "";
+                
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
