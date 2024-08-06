@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities.DTO.DocumentTeacher110DTOS
 {
-    public class DocumentTeacher110ReadedDTO
+    public class DocumentTeacher110ReadedDTO 
     {
         public int id { get; set; }
         public string? title { get; set; }

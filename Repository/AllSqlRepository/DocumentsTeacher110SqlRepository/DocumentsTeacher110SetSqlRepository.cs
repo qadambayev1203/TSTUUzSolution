@@ -306,7 +306,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                         departament_id = 0
                     }).FirstOrDefault();
 
-                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, true).ToList();
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, true, 0).ToList();
 
                 DocumentTeacher110SetList document = new DocumentTeacher110SetList()
                 {
@@ -414,7 +414,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                         departament_id = 0
                     }).FirstOrDefault();
 
-                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false).Where(x => x.sequence_status == 2).ToList();
+                    List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 2).ToList();
 
                     DocumentTeacher110SetList document = new DocumentTeacher110SetList()
                     {
@@ -534,7 +534,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     departament_id = 0
                 }).FirstOrDefault();
 
-                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false).Where(x => x.sequence_status == 3).ToList();
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 3).ToList();
 
                 DocumentTeacher110SetList document = new DocumentTeacher110SetList()
                 {
@@ -604,7 +604,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
 
         #region Any
 
-        private IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetDocList(int oldYear, int newYear, int person_id, bool admin)
+        private IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetDocList(int oldYear, int newYear, int person_id, bool admin, int sequanse_status)
         {
             try
             {
@@ -628,28 +628,49 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                 }
                 if (!admin)
                 {
-                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted");
+                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted")
+                        .Where(x => x.sequence_status == sequanse_status);
 
                 }
 
-                List<DocumentTeacher110Set> response = documentTeacher110.ToList();
+                List<DocumentTeacher110Set> getList = documentTeacher110.ToList();
+                List<DocumentTeacher110Set> response = new List<DocumentTeacher110Set>();
 
-                if (response != null)
+                if (getList != null)
                 {
-                    for (int i = 0; i < response.Count(); i++)
+                    foreach (var item in getList)
                     {
-                        string titleDoc = response[i].document_.title;
+                        string titleDoc = item.document_.title;
 
-                        int? docParentId = response[i].document_.parent_id;
+                        int? docParentId = item.document_.parent_id;
 
                         while (docParentId > 0)
                         {
                             var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == docParentId);
-                            titleDoc = $"{document.title} - {titleDoc}";
-                            docParentId = document.parent_id;
-                        }
+                            if (document != null)
+                            {
+                                titleDoc = $"{document.title} - {titleDoc}";
+                                docParentId = document.parent_id;
+                            }
+                            else
+                            {
+                                break;
+                            }
 
-                        response[i].document_.title = titleDoc;
+
+                        }
+                        DocumentTeacher110Set documentTeacher110Set = item;
+                        documentTeacher110Set.document_ = new DocumentTeacher110
+                        {
+                            id = item.document_.id,
+                            title = titleDoc,
+                            parent_id = item.document_.parent_id,
+                            indicator = item.document_.indicator,
+                            max_score = item.document_.max_score,
+                            description = item.document_.description,
+                        };
+                        response.Add(documentTeacher110Set);
+
 
                     }
                 }
