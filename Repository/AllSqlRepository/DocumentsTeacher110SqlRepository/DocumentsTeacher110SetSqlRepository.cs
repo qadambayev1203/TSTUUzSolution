@@ -649,7 +649,7 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                             var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == docParentId);
                             if (document != null)
                             {
-                                titleDoc = $"{document.title} - {titleDoc}";
+                                titleDoc = $"{document.title} // {titleDoc}";
                                 docParentId = document.parent_id;
                             }
                             else
