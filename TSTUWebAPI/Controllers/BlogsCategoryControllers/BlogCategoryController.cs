@@ -213,7 +213,6 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             pageNum = Math.Abs(pageNum);
             IEnumerable<BlogCategoryTranslation> blogCategorytranslations1 = _repository.AllBlogCategoryTranslationSite(queryNum, pageNum, language_code);
             var blogCategorytranslations = _mapper.Map<IEnumerable<BlogCategoryTranslationReadedSiteDTO>>(blogCategorytranslations1);
-            if (blogCategorytranslations == null) { }
             return Ok(blogCategorytranslations);
         }
 

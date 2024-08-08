@@ -19,6 +19,7 @@ namespace Entities.DTO.BlogsCategoryDTOS
         public string? title { get; set; }
         public LanguageConfReadedDTO? language_ { get; set; }
         public int? blog_category_id { get; set; }
+        public BlogCategoryReadedConfDTO? blog_category_ { get; set; }
     }
 
 }
