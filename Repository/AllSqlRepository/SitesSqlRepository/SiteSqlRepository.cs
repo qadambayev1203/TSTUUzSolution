@@ -173,6 +173,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                 {
                     return false;
                 }
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.title = site.title;
                 dbcheck.description = site.description;
                 dbcheck.status_id = site.status_id;
@@ -432,6 +433,7 @@ namespace Repository.AllSqlRepository.SitesSqlRepository
                 {
                     return false;
                 }
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.site_id = site.site_id;
                 dbcheck.language_id = site.language_id;
                 dbcheck.title = site.title;

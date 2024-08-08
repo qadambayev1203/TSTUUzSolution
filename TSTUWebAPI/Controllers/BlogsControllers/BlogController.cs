@@ -182,7 +182,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 }
 
                 var dbupdated = _mapper.Map<Blog>(blog1);
-                dbupdated.updated_at = DateTime.UtcNow;
+                
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -387,7 +387,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 }
 
                 var dbupdated = _mapper.Map<BlogTranslation>(blogtranslation1);
-                dbupdated.updated_at = DateTime.UtcNow;
+                
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

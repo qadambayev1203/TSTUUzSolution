@@ -191,6 +191,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 dbcheck.text = departament.text;
                 dbcheck.parent_id = departament.parent_id;
                 dbcheck.status_id = departament.status_id;
+                dbcheck.updated_at = DateTime.UtcNow;
                 if (departament.img_ != null)
                 {
                     dbcheck.img_ = departament.img_;
@@ -624,6 +625,7 @@ namespace Repository.AllSqlRepository.DepartamentsSqlRepository
                 dbcheck.text = departament.text;
                 dbcheck.parent_id = departament.parent_id;
                 dbcheck.language_id = departament.language_id;
+                dbcheck.updated_at = departament.updated_at;
                 dbcheck.status_translation_id = departament.status_translation_id;
                 if (departament.img_ != null)
                 {

@@ -155,7 +155,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
                 }
 
                 var dbupdated = _mapper.Map<Menu>(Menu1);
-                dbupdated.updated_at = DateTime.UtcNow;
+                
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -346,7 +346,7 @@ namespace TSTUWebAPI.Controllers.MenuControllers
                 }
 
                 var dbupdated = _mapper.Map<MenuTranslation>(Menutranslation1);
-                dbupdated.updated_at = DateTime.UtcNow;
+                
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

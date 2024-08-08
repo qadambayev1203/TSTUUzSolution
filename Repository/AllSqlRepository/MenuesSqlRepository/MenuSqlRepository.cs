@@ -355,6 +355,7 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                 {
                     return false;
                 }
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.parent_id = menu.parent_id;
                 dbcheck.position = menu.position;
                 dbcheck.high_menu = menu.high_menu;
@@ -804,6 +805,8 @@ namespace Repository.AllSqlRepository.MenuesSqlRepository
                 {
                     return false;
                 }
+
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.menu_id = menu.menu_id;
                 dbcheck.parent_id = menu.parent_id;
                 dbcheck.position = menu.position;

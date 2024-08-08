@@ -246,7 +246,7 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 }
 
                 var dbupdated = _mapper.Map<Departament>(departament1);
-                dbupdated.updated_at = DateTime.UtcNow;
+                
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -534,7 +534,6 @@ namespace TSTUWebAPI.Controllers.DepartamentsController
                 }
 
                 var dbupdated = _mapper.Map<DepartamentTranslation>(departamenttranslation1);
-                dbupdated.updated_at = DateTime.UtcNow;
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

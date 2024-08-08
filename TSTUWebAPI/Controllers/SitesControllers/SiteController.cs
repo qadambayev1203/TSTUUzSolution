@@ -132,7 +132,7 @@ namespace TSTUWebAPI.Controllers.SitesControllers
                 }
 
                 var dbupdated = _mapper.Map<Site>(site1);
-                dbupdated.updated_at = DateTime.UtcNow;
+                
                 bool updatedcheck = _repository.UpdateSite(id, dbupdated);
                 if (!updatedcheck)
                 {
@@ -292,7 +292,7 @@ namespace TSTUWebAPI.Controllers.SitesControllers
                 }
 
                 var dbupdated = _mapper.Map<SiteTranslation>(sitetranslation1);
-                dbupdated.updated_at = DateTime.UtcNow;
+               
 
                 bool updatedcheck = _repository.UpdateSiteTranslation(id, dbupdated);
                 if (!updatedcheck)

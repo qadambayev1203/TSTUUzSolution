@@ -230,7 +230,7 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 }
 
 
-
+                dbcheck.update_at = DateTime.UtcNow;
                 dbcheck.socials = site.socials;
                 dbcheck.details = site.details;
                 dbcheck.site_id = site.site_id;
@@ -526,6 +526,7 @@ namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
                 {
                     dbcheck.favicon_ = site.favicon_;
                 }
+                dbcheck.update_at = DateTime.UtcNow;
                 dbcheck.socials = site.socials;
                 dbcheck.details = site.details;
                 dbcheck.site_translation_id = site.site_translation_id;

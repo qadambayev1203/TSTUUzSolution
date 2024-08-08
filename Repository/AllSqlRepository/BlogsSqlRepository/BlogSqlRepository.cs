@@ -297,6 +297,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 blog.event_date = utcDateTime;
                 blog.event_end_date = utcDateTime1;
 
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.event_date = blog.event_date;
                 dbcheck.event_end_date = blog.event_end_date;
                 dbcheck.title_short = blog.title_short;
@@ -649,6 +650,7 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 blog.event_date = utcDateTime;
                 blog.event_end_date = utcDateTime1;
 
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.event_date = blog.event_date;
                 dbcheck.event_end_date = blog.event_end_date;
                 dbcheck.title_short = blog.title_short;

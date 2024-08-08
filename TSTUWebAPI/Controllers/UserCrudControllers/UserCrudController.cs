@@ -103,7 +103,7 @@ namespace TSTUWebAPI.Controllers.UserCrudControllers
 
                 var dbupdated = _mapper.Map<User>(user1);
                 dbupdated.password = PasswordManager.EncryptPassword((user1.login + user1.password).ToString());
-                dbupdated.updated_at = DateTime.UtcNow;
+                
                 bool updatedcheck = _repository.UpdateUser(id, dbupdated);
                 if (!updatedcheck)
                 {

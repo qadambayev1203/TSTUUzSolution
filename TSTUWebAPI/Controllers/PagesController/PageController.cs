@@ -162,7 +162,7 @@ namespace TSTUWebAPI.Controllers.PagesController
                 }
 
                 var dbupdated = _mapper.Map<Pages>(page1);
-                dbupdated.updated_at = DateTime.UtcNow;
+                
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -351,7 +351,6 @@ namespace TSTUWebAPI.Controllers.PagesController
                 }
 
                 var dbupdated = _mapper.Map<PageTranslation>(pagetranslation1);
-                dbupdated.updated_at = DateTime.UtcNow;
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

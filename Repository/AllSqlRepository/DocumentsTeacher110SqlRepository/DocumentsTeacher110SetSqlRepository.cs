@@ -49,6 +49,9 @@ namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository
                     return Enumerable.Empty<DocumentTeacher110Set>();
                 }
 
+                ScoreOptimize(person_id);          //Score
+
+
                 IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
                    .Include(x => x.person_)
                    .Include(x => x.file_)

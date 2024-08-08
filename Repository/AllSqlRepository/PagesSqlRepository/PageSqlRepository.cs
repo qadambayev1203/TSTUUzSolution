@@ -200,6 +200,8 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 {
                     return false;
                 }
+
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.title_short = pages.title_short;
                 dbcheck.title = pages.title;
                 dbcheck.description = pages.description;
@@ -496,6 +498,8 @@ namespace Repository.AllSqlRepository.PagesSqlRepository
                 {
                     return false;
                 }
+
+                dbcheck.updated_at = DateTime.UtcNow;
                 dbcheck.title_short = pageTranslation.title_short;
                 dbcheck.title = pageTranslation.title;
                 dbcheck.description = pageTranslation.description;

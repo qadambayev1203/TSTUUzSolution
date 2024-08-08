@@ -184,7 +184,7 @@ namespace TSTUWebAPI.Controllers.SiteDetailDetailsControllers
                 }
 
                 var dbupdated = _mapper.Map<SiteDetail>(siteDetail1);
-                dbupdated.update_at = DateTime.UtcNow;
+                
 
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
@@ -437,7 +437,7 @@ namespace TSTUWebAPI.Controllers.SiteDetailDetailsControllers
                 }
 
                 var dbupdated = _mapper.Map<SiteDetailTranslation>(siteDetailtranslation1);
-                dbupdated.update_at = DateTime.UtcNow;
+                
 
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
