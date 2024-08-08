@@ -60,11 +60,16 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                     return BadRequest("File created error!");
                 }
 
-                AppealToRector.file_ = new Files
+                if (Url != null)
                 {
-                    title = Guid.NewGuid().ToString(),
-                    url = Url
-                };
+                    AppealToRector.file_ = new Files
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = Url
+                    };
+                }
+
+
                 AppealToRector.confirm = false;
 
                 int id = _repository.CreateAppealToRector(AppealToRector);
@@ -201,11 +206,15 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
                     return BadRequest("File created error!");
                 }
 
-                AppealToRectortranslation.file_translation_ = new FilesTranslation
+                if (Url != null)
                 {
-                    title = Guid.NewGuid().ToString(),
-                    url = Url
-                };
+                    AppealToRectortranslation.file_translation_ = new FilesTranslation
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = Url
+                    };
+                }
+
 
                 AppealToRectortranslation.confirm = false;
 
