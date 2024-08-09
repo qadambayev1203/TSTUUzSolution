@@ -367,6 +367,7 @@ namespace TSTUWebAPI.Profiles
                 #region BlogCategory DTOS
                 CreateMap<BlogCategoryCreatedDTO, BlogCategory>();
                 CreateMap<BlogCategoryUpdatedDTO, BlogCategory>();
+                CreateMap<BlogCategoryUpdatedModeratorDTO, BlogCategory>();
                 CreateMap<BlogCategory, BlogCategoryReadedDTO>();
                 CreateMap<BlogCategory, BlogCategoryReadedSiteDTO>();
                 CreateMap<BlogCategory, BlogCategoryReadedConfDTO>();
@@ -374,6 +375,7 @@ namespace TSTUWebAPI.Profiles
 
                 CreateMap<BlogCategoryTranslationCreatedDTO, BlogCategoryTranslation>();
                 CreateMap<BlogCategoryTranslationUpdatedDTO, BlogCategoryTranslation>();
+                CreateMap<BlogCategoryTranslationUpdatedModeratorDTO, BlogCategoryTranslation>();
                 CreateMap<BlogCategoryTranslation, BlogTranslationConfReadedDTO>();
                 CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedDTO>();
                 CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedSiteDTO>();
@@ -385,6 +387,7 @@ namespace TSTUWebAPI.Profiles
                 #region Blog DTOS
                 CreateMap<BlogCreatedDTO, Blog>();
                 CreateMap<BlogUpdatedDTO, Blog>();
+                CreateMap<BlogUpdatedModeratorDTO, Blog>();
                 CreateMap<Blog, BlogReadedDTO>();
                 CreateMap<Blog, BlogReadedSelectDTO>();
                 CreateMap<Blog, BlogReadedSiteDTO>();
@@ -393,6 +396,7 @@ namespace TSTUWebAPI.Profiles
 
                 CreateMap<BlogTranslationCreatedDTO, BlogTranslation>();
                 CreateMap<BlogTranslationUpdatedDTO, BlogTranslation>();
+                CreateMap<BlogTranslationUpdatedModeratorDTO, BlogTranslation>();
                 CreateMap<BlogTranslation, BlogTranslationReadedDTO>();
                 CreateMap<BlogTranslation, BlogTranslationReadedSelectDTO>();
                 CreateMap<BlogTranslation, BlogTranslationReadedSiteDTO>();

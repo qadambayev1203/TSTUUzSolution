@@ -109,8 +109,9 @@ namespace TSTUWebAPI.Controllers
                     return Unauthorized("Error login or password");
                 }
 
-                SessionClass.token = "Bearer " + authInfo.Token;
                 SessionClass.id = authInfo.UserDetails.id;
+                SessionClass.token = "Bearer " + authInfo.Token;
+
                 return Ok(authInfo);
             }
             return Unauthorized();

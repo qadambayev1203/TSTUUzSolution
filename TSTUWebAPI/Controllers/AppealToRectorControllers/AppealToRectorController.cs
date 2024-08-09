@@ -92,7 +92,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,VirtualReception")]
         [HttpGet("getallappealtorector")]
         public IActionResult GetAllAppealToRector(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time)
         {
@@ -105,7 +105,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(AppealToRectors);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,VirtualReception")]
         [HttpGet("getbyidappealtorector/{id}")]
         public IActionResult GetByIdAppealToRector(int id)
         {
@@ -120,7 +120,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(AppealToRector);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,VirtualReception")]
         [HttpPut("updateappealtorector/{id}")]
         public IActionResult UpdateAppealToRector(bool confirm, int id)
         {
@@ -243,7 +243,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Unauthorized();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,VirtualReception")]
         [HttpGet("getallappealtorectortranslation")]
         public IActionResult GetAllAppealToRectorTranslation(int queryNum, int pageNum, string? language_code, DateTime? start_time, DateTime? end_time)
         {
@@ -256,7 +256,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(AppealToRectortranslations);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,VirtualReception")]
         [HttpGet("getbyidappealtorectortranslation/{id}")]
         public IActionResult GetByIdAppealToRectorTranslation(int id)
         {
@@ -268,7 +268,7 @@ namespace TSTUWebAPI.Controllers.AppealToRectorControllers
             return Ok(AppealToRectortranslation);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,VirtualReception")]
         [HttpPut("updateappealtorectortranslation/{id}")]
         public IActionResult UpdateAppealToRectorTranslation(bool confirm, int id)
         {

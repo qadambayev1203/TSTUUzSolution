@@ -31,7 +31,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         #region Blog CRUD
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpPost("createblog")]
         public IActionResult CreateBlog(BlogCreatedDTO blog1)
         {
@@ -105,7 +105,6 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             return Ok(blogs);
         }
 
-
         [HttpGet("sitegetallblog")]
         public IActionResult GetAllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite)
         {
@@ -153,7 +152,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
             return Ok(blog);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpDelete("deleteblog/{id}")]
         public IActionResult DeleteBlog(int id)
         {
@@ -182,7 +181,56 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 }
 
                 var dbupdated = _mapper.Map<Blog>(blog1);
-                
+
+
+                FileUploadRepository fileUpload = new FileUploadRepository();
+
+                var Url = fileUpload.SaveFileAsync(blog1.img_up);
+                if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+                {
+                    return BadRequest("File created error!");
+                }
+                if (Url != null && Url.Length > 0)
+                {
+                    dbupdated.img_ = new Files
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = Url
+                    };
+                }
+
+                bool updatedcheck = _repository.UpdateBlog(id, dbupdated);
+                if (!updatedcheck)
+                {
+                    return BadRequest();
+                }
+                bool check = _repository.SaveChanges();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+        [Authorize(Roles = "Admin,ModeratorContent")]
+        [HttpPut("updateblogmoderatorcontent/{id}")]
+        public IActionResult UpdateBlogModerator(BlogUpdatedModeratorDTO blog1, int id)
+        {
+            try
+            {
+                if (blog1 == null)
+                {
+                    return BadRequest();
+                }
+
+                var dbupdated = _mapper.Map<Blog>(blog1);
+                dbupdated.status_id = _status.GetStatusId("Active");
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -227,7 +275,7 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
 
         #region BlogTranslation CRUD
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpPost("createblogtranslation")]
         public IActionResult CreateBlogTranslation(BlogTranslationCreatedDTO blogtranslation1)
         {
@@ -387,7 +435,56 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
                 }
 
                 var dbupdated = _mapper.Map<BlogTranslation>(blogtranslation1);
-                
+
+
+                FileUploadRepository fileUpload = new FileUploadRepository();
+
+                var Url = fileUpload.SaveFileAsync(blogtranslation1.img_up);
+                if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+                {
+                    return BadRequest("File created error!");
+                }
+                if (Url != null && Url.Length > 0)
+                {
+                    dbupdated.img_translation_ = new FilesTranslation
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = Url
+                    };
+                }
+
+                bool updatedcheck = _repository.UpdateBlogTranslation(id, dbupdated);
+                if (!updatedcheck)
+                {
+                    return BadRequest();
+                }
+                bool check = _repository.SaveChanges();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+        [Authorize(Roles = "Admin,ModeratorContent")]
+        [HttpPut("updateblogtranslationmoderatorcontent/{id}")]
+        public IActionResult UpdateBlogTranslationModerator(BlogTranslationUpdatedModeratorDTO blogtranslation1, int id)
+        {
+            try
+            {
+                if (blogtranslation1 == null)
+                {
+                    return BadRequest();
+                }
+
+                var dbupdated = _mapper.Map<BlogTranslation>(blogtranslation1);
+                dbupdated.status_translation_id = _status.GetStatusTranslationId("Active", (int)dbupdated.language_id);
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

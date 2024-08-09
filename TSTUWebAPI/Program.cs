@@ -82,6 +82,7 @@ using Contracts.AllRepository.AppealToEmployeesRepository;
 using Repository.AllSqlRepository.AppealToEmployeesSqlRepository;
 using Contracts.AllRepository.DocumentTeacher110Repository;
 using Repository.AllSqlRepository.DocumentsTeacher110SqlRepository;
+using TSTUWebAPI.AnyMiddleware;
 
 #endregion
 
@@ -284,35 +285,22 @@ try
     });
 
     builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("AllowSpecificOrigin",
-            builder =>
-            {
-                builder.WithOrigins("http://sayt.tstu.uz")
-                       .AllowAnyHeader()
-                       .AllowAnyMethod();
-            });
-    });
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://sayt.tstu.uz")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
     builder.Services.AddScoped<FileUploadRepository>();
-
     builder.Services.AddScoped<CaptchaCheck>();
-
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
     builder.Services.AddControllers();
-
-    //builder.Services.AddCors(opt =>
-    //{
-    //    opt.AddPolicy("CorsPolicy", builder =>
-    //    builder.AllowAnyOrigin().AllowAnyHeader());
-    //});
-
-
     builder.Services.AddControllers();
-
     builder.Services.AddEndpointsApiExplorer();
-
 
     #endregion
 
@@ -325,15 +313,10 @@ try
         .CreateLogger();
 
     builder.Logging.ClearProviders();
-
     builder.Logging.AddSerilog(logger);
-
     builder.Services.AddControllers();
     builder.Services.AddHttpClient();
-
     builder.Services.AddDirectoryBrowser();
-
-
 
     var app = builder.Build();
 
@@ -350,20 +333,13 @@ try
     }
 
     app.UseHttpsRedirection();
-
     app.UseStaticFiles();
-
     app.UseRouting();
-
+    app.UseMiddleware<TokenMiddleware>();
     app.UseAuthentication();
-
     app.UseAuthorization();
-
-    //app.UseCors("AllowSpecificOrigin");
     app.UseCors("AllowAllOrigins");
-
     app.MapControllers();
-
     var fileUploadsPath = Path.Combine(app.Environment.ContentRootPath, "file-uploads");
 
     if (!Directory.Exists(fileUploadsPath))

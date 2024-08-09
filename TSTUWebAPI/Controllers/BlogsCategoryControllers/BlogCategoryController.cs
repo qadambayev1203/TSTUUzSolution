@@ -29,7 +29,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
         // BlogCategory CRUD
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpPost("createblogcategory")]
         public IActionResult CreateBlogCategory(BlogCategoryCreatedDTO blogCategory1)
         {
@@ -116,7 +116,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             return Ok(blogCategory);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpDelete("deleteblogcategory/{id}")]
         public IActionResult DeleteBlogCategory(int id)
         {
@@ -165,6 +165,37 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
         }
 
+        [Authorize(Roles = "Admin,ModeratorContent")]
+        [HttpPut("updateblogcategorymoderatorcontent/{id}")]
+        public IActionResult UpdateBlogCategoryModeratorContent(int id, BlogCategoryUpdatedModeratorDTO blogCategory1)
+        {
+            try
+            {
+                if (blogCategory1 == null)
+                {
+                    return BadRequest();
+                }
+
+                var dbupdated = _mapper.Map<BlogCategory>(blogCategory1);
+                dbupdated.status_id = _status.GetStatusId("Active");
+                bool updatedcheck = _repository.UpdateBlogCategory(id, dbupdated);
+                if (!updatedcheck)
+                {
+                    return BadRequest();
+                }
+                bool check = _repository.SaveChanges();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
 
 
 
@@ -173,7 +204,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
         //BlogCategoryTranslation CRUD
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpPost("createblogcategorytranslation")]
         public IActionResult CreateBlogCategoryTranslation(BlogCategoryTranslationCreatedDTO blogCategorytranslation1)
         {
@@ -227,7 +258,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             return Ok(blogCategorytranslation);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpGet("getbyidblogcategorytranslation/{id}")]
         public IActionResult GetByIdBlogCategoryTranslation(int id)
         {
@@ -258,7 +289,7 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
             return Ok(blogCategorytranslation);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,ModeratorContent")]
         [HttpDelete("deleteblogcategorytranslation/{id}")]
         public IActionResult DeleteBlogCategoryTranslation(int id)
         {
@@ -288,6 +319,38 @@ namespace TSTUWebAPI.Controllers.BlogsCategoryControllers
 
                 var dbupdated = _mapper.Map<BlogCategoryTranslation>(blogCategorytranslation1);
 
+                bool updatedcheck = _repository.UpdateBlogCategoryTranslation(id, dbupdated);
+                if (!updatedcheck)
+                {
+                    return BadRequest();
+                }
+                bool check = _repository.SaveChanges();
+                if (!check)
+                {
+                    return BadRequest();
+                }
+                return Ok("Updated");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+        [Authorize(Roles = "Admin,ModeratorContent")]
+        [HttpPut("updateblogcategorytranslationmoderatorcontent/{id}")]
+        public IActionResult UpdateBlogCategoryTranslationModContent(BlogCategoryTranslationUpdatedModeratorDTO blogCategorytranslation1, int id)
+        {
+            try
+            {
+                if (blogCategorytranslation1 == null)
+                {
+                    return BadRequest();
+                }
+
+                var dbupdated = _mapper.Map<BlogCategoryTranslation>(blogCategorytranslation1);
+                dbupdated.status_translation_id = _status.GetStatusTranslationId("Active", (int)dbupdated.language_id);
                 bool updatedcheck = _repository.UpdateBlogCategoryTranslation(id, dbupdated);
                 if (!updatedcheck)
                 {
