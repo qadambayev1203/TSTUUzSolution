@@ -263,7 +263,6 @@ namespace TSTUWebAPI.Controllers
         {
             try
             {
-                TokenCheckModel();
                 if (SessionClass.id != 0)
                 {
                     User userU = mapper.Map<User>(user);

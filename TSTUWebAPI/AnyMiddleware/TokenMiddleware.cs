@@ -20,7 +20,8 @@ namespace TSTUWebAPI.AnyMiddleware
         public async Task InvokeAsync(HttpContext context)
         {
             var authorizationHeader = context.Request.Headers["Authorization"].FirstOrDefault();
-            if (authorizationHeader != null && authorizationHeader.StartsWith("Bearer "))
+
+            if (authorizationHeader != null && authorizationHeader.StartsWith("Bearer ") && authorizationHeader != SessionClass.tokenCheck)
             {
                 var token = authorizationHeader.Substring("Bearer ".Length).Trim();
 

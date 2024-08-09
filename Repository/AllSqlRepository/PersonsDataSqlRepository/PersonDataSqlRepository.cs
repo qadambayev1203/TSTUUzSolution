@@ -478,9 +478,10 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                 dbcheck.blog_json = personData.blog_json;
                 dbcheck.status_id = personData.status_id;
 
+                var userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
+                string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
                 if (user != null)
                 {
-                    var userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
 
                     if (userDB != null)
                     {
@@ -490,7 +491,6 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                         userDB.password = user.password.Trim();
                         userDB.active = true;
                         userDB.removed = false;
-                        string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
                         userDB.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id;
                     }
                     else
@@ -498,7 +498,6 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                         int num = personData.persons_.id + 2024;
                         string login = $"{personData.persons_.firstName.Trim()}{num}@tstu";
                         string password = PasswordManager.EncryptPassword(login + personData.persons_.firstName.Trim() + num);
-                        string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
                         user = new User
                         {
                             login = login,
@@ -513,6 +512,12 @@ namespace Repository.AllSqlRepository.PersonDatasDataSqlRepository
                         };
                         _context.users_20ts24tu.Add(user);
                     }
+                }
+                else
+                {
+                    userDB.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id;
+                    _context.users_20ts24tu.Update(userDB);
+                    _context.SaveChanges();
                 }
 
                 _logger.LogInformation($"Updated {JsonConvert.SerializeObject(dbcheck)}");
