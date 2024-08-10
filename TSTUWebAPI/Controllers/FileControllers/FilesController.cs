@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace TSTUWebAPI.Controllers.FileControllers
 {
     [Route("api/files")]
-    [Authorize(Roles = "Admin")]
     [ApiController]
     public class FilesController : ControllerBase
     {
@@ -31,6 +30,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
         // files CRUD
 
+        [Authorize]
         [HttpPost("uploadfiles")]
         public IActionResult UploadFiles(FilesCreatedDTO files1)
         {
@@ -74,6 +74,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok(createdItemId);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("getallfiles")]
         public IActionResult GetAllfiles(int queryNum, int pageNum)
         {
@@ -86,6 +87,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok(files);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("getbyidfiles/{id}")]
         public IActionResult GetByIdfiles(int id)
         {
@@ -99,6 +101,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok(files);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("deletefiles/{id}")]
         public IActionResult Deletefiles(int id)
         {
@@ -115,6 +118,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok("Deleted");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("updatefiles/{id}")]
         public IActionResult Updatefiles(FilesUpdatedDTO files, int id)
         {
@@ -125,7 +129,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                     return BadRequest();
                 }
 
-               
+
                 var file = _mapper.Map<Files>(files);
                 FileUploadRepository fileUpload = new FileUploadRepository();
                 var Url = fileUpload.SaveFileAsync(files.url, true);
@@ -164,6 +168,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
         }
 
 
+        [Authorize]
         [HttpGet("selectgetallfiles")]
         public IActionResult SelectGetAllfiles([FromQuery] bool? image)
         {
@@ -180,6 +185,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
         //filesTranslation CRUD
 
+        [Authorize]
         [HttpPost("uploadfilestranslation")]
         public IActionResult UploadFilesTranslation(FilesTranslationCreatedDTO filestranslation1)
         {
@@ -221,6 +227,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok(createdItemId);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("getallfilestranslation")]
         public IActionResult GetAllfilesTranslation(int queryNum, int pageNum, string? language_code)
         {
@@ -235,6 +242,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok(filestranslationes);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("getbyuzidfilestranslation/{uz_id}")]
         public IActionResult GetByIdfilesTranslation(int uz_id, string language_code)
         {
@@ -249,6 +257,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok(filestranslation);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("getbyidfilestranslation/{id}")]
         public IActionResult GetByIdfilesTranslation(int id)
         {
@@ -263,6 +272,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok(filestranslation);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("deletefilestranslation/{id}")]
         public IActionResult DeletefilesTranslation(int id)
         {
@@ -279,6 +289,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
             return Ok("Deleted");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("updatefilestranslation/{id}")]
         public IActionResult UpdatefilesTranslation(FilesTranslationUpdatedDTO filestranslation1, int id)
         {
@@ -289,7 +300,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
                 {
                     return BadRequest();
                 }
-                
+
                 var filesTranslation = _mapper.Map<FilesTranslation>(filestranslation1);
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
@@ -328,6 +339,7 @@ namespace TSTUWebAPI.Controllers.FileControllers
 
         }
 
+        [Authorize]
         [HttpGet("selectgetallfilestranslation")]
         public IActionResult SelectGetAllfilesTranslation([FromQuery] bool? image, string? language_code)
         {
