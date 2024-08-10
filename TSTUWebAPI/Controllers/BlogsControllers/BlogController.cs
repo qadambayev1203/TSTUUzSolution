@@ -106,11 +106,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         }
 
         [HttpGet("sitegetallblog")]
-        public IActionResult GetAllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite)
+        public IActionResult GetAllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            QueryList<Blog> blogList = _repository.AllBlogSite(queryNum, pageNum, blog_category, favorite);
+            QueryList<Blog> blogList = _repository.AllBlogSite(queryNum, pageNum, blog_category, favorite, start_time, end_time);
             var blogs = _mapper.Map<IEnumerable<BlogReadedSiteDTO>>(blogList.query_list);
             ResponseModel<BlogReadedSiteDTO> response = new ResponseModel<BlogReadedSiteDTO>
             {
@@ -349,11 +349,11 @@ namespace TSTUWebAPI.Controllers.BlogsControllers
         }
 
         [HttpGet("sitegetallblogtranslation")]
-        public IActionResult GetAllBlogTranslationSite(int queryNum, int pageNum, string? language_code, string? blog_category_uz, bool? favorite)
+        public IActionResult GetAllBlogTranslationSite(int queryNum, int pageNum, string? language_code, string? blog_category_uz, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             queryNum = Math.Abs(queryNum);
             pageNum = Math.Abs(pageNum);
-            QueryList<BlogTranslation> blogList = _repository.AllBlogTranslationSite(queryNum, pageNum, language_code, blog_category_uz, favorite);
+            QueryList<BlogTranslation> blogList = _repository.AllBlogTranslationSite(queryNum, pageNum, language_code, blog_category_uz, favorite, start_time, end_time);
             var blogtranslations = _mapper.Map<IEnumerable<BlogTranslationReadedSiteDTO>>(blogList.query_list);
             ResponseModel<BlogTranslationReadedSiteDTO> response = new ResponseModel<BlogTranslationReadedSiteDTO>
             {

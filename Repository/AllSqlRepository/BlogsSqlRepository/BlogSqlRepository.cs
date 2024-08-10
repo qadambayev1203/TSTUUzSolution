@@ -137,10 +137,23 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                 return null;
             }
         }
-        public QueryList<Blog> AllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite)
+        public QueryList<Blog> AllBlogSite(int queryNum, int pageNum, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             try
             {
+                if (start_time.HasValue)
+                {
+                    var time = start_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
+                }
+
+                if (end_time.HasValue)
+                {
+                    var time = end_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
+                }
 
                 IQueryable<Blog> query = _context.blogs_20ts24tu
                         .Include(x => x.status_)
@@ -150,6 +163,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                         .Include(x => x.user_).ThenInclude(y => y.user_type_);
 
+
+
+                if (start_time != null && end_time != null)
+                {
+                    query = query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
+                }
                 int length = query.Count();
 
                 if (queryNum == 0 && pageNum != 0)
@@ -441,10 +460,24 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
             }
         }
 
-        public QueryList<BlogTranslation> AllBlogTranslationSite(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite)
+        public QueryList<BlogTranslation> AllBlogTranslationSite(int queryNum, int pageNum, string language_code, string? blog_category, bool? favorite, DateTime? start_time, DateTime? end_time)
         {
             try
             {
+                if (start_time.HasValue)
+                {
+                    var time = start_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
+                }
+
+                if (end_time.HasValue)
+                {
+                    var time = end_time.Value.ToUniversalTime();
+                    time = time.AddDays(1);
+                    end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
+                }
+
                 IQueryable<BlogTranslation> query = _context.blogs_translations_20ts24tu
                         .Include(x => x.language_)
                         .Include(x => x.status_translation_)
@@ -458,6 +491,12 @@ namespace Repository.AllSqlRepository.BlogsSqlRepository
                         .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
 
 
+
+
+                if (start_time != null && end_time != null)
+                {
+                    query = query.Where(x => x.event_date >= start_time && x.event_date <= end_time);
+                }
                 int length = query.Count();
 
                 if (queryNum == 0 && pageNum != 0)
