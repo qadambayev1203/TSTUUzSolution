@@ -75,9 +75,12 @@ namespace TSTUWebAPI.Controllers.FileControllers
         {
             try
             {
-                fileUploadsPath = GetNewFilePath(fileUploadsPath.Split("\\file-uploads")[0]);
-                string filePath = GetNewFilePath(Path.Combine(fileUploadsPath, url.TrimStart('/')));
-                File.Delete(filePath);
+                if (url is not null)
+                {
+                    fileUploadsPath = GetNewFilePath(fileUploadsPath.Split("\\file-uploads")[0]);
+                    string filePath = GetNewFilePath(Path.Combine(fileUploadsPath, url.TrimStart('/')));
+                    File.Delete(filePath);
+                }
                 return true;
             }
             catch (Exception ex)
