@@ -1,556 +1,547 @@
 ﻿using Contracts.AllRepository.SiteDetailsRepository;
 using Entities.Model.SiteDetailsModel;
 using Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Entities.Model.SitesModel;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
-using Entities.Model.PersonModel;
 
-namespace Repository.AllSqlRepository.SiteDetailsSqlRepository
+namespace Repository.AllSqlRepository.SiteDetailsSqlRepository;
+
+public class SiteDetailSqlRepository : ISiteDetailRepository
 {
-    public class SiteDetailSqlRepository : ISiteDetailRepository
+
+    private readonly RepositoryContext _context;
+    private readonly ILogger<SiteDetailSqlRepository> _logger;
+    public SiteDetailSqlRepository(RepositoryContext repositoryContext, ILogger<SiteDetailSqlRepository> logger)
     {
+        _context = repositoryContext;
+        _logger = logger;
+    }
 
-        private readonly RepositoryContext _context;
-        private readonly ILogger<SiteDetailSqlRepository> _logger;
-        public SiteDetailSqlRepository(RepositoryContext repositoryContext, ILogger<SiteDetailSqlRepository> logger)
+
+    //SiteDetail CRUD
+    public IEnumerable<SiteDetail> AllSiteDetailSite(int queryNum, int pageNum)
+    {
+        try
         {
-            _context = repositoryContext;
-            _logger = logger;
+            var siteDetailes = new List<SiteDetail>();
+            if (queryNum == 0 && pageNum != 0)
+            {
+                siteDetailes = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
+                    .Skip(10 * (pageNum - 1)).Take(10).ToList();
+
+            }
+            else if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                siteDetailes = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
+                     .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+
+            }
+            else
+            {
+                siteDetailes = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_).Where(x => x.status_.status != "Deleted").ToList();
+
+            }
+            return siteDetailes;
+
         }
-
-
-        //SiteDetail CRUD
-        public IEnumerable<SiteDetail> AllSiteDetailSite(int queryNum, int pageNum)
+        catch (Exception ex)
         {
-            try
-            {
-                var siteDetailes = new List<SiteDetail>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    siteDetailes = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
-                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
-
-                }
-                else if (queryNum != 0 && pageNum != 0)
-                {
-                    if (queryNum > 200) { queryNum = 200; }
-                    siteDetailes = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_).Where(x => x.status_.status != "Deleted")
-                         .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
-
-                }
-                else
-                {
-                    siteDetailes = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_).Where(x => x.status_.status != "Deleted").ToList();
-
-                }
-                return siteDetailes;
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            _logger.LogError("Error " + ex.Message);
+            return null;
         }
-        public IEnumerable<SiteDetail> AllSiteDetail(int queryNum, int pageNum)
+    }
+    public IEnumerable<SiteDetail> AllSiteDetail(int queryNum, int pageNum)
+    {
+        try
         {
-            try
+            var siteDetailes = new List<SiteDetail>();
+            if (queryNum == 0 && pageNum != 0)
             {
-                var siteDetailes = new List<SiteDetail>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    siteDetailes = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_)
-                        .Skip(10 * (pageNum - 1)).Take(10).ToList();
-
-                }
-                else if (queryNum != 0 && pageNum != 0)
-                {
-                    if (queryNum > 200) { queryNum = 200; }
-                    siteDetailes = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_)
-                         .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
-
-                }
-                else
-                {
-                    siteDetailes = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_).ToList();
-
-                }
-                return siteDetailes;
+                siteDetailes = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_)
+                    .Skip(10 * (pageNum - 1)).Take(10).ToList();
 
             }
-            catch (Exception ex)
+            else if (queryNum != 0 && pageNum != 0)
             {
-                _logger.LogError("Error " + ex.Message);
-                return null;
+                if (queryNum > 200) { queryNum = 200; }
+                siteDetailes = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_)
+                     .Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+
             }
+            else
+            {
+                siteDetailes = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_).ToList();
+
+            }
+            return siteDetailes;
+
         }
-
-        public int CreateSiteDetail(SiteDetail siteDetail)
+        catch (Exception ex)
         {
-            try
-            {
-                if (siteDetail == null)
-                {
-                    return 0;
-                }
-                siteDetail.created_at = DateTime.UtcNow;
-                _context.site_details_20ts24tu.Add(siteDetail);
-                _context.SaveChanges();
-                _logger.LogInformation($"Created " + JsonConvert.SerializeObject(siteDetail));
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
 
-                return siteDetail.id;
-            }
-            catch (Exception ex)
+    public int CreateSiteDetail(SiteDetail siteDetail)
+    {
+        try
+        {
+            if (siteDetail == null)
             {
-                _logger.LogError("Error " + ex.Message);
                 return 0;
             }
+            siteDetail.created_at = DateTime.UtcNow;
+            _context.site_details_20ts24tu.Add(siteDetail);
+            _context.SaveChanges();
+            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(siteDetail));
+
+            return siteDetail.id;
         }
-
-        public bool DeleteSiteDetail(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                var siteDetail = GetSiteDetailById(id);
-                if (siteDetail == null)
-                {
-                    return false;
-                }
-                siteDetail.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
-                _context.site_details_20ts24tu.Update(siteDetail);
-                _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(siteDetail));
+            _logger.LogError("Error " + ex.Message);
+            return 0;
+        }
+    }
 
-                return true;
-            }
-            catch (Exception ex)
+    public bool DeleteSiteDetail(int id)
+    {
+        try
+        {
+            var siteDetail = GetSiteDetailById(id);
+            if (siteDetail == null)
             {
-                _logger.LogError("Error " + ex.Message);
-
                 return false;
             }
+            siteDetail.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+            _context.site_details_20ts24tu.Update(siteDetail);
+            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(siteDetail));
+
+            return true;
         }
-
-        public SiteDetail GetSiteDetailByIdSite(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                var siteDetail = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_).Where(x => x.status_.status != "Deleted").FirstOrDefault(x => x.id.Equals(id));
-                return siteDetail;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            _logger.LogError("Error " + ex.Message);
+
+            return false;
         }
-        public SiteDetail GetSiteDetailById(int id)
+    }
+
+    public SiteDetail GetSiteDetailByIdSite(int id)
+    {
+        try
         {
-            try
-            {
-                var siteDetail = _context.site_details_20ts24tu
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_)
-                        .Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
-                return siteDetail;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            var siteDetail = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_).Where(x => x.status_.status != "Deleted").FirstOrDefault(x => x.id.Equals(id));
+            return siteDetail;
         }
-
-        public bool UpdateSiteDetail(int id, SiteDetail site)
+        catch (Exception ex)
         {
-            try
-            {
-                var dbcheck = GetSiteDetailById(id);
-                if (dbcheck is null)
-                {
-                    return false;
-                }
-                dbcheck.title = site.title;
-                dbcheck.description = site.description;
-                if (site.logo_w_ != null)
-                {
-                    dbcheck.logo_w_ = site.logo_w_;
-                }
-                if (site.logo_b_ != null)
-                {
-                    dbcheck.logo_b_ = site.logo_b_;
-                }
-                if (site.favicon_ != null)
-                {
-                    dbcheck.favicon_ = site.favicon_;
-                }
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+    public SiteDetail GetSiteDetailById(int id)
+    {
+        try
+        {
+            var siteDetail = _context.site_details_20ts24tu
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_)
+                    .Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+            return siteDetail;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
 
-
-                dbcheck.update_at = DateTime.UtcNow;
-                dbcheck.socials = site.socials;
-                dbcheck.details = site.details;
-                dbcheck.site_id = site.site_id;
-                dbcheck.status_id = site.status_id;
-                _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
-                return true;
-            }
-            catch (Exception ex)
+    public bool UpdateSiteDetail(int id, SiteDetail site)
+    {
+        try
+        {
+            var dbcheck = GetSiteDetailById(id);
+            if (dbcheck is null)
             {
-                _logger.LogError("Error " + ex.Message);
                 return false;
             }
+            dbcheck.title = site.title;
+            dbcheck.description = site.description;
+            if (site.logo_w_ != null)
+            {
+                dbcheck.logo_w_ = site.logo_w_;
+            }
+            if (site.logo_b_ != null)
+            {
+                dbcheck.logo_b_ = site.logo_b_;
+            }
+            if (site.favicon_ != null)
+            {
+                dbcheck.favicon_ = site.favicon_;
+            }
 
+
+            dbcheck.update_at = DateTime.UtcNow;
+            dbcheck.socials = site.socials;
+            dbcheck.details = site.details;
+            dbcheck.site_id = site.site_id;
+            dbcheck.status_id = site.status_id;
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return false;
         }
 
+    }
 
 
 
 
 
-        //SiteDetailTranslation CRUD
-        public IEnumerable<SiteDetailTranslation> AllSiteDetailTranslationSite(int queryNum, int pageNum, string language_code)
+
+    //SiteDetailTranslation CRUD
+    public IEnumerable<SiteDetailTranslation> AllSiteDetailTranslationSite(int queryNum, int pageNum, string language_code)
+    {
+        try
         {
-            try
+            var siteDetailesTranslation = new List<SiteDetailTranslation>();
+            if (queryNum == 0 && pageNum != 0)
             {
-                var siteDetailesTranslation = new List<SiteDetailTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    siteDetailesTranslation = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_).Where(x => x.status_translation_.status != "Deleted")
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(10)
-                        .ToList();
+                siteDetailesTranslation = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_).Where(x => x.status_translation_.status != "Deleted")
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                    .Take(10)
+                    .ToList();
 
-                }
-                else if (queryNum != 0 && pageNum != 0)
-                {
-                    if (queryNum > 200) { queryNum = 200; }
-                    siteDetailesTranslation = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_).Where(x => x.status_translation_.status != "Deleted")
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
-                        .ToList();
-
-                }
-                else
-                {
-                    siteDetailesTranslation = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_).Where(x => x.status_translation_.status != "Deleted")
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-
-                        .ToList();
-
-                }
-                return siteDetailesTranslation;
             }
-            catch (Exception ex)
+            else if (queryNum != 0 && pageNum != 0)
             {
-                _logger.LogError("Error " + ex.Message);
-                return null;
+                if (queryNum > 200) { queryNum = 200; }
+                siteDetailesTranslation = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_).Where(x => x.status_translation_.status != "Deleted")
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                     .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                    .ToList();
+
             }
+            else
+            {
+                siteDetailesTranslation = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_).Where(x => x.status_translation_.status != "Deleted")
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+
+                    .ToList();
+
+            }
+            return siteDetailesTranslation;
         }
-        public IEnumerable<SiteDetailTranslation> AllSiteDetailTranslation(int queryNum, int pageNum, string language_code)
+        catch (Exception ex)
         {
-            try
-            {
-                var siteDetailesTranslation = new List<SiteDetailTranslation>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    siteDetailesTranslation = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                        .Take(10)
-                        .ToList();
-
-                }
-                else if (queryNum != 0 && pageNum != 0)
-                {
-                    if (queryNum > 200) { queryNum = 200; }
-                    siteDetailesTranslation = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                         .Skip(queryNum * (pageNum - 1)).Take(queryNum)
-                        .ToList();
-
-                }
-                else
-                {
-                    siteDetailesTranslation = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
-                        .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-
-                        .ToList();
-
-                }
-                return siteDetailesTranslation;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            _logger.LogError("Error " + ex.Message);
+            return null;
         }
-
-        public int CreateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation)
+    }
+    public IEnumerable<SiteDetailTranslation> AllSiteDetailTranslation(int queryNum, int pageNum, string language_code)
+    {
+        try
         {
-            try
+            var siteDetailesTranslation = new List<SiteDetailTranslation>();
+            if (queryNum == 0 && pageNum != 0)
             {
-                if (siteDetailTranslation == null)
-                {
-                    return 0;
-                }
-                siteDetailTranslation.created_at = DateTime.UtcNow;
-                _context.site_details_translations_20ts24tu.Add(siteDetailTranslation);
-                _context.SaveChanges();
-                _logger.LogInformation($"Created " + JsonConvert.SerializeObject(siteDetailTranslation));
+                siteDetailesTranslation = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                    .Take(10)
+                    .ToList();
 
-                return siteDetailTranslation.id;
             }
-            catch (Exception ex)
+            else if (queryNum != 0 && pageNum != 0)
             {
-                _logger.LogError("Error " + ex.Message);
+                if (queryNum > 200) { queryNum = 200; }
+                siteDetailesTranslation = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                     .Skip(queryNum * (pageNum - 1)).Take(queryNum)
+                    .ToList();
+
+            }
+            else
+            {
+                siteDetailesTranslation = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_)
+                    .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+
+                    .ToList();
+
+            }
+            return siteDetailesTranslation;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+
+    public int CreateSiteDetailTranslation(SiteDetailTranslation siteDetailTranslation)
+    {
+        try
+        {
+            if (siteDetailTranslation == null)
+            {
                 return 0;
             }
+            siteDetailTranslation.created_at = DateTime.UtcNow;
+            _context.site_details_translations_20ts24tu.Add(siteDetailTranslation);
+            _context.SaveChanges();
+            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(siteDetailTranslation));
+
+            return siteDetailTranslation.id;
         }
-
-        public bool DeleteSiteDetailTranslation(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                var siteDetailTranslation = GetSiteDetailTranslationById(id);
-                if (siteDetailTranslation == null)
-                {
-                    return false;
-                }
-                siteDetailTranslation.status_translation_id = (_context.statuses_translations_20ts24tu
-                    .FirstOrDefault(x => x.status == "Deleted" && x.language_id == siteDetailTranslation.language_id)).id;
-                _context.site_details_translations_20ts24tu.Update(siteDetailTranslation);
-                _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(siteDetailTranslation));
+            _logger.LogError("Error " + ex.Message);
+            return 0;
+        }
+    }
 
-                return true;
-            }
-            catch (Exception ex)
+    public bool DeleteSiteDetailTranslation(int id)
+    {
+        try
+        {
+            var siteDetailTranslation = GetSiteDetailTranslationById(id);
+            if (siteDetailTranslation == null)
             {
-                _logger.LogError("Error " + ex.Message);
                 return false;
             }
-        }
+            siteDetailTranslation.status_translation_id = (_context.statuses_translations_20ts24tu
+                .FirstOrDefault(x => x.status == "Deleted" && x.language_id == siteDetailTranslation.language_id)).id;
+            _context.site_details_translations_20ts24tu.Update(siteDetailTranslation);
+            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(siteDetailTranslation));
 
-        public SiteDetailTranslation GetSiteDetailTranslationByIdSite(int id)
-        {
-            try
-            {
-                var siteDetail = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_).Where(x => x.status_translation_.status != "Deleted")
-                        .Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
-                return siteDetail;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            return true;
         }
-        public SiteDetailTranslation GetSiteDetailTranslationById(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                var siteDetail = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
-                return siteDetail;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            _logger.LogError("Error " + ex.Message);
+            return false;
         }
-        public SiteDetailTranslation GetSiteDetailTranslationById(int uz_id, string language_code)
-        {
-            try
-            {
-                var siteDetail = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
-                        .FirstOrDefault(x => x.site_detail_id.Equals(uz_id) && x.language_.code.Equals(language_code));
-                return siteDetail;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
-        }
+    }
 
-        public SiteDetailTranslation GetSiteDetailTranslationByIdSite(int uz_id, string language_code)
+    public SiteDetailTranslation GetSiteDetailTranslationByIdSite(int id)
+    {
+        try
         {
-            try
-            {
-                var siteDetail = _context.site_details_translations_20ts24tu
-                        .Include(x => x.site_detail_)
-                        .Include(x => x.language_)
-                        .Include(x => x.logo_w_)
-                        .Include(x => x.logo_b_)
-                        .Include(x => x.favicon_)
-                        .Include(x => x.site_translation_)
-                        .Include(x => x.status_translation_)
-                    .Where(x => x.status_translation_.status != "Deleted")
-                        .FirstOrDefault(x => x.site_detail_id.Equals(uz_id) && x.language_.code.Equals(language_code));
-                return siteDetail;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            var siteDetail = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_).Where(x => x.status_translation_.status != "Deleted")
+                    .Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
+            return siteDetail;
         }
-
-        public bool UpdateSiteDetailTranslation(int id, SiteDetailTranslation site)
+        catch (Exception ex)
         {
-            try
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+    public SiteDetailTranslation GetSiteDetailTranslationById(int id)
+    {
+        try
+        {
+            var siteDetail = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_).FirstOrDefault(x => x.id.Equals(id));
+            return siteDetail;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+    public SiteDetailTranslation GetSiteDetailTranslationById(int uz_id, string language_code)
+    {
+        try
+        {
+            var siteDetail = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_)
+                    .FirstOrDefault(x => x.site_detail_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+            return siteDetail;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+
+    public SiteDetailTranslation GetSiteDetailTranslationByIdSite(int uz_id, string language_code)
+    {
+        try
+        {
+            var siteDetail = _context.site_details_translations_20ts24tu
+                    .Include(x => x.site_detail_)
+                    .Include(x => x.language_)
+                    .Include(x => x.logo_w_)
+                    .Include(x => x.logo_b_)
+                    .Include(x => x.favicon_)
+                    .Include(x => x.site_translation_)
+                    .Include(x => x.status_translation_)
+                .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.site_detail_id.Equals(uz_id) && x.language_.code.Equals(language_code));
+            return siteDetail;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+
+    public bool UpdateSiteDetailTranslation(int id, SiteDetailTranslation site)
+    {
+        try
+        {
+            var dbcheck = GetSiteDetailTranslationById(id);
+            if (dbcheck is null)
             {
-                var dbcheck = GetSiteDetailTranslationById(id);
-                if (dbcheck is null)
-                {
-                    return false;
-                }
-                dbcheck.site_detail_id = site.site_detail_id;
-                dbcheck.language_id = site.language_id;
-                dbcheck.title = site.title;
-                dbcheck.description = site.description;
-                if (site.logo_w_ != null)
-                {
-                    dbcheck.logo_w_ = site.logo_w_;
-                }
-                if (site.logo_b_ != null)
-                {
-                    dbcheck.logo_b_ = site.logo_b_;
-                }
-                if (site.favicon_ != null)
-                {
-                    dbcheck.favicon_ = site.favicon_;
-                }
-                dbcheck.update_at = DateTime.UtcNow;
-                dbcheck.socials = site.socials;
-                dbcheck.details = site.details;
-                dbcheck.site_translation_id = site.site_translation_id;
-                dbcheck.status_translation_id = site.status_translation_id;
-                _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
                 return false;
             }
-
+            dbcheck.site_detail_id = site.site_detail_id;
+            dbcheck.language_id = site.language_id;
+            dbcheck.title = site.title;
+            dbcheck.description = site.description;
+            if (site.logo_w_ != null)
+            {
+                dbcheck.logo_w_ = site.logo_w_;
+            }
+            if (site.logo_b_ != null)
+            {
+                dbcheck.logo_b_ = site.logo_b_;
+            }
+            if (site.favicon_ != null)
+            {
+                dbcheck.favicon_ = site.favicon_;
+            }
+            dbcheck.update_at = DateTime.UtcNow;
+            dbcheck.socials = site.socials;
+            dbcheck.details = site.details;
+            dbcheck.site_translation_id = site.site_translation_id;
+            dbcheck.status_translation_id = site.status_translation_id;
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return false;
         }
 
+    }
 
 
-        public bool SaveChanges()
+
+    public bool SaveChanges()
+    {
+        try { _context.SaveChanges(); return true; }
+        catch (Exception ex)
         {
-            try { _context.SaveChanges(); return true; }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message); return false;
-            }
+            _logger.LogError("Error " + ex.Message); return false;
         }
     }
 }

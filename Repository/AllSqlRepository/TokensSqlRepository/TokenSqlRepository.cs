@@ -1,189 +1,186 @@
 ﻿using Contracts.AllRepository.TokensRepository;
 using Entities;
-using Entities.Model;
 using Entities.Model.TokensModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Serilog;
 
-namespace Repository.AllSqlRepository.TokensSqlRepository
+namespace Repository.AllSqlRepository.TokensSqlRepository;
+
+public class TokenSqlRepository : ITokensRepository
 {
-    public class TokenSqlRepository : ITokensRepository
+
+    private readonly RepositoryContext _context;
+    private readonly ILogger<TokenSqlRepository> _logger;
+    public TokenSqlRepository(RepositoryContext repositoryContext, ILogger<TokenSqlRepository> logger)
     {
+        _context = repositoryContext;
+        _logger = logger;
+    }
 
-        private readonly RepositoryContext _context;
-        private readonly ILogger<TokenSqlRepository> _logger;
-        public TokenSqlRepository(RepositoryContext repositoryContext, ILogger<TokenSqlRepository> logger)
+    public IEnumerable<Tokens> AllTokens(int queryNum, int pageNum)
+    {
+        try
         {
-            _context = repositoryContext;
-            _logger = logger;
+            var tokens = new List<Tokens>();
+            if (queryNum == 0 && pageNum != 0)
+            {
+                tokens = _context.tokens_20ts24tu.Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+
+            }
+            else if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                tokens = _context.tokens_20ts24tu.Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+
+            }
+            else
+            {
+                tokens = _context.tokens_20ts24tu.Include(x => x.status_).ToList();
+
+            }
+            return tokens;
         }
-
-        public IEnumerable<Tokens> AllTokens(int queryNum, int pageNum)
+        catch (Exception ex)
         {
-            try
-            {
-                var tokens = new List<Tokens>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    tokens = _context.tokens_20ts24tu.Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
-
-                }
-                else if (queryNum != 0 && pageNum != 0)
-                {
-                    if (queryNum > 200) { queryNum = 200; }
-                    tokens = _context.tokens_20ts24tu.Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
-
-                }
-                else
-                {
-                    tokens = _context.tokens_20ts24tu.Include(x => x.status_).ToList();
-
-                }
-                return tokens;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            _logger.LogError("Error " + ex.Message);
+            return null;
         }
+    }
 
-        public IEnumerable<Tokens> AllTokensSite(int queryNum, int pageNum)
+    public IEnumerable<Tokens> AllTokensSite(int queryNum, int pageNum)
+    {
+        try
         {
-            try
+            var tokens = new List<Tokens>();
+            if (queryNum == 0 && pageNum != 0)
             {
-                var tokens = new List<Tokens>();
-                if (queryNum == 0 && pageNum != 0)
-                {
-                    tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
+                tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).Skip(10 * (pageNum - 1)).Take(10).ToList();
 
-                }
-                else if (queryNum != 0 && pageNum != 0)
-                {
-                    if (queryNum > 200) { queryNum = 200; }
-                    tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
-
-                }
-                else
-                {
-                    tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).ToList();
-
-                }
-                return tokens;
             }
-            catch (Exception ex)
+            else if (queryNum != 0 && pageNum != 0)
             {
-                _logger.LogError("Error " + ex.Message);
-                return null;
+                if (queryNum > 200) { queryNum = 200; }
+                tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+
             }
+            else
+            {
+                tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).ToList();
+
+            }
+            return tokens;
         }
-
-
-        public int CreateTokens(Tokens Tokens)
+        catch (Exception ex)
         {
-            try
-            {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
 
-                if (Tokens == null)
-                {
-                    return 0;
-                }
-                Tokens.status_id = 1;
-                _context.tokens_20ts24tu.Add(Tokens);
-                _context.SaveChanges();
-                _logger.LogInformation($"Created " + JsonConvert.SerializeObject(Tokens));
 
-                return Tokens.id;
-            }
-            catch (Exception ex)
+    public int CreateTokens(Tokens Tokens)
+    {
+        try
+        {
+
+            if (Tokens == null)
             {
-                _logger.LogError("Error " + ex.Message);
                 return 0;
             }
+            Tokens.status_id = 1;
+            _context.tokens_20ts24tu.Add(Tokens);
+            _context.SaveChanges();
+            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(Tokens));
+
+            return Tokens.id;
         }
-
-        public bool DeleteTokens(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                var Tokens = GetTokensById(id);
-                if (Tokens == null)
-                {
-                    return false;
-                }
-                Tokens.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
-                _context.tokens_20ts24tu.Update(Tokens);
-                _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(Tokens));
+            _logger.LogError("Error " + ex.Message);
+            return 0;
+        }
+    }
 
-                return true;
-            }
-            catch (Exception ex)
+    public bool DeleteTokens(int id)
+    {
+        try
+        {
+            var Tokens = GetTokensById(id);
+            if (Tokens == null)
             {
-                _logger.LogError("Error " + ex.Message);
-
                 return false;
             }
-        }
+            Tokens.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+            _context.tokens_20ts24tu.Update(Tokens);
+            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(Tokens));
 
-        public Tokens GetTokensByIdSite(int id)
-        {
-            try
-            {
-                var Tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
-                return Tokens;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            return true;
         }
-         public Tokens GetTokensById(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                var Tokens = _context.tokens_20ts24tu.Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
-                return Tokens;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message);
-                return null;
-            }
+            _logger.LogError("Error " + ex.Message);
+
+            return false;
         }
+    }
 
-        public bool UpdateTokens(int id, Tokens Tokens)
+    public Tokens GetTokensByIdSite(int id)
+    {
+        try
         {
-            try
-            {
-                var tokenscheck = GetTokensById(id);
-                if (tokenscheck is null)
-                {
-                    return false;
-                }
-                tokenscheck.title = Tokens.title;
-                tokenscheck.token = Tokens.token;
-                tokenscheck.status_id = Tokens.status_id;
-                _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(tokenscheck));
+            var Tokens = _context.tokens_20ts24tu.Where(x => x.status_.status != "Deleted").Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+            return Tokens;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+     public Tokens GetTokensById(int id)
+    {
+        try
+        {
+            var Tokens = _context.tokens_20ts24tu.Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
+            return Tokens;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
 
-                return true;
-            }
-            catch (Exception ex)
+    public bool UpdateTokens(int id, Tokens Tokens)
+    {
+        try
+        {
+            var tokenscheck = GetTokensById(id);
+            if (tokenscheck is null)
             {
-                _logger.LogError("Error " + ex.Message);
                 return false;
             }
-        }
+            tokenscheck.title = Tokens.title;
+            tokenscheck.token = Tokens.token;
+            tokenscheck.status_id = Tokens.status_id;
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(tokenscheck));
 
-        public bool SaveChanges()
+            return true;
+        }
+        catch (Exception ex)
         {
-            try { _context.SaveChanges(); return true; }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error " + ex.Message); return false;
-            }
+            _logger.LogError("Error " + ex.Message);
+            return false;
+        }
+    }
+
+    public bool SaveChanges()
+    {
+        try { _context.SaveChanges(); return true; }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message); return false;
         }
     }
 }

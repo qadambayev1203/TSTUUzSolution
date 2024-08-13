@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Entities.DTO.ReadedDTOSConfigurations.TerritoriesConfDTOS;
 
-namespace Entities.DTO.ReadedDTOSConfigurations.TerritoriesConfDTOS
+public class TerritorieConfReadedDTO
 {
-    public class TerritorieConfReadedDTO
-    {
-        public int id { get; set; }
-        public string title { get; set; }
-    }
+    public int id { get; set; }
+    public string title { get; set; }
 }

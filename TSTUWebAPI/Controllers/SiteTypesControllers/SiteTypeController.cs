@@ -3,13 +3,11 @@ using Contracts.AllRepository.SiteTypesRepository;
 using Contracts.AllRepository.StatusesRepository;
 using Entities.DTO.SiteTypeDTOS;
 using Entities.Model.AnyClasses;
-using Entities.Model.AppealsToTheRectorsModel;
 using Entities.Model.SiteTypesModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TSTUWebAPI.Controllers.SiteTypeTypesControllers
+namespace TSTUWebAPI.Controllers.SiteTypesControllers
 {
     [Route("api/sitetype")]
     [ApiController]

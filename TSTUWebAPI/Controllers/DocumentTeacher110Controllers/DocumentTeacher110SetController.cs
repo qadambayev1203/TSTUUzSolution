@@ -6,15 +6,12 @@ using Entities.DTO.PersonDTOS;
 using Entities.Model.AnyClasses;
 using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.FileModel;
-using Entities.Model.MenuModel;
 using Entities.Model.PersonModel;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using TSTUWebAPI.Controllers.FileControllers;
 
-namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
+namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 {
     [Route("api/documentteacher110setcontroller")]
     [ApiController]
@@ -39,7 +36,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
         public IActionResult CreateDocumentTeacher110Set(DocumentTeacher110SetCreatedDTO documentTeacher110Set)
         {
 
-            if (documentTeacher110Set.old_year==0||documentTeacher110Set.new_year==0||documentTeacher110Set.document_id==0)
+            if (documentTeacher110Set.old_year == 0 || documentTeacher110Set.new_year == 0 || documentTeacher110Set.document_id == 0)
             {
                 return BadRequest("old_year, new_year and document_id cannot be 0");
             }
@@ -113,7 +110,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110SetControllers
 
                 var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
 
-                
+
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
 

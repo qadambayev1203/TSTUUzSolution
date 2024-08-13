@@ -1,28 +1,27 @@
 ﻿using Contracts.AllRepository.FrontLogFilesRepository;
 using Microsoft.Extensions.Logging;
 
-namespace Repository.AllSqlRepository.FrontLogFilesSqlRepository
-{
-    public class FrontLogFileSqlRepository : IFrontLogFileRepository
-    {
-        private readonly ILogger<FrontLogFileSqlRepository> _logger;
-        public FrontLogFileSqlRepository(ILogger<FrontLogFileSqlRepository> logger)
-        {
-            _logger = logger;
-        }
+namespace Repository.AllSqlRepository.FrontLogFilesSqlRepository;
 
-        public bool LogFileCreated(Exception ex)
+public class FrontLogFileSqlRepository : IFrontLogFileRepository
+{
+    private readonly ILogger<FrontLogFileSqlRepository> _logger;
+    public FrontLogFileSqlRepository(ILogger<FrontLogFileSqlRepository> logger)
+    {
+        _logger = logger;
+    }
+
+    public bool LogFileCreated(Exception ex)
+    {
+        try
         {
-            try
-            {
-                _logger.LogError("Error <Front>" + ex.Message);
-                return true;
-            }
-            catch (Exception ex1)
-            {
-                _logger.LogError("Error " + ex1.ToString());
-                return false;
-            }
+            _logger.LogError("Error <Front>" + ex.Message);
+            return true;
+        }
+        catch (Exception ex1)
+        {
+            _logger.LogError("Error " + ex1.ToString());
+            return false;
         }
     }
 }

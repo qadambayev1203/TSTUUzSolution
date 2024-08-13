@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Entities.DTO.ReadedDTOSConfigurations.MenuTypesConfDTO;
 
-namespace Entities.DTO.ReadedDTOSConfigurations.MenuTypesConfDTO
+public class MenuTypeConfReadedDTO
 {
-    public class MenuTypeConfReadedDTO
-    {
-        public int id { get; set; }
-        public string? title { get; set; }
-    }
+    public int id { get; set; }
+    public string? title { get; set; }
 }

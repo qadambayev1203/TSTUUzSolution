@@ -1,22 +1,16 @@
 ﻿using Entities.DTO.ReadedDTOSConfigurations.DepartamentTypeConfDTOS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entities.DTO.ReadedDTOSConfigurations.DepartamentConfDTOS
+namespace Entities.DTO.ReadedDTOSConfigurations.DepartamentConfDTOS;
+
+public class DepartamentTranslationConfReadedDTO
 {
-    public class DepartamentTranslationConfReadedDTO
-    {
-        public int id { get; set; }
-        public string? title_short { get; set; }
-        public string? title { get; set; }
-        public string? description { get; set; }
-        public string? text { get; set; }
-        public int? parent_id { get; set; }
-        public int? departament_id { get; set; }
-        public DepartamentTypeTranslationConfReadedDTO? departament_type_translation_ { get; set; }
+    public int id { get; set; }
+    public string? title_short { get; set; }
+    public string? title { get; set; }
+    public string? description { get; set; }
+    public string? text { get; set; }
+    public int? parent_id { get; set; }
+    public int? departament_id { get; set; }
+    public DepartamentTypeTranslationConfReadedDTO? departament_type_translation_ { get; set; }
 
-    }
 }

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Entities.Model.StatusModel
+namespace Entities.Model.StatusModel;
+
+public class Status
 {
-    public class Status
-    {
-        public int id { get; set; }
-        [MaxLength(250)] public string? status { get; set; }
-        [MaxLength(250)] public string? name { get; set; }
-        public bool? is_deleted { get; set; }
-    }
+    public int id { get; set; }
+    [MaxLength(250)] public string? status { get; set; }
+    [MaxLength(250)] public string? name { get; set; }
+    public bool? is_deleted { get; set; }
 }

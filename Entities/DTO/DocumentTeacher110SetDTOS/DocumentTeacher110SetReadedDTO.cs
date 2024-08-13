@@ -1,11 +1,5 @@
 ﻿using Entities.DTO.DocumentTeacher110DTOS;
 using Entities.DTO.ReadedDTOSConfigurations.FilesConfDTOS;
-using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities.DTO.DocumentTeacher110SetDTOS
 {

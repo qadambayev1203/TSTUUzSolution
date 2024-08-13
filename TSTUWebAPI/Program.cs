@@ -55,7 +55,6 @@ using Repository.AllSqlRepository.MenuesSqlRepository;
 using Repository.AllSqlRepository.MenuTypesSqlRepository;
 using Repository.AllSqlRepository.NeighborhoodsSqlRepository;
 using Repository.AllSqlRepository.PagesSqlRepository;
-using Repository.AllSqlRepository.PersonDatasDataSqlRepository;
 using Repository.AllSqlRepository.PersonsSqlRepository;
 using Repository.AllSqlRepository.SiteDetailsSqlRepository;
 using Repository.AllSqlRepository.SitesSqlRepository;
@@ -73,8 +72,6 @@ using Repository.AllSqlRepository.StatisticalsNumbersSqlRepository;
 using Contracts.AllRepository.FrontLogFilesRepository;
 using Repository.AllSqlRepository.FrontLogFilesSqlRepository;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Configuration;
-using System;
 using Entities.Model.AnyClasses;
 using Contracts.AllRepository.ProfilsRepository;
 using Repository.AllSqlRepository.ProfilsSqlRepopsitory;
@@ -83,6 +80,7 @@ using Repository.AllSqlRepository.AppealToEmployeesSqlRepository;
 using Contracts.AllRepository.DocumentTeacher110Repository;
 using Repository.AllSqlRepository.DocumentsTeacher110SqlRepository;
 using TSTUWebAPI.AnyMiddleware;
+using Repository.AllSqlRepository.PersonsDataSqlRepository;
 
 #endregion
 

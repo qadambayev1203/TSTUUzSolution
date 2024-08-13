@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Entities.DTO.CountrysDTOS;
 
-namespace Entities.DTO.CountrysDTOS
+public class CountryTranslationUpdatedDTO
 {
-    public class CountryTranslationUpdatedDTO
-    {
-        public string title { get; set; }
-        public int language_id { get; set; }
-        public int country_id { get; set; }
-        public int status_translation_id { get; set; }
+    public string title { get; set; }
+    public int language_id { get; set; }
+    public int country_id { get; set; }
+    public int status_translation_id { get; set; }
 
-    }
 }

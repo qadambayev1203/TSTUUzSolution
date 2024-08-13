@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Entities.DTO.DistrictsDTOS;
 
-namespace Entities.DTO.DistrictsDTOS
+public class DistrictCreatedDTO
 {
-    public class DistrictCreatedDTO
-    {
-        public int territorie_id { get; set; }
-        public string title { get; set; }
-    }
+    public int territorie_id { get; set; }
+    public string title { get; set; }
 }

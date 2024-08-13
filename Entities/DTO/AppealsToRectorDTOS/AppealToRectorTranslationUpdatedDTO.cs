@@ -1,25 +1,8 @@
-﻿using Entities.Model.AppealsToTheRectorsModel;
-using Entities.Model.CountrysModel;
-using Entities.Model.DistrictsModel;
-using Entities.Model.EmploymentModel;
-using Entities.Model.FileModel;
-using Entities.Model.GenderModel;
-using Entities.Model.LanguagesModel;
-using Entities.Model.NeighborhoodsModel;
-using Entities.Model.TerritoriesModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Entities.DTO.AppealsToRectorDTOS;
 
-namespace Entities.DTO.AppealsToRectorDTOS
+public class AppealToRectorTranslationUpdatedDTO
 {
-    public class AppealToRectorTranslationUpdatedDTO
-    {
 
-        public bool? confirm { get; set; }
+    public bool? confirm { get; set; }
 
-    }
 }

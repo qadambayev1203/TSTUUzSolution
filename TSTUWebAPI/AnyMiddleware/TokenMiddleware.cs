@@ -4,20 +4,22 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace TSTUWebAPI.AnyMiddleware
+namespace TSTUWebAPI.AnyMiddleware;
+
+public class TokenMiddleware
 {
-    public class TokenMiddleware
+    private readonly RequestDelegate _next;
+    private readonly IConfiguration _configuration;
+
+    public TokenMiddleware(RequestDelegate next, IConfiguration configuration)
     {
-        private readonly RequestDelegate _next;
-        private readonly IConfiguration _configuration;
+        _configuration = configuration;
+        _next = next;
+    }
 
-        public TokenMiddleware(RequestDelegate next, IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _next = next;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
         {
             var authorizationHeader = context.Request.Headers["Authorization"].FirstOrDefault();
 
@@ -46,9 +48,9 @@ namespace TSTUWebAPI.AnyMiddleware
                 }
 
             }
-
-            await _next(context);
         }
-    }
+        catch { }
 
+        await _next(context);
+    }
 }

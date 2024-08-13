@@ -86,561 +86,558 @@ using Entities.Model.DocumentTeacher110Model;
 using Entities.DTO.DocumentTeacher110DTOS;
 using Newtonsoft.Json;
 using Entities.DTO.DocumentTeacher110SetDTOS;
-namespace TSTUWebAPI.Profiles
+
+namespace TSTUWebAPI.Profiles;
+
+public class MappingProfile : Profile
 {
-
-    namespace TSTUWebAPI.Profiles
+    public MappingProfile()
     {
-        public class MappingProfile : Profile
-        {
-            public MappingProfile()
-            {
-                #region User DTOS
-                CreateMap<User, UserDTO>();
-                #endregion
-
-                #region Files DTOS
-                CreateMap<FilesCreatedDTO, Files>();
-                CreateMap<FilesUpdatedDTO, Files>();
-                CreateMap<Files, FilesReadedDTO>();
-                CreateMap<Files, FileConfReadedDTO>();
-                CreateMap<Files, FileSelectDTO>();
-
-                CreateMap<FilesTranslationCreatedDTO, FilesTranslation>();
-                CreateMap<FilesTranslationUpdatedDTO, FilesTranslation>();
-                CreateMap<FilesTranslation, FilesTranslationReadedDTO>();
-                CreateMap<FilesTranslation, FileTranslationConfReadedDTO>();
-                CreateMap<FilesTranslation, FileTranslationSelectDTO>();
-
-
-                #endregion
-
-                #region Gender DTOS
-                CreateMap<GenderCreatedDTO, Gender>();
-                CreateMap<GenderUpdatedDTO, Gender>();
-                CreateMap<Gender, GenderReadedDTO>();
-                CreateMap<Gender, GenderReadedSiteDTO>();
-                CreateMap<Gender, GenderConfReadedDTO>();
-
-
-
-                CreateMap<GenderTranslationCreatedDTO, GenderTranslation>();
-                CreateMap<GenderTranslationUpdatedDTO, GenderTranslation>();
-                CreateMap<GenderTranslation, GenderTranslationReadedDTO>();
-                CreateMap<GenderTranslation, GenderTranslationReadedSiteDTO>();
-                CreateMap<GenderTranslation, GenderTranslationConfReadedDTO>();
-
-
-                #endregion
-
-                #region Language DTOS
-                CreateMap<LanguageCreatedDTO, Language>();
-                CreateMap<LanguageUpdatedDTO, Language>();
-                CreateMap<Language, LanguageReadedDTO>();
-                CreateMap<Language, LanguageReadedSiteDTO>();
-                CreateMap<Language, LanguageConfReadedDTO>();
-
-
-                #endregion
+        #region User DTOS
+        CreateMap<User, UserDTO>();
+        #endregion
 
-                #region Person DTOS
-                CreateMap<PersonCreatedDTO, Person>();
-                CreateMap<PersonCreatedDataDTO, Person>();
-                CreateMap<PersonUpdatedDTO, Person>();
-                CreateMap<PersonUpdatedDataDTO, Person>();
-                CreateMap<Person, PersonReadedDTO>();
-                CreateMap<Person, PersonUserDTO>();
-                CreateMap<Person, PersonReadedSiteDTO>();
-                CreateMap<Person, PersonConfReadedDTO>();
-                CreateMap<Person, PersonReadedConfigurDTO>();
-                CreateMap<Person, PesonConfDTO>();
-                CreateMap<Person, PesonSiteConfDTO>();
-                CreateMap<Person, PersonUserReadedDTO>();
-                CreateMap<PersonUserProfilUpdatedDTO, Person>();
-
-
-                CreateMap<PersonTranslationCreatedDTO, PersonTranslation>();
-                CreateMap<PersonTranslationCreatedDataDTO, PersonTranslation>();
-                CreateMap<PersonTranslationUpdatedDTO, PersonTranslation>();
-                CreateMap<PersonTranslationUpdatedDataDTO, PersonTranslation>();
-                CreateMap<PersonTranslation, PersonTranslationReadedDTO>();
-                CreateMap<PersonTranslation, PersonTranslationReadedSiteDTO>();
-                CreateMap<PersonTranslation, PesonTranslationSiteConfDTO>();
-
-
-                #endregion
-
-                #region PersonData DTOS
-                CreateMap<PersonDataCreatedDTO, PersonData>();
-                CreateMap<PersonDataUpdatedDTO, PersonData>();
-                CreateMap<PersonData, PersonDataReadedEmployeeTypeDTO>();
-                CreateMap<PersonData, PersonDataReadedEmployeeTypeSiteDTO>();
-                CreateMap<PersonData, PersonDataReadedDTO>();
-                CreateMap<PersonData, PersonDataReadedSiteDTO>();
-                CreateMap<PersonData, PesonDataConfDTO>();
-
-
-                CreateMap<PersonDataTranslationCreatedDTO, PersonDataTranslation>();
-                CreateMap<PersonDataTranslationUpdatedDTO, PersonDataTranslation>();
-                CreateMap<PersonDataTranslation, PersonDataTranslationReadedDTO>();
-                CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeDTO>();
-                CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeSiteDTO>();
-                CreateMap<PersonDataTranslation, PersonDataTranslationReadedSiteDTO>();
-
-
-                #endregion
-
-                #region Status DTOS
-                CreateMap<StatusCreatedDTO, Status>();
-                CreateMap<StatusUpdatedDTO, Status>();
-                CreateMap<Status, StatusReadedDTO>();
-                CreateMap<Status, StatusReadedSiteDTO>();
-                CreateMap<Status, StatusConfReadedDTO>();
+        #region Files DTOS
+        CreateMap<FilesCreatedDTO, Files>();
+        CreateMap<FilesUpdatedDTO, Files>();
+        CreateMap<Files, FilesReadedDTO>();
+        CreateMap<Files, FileConfReadedDTO>();
+        CreateMap<Files, FileSelectDTO>();
 
+        CreateMap<FilesTranslationCreatedDTO, FilesTranslation>();
+        CreateMap<FilesTranslationUpdatedDTO, FilesTranslation>();
+        CreateMap<FilesTranslation, FilesTranslationReadedDTO>();
+        CreateMap<FilesTranslation, FileTranslationConfReadedDTO>();
+        CreateMap<FilesTranslation, FileTranslationSelectDTO>();
 
+
+        #endregion
+
+        #region Gender DTOS
+        CreateMap<GenderCreatedDTO, Gender>();
+        CreateMap<GenderUpdatedDTO, Gender>();
+        CreateMap<Gender, GenderReadedDTO>();
+        CreateMap<Gender, GenderReadedSiteDTO>();
+        CreateMap<Gender, GenderConfReadedDTO>();
+
+
+
+        CreateMap<GenderTranslationCreatedDTO, GenderTranslation>();
+        CreateMap<GenderTranslationUpdatedDTO, GenderTranslation>();
+        CreateMap<GenderTranslation, GenderTranslationReadedDTO>();
+        CreateMap<GenderTranslation, GenderTranslationReadedSiteDTO>();
+        CreateMap<GenderTranslation, GenderTranslationConfReadedDTO>();
+
 
-                CreateMap<StatusTranslationCreatedDTO, StatusTranslation>();
-                CreateMap<StatusTranslationUpdatedDTO, StatusTranslation>();
-                CreateMap<StatusTranslation, StatusTranslationReadedDTO>();
-                CreateMap<StatusTranslation, StatusTranslationReadedSiteDTO>();
-                CreateMap<StatusTranslation, StatusTranslationConfReadedDTO>();
+        #endregion
 
-                #endregion
+        #region Language DTOS
+        CreateMap<LanguageCreatedDTO, Language>();
+        CreateMap<LanguageUpdatedDTO, Language>();
+        CreateMap<Language, LanguageReadedDTO>();
+        CreateMap<Language, LanguageReadedSiteDTO>();
+        CreateMap<Language, LanguageConfReadedDTO>();
 
-                #region User CRUD DTOS
-                CreateMap<UserCrudCreatedDTO, User>();
-                CreateMap<UserCrudUpdatedDTO, User>();
-                CreateMap<UserProfilUpdatedDTO, User>();
-                CreateMap<User, UserCrudReadedDTO>();
-                CreateMap<User, UserConfReadedDTO>();
-                CreateMap<User, UserFIODTO>();
 
-                #endregion
+        #endregion
 
-                #region UserType DTOS
-                CreateMap<UserTypeCreatedDTO, UserType>();
-                CreateMap<UserTypeUpdatedDTO, UserType>();
-                CreateMap<UserType, UserTypeReadedDTO>();
-                CreateMap<UserType, UserTypeReadedSiteDTO>();
-                CreateMap<UserType, UserTypeConfReadedDTO>();
+        #region Person DTOS
+        CreateMap<PersonCreatedDTO, Person>();
+        CreateMap<PersonCreatedDataDTO, Person>();
+        CreateMap<PersonUpdatedDTO, Person>();
+        CreateMap<PersonUpdatedDataDTO, Person>();
+        CreateMap<Person, PersonReadedDTO>();
+        CreateMap<Person, PersonUserDTO>();
+        CreateMap<Person, PersonReadedSiteDTO>();
+        CreateMap<Person, PersonConfReadedDTO>();
+        CreateMap<Person, PersonReadedConfigurDTO>();
+        CreateMap<Person, PesonConfDTO>();
+        CreateMap<Person, PesonSiteConfDTO>();
+        CreateMap<Person, PersonUserReadedDTO>();
+        CreateMap<PersonUserProfilUpdatedDTO, Person>();
 
 
-                CreateMap<UserTypeTranslationCreatedDTO, UserTypeTranslation>();
-                CreateMap<UserTypeTranslationUpdatedDTO, UserTypeTranslation>();
-                CreateMap<UserTypeTranslation, UserTypeTranslationReadedDTO>();
-                CreateMap<UserTypeTranslation, UserTypeTranslationReadedSiteDTO>();
+        CreateMap<PersonTranslationCreatedDTO, PersonTranslation>();
+        CreateMap<PersonTranslationCreatedDataDTO, PersonTranslation>();
+        CreateMap<PersonTranslationUpdatedDTO, PersonTranslation>();
+        CreateMap<PersonTranslationUpdatedDataDTO, PersonTranslation>();
+        CreateMap<PersonTranslation, PersonTranslationReadedDTO>();
+        CreateMap<PersonTranslation, PersonTranslationReadedSiteDTO>();
+        CreateMap<PersonTranslation, PesonTranslationSiteConfDTO>();
 
 
-                #endregion
+        #endregion
+
+        #region PersonData DTOS
+        CreateMap<PersonDataCreatedDTO, PersonData>();
+        CreateMap<PersonDataUpdatedDTO, PersonData>();
+        CreateMap<PersonData, PersonDataReadedEmployeeTypeDTO>();
+        CreateMap<PersonData, PersonDataReadedEmployeeTypeSiteDTO>();
+        CreateMap<PersonData, PersonDataReadedDTO>();
+        CreateMap<PersonData, PersonDataReadedSiteDTO>();
+        CreateMap<PersonData, PesonDataConfDTO>();
 
-                #region DepartamentDetail DTOS
-                CreateMap<DepartamentDetailCreatedDTO, DepartamentDetail>();
-                CreateMap<DepartamentDetailUpdatedDTO, DepartamentDetail>();
-                CreateMap<DepartamentDetail, DepartamentDetailReadedDTO>();
-                CreateMap<DepartamentDetail, DepartamentDetailReadedSiteDTO>();
-                CreateMap<DepartamentDetail, DepartamentDetailConfRededDTO>();
 
+        CreateMap<PersonDataTranslationCreatedDTO, PersonDataTranslation>();
+        CreateMap<PersonDataTranslationUpdatedDTO, PersonDataTranslation>();
+        CreateMap<PersonDataTranslation, PersonDataTranslationReadedDTO>();
+        CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeDTO>();
+        CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeSiteDTO>();
+        CreateMap<PersonDataTranslation, PersonDataTranslationReadedSiteDTO>();
 
-                CreateMap<DepartamentDetailTranslationCreatedDTO, DepartamentDetailTranslation>();
-                CreateMap<DepartamentDetailTranslationUpdatedDTO, DepartamentDetailTranslation>();
-                CreateMap<DepartamentDetailTranslation, DepartamentDetailTranslationReadedDTO>();
-                CreateMap<DepartamentDetailTranslation, DepartamentDetailTranslationReadedSiteDTO>();
 
+        #endregion
+
+        #region Status DTOS
+        CreateMap<StatusCreatedDTO, Status>();
+        CreateMap<StatusUpdatedDTO, Status>();
+        CreateMap<Status, StatusReadedDTO>();
+        CreateMap<Status, StatusReadedSiteDTO>();
+        CreateMap<Status, StatusConfReadedDTO>();
 
-                #endregion
 
-                #region Departament DTOS
-                CreateMap<DepartamentCreatedDTO, Departament>();
-                CreateMap<DepartamentUpdatedDTO, Departament>();
-                CreateMap<Departament, DepartamentReadedDTO>();
-                CreateMap<Departament, DepartamentSelectedReadedDTO>();
-                CreateMap<Departament, DepartamentReadedTypedDTO>();
-                CreateMap<Departament, DepartamentReadedSiteDTO>();
-                CreateMap<Departament, DepartamentChildReadedSiteDTO>();
-                CreateMap<Departament, DepartamentConfReadedDTO>();
-                CreateMap<Departament, DepartamentConfReadedFacultyDTO>();
-                CreateMap<Departament, DepartamentStructureReadedDTO>();
 
+        CreateMap<StatusTranslationCreatedDTO, StatusTranslation>();
+        CreateMap<StatusTranslationUpdatedDTO, StatusTranslation>();
+        CreateMap<StatusTranslation, StatusTranslationReadedDTO>();
+        CreateMap<StatusTranslation, StatusTranslationReadedSiteDTO>();
+        CreateMap<StatusTranslation, StatusTranslationConfReadedDTO>();
 
-                CreateMap<DepartamentTranslationCreatedDTO, DepartamentTranslation>();
-                CreateMap<DepartamentTranslationUpdatedDTO, DepartamentTranslation>();
-                CreateMap<DepartamentTranslation, DepartamentTranslationReadedDTO>();
-                CreateMap<DepartamentTranslation, DepartamentTranslationSelectedReadedDTO>();
-                CreateMap<DepartamentTranslation, DepartamentTranslationReadedTypedDTO>();
-                CreateMap<DepartamentTranslation, DepartamentTranslationReadedSiteDTO>();
-                CreateMap<DepartamentTranslation, DepartamentTranslationReadedSiteFacultyDTO>();
-                CreateMap<DepartamentTranslation, DepartamentChildTranslationReadedSiteDTO>();
-                CreateMap<DepartamentTranslation, DepartamentTranslationConfReadedDTO>();
-                CreateMap<DepartamentTranslation, DepartamentTranslationStructureReadedDTO>();
+        #endregion
 
+        #region User CRUD DTOS
+        CreateMap<UserCrudCreatedDTO, User>();
+        CreateMap<UserCrudUpdatedDTO, User>();
+        CreateMap<UserProfilUpdatedDTO, User>();
+        CreateMap<User, UserCrudReadedDTO>();
+        CreateMap<User, UserConfReadedDTO>();
+        CreateMap<User, UserFIODTO>();
 
-                #endregion
+        #endregion
 
-                #region DepartamentType DTOS
-                CreateMap<DepartamentTypeCreatedDTO, DepartamentType>();
-                CreateMap<DepartamentTypeUpdatedDTO, DepartamentType>();
-                CreateMap<DepartamentType, DepartamentTypeReadedDTO>();
-                CreateMap<DepartamentType, DepartamentTypeReadedSiteDTO>();
-                CreateMap<DepartamentType, DepartamentTypeConfReadedDTO>();
+        #region UserType DTOS
+        CreateMap<UserTypeCreatedDTO, UserType>();
+        CreateMap<UserTypeUpdatedDTO, UserType>();
+        CreateMap<UserType, UserTypeReadedDTO>();
+        CreateMap<UserType, UserTypeReadedSiteDTO>();
+        CreateMap<UserType, UserTypeConfReadedDTO>();
 
 
-                CreateMap<DepartamentTypeTranslationCreatedDTO, DepartamentTypeTranslation>();
-                CreateMap<DepartamentTypeTranslationUpdatedDTO, DepartamentTypeTranslation>();
-                CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationReadedDTO>();
-                CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationReadedSiteDTO>();
-                CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationConfReadedDTO>();
+        CreateMap<UserTypeTranslationCreatedDTO, UserTypeTranslation>();
+        CreateMap<UserTypeTranslationUpdatedDTO, UserTypeTranslation>();
+        CreateMap<UserTypeTranslation, UserTypeTranslationReadedDTO>();
+        CreateMap<UserTypeTranslation, UserTypeTranslationReadedSiteDTO>();
 
 
-                #endregion
+        #endregion
 
-                #region Page DTOS
-                CreateMap<PageCreatedDTO, Pages>();
-                CreateMap<PageUpdatedDTO, Pages>();
-                CreateMap<Pages, PageReadedDTO>();
-                CreateMap<Pages, PageReadedSelectDTO>();
-                CreateMap<Pages, PageReadedSiteDTO>();
-                CreateMap<Pages, PageConfReadDTO>();
+        #region DepartamentDetail DTOS
+        CreateMap<DepartamentDetailCreatedDTO, DepartamentDetail>();
+        CreateMap<DepartamentDetailUpdatedDTO, DepartamentDetail>();
+        CreateMap<DepartamentDetail, DepartamentDetailReadedDTO>();
+        CreateMap<DepartamentDetail, DepartamentDetailReadedSiteDTO>();
+        CreateMap<DepartamentDetail, DepartamentDetailConfRededDTO>();
 
 
-                CreateMap<PageTranslationCreatedDTO, PageTranslation>();
-                CreateMap<PageTranslationUpdatedDTO, PageTranslation>();
-                CreateMap<PageTranslation, PageTranslationConfReadedDTO>();
-                CreateMap<PageTranslation, PageTranslationReadedDTO>();
-                CreateMap<PageTranslation, PageTranslationReadedSelectDTO>();
-                CreateMap<PageTranslation, PageTranslationReadedSiteDTO>();
+        CreateMap<DepartamentDetailTranslationCreatedDTO, DepartamentDetailTranslation>();
+        CreateMap<DepartamentDetailTranslationUpdatedDTO, DepartamentDetailTranslation>();
+        CreateMap<DepartamentDetailTranslation, DepartamentDetailTranslationReadedDTO>();
+        CreateMap<DepartamentDetailTranslation, DepartamentDetailTranslationReadedSiteDTO>();
 
 
-                #endregion
+        #endregion
 
-                #region Site DTOS
-                CreateMap<SiteCreatedDTO, Site>();
-                CreateMap<SiteUpdatedDTO, Site>();
-                CreateMap<Site, SiteReadedDTO>();
-                CreateMap<Site, SiteReadedSiteDTO>();
-                CreateMap<Site, SiteConfReadedDTO>();
+        #region Departament DTOS
+        CreateMap<DepartamentCreatedDTO, Departament>();
+        CreateMap<DepartamentUpdatedDTO, Departament>();
+        CreateMap<Departament, DepartamentReadedDTO>();
+        CreateMap<Departament, DepartamentSelectedReadedDTO>();
+        CreateMap<Departament, DepartamentReadedTypedDTO>();
+        CreateMap<Departament, DepartamentReadedSiteDTO>();
+        CreateMap<Departament, DepartamentChildReadedSiteDTO>();
+        CreateMap<Departament, DepartamentConfReadedDTO>();
+        CreateMap<Departament, DepartamentConfReadedFacultyDTO>();
+        CreateMap<Departament, DepartamentStructureReadedDTO>();
 
 
-                CreateMap<SiteTranslationCreatedDTO, SiteTranslation>();
-                CreateMap<SiteTranslationUpdatedDTO, SiteTranslation>();
-                CreateMap<SiteTranslation, SiteTranslationReadedDTO>();
-                CreateMap<SiteTranslation, SiteTranslationReadedSiteDTO>();
-                CreateMap<SiteTranslation, SiteTranslationConfReadedDTO>();
+        CreateMap<DepartamentTranslationCreatedDTO, DepartamentTranslation>();
+        CreateMap<DepartamentTranslationUpdatedDTO, DepartamentTranslation>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationReadedDTO>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationSelectedReadedDTO>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationReadedTypedDTO>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationReadedSiteDTO>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationReadedSiteFacultyDTO>();
+        CreateMap<DepartamentTranslation, DepartamentChildTranslationReadedSiteDTO>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationConfReadedDTO>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationStructureReadedDTO>();
 
 
+        #endregion
 
+        #region DepartamentType DTOS
+        CreateMap<DepartamentTypeCreatedDTO, DepartamentType>();
+        CreateMap<DepartamentTypeUpdatedDTO, DepartamentType>();
+        CreateMap<DepartamentType, DepartamentTypeReadedDTO>();
+        CreateMap<DepartamentType, DepartamentTypeReadedSiteDTO>();
+        CreateMap<DepartamentType, DepartamentTypeConfReadedDTO>();
 
-                #endregion
 
-                #region SiteDetail DTOS
-                CreateMap<SiteDetailCreatedDTO, SiteDetail>();
-                CreateMap<SiteDetailUpdatedDTO, SiteDetail>();
-                CreateMap<SiteDetail, SiteDetailReadedDTO>();
-                CreateMap<SiteDetail, SiteDetailReadedSiteDTO>();
-                CreateMap<SiteDetail, SiteDetailConfreadedDTO>();
+        CreateMap<DepartamentTypeTranslationCreatedDTO, DepartamentTypeTranslation>();
+        CreateMap<DepartamentTypeTranslationUpdatedDTO, DepartamentTypeTranslation>();
+        CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationReadedDTO>();
+        CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationReadedSiteDTO>();
+        CreateMap<DepartamentTypeTranslation, DepartamentTypeTranslationConfReadedDTO>();
 
 
-                CreateMap<SiteDetailTranslationCreatedDTO, SiteDetailTranslation>();
-                CreateMap<SiteDetailTranslationUpdatedDTO, SiteDetailTranslation>();
-                CreateMap<SiteDetailTranslation, SiteDetailTranslationReadedDTO>();
-                CreateMap<SiteDetailTranslation, SiteDetailTranslationReadedSiteDTO>();
+        #endregion
 
+        #region Page DTOS
+        CreateMap<PageCreatedDTO, Pages>();
+        CreateMap<PageUpdatedDTO, Pages>();
+        CreateMap<Pages, PageReadedDTO>();
+        CreateMap<Pages, PageReadedSelectDTO>();
+        CreateMap<Pages, PageReadedSiteDTO>();
+        CreateMap<Pages, PageConfReadDTO>();
 
 
-                #endregion
+        CreateMap<PageTranslationCreatedDTO, PageTranslation>();
+        CreateMap<PageTranslationUpdatedDTO, PageTranslation>();
+        CreateMap<PageTranslation, PageTranslationConfReadedDTO>();
+        CreateMap<PageTranslation, PageTranslationReadedDTO>();
+        CreateMap<PageTranslation, PageTranslationReadedSelectDTO>();
+        CreateMap<PageTranslation, PageTranslationReadedSiteDTO>();
 
-                #region SiteType DTOS
-                CreateMap<SiteTypeCreatedDTO, SiteType>();
-                CreateMap<SiteTypeUpdatedDTO, SiteType>();
-                CreateMap<SiteType, SiteTypeReadedDTO>();
-                CreateMap<SiteType, SiteTypeReadedSiteDTO>();
-                CreateMap<SiteType, SiteTypeConfReadedDTO>();
 
+        #endregion
 
-                CreateMap<SiteTypeTranslationCreatedDTO, SiteTypeTranslation>();
-                CreateMap<SiteTypeTranslationUpdatedDTO, SiteTypeTranslation>();
-                CreateMap<SiteTypeTranslation, SiteTypeTranslationReadedDTO>();
-                CreateMap<SiteTypeTranslation, SiteTypeTranslationReadedSiteDTO>();
-                CreateMap<SiteTypeTranslation, SiteTypeTranslationConfDTO>();
+        #region Site DTOS
+        CreateMap<SiteCreatedDTO, Site>();
+        CreateMap<SiteUpdatedDTO, Site>();
+        CreateMap<Site, SiteReadedDTO>();
+        CreateMap<Site, SiteReadedSiteDTO>();
+        CreateMap<Site, SiteConfReadedDTO>();
 
-                #endregion
 
-                #region BlogCategory DTOS
-                CreateMap<BlogCategoryCreatedDTO, BlogCategory>();
-                CreateMap<BlogCategoryUpdatedDTO, BlogCategory>();
-                CreateMap<BlogCategoryUpdatedModeratorDTO, BlogCategory>();
-                CreateMap<BlogCategory, BlogCategoryReadedDTO>();
-                CreateMap<BlogCategory, BlogCategoryReadedSiteDTO>();
-                CreateMap<BlogCategory, BlogCategoryReadedConfDTO>();
+        CreateMap<SiteTranslationCreatedDTO, SiteTranslation>();
+        CreateMap<SiteTranslationUpdatedDTO, SiteTranslation>();
+        CreateMap<SiteTranslation, SiteTranslationReadedDTO>();
+        CreateMap<SiteTranslation, SiteTranslationReadedSiteDTO>();
+        CreateMap<SiteTranslation, SiteTranslationConfReadedDTO>();
 
 
-                CreateMap<BlogCategoryTranslationCreatedDTO, BlogCategoryTranslation>();
-                CreateMap<BlogCategoryTranslationUpdatedDTO, BlogCategoryTranslation>();
-                CreateMap<BlogCategoryTranslationUpdatedModeratorDTO, BlogCategoryTranslation>();
-                CreateMap<BlogCategoryTranslation, BlogTranslationConfReadedDTO>();
-                CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedDTO>();
-                CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedSiteDTO>();
-                CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedConfDTO>();
 
 
-                #endregion
+        #endregion
 
-                #region Blog DTOS
-                CreateMap<BlogCreatedDTO, Blog>();
-                CreateMap<BlogUpdatedDTO, Blog>();
-                CreateMap<BlogUpdatedModeratorDTO, Blog>();
-                CreateMap<Blog, BlogReadedDTO>();
-                CreateMap<Blog, BlogReadedSelectDTO>();
-                CreateMap<Blog, BlogReadedSiteDTO>();
-                CreateMap<Blog, BlogConfRededDTO>();
+        #region SiteDetail DTOS
+        CreateMap<SiteDetailCreatedDTO, SiteDetail>();
+        CreateMap<SiteDetailUpdatedDTO, SiteDetail>();
+        CreateMap<SiteDetail, SiteDetailReadedDTO>();
+        CreateMap<SiteDetail, SiteDetailReadedSiteDTO>();
+        CreateMap<SiteDetail, SiteDetailConfreadedDTO>();
 
 
-                CreateMap<BlogTranslationCreatedDTO, BlogTranslation>();
-                CreateMap<BlogTranslationUpdatedDTO, BlogTranslation>();
-                CreateMap<BlogTranslationUpdatedModeratorDTO, BlogTranslation>();
-                CreateMap<BlogTranslation, BlogTranslationReadedDTO>();
-                CreateMap<BlogTranslation, BlogTranslationReadedSelectDTO>();
-                CreateMap<BlogTranslation, BlogTranslationReadedSiteDTO>();
+        CreateMap<SiteDetailTranslationCreatedDTO, SiteDetailTranslation>();
+        CreateMap<SiteDetailTranslationUpdatedDTO, SiteDetailTranslation>();
+        CreateMap<SiteDetailTranslation, SiteDetailTranslationReadedDTO>();
+        CreateMap<SiteDetailTranslation, SiteDetailTranslationReadedSiteDTO>();
 
 
 
-                #endregion
+        #endregion
 
-                #region Country DTOS
-                CreateMap<CountryCreatedDTO, Country>();
-                CreateMap<CountryUpdatedDTO, Country>();
-                CreateMap<Country, CountryReadedDTO>();
-                CreateMap<Country, CountryReadedSiteDTO>();
-                CreateMap<Country, CountryReadedConfDTO>();
+        #region SiteType DTOS
+        CreateMap<SiteTypeCreatedDTO, SiteType>();
+        CreateMap<SiteTypeUpdatedDTO, SiteType>();
+        CreateMap<SiteType, SiteTypeReadedDTO>();
+        CreateMap<SiteType, SiteTypeReadedSiteDTO>();
+        CreateMap<SiteType, SiteTypeConfReadedDTO>();
 
 
-                CreateMap<CountryTranslationCreatedDTO, CountryTranslation>();
-                CreateMap<CountryTranslationUpdatedDTO, CountryTranslation>();
-                CreateMap<CountryTranslation, CountryTranslationReadedDTO>();
-                CreateMap<CountryTranslation, CountryTranslationReadedSiteDTO>();
-                CreateMap<CountryTranslation, CountryTranslationReadedConfDTO>();
+        CreateMap<SiteTypeTranslationCreatedDTO, SiteTypeTranslation>();
+        CreateMap<SiteTypeTranslationUpdatedDTO, SiteTypeTranslation>();
+        CreateMap<SiteTypeTranslation, SiteTypeTranslationReadedDTO>();
+        CreateMap<SiteTypeTranslation, SiteTypeTranslationReadedSiteDTO>();
+        CreateMap<SiteTypeTranslation, SiteTypeTranslationConfDTO>();
 
+        #endregion
 
-                #endregion
+        #region BlogCategory DTOS
+        CreateMap<BlogCategoryCreatedDTO, BlogCategory>();
+        CreateMap<BlogCategoryUpdatedDTO, BlogCategory>();
+        CreateMap<BlogCategoryUpdatedModeratorDTO, BlogCategory>();
+        CreateMap<BlogCategory, BlogCategoryReadedDTO>();
+        CreateMap<BlogCategory, BlogCategoryReadedSiteDTO>();
+        CreateMap<BlogCategory, BlogCategoryReadedConfDTO>();
 
-                #region Territorie DTOS
-                CreateMap<TerritorieCreatedDTO, Territorie>();
-                CreateMap<TerritorieUpdatedDTO, Territorie>();
-                CreateMap<Territorie, TerritorieReadedDTO>();
-                CreateMap<Territorie, TerritorieReadedIdDTO>();
-                CreateMap<Territorie, TerritorieReadedSiteDTO>();
-                CreateMap<Territorie, TerritorieConfReadedDTO>();
 
+        CreateMap<BlogCategoryTranslationCreatedDTO, BlogCategoryTranslation>();
+        CreateMap<BlogCategoryTranslationUpdatedDTO, BlogCategoryTranslation>();
+        CreateMap<BlogCategoryTranslationUpdatedModeratorDTO, BlogCategoryTranslation>();
+        CreateMap<BlogCategoryTranslation, BlogTranslationConfReadedDTO>();
+        CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedDTO>();
+        CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedSiteDTO>();
+        CreateMap<BlogCategoryTranslation, BlogCategoryTranslationReadedConfDTO>();
 
-                CreateMap<TerritorieTranslationCreatedDTO, TerritorieTranslation>();
-                CreateMap<TerritorieTranslationUpdatedDTO, TerritorieTranslation>();
-                CreateMap<TerritorieTranslation, TerritorieTranslationReadedDTO>();
-                CreateMap<TerritorieTranslation, TerritorieTranslationReadedIdDTO>();
-                CreateMap<TerritorieTranslation, TerritorieTranslationReadedSiteDTO>();
-                CreateMap<TerritorieTranslation, TerritorieTranslationConfReadedDTO>();
 
+        #endregion
 
-                #endregion
+        #region Blog DTOS
+        CreateMap<BlogCreatedDTO, Blog>();
+        CreateMap<BlogUpdatedDTO, Blog>();
+        CreateMap<BlogUpdatedModeratorDTO, Blog>();
+        CreateMap<Blog, BlogReadedDTO>();
+        CreateMap<Blog, BlogReadedSelectDTO>();
+        CreateMap<Blog, BlogReadedSiteDTO>();
+        CreateMap<Blog, BlogConfRededDTO>();
 
-                #region District DTOS
-                CreateMap<DistrictCreatedDTO, District>();
-                CreateMap<DistrictUpdatedDTO, District>();
-                CreateMap<District, DistrictReadedDTO>();
-                CreateMap<District, DistrictReadedIdDTO>();
-                CreateMap<District, DistrictReadedSiteDTO>();
-                CreateMap<District, DistrictConfReadedDTO>();
 
+        CreateMap<BlogTranslationCreatedDTO, BlogTranslation>();
+        CreateMap<BlogTranslationUpdatedDTO, BlogTranslation>();
+        CreateMap<BlogTranslationUpdatedModeratorDTO, BlogTranslation>();
+        CreateMap<BlogTranslation, BlogTranslationReadedDTO>();
+        CreateMap<BlogTranslation, BlogTranslationReadedSelectDTO>();
+        CreateMap<BlogTranslation, BlogTranslationReadedSiteDTO>();
 
-                CreateMap<DistrictTranslationCreatedDTO, DistrictTranslation>();
-                CreateMap<DistrictTranslationUpdatedDTO, DistrictTranslation>();
-                CreateMap<DistrictTranslation, DistrictTranslationReadedDTO>();
-                CreateMap<DistrictTranslation, DistrictTranslationReadedIdDTO>();
-                CreateMap<DistrictTranslation, DistrictTranslationReadedSiteDTO>();
-                CreateMap<DistrictTranslation, DistrictTranslationConfReadedDTO>();
 
 
+        #endregion
 
-                #endregion
+        #region Country DTOS
+        CreateMap<CountryCreatedDTO, Country>();
+        CreateMap<CountryUpdatedDTO, Country>();
+        CreateMap<Country, CountryReadedDTO>();
+        CreateMap<Country, CountryReadedSiteDTO>();
+        CreateMap<Country, CountryReadedConfDTO>();
 
-                #region Neighborhood DTOS
-                CreateMap<NeighborhoodCreatedDTO, Neighborhood>();
-                CreateMap<NeighborhoodUpdatedDTO, Neighborhood>();
-                CreateMap<Neighborhood, NeighborhoodReadedDTO>();
-                CreateMap<Neighborhood, NeighborhoodReadedIdDTO>();
-                CreateMap<Neighborhood, NeighborhoodReadedSiteDTO>();
-                CreateMap<Neighborhood, NeighborhoodConfReadedDTO>();
 
+        CreateMap<CountryTranslationCreatedDTO, CountryTranslation>();
+        CreateMap<CountryTranslationUpdatedDTO, CountryTranslation>();
+        CreateMap<CountryTranslation, CountryTranslationReadedDTO>();
+        CreateMap<CountryTranslation, CountryTranslationReadedSiteDTO>();
+        CreateMap<CountryTranslation, CountryTranslationReadedConfDTO>();
 
-                CreateMap<NeighborhoodTranslationCreatedDTO, NeighborhoodTranslation>();
-                CreateMap<NeighborhoodTranslationUpdatedDTO, NeighborhoodTranslation>();
-                CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedDTO>();
-                CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedIdDTO>();
-                CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedSiteDTO>();
-                CreateMap<NeighborhoodTranslation, NeighborhoodTranslationConfReadedDTO>();
 
+        #endregion
 
+        #region Territorie DTOS
+        CreateMap<TerritorieCreatedDTO, Territorie>();
+        CreateMap<TerritorieUpdatedDTO, Territorie>();
+        CreateMap<Territorie, TerritorieReadedDTO>();
+        CreateMap<Territorie, TerritorieReadedIdDTO>();
+        CreateMap<Territorie, TerritorieReadedSiteDTO>();
+        CreateMap<Territorie, TerritorieConfReadedDTO>();
 
-                #endregion
 
-                #region Employment DTOS
-                CreateMap<EmploymentCreatedDTO, Employment>();
-                CreateMap<EmploymentUpdatedDTO, Employment>();
-                CreateMap<Employment, EmploymentReadedDTO>();
-                CreateMap<Employment, EmploymentReadedSiteDTO>();
+        CreateMap<TerritorieTranslationCreatedDTO, TerritorieTranslation>();
+        CreateMap<TerritorieTranslationUpdatedDTO, TerritorieTranslation>();
+        CreateMap<TerritorieTranslation, TerritorieTranslationReadedDTO>();
+        CreateMap<TerritorieTranslation, TerritorieTranslationReadedIdDTO>();
+        CreateMap<TerritorieTranslation, TerritorieTranslationReadedSiteDTO>();
+        CreateMap<TerritorieTranslation, TerritorieTranslationConfReadedDTO>();
 
 
-                CreateMap<EmploymentTranslationCreatedDTO, EmploymentTranslation>();
-                CreateMap<EmploymentTranslationUpdatedDTO, EmploymentTranslation>();
-                CreateMap<EmploymentTranslation, EmploymentTranslationReadedDTO>();
-                CreateMap<EmploymentTranslation, EmploymentTranslationReadedSiteDTO>();
-                CreateMap<EmploymentTranslation, EmploymentTranslationConfRededDTO>();
+        #endregion
 
+        #region District DTOS
+        CreateMap<DistrictCreatedDTO, District>();
+        CreateMap<DistrictUpdatedDTO, District>();
+        CreateMap<District, DistrictReadedDTO>();
+        CreateMap<District, DistrictReadedIdDTO>();
+        CreateMap<District, DistrictReadedSiteDTO>();
+        CreateMap<District, DistrictConfReadedDTO>();
 
-                #endregion
 
-                #region EmployeeType DTOS
-                CreateMap<EmployeeTypeCreatedDTO, EmployeeType>();
-                CreateMap<EmployeeTypeUpdatedDTO, EmployeeType>();
-                CreateMap<EmployeeType, EmployeeTypeReadedDTO>();
-                CreateMap<EmployeeType, EmployeeTypeReadedSiteDTO>();
+        CreateMap<DistrictTranslationCreatedDTO, DistrictTranslation>();
+        CreateMap<DistrictTranslationUpdatedDTO, DistrictTranslation>();
+        CreateMap<DistrictTranslation, DistrictTranslationReadedDTO>();
+        CreateMap<DistrictTranslation, DistrictTranslationReadedIdDTO>();
+        CreateMap<DistrictTranslation, DistrictTranslationReadedSiteDTO>();
+        CreateMap<DistrictTranslation, DistrictTranslationConfReadedDTO>();
 
 
-                CreateMap<EmployeeTypeTranslationCreatedDTO, EmployeeTypeTranslation>();
-                CreateMap<EmployeeTypeTranslationUpdatedDTO, EmployeeTypeTranslation>();
-                CreateMap<EmployeeTypeTranslation, EmployeeTypeTranslationReadedDTO>();
-                CreateMap<EmployeeTypeTranslation, EmployeeTypeTranslationReadedSiteDTO>();
-                CreateMap<EmployeeTypeTranslation, EmployeeTypeTranslationConfReadedDTO>();
 
+        #endregion
 
-                #endregion
+        #region Neighborhood DTOS
+        CreateMap<NeighborhoodCreatedDTO, Neighborhood>();
+        CreateMap<NeighborhoodUpdatedDTO, Neighborhood>();
+        CreateMap<Neighborhood, NeighborhoodReadedDTO>();
+        CreateMap<Neighborhood, NeighborhoodReadedIdDTO>();
+        CreateMap<Neighborhood, NeighborhoodReadedSiteDTO>();
+        CreateMap<Neighborhood, NeighborhoodConfReadedDTO>();
 
-                #region AppealToRector DTOS
-                CreateMap<AppealToRectorCreatedDTO, AppealToRector>();
-                CreateMap<AppealToRectorUpdatedDTO, AppealToRector>();
-                CreateMap<AppealToRector, AppealToRectorReadedDTO>();
-                CreateMap<AppealToRector, AppealToRectorConfRededDTO>();
-                CreateMap<AppealToRector, AppealEmailCheckStatusDTO>();
 
+        CreateMap<NeighborhoodTranslationCreatedDTO, NeighborhoodTranslation>();
+        CreateMap<NeighborhoodTranslationUpdatedDTO, NeighborhoodTranslation>();
+        CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedDTO>();
+        CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedIdDTO>();
+        CreateMap<NeighborhoodTranslation, NeighborhoodTranslationReadedSiteDTO>();
+        CreateMap<NeighborhoodTranslation, NeighborhoodTranslationConfReadedDTO>();
 
-                CreateMap<AppealToRectorTranslationCreatedDTO, AppealToRectorTranslation>();
-                CreateMap<AppealToRectorTranslationUpdatedDTO, AppealToRectorTranslation>();
-                CreateMap<AppealToRectorTranslation, AppealToRectorTranslationReadedDTO>();
-                CreateMap<AppealToRectorTranslation, AppealTranslationEmailCheckStatusDTO>();
 
 
-                #endregion
+        #endregion
 
-                #region AppealToEmployee DTOS
-                CreateMap<AppealToEmployeeCreatedDTO, AppealToEmployee>();
-                CreateMap<AppealToEmployee, AppealToEmployeeReadedDTO>();
-                CreateMap<AppealToEmployee, AppealToEmployeeReadedAdminDTO>();
+        #region Employment DTOS
+        CreateMap<EmploymentCreatedDTO, Employment>();
+        CreateMap<EmploymentUpdatedDTO, Employment>();
+        CreateMap<Employment, EmploymentReadedDTO>();
+        CreateMap<Employment, EmploymentReadedSiteDTO>();
 
 
-                CreateMap<AppealToEmployeeTranslationCreatedDTO, AppealToEmployeeTranslation>();
-                CreateMap<AppealToEmployeeTranslation, AppealToEmployeeTranslationReadedDTO>();
-                CreateMap<AppealToEmployeeTranslation, AppealToEmployeeTranslationReadedAdminDTO>();
+        CreateMap<EmploymentTranslationCreatedDTO, EmploymentTranslation>();
+        CreateMap<EmploymentTranslationUpdatedDTO, EmploymentTranslation>();
+        CreateMap<EmploymentTranslation, EmploymentTranslationReadedDTO>();
+        CreateMap<EmploymentTranslation, EmploymentTranslationReadedSiteDTO>();
+        CreateMap<EmploymentTranslation, EmploymentTranslationConfRededDTO>();
 
-                #endregion
 
-                #region MenuType DTOS
-                CreateMap<MenuTypeCreatedDTO, MenuType>();
-                CreateMap<MenuTypeUpdatedDTO, MenuType>();
-                CreateMap<MenuType, MenuTypeReadedDTO>();
-                CreateMap<MenuType, MenuTypeReadedSiteDTO>();
-                CreateMap<MenuType, MenuTypeConfReadedDTO>();
-                CreateMap<MenuType, AppealEmailCheckStatusDTO>();
+        #endregion
 
+        #region EmployeeType DTOS
+        CreateMap<EmployeeTypeCreatedDTO, EmployeeType>();
+        CreateMap<EmployeeTypeUpdatedDTO, EmployeeType>();
+        CreateMap<EmployeeType, EmployeeTypeReadedDTO>();
+        CreateMap<EmployeeType, EmployeeTypeReadedSiteDTO>();
 
-                CreateMap<MenuTypeTranslationCreatedDTO, MenuTypeTranslation>();
-                CreateMap<MenuTypeTranslationUpdatedDTO, MenuTypeTranslation>();
-                CreateMap<MenuTypeTranslation, MenuTypeTranslationReadedDTO>();
-                CreateMap<MenuTypeTranslation, MenuTypeTranslationReadedSiteDTO>();
-                CreateMap<MenuTypeTranslation, MenuTypeTranslationConfReadedDTO>();
 
-                #endregion
+        CreateMap<EmployeeTypeTranslationCreatedDTO, EmployeeTypeTranslation>();
+        CreateMap<EmployeeTypeTranslationUpdatedDTO, EmployeeTypeTranslation>();
+        CreateMap<EmployeeTypeTranslation, EmployeeTypeTranslationReadedDTO>();
+        CreateMap<EmployeeTypeTranslation, EmployeeTypeTranslationReadedSiteDTO>();
+        CreateMap<EmployeeTypeTranslation, EmployeeTypeTranslationConfReadedDTO>();
 
-                #region Menu DTOS
-                CreateMap<MenuCreatedDTO, Menu>();
-                CreateMap<MenuUpdatedDTO, Menu>();
-                CreateMap<Menu, MenuReadedDTO>();
-                CreateMap<Menu, MenuReadedSiteDTO>();
-                CreateMap<Menu, MenuConfReadedDTO>();
 
+        #endregion
 
-                CreateMap<MenuTranslationCreatedDTO, MenuTranslation>();
-                CreateMap<MenuTranslationUpdatedDTO, MenuTranslation>();
-                CreateMap<MenuTranslation, MenuTranslationReadedDTO>();
-                CreateMap<MenuTranslation, MenuTranslationReadedSiteDTO>();
+        #region AppealToRector DTOS
+        CreateMap<AppealToRectorCreatedDTO, AppealToRector>();
+        CreateMap<AppealToRectorUpdatedDTO, AppealToRector>();
+        CreateMap<AppealToRector, AppealToRectorReadedDTO>();
+        CreateMap<AppealToRector, AppealToRectorConfRededDTO>();
+        CreateMap<AppealToRector, AppealEmailCheckStatusDTO>();
 
 
+        CreateMap<AppealToRectorTranslationCreatedDTO, AppealToRectorTranslation>();
+        CreateMap<AppealToRectorTranslationUpdatedDTO, AppealToRectorTranslation>();
+        CreateMap<AppealToRectorTranslation, AppealToRectorTranslationReadedDTO>();
+        CreateMap<AppealToRectorTranslation, AppealTranslationEmailCheckStatusDTO>();
 
-                #endregion
 
-                #region Tokens DTOS
-                CreateMap<TokensCreatedDTO, Tokens>();
-                CreateMap<TokensUpdatedDTO, Tokens>();
-                CreateMap<Tokens, TokensReadedDTO>();
-                CreateMap<Tokens, TokensReadedSiteDTO>();
+        #endregion
 
+        #region AppealToEmployee DTOS
+        CreateMap<AppealToEmployeeCreatedDTO, AppealToEmployee>();
+        CreateMap<AppealToEmployee, AppealToEmployeeReadedDTO>();
+        CreateMap<AppealToEmployee, AppealToEmployeeReadedAdminDTO>();
 
-                #endregion
 
-                #region InteractiveServices DTOS
-                CreateMap<InteractiveServicesCreatedDTO, InteractiveServices>();
-                CreateMap<InteractiveServicesUpdatedDTO, InteractiveServices>();
-                CreateMap<InteractiveServices, InteractiveServicesReadedDTO>();
-                CreateMap<InteractiveServices, InteractiveServicesReadedConfDTO>();
-                CreateMap<InteractiveServices, InteractiveServicesReadedSiteDTO>();
+        CreateMap<AppealToEmployeeTranslationCreatedDTO, AppealToEmployeeTranslation>();
+        CreateMap<AppealToEmployeeTranslation, AppealToEmployeeTranslationReadedDTO>();
+        CreateMap<AppealToEmployeeTranslation, AppealToEmployeeTranslationReadedAdminDTO>();
 
+        #endregion
 
-                CreateMap<InteractiveServicesTranslationCreatedDTO, InteractiveServicesTranslation>();
-                CreateMap<InteractiveServicesTranslationUpdatedDTO, InteractiveServicesTranslation>();
-                CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationReadedDTO>();
-                CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationReadedSiteDTO>();
-                CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationConfReadedDTO>();
-                #endregion
+        #region MenuType DTOS
+        CreateMap<MenuTypeCreatedDTO, MenuType>();
+        CreateMap<MenuTypeUpdatedDTO, MenuType>();
+        CreateMap<MenuType, MenuTypeReadedDTO>();
+        CreateMap<MenuType, MenuTypeReadedSiteDTO>();
+        CreateMap<MenuType, MenuTypeConfReadedDTO>();
+        CreateMap<MenuType, AppealEmailCheckStatusDTO>();
 
-                #region StatisticalNumbers DTOS
-                CreateMap<StatisticalNumbersCreatedDTO, StatisticalNumbers>();
-                CreateMap<StatisticalNumbersUpdatedDTO, StatisticalNumbers>();
-                CreateMap<StatisticalNumbers, StatisticalNumbersReadedDTO>();
-                CreateMap<StatisticalNumbers, StatisticalNumbersReadedConfDTO>();
-                CreateMap<StatisticalNumbers, StatisticalNumbersReadedSiteDTO>();
 
+        CreateMap<MenuTypeTranslationCreatedDTO, MenuTypeTranslation>();
+        CreateMap<MenuTypeTranslationUpdatedDTO, MenuTypeTranslation>();
+        CreateMap<MenuTypeTranslation, MenuTypeTranslationReadedDTO>();
+        CreateMap<MenuTypeTranslation, MenuTypeTranslationReadedSiteDTO>();
+        CreateMap<MenuTypeTranslation, MenuTypeTranslationConfReadedDTO>();
 
-                CreateMap<StatisticalNumbersTranslationCreatedDTO, StatisticalNumbersTranslation>();
-                CreateMap<StatisticalNumbersTranslationUpdatedDTO, StatisticalNumbersTranslation>();
-                CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationReadedDTO>();
-                CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationReadedSiteDTO>();
-                CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationConfReadedDTO>();
-                #endregion
+        #endregion
 
-                #region DocumentTeacher110 DTOS
-                CreateMap<DocumentTeacher110UpdatedDTO, DocumentTeacher110>();
-                CreateMap<DocumentTeacher110, DocumentTeacher110ReadedDTO>();
-                CreateMap<DocumentTeacher110, DocumentTeacher110SelectDTO>();
-                CreateMap<DocumentTeacher110, DocumentTeacher110AdminReadedDTO>();
-                CreateMap<DocumentTeacher110CreatedDTO, DocumentTeacher110>()
-                                                                 .ForMember(dest => dest.document_sequence_string, opt =>
-                                                                  opt.MapFrom(src => src.document_sequence != null ? JsonConvert
-                                                                  .SerializeObject(src.document_sequence.Select(ds => new DocumentSequenceItemDTO { sequence_number = ds.sequence_number, profil_user_id = ds.profil_user_id })
-                                                                  .ToList()) : null));
+        #region Menu DTOS
+        CreateMap<MenuCreatedDTO, Menu>();
+        CreateMap<MenuUpdatedDTO, Menu>();
+        CreateMap<Menu, MenuReadedDTO>();
+        CreateMap<Menu, MenuReadedSiteDTO>();
+        CreateMap<Menu, MenuConfReadedDTO>();
 
 
-                #endregion
+        CreateMap<MenuTranslationCreatedDTO, MenuTranslation>();
+        CreateMap<MenuTranslationUpdatedDTO, MenuTranslation>();
+        CreateMap<MenuTranslation, MenuTranslationReadedDTO>();
+        CreateMap<MenuTranslation, MenuTranslationReadedSiteDTO>();
 
-                #region DocumentTeacher110Set DTOS
-                CreateMap<DocumentTeacher110SetUpdatedDTO, DocumentTeacher110Set>();
-                CreateMap<DocumentTeacher110SetConfirmStudyDepDTO, DocumentTeacher110Set>();
-                CreateMap<DocumentTeacher110Set, DocumentTeacher110SetReadedDTO>();
-                CreateMap<DocumentTeacher110Set, DocumentTeacher110SetAdminReadedDTO>();
-                CreateMap<DocumentTeacher110SetCreatedDTO, DocumentTeacher110Set>();
-                CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>();
-                CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetAdminReadedDTO>>();
-                #endregion
 
-            }
-        }
 
+        #endregion
+
+        #region Tokens DTOS
+        CreateMap<TokensCreatedDTO, Tokens>();
+        CreateMap<TokensUpdatedDTO, Tokens>();
+        CreateMap<Tokens, TokensReadedDTO>();
+        CreateMap<Tokens, TokensReadedSiteDTO>();
+
+
+        #endregion
+
+        #region InteractiveServices DTOS
+        CreateMap<InteractiveServicesCreatedDTO, InteractiveServices>();
+        CreateMap<InteractiveServicesUpdatedDTO, InteractiveServices>();
+        CreateMap<InteractiveServices, InteractiveServicesReadedDTO>();
+        CreateMap<InteractiveServices, InteractiveServicesReadedConfDTO>();
+        CreateMap<InteractiveServices, InteractiveServicesReadedSiteDTO>();
+
+
+        CreateMap<InteractiveServicesTranslationCreatedDTO, InteractiveServicesTranslation>();
+        CreateMap<InteractiveServicesTranslationUpdatedDTO, InteractiveServicesTranslation>();
+        CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationReadedDTO>();
+        CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationReadedSiteDTO>();
+        CreateMap<InteractiveServicesTranslation, InteractiveServicesTranslationConfReadedDTO>();
+        #endregion
+
+        #region StatisticalNumbers DTOS
+        CreateMap<StatisticalNumbersCreatedDTO, StatisticalNumbers>();
+        CreateMap<StatisticalNumbersUpdatedDTO, StatisticalNumbers>();
+        CreateMap<StatisticalNumbers, StatisticalNumbersReadedDTO>();
+        CreateMap<StatisticalNumbers, StatisticalNumbersReadedConfDTO>();
+        CreateMap<StatisticalNumbers, StatisticalNumbersReadedSiteDTO>();
+
+
+        CreateMap<StatisticalNumbersTranslationCreatedDTO, StatisticalNumbersTranslation>();
+        CreateMap<StatisticalNumbersTranslationUpdatedDTO, StatisticalNumbersTranslation>();
+        CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationReadedDTO>();
+        CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationReadedSiteDTO>();
+        CreateMap<StatisticalNumbersTranslation, StatisticalNumbersTranslationConfReadedDTO>();
+        #endregion
+
+        #region DocumentTeacher110 DTOS
+        CreateMap<DocumentTeacher110UpdatedDTO, DocumentTeacher110>();
+        CreateMap<DocumentTeacher110, DocumentTeacher110ReadedDTO>();
+        CreateMap<DocumentTeacher110, DocumentTeacher110SelectDTO>();
+        CreateMap<DocumentTeacher110, DocumentTeacher110AdminReadedDTO>();
+        CreateMap<DocumentTeacher110CreatedDTO, DocumentTeacher110>()
+                                                         .ForMember(dest => dest.document_sequence_string, opt =>
+                                                          opt.MapFrom(src => src.document_sequence != null ? JsonConvert
+                                                          .SerializeObject(src.document_sequence.Select(ds => new DocumentSequenceItemDTO { sequence_number = ds.sequence_number, profil_user_id = ds.profil_user_id })
+                                                          .ToList()) : null));
+
+
+        #endregion
+
+        #region DocumentTeacher110Set DTOS
+        CreateMap<DocumentTeacher110SetUpdatedDTO, DocumentTeacher110Set>();
+        CreateMap<DocumentTeacher110SetConfirmStudyDepDTO, DocumentTeacher110Set>();
+        CreateMap<DocumentTeacher110Set, DocumentTeacher110SetReadedDTO>();
+        CreateMap<DocumentTeacher110Set, DocumentTeacher110SetAdminReadedDTO>();
+        CreateMap<DocumentTeacher110SetCreatedDTO, DocumentTeacher110Set>();
+        CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>();
+        CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetAdminReadedDTO>>();
+        #endregion
 
     }
 }
+
+
+

@@ -1,28 +1,27 @@
 ﻿using Entities.Model.AnyClasses;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace TSTUWebAPI.Attributes
+namespace TSTUWebAPI.Attributes;
+
+public class StaticAuthAttribute : ActionFilterAttribute
 {
-    public class StaticAuthAttribute : ActionFilterAttribute
+
+    private readonly string tokencheck = SessionClass.tokenCheck;
+    private readonly string token = SessionClass.token;
+    public override void OnActionExecuting(ActionExecutingContext context)
     {
-
-        private readonly string tokencheck = SessionClass.tokenCheck;
-        private readonly string token = SessionClass.token;
-        public override void OnActionExecuting(ActionExecutingContext context)
+        if (!context.HttpContext.Request.Headers.ContainsKey("Authorization"))
         {
-            if (!context.HttpContext.Request.Headers.ContainsKey("Authorization"))
-            {
-                context.HttpContext.Response.StatusCode = 401;
-                return;
-            }
+            context.HttpContext.Response.StatusCode = 401;
+            return;
+        }
 
-            var token1 = context.HttpContext.Request.Headers["Authorization"];
+        var token1 = context.HttpContext.Request.Headers["Authorization"];
 
-            if (token1 != tokencheck || token1 != token)
-            {
-                context.HttpContext.Response.StatusCode = 401;
-                return;
-            }
+        if (token1 != tokencheck || token1 != token)
+        {
+            context.HttpContext.Response.StatusCode = 401;
+            return;
         }
     }
 }

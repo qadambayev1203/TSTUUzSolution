@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Entities.DTO;
 
-namespace Entities.DTO
+public class UserCredentials
 {
-    public class UserCredentials
-    {
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public int CaptchaNumbersSumm { get; set; }
-    }
+    public string Login { get; set; }
+    public string Password { get; set; }
+    public int CaptchaNumbersSumm { get; set; }
 }

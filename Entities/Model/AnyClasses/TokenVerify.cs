@@ -1,7 +1,6 @@
-﻿namespace Entities.Model.AnyClasses
+﻿namespace Entities.Model.AnyClasses;
+
+public class TokenVerify
 {
-    public class TokenVerify
-    {
-        public bool verification { get; set; }
-    }
+    public bool verification { get; set; }
 }

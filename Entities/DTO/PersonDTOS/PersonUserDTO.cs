@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Entities.DTO.PersonDTOS;
 
-namespace Entities.DTO.PersonDTOS
+public class PersonUserDTO
 {
-    public class PersonUserDTO
-    {
-        public int id { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string fathers_name { get; set; }
-    }
+    public int id { get; set; }
+    public string firstName { get; set; }
+    public string lastName { get; set; }
+    public string fathers_name { get; set; }
 }
