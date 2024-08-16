@@ -10,6 +10,7 @@ public class PersonDataReadedDTO
     public string? biography_json { get; set; }
     public DateTime? birthday { get; set; }
     public string? degree { get; set; }
+    public string? scientific_title { get; set; }
     public int? experience_year { get; set; }
     public string? phone_number1 { get; set; }
     public string? phone_number2 { get; set; }
@@ -21,10 +22,6 @@ public class PersonDataReadedDTO
     public int? languages_ru { get; set; }
     public string? languages_any_title { get; set; }
     public int? languages_any { get; set; }
-    public string? experience_json { get; set; }
-    public string? scientific_activity_json { get; set; }
-    public string? portfolio_json { get; set; }
-    public string? blog_json { get; set; }
     public StatusConfReadedDTO? status_ { get; set; }
 
     // USER

@@ -451,6 +451,7 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.biography_json = personData.biography_json;
             dbcheck.birthday = personData.birthday;
             dbcheck.degree = personData.degree;
+            dbcheck.scientific_title = personData.scientific_title;
             dbcheck.experience_year = personData.experience_year;
             dbcheck.phone_number1 = personData.phone_number1;
             dbcheck.phone_number2 = personData.phone_number2;
@@ -462,10 +463,6 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.languages_ru = personData.languages_ru;
             dbcheck.languages_any_title = personData.languages_any_title;
             dbcheck.languages_any = personData.languages_any;
-            dbcheck.experience_json = personData.experience_json;
-            dbcheck.scientific_activity_json = personData.scientific_activity_json;
-            dbcheck.portfolio_json = personData.portfolio_json;
-            dbcheck.blog_json = personData.blog_json;
             dbcheck.status_id = personData.status_id;
 
             var userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
@@ -1057,6 +1054,7 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.biography_json = personData.biography_json;
             dbcheck.birthday = personData.birthday;
             dbcheck.degree = personData.degree;
+            dbcheck.scientific_title = personData.scientific_title;
             dbcheck.experience_year = personData.experience_year;
             dbcheck.phone_number1 = personData.phone_number1;
             dbcheck.phone_number2 = personData.phone_number2;
@@ -1068,10 +1066,6 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.languages_ru = personData.languages_ru;
             dbcheck.languages_any_title = personData.languages_any_title;
             dbcheck.languages_any = personData.languages_any;
-            dbcheck.experience_json = personData.experience_json;
-            dbcheck.scientific_activity_json = personData.scientific_activity_json;
-            dbcheck.portfolio_json = personData.portfolio_json;
-            dbcheck.blog_json = personData.blog_json;
             dbcheck.language_id = personData.language_id;
             dbcheck.status_translation_id = personData.status_translation_id;
 
