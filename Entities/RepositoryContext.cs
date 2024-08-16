@@ -21,6 +21,7 @@ using Entities.Model.MenuTypesModel;
 using Entities.Model.NeighborhoodsModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonDataModel;
+using Entities.Model.PersonDataModel.PersonScientificActivityModel;
 using Entities.Model.PersonModel;
 using Entities.Model.SiteDetailsModel;
 using Entities.Model.SitesModel;
@@ -132,5 +133,7 @@ public class RepositoryContext : DbContext
     public DbSet<AppealToEmployeeTranslation> appeal_to_employee_translation_20ts24tu { get; set; }
     public DbSet<DocumentTeacher110> document_teacher_110_20ts24tu { get; set; }
     public DbSet<DocumentTeacher110Set> document_teacher_110_set_20ts24tu { get; set; }
+    public DbSet<PersonScientificActivity> person_scientific_activity_20ts24tu { get; set; }
+    public DbSet<PersonScientificActivityTranslation> person_scientific_activity_translation_20ts24tu { get; set; }
 
 }

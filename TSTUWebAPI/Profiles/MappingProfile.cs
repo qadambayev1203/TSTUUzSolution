@@ -86,6 +86,8 @@ using Entities.Model.DocumentTeacher110Model;
 using Entities.DTO.DocumentTeacher110DTOS;
 using Newtonsoft.Json;
 using Entities.DTO.DocumentTeacher110SetDTOS;
+using Entities.DTO.PersonDataDTOS.PersonScientificActivityDTOS;
+using Entities.Model.PersonDataModel.PersonScientificActivityModel;
 
 namespace TSTUWebAPI.Profiles;
 
@@ -184,6 +186,24 @@ public class MappingProfile : Profile
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeSiteDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedSiteDTO>();
+
+            #region PersonScientificActivity DTOS
+
+            CreateMap<PersonScientificActivityCreatedDTO, PersonScientificActivity>();
+            CreateMap<PersonScientificActivityCreatedAdminDTO, PersonScientificActivity>();
+            CreateMap<PersonScientificActivityUpdatedAdminDTO, PersonScientificActivity>();
+            CreateMap<PersonScientificActivityUpdatedDTO, PersonScientificActivity>();
+            CreateMap<PersonScientificActivity, PersonScientificActivityReadedDTO>();
+            CreateMap<PersonScientificActivity, PersonScientificActivityReadedSiteDTO>();
+
+            CreateMap<PersonScientificActivityTranslationCreatedDTO, PersonScientificActivityTranslation>();
+            CreateMap<PersonScientificActivityTranslationCreatedAdminDTO, PersonScientificActivityTranslation>();
+            CreateMap<PersonScientificActivityTranslationUpdatedAdminDTO, PersonScientificActivityTranslation>();
+            CreateMap<PersonScientificActivityTranslationUpdatedDTO, PersonScientificActivityTranslation>();
+            CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedDTO>();
+            CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedSiteDTO>();
+
+        #endregion
 
 
         #endregion

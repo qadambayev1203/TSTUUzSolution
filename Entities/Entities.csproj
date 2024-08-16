@@ -23,4 +23,13 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\PersonDataDTOS\PersonBlogDTOS\" />
+    <Folder Include="DTO\PersonDataDTOS\PersonExperienceDTOS\" />
+    <Folder Include="DTO\PersonDataDTOS\PersonPortfolioDTOS\" />
+    <Folder Include="Model\PersonDataModel\PersonExperienceModel\" />
+    <Folder Include="Model\PersonDataModel\PersonPortfolioModel\" />
+    <Folder Include="Model\PersonDataModel\PersonBlogModel\" />
+  </ItemGroup>
+
 </Project>

@@ -81,6 +81,8 @@ using Contracts.AllRepository.DocumentTeacher110Repository;
 using Repository.AllSqlRepository.DocumentsTeacher110SqlRepository;
 using TSTUWebAPI.AnyMiddleware;
 using Repository.AllSqlRepository.PersonsDataSqlRepository;
+using Contracts.AllRepository.PersonsDataRepository.PersonScientificActivityRepository;
+using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonScientificActivitySqlRepositorys;
 
 #endregion
 
@@ -90,7 +92,6 @@ try
     var Configuration = new ConfigurationBuilder()
           .AddJsonFile("appsettings.json")
           .Build();
-
 
     #region JWT
     IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
@@ -266,6 +267,9 @@ try
 
     //DocumentTeacher110Set
     builder.Services.AddScoped<IDocumentTeacher110SetRepository, DocumentsTeacher110SetSqlRepository>();
+
+    //PersonScientificActivity
+    builder.Services.AddScoped<IPersonScientificActivityRepository, PersonScientificActivitySqlRepository>();
 
     #endregion
 
