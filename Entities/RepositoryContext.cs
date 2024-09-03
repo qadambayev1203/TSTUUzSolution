@@ -21,6 +21,9 @@ using Entities.Model.MenuTypesModel;
 using Entities.Model.NeighborhoodsModel;
 using Entities.Model.PagesModel;
 using Entities.Model.PersonDataModel;
+using Entities.Model.PersonDataModel.PersonBlogModel;
+using Entities.Model.PersonDataModel.PersonExperienceModel;
+using Entities.Model.PersonDataModel.PersonPortfolioModel;
 using Entities.Model.PersonDataModel.PersonScientificActivityModel;
 using Entities.Model.PersonModel;
 using Entities.Model.SiteDetailsModel;
@@ -135,5 +138,11 @@ public class RepositoryContext : DbContext
     public DbSet<DocumentTeacher110Set> document_teacher_110_set_20ts24tu { get; set; }
     public DbSet<PersonScientificActivity> person_scientific_activity_20ts24tu { get; set; }
     public DbSet<PersonScientificActivityTranslation> person_scientific_activity_translation_20ts24tu { get; set; }
+    public DbSet<PersonBlog> person_blog_20ts24tu { get; set; }
+    public DbSet<PersonBlogTranslation> person_blog_translation_20ts24tu { get; set; }
+    public DbSet<PersonPortfolio> person_portfolio_20ts24tu { get; set; }
+    public DbSet<PersonPortfolioTranslation> person_portfolio_translation_20ts24tu { get; set; }
+    public DbSet<PersonExperience> person_experience_20ts24tu { get; set; }
+    public DbSet<PersonExperienceTranslation> person_experience_translation_20ts24tu { get; set; }
 
 }

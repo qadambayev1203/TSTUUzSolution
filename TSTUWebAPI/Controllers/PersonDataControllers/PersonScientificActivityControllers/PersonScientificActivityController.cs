@@ -10,7 +10,7 @@ using Contracts.AllRepository.PersonsDataRepository.PersonScientificActivityRepo
 namespace TSTUWebAPI.Controllers.PersonDataControllers.PersonScientificActivityControllers;
 
 [Authorize]
-[Route("api/person_scientific_activity")]
+[Route("api/personscientificactivity")]
 [ApiController]
 public class PersonScientificActivityController : ControllerBase
 {

@@ -83,6 +83,12 @@ using TSTUWebAPI.AnyMiddleware;
 using Repository.AllSqlRepository.PersonsDataSqlRepository;
 using Contracts.AllRepository.PersonsDataRepository.PersonScientificActivityRepository;
 using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonScientificActivitySqlRepositorys;
+using Contracts.AllRepository.PersonsDataRepository.PersonBlogRepository;
+using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonBlogSqlRepositorys;
+using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonPortfolioSqlRepositorys;
+using Contracts.AllRepository.PersonsDataRepository.PersonPortfolioRepository;
+using Contracts.AllRepository.PersonsDataRepository.PersonExperienceRepository;
+using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonExperienceSqlRepositorys;
 
 #endregion
 
@@ -270,6 +276,15 @@ try
 
     //PersonScientificActivity
     builder.Services.AddScoped<IPersonScientificActivityRepository, PersonScientificActivitySqlRepository>();
+
+    //PersonBlog
+    builder.Services.AddScoped<IPersonBlogRepository, PersonBlogSqlRepository>();
+
+    //PersonPortfolio
+    builder.Services.AddScoped<IPersonPortfolioRepository, PersonPortfolioSqlRepository>();
+
+    //PersonExperience
+    builder.Services.AddScoped<IPersonExperienceRepository, PersonExperienceSqlRepository>();
 
     #endregion
 

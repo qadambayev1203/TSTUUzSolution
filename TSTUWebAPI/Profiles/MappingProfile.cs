@@ -88,6 +88,12 @@ using Newtonsoft.Json;
 using Entities.DTO.DocumentTeacher110SetDTOS;
 using Entities.DTO.PersonDataDTOS.PersonScientificActivityDTOS;
 using Entities.Model.PersonDataModel.PersonScientificActivityModel;
+using Entities.DTO.PersonDataDTOS.PersonBlogDTOS;
+using Entities.Model.PersonDataModel.PersonBlogModel;
+using Entities.DTO.PersonDataDTOS.PersonPortfolioDTOS;
+using Entities.Model.PersonDataModel.PersonPortfolioModel;
+using Entities.DTO.PersonDataDTOS.PersonExperienceDTOS;
+using Entities.Model.PersonDataModel.PersonExperienceModel;
 
 namespace TSTUWebAPI.Profiles;
 
@@ -187,24 +193,77 @@ public class MappingProfile : Profile
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeSiteDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedSiteDTO>();
 
-            #region PersonScientificActivity DTOS
+        #region PersonScientificActivity DTOS
 
-            CreateMap<PersonScientificActivityCreatedDTO, PersonScientificActivity>();
-            CreateMap<PersonScientificActivityCreatedAdminDTO, PersonScientificActivity>();
-            CreateMap<PersonScientificActivityUpdatedAdminDTO, PersonScientificActivity>();
-            CreateMap<PersonScientificActivityUpdatedDTO, PersonScientificActivity>();
-            CreateMap<PersonScientificActivity, PersonScientificActivityReadedDTO>();
-            CreateMap<PersonScientificActivity, PersonScientificActivityReadedSiteDTO>();
+        CreateMap<PersonScientificActivityCreatedDTO, PersonScientificActivity>();
+        CreateMap<PersonBlogCreatedAdminDTO, PersonScientificActivity>();
+        CreateMap<PersonScientificActivityUpdatedAdminDTO, PersonScientificActivity>();
+        CreateMap<PersonScientificActivityUpdatedDTO, PersonScientificActivity>();
+        CreateMap<PersonScientificActivity, PersonScientificActivityReadedDTO>();
+        CreateMap<PersonScientificActivity, PersonScientificActivityReadedSiteDTO>();
 
-            CreateMap<PersonScientificActivityTranslationCreatedDTO, PersonScientificActivityTranslation>();
-            CreateMap<PersonScientificActivityTranslationCreatedAdminDTO, PersonScientificActivityTranslation>();
-            CreateMap<PersonScientificActivityTranslationUpdatedAdminDTO, PersonScientificActivityTranslation>();
-            CreateMap<PersonScientificActivityTranslationUpdatedDTO, PersonScientificActivityTranslation>();
-            CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedDTO>();
-            CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedSiteDTO>();
+        CreateMap<PersonScientificActivityTranslationCreatedDTO, PersonScientificActivityTranslation>();
+        CreateMap<PersonScientificActivityTranslationCreatedAdminDTO, PersonScientificActivityTranslation>();
+        CreateMap<PersonScientificActivityTranslationUpdatedAdminDTO, PersonScientificActivityTranslation>();
+        CreateMap<PersonScientificActivityTranslationUpdatedDTO, PersonScientificActivityTranslation>();
+        CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedDTO>();
+        CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedSiteDTO>();
 
         #endregion
 
+        #region PersonBlog DTOS
+
+        CreateMap<PersonBlogCreatedDTO, PersonBlog>();
+        CreateMap<PersonBlogCreatedAdminDTO, PersonBlog>();
+        CreateMap<PersonBlogUpdatedAdminDTO, PersonBlog>();
+        CreateMap<PersonBlogUpdatedDTO, PersonBlog>();
+        CreateMap<PersonBlog, PersonBlogReadedDTO>();
+        CreateMap<PersonBlog, PersonBlogReadedSiteDTO>();
+
+        CreateMap<PersonBlogTranslationCreatedDTO, PersonBlogTranslation>();
+        CreateMap<PersonBlogTranslationCreatedAdminDTO, PersonBlogTranslation>();
+        CreateMap<PersonBlogTranslationUpdatedAdminDTO, PersonBlogTranslation>();
+        CreateMap<PersonBlogTranslationUpdatedDTO, PersonBlogTranslation>();
+        CreateMap<PersonBlogTranslation, PersonBlogTranslationReadedDTO>();
+        CreateMap<PersonBlogTranslation, PersonBlogTranslationReadedSiteDTO>();
+
+        #endregion
+
+        #region PersonPortfolio DTOS
+
+        CreateMap<PersonPortfolioCreatedDTO, PersonPortfolio>();
+        CreateMap<PersonPortfolioCreatedAdminDTO, PersonPortfolio>();
+        CreateMap<PersonPortfolioUpdatedAdminDTO, PersonPortfolio>();
+        CreateMap<PersonPortfolioUpdatedDTO, PersonPortfolio>();
+        CreateMap<PersonPortfolio, PersonPortfolioReadedDTO>();
+        CreateMap<PersonPortfolio, PersonPortfolioReadedSiteDTO>();
+
+        CreateMap<PersonPortfolioTranslationCreatedDTO, PersonPortfolioTranslation>();
+        CreateMap<PersonPortfolioTranslationCreatedAdminDTO, PersonPortfolioTranslation>();
+        CreateMap<PersonPortfolioTranslationUpdatedAdminDTO, PersonPortfolioTranslation>();
+        CreateMap<PersonPortfolioTranslationUpdatedDTO, PersonPortfolioTranslation>();
+        CreateMap<PersonPortfolioTranslation, PersonPortfolioTranslationReadedDTO>();
+        CreateMap<PersonPortfolioTranslation, PersonPortfolioTranslationReadedSiteDTO>();
+
+        #endregion
+
+        #region PersonExperience DTOS
+
+        CreateMap<PersonExperienceCreatedDTO, PersonExperience>();
+        CreateMap<PersonExperienceCreatedAdminDTO, PersonExperience>();
+        CreateMap<PersonExperienceUpdatedAdminDTO, PersonExperience>();
+        CreateMap<PersonExperienceUpdatedDTO, PersonExperience>();
+        CreateMap<PersonExperience, PersonExperienceReadedDTO>();
+        CreateMap<PersonExperience, PersonExperienceReadedSiteDTO>();
+
+        CreateMap<PersonExperienceTranslationCreatedDTO, PersonExperienceTranslation>();
+        CreateMap<PersonExperienceTranslationCreatedAdminDTO, PersonExperienceTranslation>();
+        CreateMap<PersonExperienceTranslationUpdatedAdminDTO, PersonExperienceTranslation>();
+        CreateMap<PersonExperienceTranslationUpdatedDTO, PersonExperienceTranslation>();
+        CreateMap<PersonExperienceTranslation, PersonExperienceTranslationReadedDTO>();
+        CreateMap<PersonExperienceTranslation, PersonExperienceTranslationReadedSiteDTO>();
+
+        #endregion
 
         #endregion
 
