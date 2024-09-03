@@ -35,13 +35,13 @@ public class PersonExperienceController : ControllerBase
         var ExperienceMap = _mapper.Map<PersonExperience>(Experience);
         ExperienceMap.status_id = _status.GetStatusId("Active");
         ExperienceMap.crated_at = DateTime.UtcNow;
-
         int check = _repository.CreatePersonExperience(ExperienceMap);
 
         if (check == 0)
         {
             return BadRequest();
         }
+
         CreatedItemId createdItemId = new CreatedItemId()
         {
             id = check,
@@ -58,13 +58,13 @@ public class PersonExperienceController : ControllerBase
         var ExperienceMap = _mapper.Map<PersonExperience>(Experience);
         ExperienceMap.status_id = _status.GetStatusId("Active");
         ExperienceMap.crated_at = DateTime.UtcNow;
-
         int check = _repository.CreatePersonExperience(ExperienceMap);
 
         if (check == 0)
         {
             return BadRequest();
         }
+
         CreatedItemId createdItemId = new CreatedItemId()
         {
             id = check,
