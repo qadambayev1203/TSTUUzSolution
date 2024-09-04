@@ -255,6 +255,8 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         #endregion
 
 
+
+
         #region Study department
 
         [Authorize(Roles = "StudyDepartment")]
@@ -275,33 +277,33 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(document);
         }
 
-        [Authorize(Roles = "Admin,StudyDepartment")]
-        [HttpPut("confirmstudydepartamentdocument110/{id}")]
-        public IActionResult ConfirmDocumentTeacher110SetStudyDep(int id, DocumentTeacher110SetConfirmStudyDepDTO confirmStudyDepDTO)
-        {
-            try
-            {
-                if (confirmStudyDepDTO == null)
-                {
-                    return BadRequest();
-                }
+        //[Authorize(Roles = "Admin,StudyDepartment")]
+        //[HttpPut("confirmstudydepartamentdocument110/{id}")]
+        //public IActionResult ConfirmDocumentTeacher110SetStudyDep(int id, DocumentTeacher110SetConfirmStudyDepDTO confirmStudyDepDTO)
+        //{
+        //    try
+        //    {
+        //        if (confirmStudyDepDTO == null)
+        //        {
+        //            return BadRequest();
+        //        }
 
-                var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(confirmStudyDepDTO);
+        //        var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(confirmStudyDepDTO);
 
-                bool updatedcheck = _repository.ConfirmDocumentTeacher110SetStudyDep(id, confirmStudyDepDTO.confirm, documentTeacher110SetMap);
-                if (!updatedcheck)
-                {
-                    return BadRequest("Not Confirmed");
-                }
+        //        bool updatedcheck = _repository.ConfirmDocumentTeacher110SetStudyDep(id, confirmStudyDepDTO.confirm, documentTeacher110SetMap);
+        //        if (!updatedcheck)
+        //        {
+        //            return BadRequest("Not Confirmed");
+        //        }
 
-                return Ok("Confirmed");
-            }
-            catch
-            {
-                return BadRequest();
-            }
+        //        return Ok("Confirmed");
+        //    }
+        //    catch
+        //    {
+        //        return BadRequest();
+        //    }
 
-        }
+        //}
 
 
         #endregion region

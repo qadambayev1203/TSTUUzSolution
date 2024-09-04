@@ -27,13 +27,19 @@ public interface IDocumentTeacher110SetRepository
 
     public bool ConfirmDocumentTeacher110Set(int id, bool confirm, string? reason_for_rejection);
 
+    //Faculty Council
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationFacultyCouncil(int oldYear, int newYear);
+
+    public DocumentTeacher110SetList DocumentTeacher110SetConfirmFacultyCouncil(int oldYear, int newYear, int person_id);
+
+    public bool ConfirmDocumentTeacher110SetFacultyCouncil(int id, bool confirm, DocumentTeacher110Set teacher110Set);
+
 
     //Study department
     public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear);
 
     public DocumentTeacher110SetList DocumentTeacher110SetConfirmStudyDep(int oldYear, int newYear, int person_id);
 
-    public bool ConfirmDocumentTeacher110SetStudyDep(int id, bool confirm, DocumentTeacher110Set teacher110Set);
 
 
 }

@@ -1,11 +1,13 @@
 ﻿using Contracts.AllRepository.DocumentTeacher110Repository;
 using Entities;
 using Entities.Model.AnyClasses;
+using Entities.Model.DepartamentsModel;
 using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.PersonModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository;
 
@@ -406,6 +408,8 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                     departament_id = 0
                 }).FirstOrDefault();
 
+                if (person == null) return new DocumentTeacher110SetList();
+
                 List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 2).ToList();
 
                 DocumentTeacher110SetList document = new DocumentTeacher110SetList()
@@ -473,34 +477,45 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
     #endregion
 
+    #region Faculty Council
 
-    #region Study department
-
-    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear)
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationFacultyCouncil(int oldYear, int newYear)
     {
         try
         {
-
-            List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
-            .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-            .Where(x => x.status_.status != "Deleted" && x.sequence_status == 3)
-            .Include(x => x.person_)
-            .AsEnumerable()
-            .GroupBy(x => x.person_id)
-            .Select(g => g.First())
-            .Select(x => new Person
+            var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null)
             {
-                id = x.person_.id,
-                firstName = x.person_.firstName,
-                lastName = x.person_.lastName,
-                fathers_name = x.person_.fathers_name,
-                employee_type_id = 0,
-                departament_id = 0
-            })
-            .ToList();
+                List<int> faculty_child_department = _context.departament_20ts24tu
+                  .Where(x => x.parent_id == user.person_.departament_id)
+                  .Where(x => x.departament_type_id == 26)
+                  .Select(x => x.id)
+                  .ToList();
+
+                List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
+                .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+                .Where(x => x.status_.status != "Deleted" && x.sequence_status == 3)
+                .Where(x => x.person_.departament_id.HasValue && faculty_child_department.Contains(x.person_.departament_id.Value))
+                .Include(x => x.person_)
+                .AsEnumerable()
+                .GroupBy(x => x.person_id)
+                .Select(g => g.First())
+                .Select(x => new Person
+                {
+                    id = x.person_.id,
+                    firstName = x.person_.firstName,
+                    lastName = x.person_.lastName,
+                    fathers_name = x.person_.fathers_name,
+                    employee_type_id = 0,
+                    departament_id = 0
+                })
+                .ToList();
 
 
-            return personsIdList;
+                return personsIdList;
+            }
+
+            return null;
         }
         catch (Exception ex)
         {
@@ -509,33 +524,49 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
-    public DocumentTeacher110SetList DocumentTeacher110SetConfirmStudyDep(int oldYear, int newYear, int person_id)
+    public DocumentTeacher110SetList DocumentTeacher110SetConfirmFacultyCouncil(int oldYear, int newYear, int person_id)
     {
         try
         {
-            var person = _context.persons_20ts24tu
-            .Where(x => x.id == person_id)
-            .Where(x => x.status_.status != "Deleted")
-            .Select(x => new Person
+            var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (user != null)
             {
-                id = x.id,
-                firstName = x.firstName,
-                lastName = x.lastName,
-                fathers_name = x.fathers_name,
-                employee_type_id = 0,
-                departament_id = 0
-            }).FirstOrDefault();
+                List<int> faculty_child_department = _context.departament_20ts24tu
+                 .Where(x => x.parent_id == user.person_.departament_id)
+                 .Where(x => x.departament_type_id == 26)
+                 .Select(x => x.id)
+                 .ToList();
 
-            List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 3).ToList();
+                var person = _context.persons_20ts24tu
+                .Where(x => x.id == person_id)
+                .Where(x => x.status_.status != "Deleted")
+                .Where(x => x.departament_id.HasValue && faculty_child_department.Contains(x.departament_id.Value))
+                .Select(x => new Person
+                {
+                    id = x.id,
+                    firstName = x.firstName,
+                    lastName = x.lastName,
+                    fathers_name = x.fathers_name,
+                    employee_type_id = 0,
+                    departament_id = 0
+                }).FirstOrDefault();
 
-            DocumentTeacher110SetList document = new DocumentTeacher110SetList()
-            {
-                person_ = person,
-                documents_teacher_ = docList
-            };
+                if (person == null) return new DocumentTeacher110SetList();
+
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 3).ToList();
+
+                DocumentTeacher110SetList document = new DocumentTeacher110SetList()
+                {
+                    person_ = person,
+                    documents_teacher_ = docList
+                };
 
 
-            return document;
+                return document;
+            }
+
+            return null;
         }
         catch (Exception ex)
         {
@@ -544,11 +575,25 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
-    public bool ConfirmDocumentTeacher110SetStudyDep(int id, bool confirm, DocumentTeacher110Set teacher110Set)
+    public bool ConfirmDocumentTeacher110SetFacultyCouncil(int id, bool confirm, DocumentTeacher110Set teacher110Set)
     {
         try
         {
+            var user = _context.users_20ts24tu.Include(x => x.person_).FirstOrDefault(x => x.id == SessionClass.id);
+            List<int> faculty_child_department = _context.departament_20ts24tu
+                            .Where(x => x.parent_id == user.person_.departament_id)
+                            .Where(x => x.departament_type_id == 26)
+                            .Select(x => x.id)
+                            .ToList();
+
+
             var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
+
+            if(dbcheck.person_.departament_id.HasValue || !(faculty_child_department.Contains(dbcheck.person_.departament_id.Value)))
+            {
+                return false;
+            }
+
             if (dbcheck is null)
             {
                 return false;
@@ -594,6 +639,82 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
     #endregion region
 
 
+    #region Study department
+
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear)
+    {
+        try
+        {
+
+            List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
+            .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+            .Where(x => x.status_.status != "Deleted" && x.sequence_status >= 3)
+            .Include(x => x.person_)
+            .AsEnumerable()
+            .GroupBy(x => x.person_id)
+            .Select(g => g.First())
+            .Select(x => new Person
+            {
+                id = x.person_.id,
+                firstName = x.person_.firstName,
+                lastName = x.person_.lastName,
+                fathers_name = x.person_.fathers_name,
+                employee_type_id = 0,
+                departament_id = 0
+            })
+            .ToList();
+
+
+            return personsIdList;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<Person>();
+        }
+    }
+
+    public DocumentTeacher110SetList DocumentTeacher110SetConfirmStudyDep(int oldYear, int newYear, int person_id)
+    {
+        try
+        {
+            var person = _context.persons_20ts24tu
+            .Where(x => x.id == person_id)
+            .Where(x => x.status_.status != "Deleted")
+            .Select(x => new Person
+            {
+                id = x.id,
+                firstName = x.firstName,
+                lastName = x.lastName,
+                fathers_name = x.fathers_name,
+                employee_type_id = 0,
+                departament_id = 0
+            }).FirstOrDefault();
+
+            if (person == null) return new DocumentTeacher110SetList();
+
+            List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 0).ToList();
+
+            DocumentTeacher110SetList document = new DocumentTeacher110SetList()
+            {
+                person_ = person,
+                documents_teacher_ = docList
+            };
+
+
+            return document;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new DocumentTeacher110SetList();
+        }
+    }
+
+
+    #endregion region
+
+
     #region Any
 
     private IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110SetDocList(int oldYear, int newYear, int person_id, bool admin, int sequanse_status)
@@ -607,6 +728,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 .Include(x => x.person_)
                 .Include(x => x.file_)
                 .Include(x => x.document_)
+                .Include(x => x.assessor_).ThenInclude(y => y.person_)
                 .Where(x => x.person_id == person_id)
                 .Where(x => x.old_year == oldYear && x.new_year == newYear);
 
@@ -620,8 +742,15 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             }
             if (!admin)
             {
-                documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted")
-                    .Where(x => x.sequence_status == sequanse_status);
+                if (sequanse_status == 0)
+                {
+                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted");
+                }
+                else
+                {
+                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted")
+                        .Where(x => x.sequence_status == sequanse_status);
+                }
 
             }
 

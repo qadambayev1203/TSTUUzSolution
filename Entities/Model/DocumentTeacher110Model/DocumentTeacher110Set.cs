@@ -23,6 +23,8 @@ public class DocumentTeacher110Set
     public bool? rejection { get; set; }
     [ForeignKey("Status")] public int? status_id { get; set; }
     public Status? status_ { get; set; }
+    [ForeignKey("User")] public int? assessor_id { get; set; }
+    public User? assessor_ { get; set; }
     public DateTime? created_at { get; set; }
     public DateTime? updated_at { get; set; }
 }

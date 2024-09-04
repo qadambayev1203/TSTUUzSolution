@@ -23,6 +23,7 @@ public class PersonDataUpdatedDTO
     public string? languages_any_title { get; set; }
     public int? languages_any { get; set; }
     public string? experience_json { get; set; }
+    public int? status_id { get; set; }
 
 
     // USER
