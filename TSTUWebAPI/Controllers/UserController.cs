@@ -6,14 +6,17 @@ using Entities.DTO.UserProfilDTOS;
 using Entities.Model;
 using Entities.Model.AnyClasses;
 using Entities.Model.FileModel;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using TSTUWebAPI.Captcha;
 using TSTUWebAPI.Controllers.FileControllers;
 
@@ -34,8 +37,15 @@ public class UserController : ControllerBase
     private User user;
     private readonly CaptchaCheck captcheck;
     private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _clientFactory;
 
-    public UserController(IRepositoryManager repositoryManager, IOptions<AppSettings> appSettings, IMapper mapper, ILogger<UserController> logger, CaptchaCheck _captcheck, IProfilRepository repository, HttpClient httpClient)
+    public UserController(
+        IRepositoryManager repositoryManager,
+        IOptions<AppSettings> appSettings,
+        IMapper mapper, ILogger<UserController> logger,
+        CaptchaCheck _captcheck, IProfilRepository repository,
+        HttpClient httpClient,
+        IHttpClientFactory clientFactory)
     {
         this.repositoryManager = repositoryManager;
         this.appSettings = appSettings;
@@ -45,6 +55,7 @@ public class UserController : ControllerBase
         captcheck = _captcheck;
         this._repository = repository;
         _httpClient = httpClient;
+        _clientFactory = clientFactory;
     }
 
     [AllowAnonymous]
@@ -109,90 +120,125 @@ public class UserController : ControllerBase
         return Unauthorized();
     }
 
+    [AllowAnonymous]
+    [HttpPost("auth2hemis")]
+    public async Task<ActionResult<UserAuthInfoDTO>> Auth2HemisAsync([FromBody] OAuth2Credentials credentials, CancellationToken cancelationToken)
+    {
+        var authInfo = new UserAuthInfoDTO();
 
-    //[AllowAnonymous]
-    //[HttpPost("loginhemis")]
-    //public async Task<ActionResult<UserAuthInfoDTO>> LoginAsyncHemis([FromBody] UserCredentialsHemis credentials, CancellationToken cancelationToken)
-    //{
-    //    var token = HttpContext.Request.Headers["Authorization"];
-    //    if (token == SessionClass.tokenCheck || token == SessionClass.token)
-    //    {
-    //        authInfo = new UserAuthInfoDTO();
-    //        if (credentials == null)
-    //        {
-    //            return BadRequest("No data");
-    //        }
+        if (credentials == null || string.IsNullOrEmpty(credentials.OAuth2Code))
+        {
+            return BadRequest("No data or invalid OAuth2 code");
+        }
 
-    //        #region hemis
-    //        string passportNumber = "AA1234567";
-    //        string pinfl = "12345678901234";
+        // OAuth2 token olish
+        var accessToken = await GetOAuth2AccessTokenAsync(credentials.OAuth2Code);
+        if (accessToken == null)
+        {
+            return Unauthorized("OAuth2 token olishda xatolik yuz berdi");
+        }
 
-    //        try
-    //        {
-    //            var url = "https://api.example.com/data";
+        // Foydalanuvchi ma'lumotlarini token orqali olish
+        OAuth2UserDTO oAuthUser = await GetUserFromOAuth2TokenAsync(accessToken);
+        if (oAuthUser == null)
+        {
+            return Unauthorized("Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi");
+        }
 
-    //            var request = new HttpRequestMessage(HttpMethod.Get, url);
-    //            request.Headers.Add("Authorization", credentials.hemis_token);
+        // Foydalanuvchini passportNumber va Jshshir bo'yicha bazadan topish
+        var user = await repositoryManager.User.LoginAsyncHemis(oAuthUser.PassportNumber, oAuthUser.Jshshir, false, cancelationToken);
+        if (user == null)
+        {
+            return Unauthorized("Bazadan foydalanuvchini topish imkonsiz");
+        }
 
-    //            var response = await _httpClient.SendAsync(request);
+        try
+        {
+            var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                new Claim("UserId", user.id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
+                new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
+                }),
+                Expires = DateTime.UtcNow.AddDays(20),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+            };
+            var securityToken = securityTokenHandler.CreateToken(tokenDescriptor);
+            authInfo.Token = securityTokenHandler.WriteToken(securityToken);
+            authInfo.UserDetails = mapper.Map<UserDTO>(user);
+        }
+        catch
+        {
+            return Unauthorized("Token yaratishda xatolik yuz berdi");
+        }
 
-    //            var responseContent = await response.Content.ReadAsStringAsync();
+        if (string.IsNullOrEmpty(authInfo?.Token))
+        {
+            return Unauthorized("Token yaratilmadi");
+        }
 
-    //            if (response.IsSuccessStatusCode)
-    //            {
-    //                var jsonDocument = JsonDocument.Parse(responseContent);
-    //                var root = jsonDocument.RootElement;
-    //                passportNumber = root.GetProperty("passportNumber").GetString() != null ? root.GetProperty("passportNumber").GetString() : passportNumber;
-    //                passportNumber = root.GetProperty("pinfl").GetString() != null ? root.GetProperty("pinfl").GetString() : pinfl;
-    //            }
-    //            else
-    //            {
-    //                return BadRequest("Hemis token invalid");
-    //            }
-    //        }
-    //        catch
-    //        {
-    //            return BadRequest("Hemis token invalid");
-    //        }
-    //        #endregion
+        // SessionClass yangilash
+        SessionClass.id = authInfo.UserDetails.id;
+        SessionClass.token = "Bearer " + authInfo.Token;
 
-    //        user = await repositoryManager.User.LoginAsyncHemis(passportNumber, pinfl, false, cancelationToken);
-    //        if (user != null)
-    //        {
-    //            _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
-    //            try
-    //            {
-    //                var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-    //                var tokenDescriptoir = new SecurityTokenDescriptor()
-    //                {
-    //                    Subject = new ClaimsIdentity(
-    //                        new Claim[]
-    //                        {
-    //                    new Claim("UserId", user.id.ToString()),
-    //                    new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
-    //                    new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
-    //                        }
-    //                       ),
-    //                    Expires = DateTime.UtcNow.AddDays(20),
-    //                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-    //                };
-    //                var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
-    //                authInfo.Token = securityTokenHandler.WriteToken(securityToken);
-    //                authInfo.UserDetails = mapper.Map<UserDTO>(user);
-    //            }
-    //            catch { }
-    //        }
-    //        if (string.IsNullOrEmpty(authInfo?.Token))
-    //        {
-    //            return Unauthorized("Hemis token invalid");
-    //        }
+        return Ok(authInfo);
+    }
 
-    //        SessionClass.token = "Bearer " + authInfo.Token;
-    //        SessionClass.id = authInfo.UserDetails.id;
-    //        return Ok(authInfo);
-    //    }
-    //    return Unauthorized();
-    //}
+    private async Task<string> GetOAuth2AccessTokenAsync(string authorizationCode)
+    {
+        var tokenUrl = "https://hemis.tstu.uz/oauth/access-token";
+        var clientId = "8";
+        var clientSecret = "Vt5dnZtzK_v3vzs0ycsV2uLzrh7zicZUrz4TEiOI";
+        var redirectUri = "http://your-app-url/api/oauth/callback";
+
+        var client = _clientFactory.CreateClient();
+        var request = new HttpRequestMessage(HttpMethod.Post, tokenUrl);
+
+        var parameters = new Dictionary<string, string>
+    {
+        {"grant_type", "authorization_code"},
+        {"code", authorizationCode},
+        {"client_id", clientId},
+        {"client_secret", clientSecret},
+        {"redirect_uri", redirectUri}
+    };
+
+        request.Content = new FormUrlEncodedContent(parameters);
+        var response = await client.SendAsync(request);
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var content = await response.Content.ReadAsStringAsync();
+        var tokenData = JsonConvert.DeserializeObject<OAuth2TokenResponse>(content);
+        return tokenData?.AccessToken;
+    }
+
+    private async Task<OAuth2UserDTO> GetUserFromOAuth2TokenAsync(string accessToken)
+    {
+        var apiUrl = "https://univer.hemis.uz/oauth/api/user?fields=id,uuid,employee_id_number,type,roles,name,login,email,picture,firstname,surname,patronymic,birth_date,university_id,phone";
+
+        var client = _clientFactory.CreateClient();
+        var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
+
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+        var response = await client.SendAsync(request);
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var content = await response.Content.ReadAsStringAsync();
+        var userData = JsonConvert.DeserializeObject<OAuth2UserDTO>(content);
+        return userData;
+    }
+
+
 
 
     [Authorize]
@@ -298,3 +344,90 @@ public class UserController : ControllerBase
     }
 
 }
+
+
+
+
+//[AllowAnonymous]
+//[HttpPost("loginhemis")]
+//public async Task<ActionResult<UserAuthInfoDTO>> LoginAsyncHemis([FromBody] UserCredentialsHemis credentials, CancellationToken cancelationToken)
+//{
+//    var token = HttpContext.Request.Headers["Authorization"];
+//    if (token == SessionClass.tokenCheck || token == SessionClass.token)
+//    {
+//        authInfo = new UserAuthInfoDTO();
+//        if (credentials == null)
+//        {
+//            return BadRequest("No data");
+//        }
+
+//        #region hemis
+//        string passportNumber = "AA1234567";
+//        string pinfl = "12345678901234";
+
+//        try
+//        {
+//            var url = "https://api.example.com/data";
+
+//            var request = new HttpRequestMessage(HttpMethod.Get, url);
+//            request.Headers.Add("Authorization", credentials.hemis_token);
+
+//            var response = await _httpClient.SendAsync(request);
+
+//            var responseContent = await response.Content.ReadAsStringAsync();
+
+//            if (response.IsSuccessStatusCode)
+//            {
+//                var jsonDocument = JsonDocument.Parse(responseContent);
+//                var root = jsonDocument.RootElement;
+//                passportNumber = root.GetProperty("passportNumber").GetString() != null ? root.GetProperty("passportNumber").GetString() : passportNumber;
+//                passportNumber = root.GetProperty("pinfl").GetString() != null ? root.GetProperty("pinfl").GetString() : pinfl;
+//            }
+//            else
+//            {
+//                return BadRequest("Hemis token invalid");
+//            }
+//        }
+//        catch
+//        {
+//            return BadRequest("Hemis token invalid");
+//        }
+//        #endregion
+
+//        user = await repositoryManager.User.LoginAsyncHemis(passportNumber, pinfl, false, cancelationToken);
+//        if (user != null)
+//        {
+//            _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
+//            try
+//            {
+//                var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
+//                var tokenDescriptoir = new SecurityTokenDescriptor()
+//                {
+//                    Subject = new ClaimsIdentity(
+//                        new Claim[]
+//                        {
+//                    new Claim("UserId", user.id.ToString()),
+//                    new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
+//                    new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
+//                        }
+//                       ),
+//                    Expires = DateTime.UtcNow.AddDays(20),
+//                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+//                };
+//                var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
+//                authInfo.Token = securityTokenHandler.WriteToken(securityToken);
+//                authInfo.UserDetails = mapper.Map<UserDTO>(user);
+//            }
+//            catch { }
+//        }
+//        if (string.IsNullOrEmpty(authInfo?.Token))
+//        {
+//            return Unauthorized("Hemis token invalid");
+//        }
+
+//        SessionClass.token = "Bearer " + authInfo.Token;
+//        SessionClass.id = authInfo.UserDetails.id;
+//        return Ok(authInfo);
+//    }
+//    return Unauthorized();
+//}
