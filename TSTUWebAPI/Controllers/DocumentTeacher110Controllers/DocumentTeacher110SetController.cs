@@ -255,6 +255,57 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         #endregion
 
 
+        #region Faculty Council
+
+        [Authorize(Roles = "")]
+        [HttpGet("getalldocumentteacher110setfacultycouncil")]
+        public IActionResult GetAllDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear)
+        {
+            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationFacultyCouncil(oldYear, newYear);
+            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            return Ok(personList);
+        }
+
+        [Authorize(Roles = "")]
+        [HttpGet("getdocumentteacher110setfacultycouncil")]
+        public IActionResult GetDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear, int person_id)
+        {
+            DocumentTeacher110SetList documentMap = _repository.DocumentTeacher110SetConfirmFacultyCouncil(oldYear, newYear, person_id);
+            var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>(documentMap);
+            return Ok(document);
+        }
+
+        [Authorize(Roles = "Admin,")]
+        [HttpPut("confirmfacultycouncildocument110/{id}")]
+        public IActionResult ConfirmDocumentTeacher110FacultyCouncil(int id, DocumentTeacher110SetConfirmStudyDepDTO confirmStudyDepDTO)
+        {
+            try
+            {
+                if (confirmStudyDepDTO == null)
+                {
+                    return BadRequest();
+                }
+
+                var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(confirmStudyDepDTO);
+
+                bool updatedcheck = _repository.ConfirmDocumentTeacher110SetFacultyCouncil(id, confirmStudyDepDTO.confirm, documentTeacher110SetMap);
+                if (!updatedcheck)
+                {
+                    return BadRequest("Not Confirmed");
+                }
+
+                return Ok("Confirmed");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+
+        #endregion region
+
 
 
         #region Study department
@@ -276,34 +327,6 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             var document = _mapper.Map<DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>(documentMap);
             return Ok(document);
         }
-
-        //[Authorize(Roles = "Admin,StudyDepartment")]
-        //[HttpPut("confirmstudydepartamentdocument110/{id}")]
-        //public IActionResult ConfirmDocumentTeacher110SetStudyDep(int id, DocumentTeacher110SetConfirmStudyDepDTO confirmStudyDepDTO)
-        //{
-        //    try
-        //    {
-        //        if (confirmStudyDepDTO == null)
-        //        {
-        //            return BadRequest();
-        //        }
-
-        //        var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(confirmStudyDepDTO);
-
-        //        bool updatedcheck = _repository.ConfirmDocumentTeacher110SetStudyDep(id, confirmStudyDepDTO.confirm, documentTeacher110SetMap);
-        //        if (!updatedcheck)
-        //        {
-        //            return BadRequest("Not Confirmed");
-        //        }
-
-        //        return Ok("Confirmed");
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //}
 
 
         #endregion region
