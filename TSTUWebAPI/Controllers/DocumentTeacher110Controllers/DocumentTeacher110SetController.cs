@@ -257,7 +257,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         #region Faculty Council
 
-        [Authorize(Roles = "")]
+        [Authorize(Roles = "FacultyCouncil")]
         [HttpGet("getalldocumentteacher110setfacultycouncil")]
         public IActionResult GetAllDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear)
         {
@@ -266,7 +266,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(personList);
         }
 
-        [Authorize(Roles = "")]
+        [Authorize(Roles = "FacultyCouncil")]
         [HttpGet("getdocumentteacher110setfacultycouncil")]
         public IActionResult GetDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear, int person_id)
         {
@@ -275,7 +275,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(document);
         }
 
-        [Authorize(Roles = "Admin,")]
+        [Authorize(Roles = "Admin,FacultyCouncil")]
         [HttpPut("confirmfacultycouncildocument110/{id}")]
         public IActionResult ConfirmDocumentTeacher110FacultyCouncil(int id, DocumentTeacher110SetConfirmStudyDepDTO confirmStudyDepDTO)
         {

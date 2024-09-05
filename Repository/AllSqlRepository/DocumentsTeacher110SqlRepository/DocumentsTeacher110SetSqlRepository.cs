@@ -47,6 +47,8 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                .Include(x => x.person_)
                .Include(x => x.file_)
                .Include(x => x.document_)
+               .Include(x => x.assessor_).ThenInclude(y => y.user_type_)
+               .Include(x => x.assessor_).ThenInclude(y => y.person_)
                .Where(x => x.person_id == person_id)
                .Where(x => x.status_.status != "Deleted")
                .Where(x => x.old_year == oldYear && x.new_year == newYear);
@@ -589,7 +591,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
 
-            if (dbcheck.person_.departament_id.HasValue || !(faculty_child_department.Contains(dbcheck.person_.departament_id.Value)))
+            if (dbcheck.person_.departament_id.HasValue && !(faculty_child_department.Contains(dbcheck.person_.departament_id.Value)))
             {
                 return false;
             }
@@ -615,6 +617,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 dbcheck.rejection = false;
                 dbcheck.sequence_status = dbcheck.sequence_status + 1;
                 dbcheck.score = teacher110Set.score;
+                dbcheck.assessor_id = SessionClass.id;
                 if (dbcheck.document_.max_score <= teacher110Set.score)
                 {
                     dbcheck.score = dbcheck.document_.max_score;
