@@ -92,6 +92,20 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110Set);
         }
 
+        [Authorize(Roles = "Teacher")]
+        [HttpGet("getteacherdocumentscore")]
+        public IActionResult GetTeacherDocumentScore(int oldYear, int newYear)
+        {
+            double? score = _repository.GetTeacherDocumentScore(oldYear, newYear);
+
+            SummScoreTeacher110doc res = new SummScoreTeacher110doc()
+            {
+                summ_score = score
+            };
+
+            return Ok(res);
+        }
+
         [Authorize(Roles = "Admin,Teacher")]
         [HttpPut("updatedocumentteacher110set/{id}")]
         public IActionResult UpdateDocumentTeacher110Set(DocumentTeacher110SetUpdatedDTO documentTeacher110Set, int id)

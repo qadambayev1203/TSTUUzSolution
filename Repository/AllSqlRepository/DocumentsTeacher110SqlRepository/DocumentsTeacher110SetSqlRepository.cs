@@ -63,6 +63,40 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
+    public double? GetTeacherDocumentScore(int oldYear, int newYear)
+    {
+        try
+        {
+            var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+            int person_id;
+            if (user != null && user.person_id != 0 && user.person_id != null)
+            {
+                person_id = user.person_id ??= 0;
+
+            }
+            else
+            {
+                return null;
+            }
+
+            ScoreOptimize(person_id);          //Score
+
+
+            double? score = _context.document_teacher_110_set_20ts24tu
+                    .Where(x => x.person_id == person_id)
+                    .Where(x => x.status_.status != "Deleted")
+                    .Where(x => x.old_year == oldYear && x.new_year == newYear)
+                    .Sum(x => (double?)x.score);
+
+            return score;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+
     public int CreateDocumentTeacher110Set(DocumentTeacher110Set documentTeacher110Set)
     {
         try
@@ -748,7 +782,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             {
                 if (sequanse_status == 0)
                 {
-                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted");
+                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted" && x.sequence_status >= 3);
                 }
                 else
                 {
