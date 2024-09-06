@@ -6,7 +6,6 @@ using Entities.DTO.UserProfilDTOS;
 using Entities.Model;
 using Entities.Model.AnyClasses;
 using Entities.Model.FileModel;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,11 +13,10 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
-using System.Security.Claims;
 using System.Text;
-using System.Threading;
 using TSTUWebAPI.Captcha;
 using TSTUWebAPI.Controllers.FileControllers;
+using TSTUWebAPI.Services;
 
 namespace TSTUWebAPI.Controllers;
 
@@ -29,33 +27,34 @@ public class UserController : ControllerBase
 {
     private readonly IRepositoryManager repositoryManager;
     private readonly IProfilRepository _repository;
-    private readonly IOptions<AppSettings> appSettings;
     private readonly IMapper mapper;
-    private readonly JwtSecurityTokenHandler securityTokenHandler;
     private readonly ILogger<UserController> _logger;
     private UserAuthInfoDTO authInfo;
     private User user;
     private readonly CaptchaCheck captcheck;
     private readonly HttpClient _httpClient;
+    private readonly TokenServices _tokenServices;
     private readonly IHttpClientFactory _clientFactory;
+    IOptions<AppSettings> appSettings;
 
     public UserController(
         IRepositoryManager repositoryManager,
-        IOptions<AppSettings> appSettings,
         IMapper mapper, ILogger<UserController> logger,
         CaptchaCheck _captcheck, IProfilRepository repository,
         HttpClient httpClient,
-        IHttpClientFactory clientFactory)
+        IHttpClientFactory clientFactory,
+        TokenServices tokenServices,
+        IOptions<AppSettings> appSettings)
     {
         this.repositoryManager = repositoryManager;
-        this.appSettings = appSettings;
         this.mapper = mapper;
-        this.securityTokenHandler = new JwtSecurityTokenHandler();
         this._logger = logger;
         captcheck = _captcheck;
         this._repository = repository;
         _httpClient = httpClient;
         _clientFactory = clientFactory;
+        _tokenServices = tokenServices;
+        this.appSettings = appSettings;
     }
 
     [AllowAnonymous]
@@ -85,27 +84,9 @@ public class UserController : ControllerBase
             if (user != null)
             {
                 _logger.LogInformation($"Get By Login and Password - User " + JsonConvert.SerializeObject(credentials));
-                try
-                {
-                    var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-                    var tokenDescriptoir = new SecurityTokenDescriptor()
-                    {
-                        Subject = new ClaimsIdentity(
-                            new Claim[]
-                            {
-                        new Claim("UserId", user.id.ToString()),
-                        new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
-                        new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
-                            }
-                           ),
-                        Expires = DateTime.UtcNow.AddDays(20),
-                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                    };
-                    var securityToken = securityTokenHandler.CreateToken(tokenDescriptoir);
-                    authInfo.Token = securityTokenHandler.WriteToken(securityToken);
-                    authInfo.UserDetails = mapper.Map<UserDTO>(user);
-                }
-                catch { }
+
+                authInfo.Token = _tokenServices.CreateToken(user);
+                authInfo.UserDetails = mapper.Map<UserDTO>(user);
             }
             if (string.IsNullOrEmpty(authInfo?.Token))
             {
@@ -152,35 +133,14 @@ public class UserController : ControllerBase
             return Unauthorized("Bazadan foydalanuvchini topish imkonsiz");
         }
 
-        try
-        {
-            var key = Encoding.ASCII.GetBytes(appSettings.Value.SecretKey);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                new Claim("UserId", user.id.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.login.ToString()),
-                new Claim(ClaimTypes.Role, user.user_type_.type.ToString()),
-                }),
-                Expires = DateTime.UtcNow.AddDays(20),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-            };
-            var securityToken = securityTokenHandler.CreateToken(tokenDescriptor);
-            authInfo.Token = securityTokenHandler.WriteToken(securityToken);
-            authInfo.UserDetails = mapper.Map<UserDTO>(user);
-        }
-        catch
-        {
-            return Unauthorized("Token yaratishda xatolik yuz berdi");
-        }
+        authInfo.Token = _tokenServices.CreateToken(user);
+        authInfo.UserDetails = mapper.Map<UserDTO>(user);
 
         if (string.IsNullOrEmpty(authInfo?.Token))
         {
             return Unauthorized("Token yaratilmadi");
         }
 
-        // SessionClass yangilash
         SessionClass.id = authInfo.UserDetails.id;
         SessionClass.token = "Bearer " + authInfo.Token;
 

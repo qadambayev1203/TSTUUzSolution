@@ -89,6 +89,7 @@ using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonPortfolioSqlRep
 using Contracts.AllRepository.PersonsDataRepository.PersonPortfolioRepository;
 using Contracts.AllRepository.PersonsDataRepository.PersonExperienceRepository;
 using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonExperienceSqlRepositorys;
+using TSTUWebAPI.Services;
 
 #endregion
 
@@ -314,6 +315,7 @@ try
 
     builder.Services.AddScoped<FileUploadRepository>();
     builder.Services.AddScoped<CaptchaCheck>();
+    builder.Services.AddScoped<TokenServices>();
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     builder.Services.AddControllers();
     builder.Services.AddControllers();
