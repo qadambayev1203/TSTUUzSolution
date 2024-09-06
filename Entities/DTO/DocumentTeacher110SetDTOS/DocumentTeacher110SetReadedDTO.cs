@@ -16,5 +16,6 @@ namespace Entities.DTO.DocumentTeacher110SetDTOS
         public double? score { get; set; }
         public bool? rejection { get; set; }
         public string? reason_for_rejection { get; set; }
+        public int? sequence_status { get; set; }
     }
 }

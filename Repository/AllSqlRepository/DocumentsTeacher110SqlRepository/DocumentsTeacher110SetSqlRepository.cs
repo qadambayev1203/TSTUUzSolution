@@ -392,7 +392,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
                 List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
                 .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-                .Where(x => x.status_.status != "Deleted" && x.sequence_status == 2)
+                .Where(x => x.status_.status != "Deleted" && x.sequence_status >= 2)
                 .Where(x => x.person_.departament_id == user.person_.departament_id)
                 .Include(x => x.person_)
                 .AsEnumerable()
@@ -530,7 +530,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
                 List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
                 .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-                .Where(x => x.status_.status != "Deleted" && x.sequence_status == 3)
+                .Where(x => x.status_.status != "Deleted" && x.sequence_status >= 3)
                 .Where(x => x.person_.departament_id.HasValue && faculty_child_department.Contains(x.person_.departament_id.Value))
                 .Include(x => x.person_)
                 .AsEnumerable()
@@ -787,7 +787,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 else
                 {
                     documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted")
-                        .Where(x => x.sequence_status == sequanse_status);
+                        .Where(x => x.sequence_status >= sequanse_status);
                 }
 
             }
