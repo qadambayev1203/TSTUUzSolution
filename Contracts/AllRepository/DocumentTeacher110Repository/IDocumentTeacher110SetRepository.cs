@@ -7,7 +7,7 @@ public interface IDocumentTeacher110SetRepository
 {
     //Teacher
     public IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110Set(int oldYear, int newYear);
-    public double? GetTeacherDocumentScore(int oldYear, int newYear);
+    public double? GetTeacherDocumentScore(int oldYear, int newYear, int person_id);
     public DocumentTeacher110Set GetDocumentTeacher110SetById(int id);
     public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int oldYear, int newYear, int document_id);
     public int CreateDocumentTeacher110Set(DocumentTeacher110Set documentTeacher110Set);
@@ -16,7 +16,7 @@ public interface IDocumentTeacher110SetRepository
 
 
     //Admin
-    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear);
+    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear, int faculty_id, int departament_id);
     public DocumentTeacher110SetList DocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id);
     public DocumentTeacher110Set GetDocumentTeacher110SetByIdAdmin(int id);
 
@@ -29,7 +29,7 @@ public interface IDocumentTeacher110SetRepository
     public bool ConfirmDocumentTeacher110Set(int id, bool confirm, string? reason_for_rejection);
 
     //Faculty Council
-    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationFacultyCouncil(int oldYear, int newYear);
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationFacultyCouncil(int oldYear, int newYear, int departament_id);
 
     public DocumentTeacher110SetList DocumentTeacher110SetConfirmFacultyCouncil(int oldYear, int newYear, int person_id);
 
@@ -37,7 +37,7 @@ public interface IDocumentTeacher110SetRepository
 
 
     //Study department
-    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear);
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear, int faculty_id, int departament_id);
 
     public DocumentTeacher110SetList DocumentTeacher110SetConfirmStudyDep(int oldYear, int newYear, int person_id);
 

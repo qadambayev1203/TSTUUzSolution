@@ -391,6 +391,69 @@ public class DepartamentSqlRepository : IDepartamentRepository
     }
 
 
+    public IEnumerable<Departament> SelectFaculty()
+    {
+        try
+        {
+            var departaments = new List<Departament>();
+            departaments = _context.departament_20ts24tu
+               .Where(x => x.status_.status != "Deleted" && x.departament_type_id == 22)
+               .Select(x => new Departament
+               {
+                   id = x.id,
+                   title_short = x.title_short,
+                   title = x.title
+               }).ToList();
+
+
+            return departaments;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error" + ex.Message);
+            return Enumerable.Empty<Departament>();
+        }
+    }
+
+    public IEnumerable<Departament> SelectFacultyDepartament(int? faculty_id)
+    {
+        try
+        {
+            if (faculty_id == 0 || faculty_id == null)
+            {
+                var user = _context.users_20ts24tu.Include(x => x.person_).ThenInclude(x => x.departament_).FirstOrDefault(x => x.id == SessionClass.id);
+                if (user != null && user.person_.departament_.departament_type_id == 22)
+                {
+                    faculty_id = user.person_.departament_id.Value;
+                }
+                else
+                {
+                    return Enumerable.Empty<Departament>();
+                }
+            }
+
+            var departaments = new List<Departament>();
+            departaments = _context.departament_20ts24tu
+               .Where(x => x.status_.status != "Deleted")
+               .Where(x => x.parent_id == faculty_id && x.departament_type_id == 26)
+               .Select(x => new Departament
+               {
+                   id = x.id,
+                   title_short = x.title_short,
+                   title = x.title
+               }).ToList();
+
+
+            return departaments;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error" + ex.Message);
+            return Enumerable.Empty<Departament>();
+        }
+    }
+
+
 
 
 

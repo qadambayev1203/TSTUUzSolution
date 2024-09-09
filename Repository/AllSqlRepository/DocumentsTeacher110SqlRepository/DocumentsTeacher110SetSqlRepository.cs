@@ -1,5 +1,6 @@
 ﻿using Contracts.AllRepository.DocumentTeacher110Repository;
 using Entities;
+using Entities.Model;
 using Entities.Model.AnyClasses;
 using Entities.Model.DepartamentsModel;
 using Entities.Model.DocumentTeacher110Model;
@@ -63,21 +64,24 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
-    public double? GetTeacherDocumentScore(int oldYear, int newYear)
+    public double? GetTeacherDocumentScore(int oldYear, int newYear, int person_id)
     {
         try
         {
-            var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-            int person_id;
-            if (user != null && user.person_id != 0 && user.person_id != null)
+            if (person_id == 0)
             {
-                person_id = user.person_id ??= 0;
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
 
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
-            {
-                return null;
-            }
+
 
             ScoreOptimize(person_id);          //Score
 
@@ -288,12 +292,20 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
     #region Admin
 
-    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear)
+    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear, int faculty_id, int departament_id)
     {
         try
         {
+            List<int> faculty_child_department = _context.departament_20ts24tu
+                 .Where(x => x.parent_id == faculty_id)
+                 .Where(x => x.departament_type_id == 26)
+                 .Select(x => x.id)
+                 .ToList();
+
             List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
             .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+            .Where(x => x.person_.departament_id.HasValue && faculty_child_department.Contains(x.person_.departament_id.Value))
+            .Where(x => x.person_.departament_id == departament_id)
             .Include(x => x.person_)
             .AsEnumerable()
             .GroupBy(x => x.person_id)
@@ -392,7 +404,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
                 List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
                 .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-                .Where(x => x.status_.status != "Deleted" && x.sequence_status >= 2)
+                .Where(x => x.status_.status != "Deleted" && (x.sequence_status >= 2 || x.rejection == true))
                 .Where(x => x.person_.departament_id == user.person_.departament_id)
                 .Include(x => x.person_)
                 .AsEnumerable()
@@ -489,7 +501,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             {
                 dbcheck.rejection = true;
                 dbcheck.reason_for_rejection = reason_for_rejection;
-                dbcheck.sequence_status = 1;
             }
             else if (confirm)
             {
@@ -515,7 +526,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
     #region Faculty Council
 
-    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationFacultyCouncil(int oldYear, int newYear)
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationFacultyCouncil(int oldYear, int newYear, int departament_id)
     {
         try
         {
@@ -532,6 +543,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
                 .Where(x => x.status_.status != "Deleted" && x.sequence_status >= 3)
                 .Where(x => x.person_.departament_id.HasValue && faculty_child_department.Contains(x.person_.departament_id.Value))
+                .Where(x => x.person_.departament_id == departament_id)
                 .Include(x => x.person_)
                 .AsEnumerable()
                 .GroupBy(x => x.person_id)
@@ -644,7 +656,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             {
                 dbcheck.rejection = true;
                 dbcheck.reason_for_rejection = teacher110Set.reason_for_rejection;
-                dbcheck.sequence_status = 1;
             }
             else if (confirm)
             {
@@ -678,14 +689,21 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
     #region Study department
 
-    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear)
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear, int faculty_id, int departament_id)
     {
         try
         {
+            List<int> faculty_child_department = _context.departament_20ts24tu
+                 .Where(x => x.parent_id == faculty_id)
+                 .Where(x => x.departament_type_id == 26)
+                 .Select(x => x.id)
+                 .ToList();
 
             List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
             .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
             .Where(x => x.status_.status != "Deleted" && x.sequence_status >= 3)
+            .Where(x => x.person_.departament_id.HasValue && faculty_child_department.Contains(x.person_.departament_id.Value))
+            .Where(x => x.person_.departament_id == departament_id)
             .Include(x => x.person_)
             .AsEnumerable()
             .GroupBy(x => x.person_id)
@@ -730,7 +748,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             if (person == null) return new DocumentTeacher110SetList();
 
-            List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 0).ToList();
+            List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 3).ToList();
 
             DocumentTeacher110SetList document = new DocumentTeacher110SetList()
             {
@@ -780,16 +798,8 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             }
             if (!admin)
             {
-                if (sequanse_status == 0)
-                {
-                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted" && x.sequence_status >= 3);
-                }
-                else
-                {
-                    documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted")
-                        .Where(x => x.sequence_status >= sequanse_status);
-                }
-
+                documentTeacher110 = documentTeacher110.Where(x => x.status_.status != "Deleted")
+                .Where(x => x.sequence_status >= sequanse_status || x.rejection == true);
             }
 
             List<DocumentTeacher110Set> getList = documentTeacher110.ToList();

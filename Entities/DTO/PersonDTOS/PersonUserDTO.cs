@@ -6,4 +6,7 @@ public class PersonUserDTO
     public string firstName { get; set; }
     public string lastName { get; set; }
     public string fathers_name { get; set; }
+
+
+    public double summ_score { get; set; }
 }

@@ -20,6 +20,8 @@ public interface IDepartamentRepository
     public bool UpdateDepartament(int id, Departament departament);
     public bool DeleteDepartament(int id);
 
+    public IEnumerable<Departament> SelectFaculty();
+    public IEnumerable<Departament> SelectFacultyDepartament(int? faculty_id);
 
 
     //DepartamentTranslation CRUD

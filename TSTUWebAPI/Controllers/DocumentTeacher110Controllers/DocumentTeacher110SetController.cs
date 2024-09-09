@@ -96,7 +96,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         [HttpGet("getteacherdocumentscore")]
         public IActionResult GetTeacherDocumentScore(int oldYear, int newYear)
         {
-            double? score = _repository.GetTeacherDocumentScore(oldYear, newYear);
+            double? score = _repository.GetTeacherDocumentScore(oldYear, newYear, 0);
 
             SummScoreTeacher110doc res = new SummScoreTeacher110doc()
             {
@@ -204,10 +204,29 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getalldocumentteacher110setadmin")]
-        public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear)
+        public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear, int faculty_id, int departament_id)
         {
-            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear);
-            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            IEnumerable<Person> personListMap =
+                _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear, faculty_id, departament_id);
+
+            List<PersonUserDTO> personList = new List<PersonUserDTO>();
+
+            foreach (Person person in personListMap)
+            {
+                if (person.id == null || person.id == 0) continue;
+
+                PersonUserDTO personUserDTO = new PersonUserDTO()
+                {
+                    id = person.id,
+                    firstName = person.firstName,
+                    lastName = person.lastName,
+                    fathers_name = person.fathers_name,
+                    summ_score = _repository.GetTeacherDocumentScore(oldYear, newYear, person.id).Value
+                };
+
+                personList.Add(personUserDTO);
+            }
+
             return Ok(personList);
         }
 
@@ -230,7 +249,24 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         public IActionResult GetAllDocumentTeacher110SetDepartament(int oldYear, int newYear)
         {
             IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationDepartament(oldYear, newYear);
-            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+
+            List<PersonUserDTO> personList = new List<PersonUserDTO>();
+
+            foreach (Person person in personListMap)
+            {
+                if (person.id == null || person.id == 0) continue;
+
+                PersonUserDTO personUserDTO = new PersonUserDTO()
+                {
+                    id = person.id,
+                    firstName = person.firstName,
+                    lastName = person.lastName,
+                    fathers_name = person.fathers_name,
+                    summ_score = _repository.GetTeacherDocumentScore(oldYear, newYear, person.id).Value
+                };
+
+                personList.Add(personUserDTO);
+            }
             return Ok(personList);
         }
 
@@ -273,10 +309,29 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         [Authorize(Roles = "FacultyCouncil")]
         [HttpGet("getalldocumentteacher110setfacultycouncil")]
-        public IActionResult GetAllDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear)
+        public IActionResult GetAllDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear, int departament_id)
         {
-            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationFacultyCouncil(oldYear, newYear);
-            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            IEnumerable<Person> personListMap =
+                _repository.AllDocumentTeacher110SetConfirmationFacultyCouncil(oldYear, newYear, departament_id);
+
+            List<PersonUserDTO> personList = new List<PersonUserDTO>();
+
+            foreach (Person person in personListMap)
+            {
+                if (person.id == null || person.id == 0) continue;
+
+                PersonUserDTO personUserDTO = new PersonUserDTO()
+                {
+                    id = person.id,
+                    firstName = person.firstName,
+                    lastName = person.lastName,
+                    fathers_name = person.fathers_name,
+                    summ_score = _repository.GetTeacherDocumentScore(oldYear, newYear, person.id).Value
+                };
+
+                personList.Add(personUserDTO);
+            }
+
             return Ok(personList);
         }
 
@@ -326,10 +381,29 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         [Authorize(Roles = "StudyDepartment")]
         [HttpGet("getalldocumentteacher110setstudydepartament")]
-        public IActionResult GetAllDocumentTeacher110SetStudyDepartament(int oldYear, int newYear)
+        public IActionResult GetAllDocumentTeacher110SetStudyDepartament(int oldYear, int newYear, int faculty_id, int departament_id)
         {
-            IEnumerable<Person> personListMap = _repository.AllDocumentTeacher110SetConfirmationStudyDep(oldYear, newYear);
-            var personList = _mapper.Map<IEnumerable<PersonUserDTO>>(personListMap);
+            IEnumerable<Person> personListMap =
+                _repository.AllDocumentTeacher110SetConfirmationStudyDep(oldYear, newYear, faculty_id, departament_id);
+
+            List<PersonUserDTO> personList = new List<PersonUserDTO>();
+
+            foreach (Person person in personListMap)
+            {
+                if (person.id == null || person.id == 0) continue;
+
+                PersonUserDTO personUserDTO = new PersonUserDTO()
+                {
+                    id = person.id,
+                    firstName = person.firstName,
+                    lastName = person.lastName,
+                    fathers_name = person.fathers_name,
+                    summ_score = _repository.GetTeacherDocumentScore(oldYear, newYear, person.id).Value
+                };
+
+                personList.Add(personUserDTO);
+            }
+
             return Ok(personList);
         }
 
@@ -345,6 +419,24 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         #endregion region
 
+
+        #region Any
+
+        //[Authorize(Roles = "Teacher,Admin,HeadDepartment,FacultyCouncil,StudyDepartment")]
+        //[HttpGet("getteacherdocumentscoreallprofile")]
+        //public IActionResult GetTeacherDocumentScoreAllProfile(int oldYear, int newYear, int person_id)
+        //{
+        //    double? score = _repository.GetTeacherDocumentScore(oldYear, newYear, person_id);
+
+        //    SummScoreTeacher110doc res = new SummScoreTeacher110doc()
+        //    {
+        //        summ_score = score
+        //    };
+
+        //    return Ok(res);
+        //}
+
+        #endregion
 
 
     }

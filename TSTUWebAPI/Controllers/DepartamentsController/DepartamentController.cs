@@ -244,7 +244,7 @@ public class DepartamentController : ControllerBase
             }
 
             var dbupdated = _mapper.Map<Departament>(departament1);
-            
+
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -295,6 +295,22 @@ public class DepartamentController : ControllerBase
     }
 
 
+
+    [HttpGet("selectedallfaculty")]
+    public IActionResult SelectFaculty()
+    {
+        IEnumerable<Departament> departaments1 = _repository.SelectFaculty();
+        var departaments = _mapper.Map<IEnumerable<DepartamentSelectedReadedDTO>>(departaments1);
+        return Ok(departaments);
+    }
+
+    [HttpGet("selectedallfacultydepartament")]
+    public IActionResult SelectFacultyDepartament([FromQuery] int? faculty_id)
+    {
+        IEnumerable<Departament> departaments1 = _repository.SelectFacultyDepartament(faculty_id);
+        var departaments = _mapper.Map<IEnumerable<DepartamentSelectedReadedDTO>>(departaments1);
+        return Ok(departaments);
+    }
 
 
 
