@@ -149,6 +149,52 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
+    public Tuple<bool, string> OptimizeDocument(int document_id)
+    {
+        try
+        {
+            var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+            int person_id;
+            if (user != null && user.person_id != 0 && user.person_id != null)
+            {
+                person_id = user.person_id ??= 0;
+            }
+            else
+            {
+                return null;
+            }
+
+            DocumentTeacher110 document = _context.document_teacher_110_20ts24tu
+                .Where(x => x.status_.status != "Deleted").FirstOrDefault(x => x.id == document_id);
+
+            if (document.indicator.Value) return Tuple.Create(true, "");
+
+            List<DocumentTeacher110Set> documentTeacher110Set = _context.document_teacher_110_set_20ts24tu
+                .Where(x => x.status_.status != "Deleted" && x.person_id == person_id)
+                .Where(x => x.document_id.Equals(document_id))
+                .ToList();
+
+            double summ = 0;
+
+            if (documentTeacher110Set != null)
+            {
+                foreach (var item in documentTeacher110Set)
+                {
+                    summ += item.score.Value;
+                }
+            }
+
+            if (summ >= document.max_score) return Tuple.Create(false, "Bu turdagi hujjat limitingiz to'lgan");
+
+            return Tuple.Create(true, "");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Tuple.Create(true, "");
+        }
+    }
+
     public bool DeleteDocumentTeacher110Set(int id)
     {
         try
@@ -618,7 +664,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
-    public bool ConfirmDocumentTeacher110SetFacultyCouncil(int id, bool confirm, DocumentTeacher110Set teacher110Set)
+    public Tuple<bool, string> ConfirmDocumentTeacher110SetFacultyCouncil(int id, bool confirm, DocumentTeacher110Set teacher110Set)
     {
         try
         {
@@ -634,17 +680,17 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             if (dbcheck.person_.departament_id.HasValue && !(faculty_child_department.Contains(dbcheck.person_.departament_id.Value)))
             {
-                return false;
+                return Tuple.Create(false, "Xato!");
             }
 
             if (dbcheck is null || dbcheck.rejection == true)
             {
-                return false;
+                return Tuple.Create(false, "Xato!");
             }
 
             if (dbcheck.sequence_status != 3)
             {
-                return false;
+                return Tuple.Create(false, "Xato!");
             }
 
             if (!confirm)
@@ -654,6 +700,33 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             }
             else if (confirm)
             {
+
+                DocumentTeacher110 document = dbcheck.document_;
+
+                if (document.indicator.Value) return Tuple.Create(true, "");
+
+                List<DocumentTeacher110Set> documentTeacher110Set = _context.document_teacher_110_set_20ts24tu
+                    .Where(x => x.status_.status != "Deleted" && x.person_id == user.person_id)
+                    .Where(x => x.document_id.Equals(document.id))
+                    .ToList();
+
+                double summ = 0;
+
+                if (documentTeacher110Set != null)
+                {
+                    foreach (var item in documentTeacher110Set)
+                    {
+                        summ += item.score.Value;
+                    }
+                }
+
+                if (summ >= document.max_score) return Tuple.Create(false, "Bu turdagi hujjat limiti to'lgan");
+
+                double difference = document.max_score.Value - summ;
+
+                if (teacher110Set.score > difference) return Tuple.Create(false, $"Bu turdagi hujjatga maksimal {difference} ball qo'yishingiz mumkin");
+
+
                 dbcheck.rejection = false;
                 dbcheck.sequence_status = dbcheck.sequence_status + 1;
                 dbcheck.score = teacher110Set.score;
@@ -668,12 +741,12 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             _context.Update(dbcheck);
             _context.SaveChanges();
             _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
-            return true;
+            return Tuple.Create(true, "");
         }
         catch (Exception ex)
         {
             _logger.LogError("Error " + ex.Message);
-            return false;
+            return Tuple.Create(false, "Xato!");
         }
     }
 

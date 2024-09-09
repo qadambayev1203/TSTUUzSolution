@@ -11,6 +11,7 @@ public interface IDocumentTeacher110SetRepository
     public DocumentTeacher110Set GetDocumentTeacher110SetById(int id);
     public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int oldYear, int newYear, int document_id);
     public int CreateDocumentTeacher110Set(DocumentTeacher110Set documentTeacher110Set);
+    public Tuple<bool, string> OptimizeDocument(int document_id);
     public bool UpdateDocumentTeacher110Set(int id, DocumentTeacher110Set documentTeacher110Set);
     public bool DeleteDocumentTeacher110Set(int id);
 
@@ -33,7 +34,7 @@ public interface IDocumentTeacher110SetRepository
 
     public DocumentTeacher110SetList DocumentTeacher110SetConfirmFacultyCouncil(int oldYear, int newYear, int person_id);
 
-    public bool ConfirmDocumentTeacher110SetFacultyCouncil(int id, bool confirm, DocumentTeacher110Set teacher110Set);
+    public Tuple<bool, string> ConfirmDocumentTeacher110SetFacultyCouncil(int id, bool confirm, DocumentTeacher110Set teacher110Set);
 
 
     //Study department

@@ -38,8 +38,12 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
             if (documentTeacher110Set.old_year == 0 || documentTeacher110Set.new_year == 0 || documentTeacher110Set.document_id == 0)
             {
-                return BadRequest("old_year, new_year and document_id cannot be 0");
+                return BadRequest("Xato!");
             }
+
+            Tuple<bool, string> ch = _repository.OptimizeDocument(documentTeacher110Set.document_id);
+
+            if (!ch.Item1) return BadRequest(ch.Item2);
 
             var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
             documentTeacher110SetMap.status_id = _status.GetStatusId("Active");
@@ -53,7 +57,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             var Url = fileUpload.SaveFileAsync(documentTeacher110Set.file_up);
             if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
             {
-                return BadRequest("File created error!");
+                return BadRequest("Xato!");
             }
             if (Url != null && Url.Length > 0)
             {
@@ -70,7 +74,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             if (id == 0)
             {
                 fileUpload.DeleteFileAsync(Url);
-                return BadRequest();
+                return BadRequest("Xato!");
             }
 
             CreatedItemId createdItemId = new CreatedItemId()
@@ -357,10 +361,10 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
                 var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(confirmStudyDepDTO);
 
-                bool updatedcheck = _repository.ConfirmDocumentTeacher110SetFacultyCouncil(id, confirmStudyDepDTO.confirm, documentTeacher110SetMap);
-                if (!updatedcheck)
+                Tuple<bool, string> updatedcheck = _repository.ConfirmDocumentTeacher110SetFacultyCouncil(id, confirmStudyDepDTO.confirm, documentTeacher110SetMap);
+                if (!updatedcheck.Item1)
                 {
-                    return BadRequest("Not Confirmed");
+                    return BadRequest(updatedcheck.Item2);
                 }
 
                 return Ok("Confirmed");
