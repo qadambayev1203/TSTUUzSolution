@@ -16,7 +16,7 @@ public interface IDocumentTeacher110SetRepository
 
 
     //Admin
-    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear, int faculty_id, int departament_id);
+    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear, int departament_id);
     public DocumentTeacher110SetList DocumentTeacher110SetAdmin(int oldYear, int newYear, int person_id);
     public DocumentTeacher110Set GetDocumentTeacher110SetByIdAdmin(int id);
 
@@ -37,7 +37,7 @@ public interface IDocumentTeacher110SetRepository
 
 
     //Study department
-    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear, int faculty_id, int departament_id);
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear, int departament_id);
 
     public DocumentTeacher110SetList DocumentTeacher110SetConfirmStudyDep(int oldYear, int newYear, int person_id);
 

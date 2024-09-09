@@ -292,34 +292,27 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
     #region Admin
 
-    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear, int faculty_id, int departament_id)
+    public IEnumerable<Person> AllDocumentTeacher110SetAdmin(int oldYear, int newYear, int departament_id)
     {
         try
         {
-            List<int> faculty_child_department = _context.departament_20ts24tu
-                 .Where(x => x.parent_id == faculty_id)
-                 .Where(x => x.departament_type_id == 26)
-                 .Select(x => x.id)
-                 .ToList();
-
             List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
-            .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
-            .Where(x => x.person_.departament_id.HasValue && faculty_child_department.Contains(x.person_.departament_id.Value))
-            .Where(x => x.person_.departament_id == departament_id)
-            .Include(x => x.person_)
-            .AsEnumerable()
-            .GroupBy(x => x.person_id)
-            .Select(g => g.First())
-            .Select(x => new Person
-            {
-                id = x.person_.id,
-                firstName = x.person_.firstName,
-                lastName = x.person_.lastName,
-                fathers_name = x.person_.fathers_name,
-                employee_type_id = 0,
-                departament_id = 0
-            })
-            .ToList();
+             .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
+             .Where(x => x.person_.departament_id == departament_id)
+             .Include(x => x.person_)
+             .AsEnumerable()
+             .GroupBy(x => x.person_id)
+             .Select(g => g.First())
+             .Select(x => new Person
+             {
+                 id = x.person_.id,
+                 firstName = x.person_.firstName,
+                 lastName = x.person_.lastName,
+                 fathers_name = x.person_.fathers_name,
+                 employee_type_id = 0,
+                 departament_id = 0
+             })
+             .ToList();
 
 
             return personsIdList;
@@ -484,10 +477,12 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         try
         {
             var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
-            if (dbcheck is null)
+
+            if (dbcheck is null || dbcheck.rejection == true)
             {
                 return false;
             }
+
             var headDepartamentId = _context.users_20ts24tu
                .Where(x => x.id == SessionClass.id)
                .Select(x => x.person_.departament_id).FirstOrDefault();
@@ -642,7 +637,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 return false;
             }
 
-            if (dbcheck is null)
+            if (dbcheck is null || dbcheck.rejection == true)
             {
                 return false;
             }
@@ -689,20 +684,15 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
     #region Study department
 
-    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear, int faculty_id, int departament_id)
+    public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear, int departament_id)
     {
         try
         {
-            List<int> faculty_child_department = _context.departament_20ts24tu
-                 .Where(x => x.parent_id == faculty_id)
-                 .Where(x => x.departament_type_id == 26)
-                 .Select(x => x.id)
-                 .ToList();
+
 
             List<Person> personsIdList = _context.document_teacher_110_set_20ts24tu
             .Where(x => x.old_year == oldYear && x.new_year == newYear && x.person_id != null)
             .Where(x => x.status_.status != "Deleted" && x.sequence_status >= 3)
-            .Where(x => x.person_.departament_id.HasValue && faculty_child_department.Contains(x.person_.departament_id.Value))
             .Where(x => x.person_.departament_id == departament_id)
             .Include(x => x.person_)
             .AsEnumerable()

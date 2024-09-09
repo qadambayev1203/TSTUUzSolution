@@ -204,10 +204,10 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("getalldocumentteacher110setadmin")]
-        public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear, int faculty_id, int departament_id)
+        public IActionResult GetAllDocumentTeacher110SetAdmin(int oldYear, int newYear, int departament_id)
         {
             IEnumerable<Person> personListMap =
-                _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear, faculty_id, departament_id);
+                _repository.AllDocumentTeacher110SetAdmin(oldYear, newYear, departament_id);
 
             List<PersonUserDTO> personList = new List<PersonUserDTO>();
 
@@ -381,10 +381,10 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         [Authorize(Roles = "StudyDepartment")]
         [HttpGet("getalldocumentteacher110setstudydepartament")]
-        public IActionResult GetAllDocumentTeacher110SetStudyDepartament(int oldYear, int newYear, int faculty_id, int departament_id)
+        public IActionResult GetAllDocumentTeacher110SetStudyDepartament(int oldYear, int newYear, int departament_id)
         {
             IEnumerable<Person> personListMap =
-                _repository.AllDocumentTeacher110SetConfirmationStudyDep(oldYear, newYear, faculty_id, departament_id);
+                _repository.AllDocumentTeacher110SetConfirmationStudyDep(oldYear, newYear, departament_id);
 
             List<PersonUserDTO> personList = new List<PersonUserDTO>();
 
