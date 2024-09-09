@@ -90,7 +90,7 @@ public class AppealToRectorSqlRepository : IAppealToRectorRepository
             {
                 if (AppealToRector.birthday.Value.Kind != DateTimeKind.Utc)
                 {
-                    AppealToRector.birthday = AppealToRector.birthday.Value.ToUniversalTime().AddDays(1);
+                    AppealToRector.birthday = AppealToRector.birthday.Value.ToUniversalTime();
                 }
             }
 
@@ -254,7 +254,6 @@ public class AppealToRectorSqlRepository : IAppealToRectorRepository
                 if (AppealToRectorTranslation.birthday.Value.Kind != DateTimeKind.Utc)
                 {
                     AppealToRectorTranslation.birthday = AppealToRectorTranslation.birthday.Value.ToUniversalTime();
-                    AppealToRectorTranslation.birthday = AppealToRectorTranslation.birthday.Value.AddDays(1);
                 }
             }
 

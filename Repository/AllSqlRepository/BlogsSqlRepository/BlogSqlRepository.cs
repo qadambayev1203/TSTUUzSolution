@@ -198,12 +198,10 @@ public class BlogSqlRepository : IBlogRepository
             DateTime localDateTime = DateTime.Parse(blog.event_date.ToString());
             localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
             DateTime utcDateTime = localDateTime.ToUniversalTime();
-            utcDateTime = utcDateTime.AddDays(1);
 
             DateTime localDateTime1 = DateTime.Parse(blog.event_end_date.ToString());
             localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
             DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
-            utcDateTime1 = utcDateTime1.AddDays(1);
 
             blog.event_date = utcDateTime;
             blog.event_end_date = utcDateTime1;
@@ -526,12 +524,10 @@ public class BlogSqlRepository : IBlogRepository
             DateTime localDateTime = DateTime.Parse(blogTranslation.event_date.ToString());
             localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
             DateTime utcDateTime = localDateTime.ToUniversalTime();
-            utcDateTime = utcDateTime.AddDays(1);
 
             DateTime localDateTime1 = DateTime.Parse(blogTranslation.event_end_date.ToString());
             localDateTime1 = DateTime.SpecifyKind(localDateTime1, DateTimeKind.Local);
             DateTime utcDateTime1 = localDateTime1.ToUniversalTime();
-            utcDateTime1 = utcDateTime1.AddDays(1);
 
             blogTranslation.event_date = utcDateTime;
             blogTranslation.event_end_date = utcDateTime1;
