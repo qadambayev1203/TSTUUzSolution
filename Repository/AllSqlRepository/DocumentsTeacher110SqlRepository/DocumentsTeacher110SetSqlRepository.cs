@@ -41,7 +41,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 return Enumerable.Empty<DocumentTeacher110Set>();
             }
 
-            ScoreOptimize(person_id);          //Score
 
 
             IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
@@ -83,7 +82,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             }
 
 
-            ScoreOptimize(person_id);          //Score
 
 
             double? score = _context.document_teacher_110_set_20ts24tu
@@ -180,7 +178,10 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             {
                 foreach (var item in documentTeacher110Set)
                 {
-                    summ += item.score.Value;
+                    if (item.score > 0)
+                    {
+                        summ += item.score.Value;
+                    }
                 }
             }
 
@@ -706,7 +707,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 if (document.indicator.Value) return Tuple.Create(true, "");
 
                 List<DocumentTeacher110Set> documentTeacher110Set = _context.document_teacher_110_set_20ts24tu
-                    .Where(x => x.status_.status != "Deleted" && x.person_id == user.person_id)
+                    .Where(x => x.status_.status != "Deleted" && x.person_id == dbcheck.person_id)
                     .Where(x => x.document_id.Equals(document.id))
                     .ToList();
 
@@ -716,11 +717,14 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 {
                     foreach (var item in documentTeacher110Set)
                     {
-                        summ += item.score.Value;
+                        if (item.score > 0)
+                        {
+                            summ += item.score.Value;
+                        }
                     }
                 }
 
-                if (summ >= document.max_score) return Tuple.Create(false, "Bu turdagi hujjat limiti to'lgan");
+                if (summ > document.max_score) return Tuple.Create(false, "Bu turdagi hujjat limiti to'lgan");
 
                 double difference = document.max_score.Value - summ;
 
@@ -840,8 +844,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         try
         {
 
-            ScoreOptimize(person_id);          //Score
-
             IQueryable<DocumentTeacher110Set> documentTeacher110 = _context.document_teacher_110_set_20ts24tu
                 .Include(x => x.person_)
                 .Include(x => x.file_)
@@ -916,71 +918,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             _logger.LogError("Error " + ex.Message);
             return Enumerable.Empty<DocumentTeacher110Set>();
         }
-    }
-
-    private void ScoreOptimize(int person_id)
-    {
-
-        try
-        {
-            var result = _context.document_teacher_110_set_20ts24tu
-           .Join(_context.document_teacher_110_20ts24tu,
-                 dset => dset.document_id,
-                 dget => dget.id,
-                 (dset, dget) => new { dset, dget })
-           .Where(x => x.dget.indicator == false && x.dset.person_id == person_id)
-           .GroupBy(x => new { x.dget.parent_id, x.dget.max_score })
-           .Select(g => new
-           {
-               parent_id = g.Key.parent_id,
-               max_score = g.Key.max_score
-           })
-           .ToList();
-
-
-            foreach (var document in result)
-            {
-                int totalScore = Convert.ToInt32(_context.document_teacher_110_set_20ts24tu
-                                    .Join(_context.document_teacher_110_20ts24tu,
-                                          dset => dset.document_id,
-                                          dget => dget.id,
-                                          (dset, dget) => new { dset, dget })
-                                    .Where(x => x.dget.parent_id == document.parent_id)
-                                    .Sum(x => x.dset.score));
-
-                if (totalScore > 0 && totalScore > document.max_score)
-                {
-                    List<int> resultIds = _context.document_teacher_110_set_20ts24tu
-                        .Join(_context.document_teacher_110_20ts24tu,
-                              dset => dset.document_id,
-                              dget => dget.id,
-                              (dset, dget) => new { dset, dget })
-                        .Where(x => x.dget.parent_id == document.parent_id)
-                        .Select(x => x.dset.id)
-                        .ToList();
-
-                    if (resultIds.Count > 0)
-                    {
-                        double? proportional = document.max_score * 1.0 / totalScore;
-
-                        if (proportional is not null)
-                        {
-                            string ids = string.Join(",", resultIds);
-
-                            _context.Database.ExecuteSqlRaw($"UPDATE document_teacher_110_set_20ts24tu SET score = score * {proportional} WHERE id IN ({ids});");
-                            _context.SaveChanges();
-                        }
-                    }
-
-                }
-
-            }
-        }
-        catch
-        {
-        }
-
-
     }
 
     #endregion
