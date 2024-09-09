@@ -295,7 +295,7 @@ public class DepartamentController : ControllerBase
     }
 
 
-
+    [Authorize]
     [HttpGet("selectedallfaculty")]
     public IActionResult SelectFaculty()
     {
@@ -304,6 +304,7 @@ public class DepartamentController : ControllerBase
         return Ok(departaments);
     }
 
+    [Authorize]
     [HttpGet("selectedallfacultydepartament")]
     public IActionResult SelectFacultyDepartament([FromQuery] int? faculty_id)
     {
