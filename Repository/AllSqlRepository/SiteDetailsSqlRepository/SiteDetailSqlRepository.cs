@@ -260,7 +260,7 @@ public class SiteDetailSqlRepository : ISiteDetailRepository
                     .Include(x => x.site_translation_)
                     .Include(x => x.status_translation_).Where(x => x.status_translation_.status != "Deleted")
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Take(10)
+                    .Skip(10 * (pageNum - 1)).Take(10)
                     .ToList();
 
             }
@@ -319,7 +319,7 @@ public class SiteDetailSqlRepository : ISiteDetailRepository
                     .Include(x => x.site_translation_)
                     .Include(x => x.status_translation_)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Take(10)
+                    .Skip(10 * (pageNum - 1)).Take(10)
                     .ToList();
 
             }

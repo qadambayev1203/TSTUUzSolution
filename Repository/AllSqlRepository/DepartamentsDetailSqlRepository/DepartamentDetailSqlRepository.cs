@@ -230,7 +230,7 @@ public class DepartamentDetailSqlRepository : IDepartamentDetailRepository
                     .Include(x => x.departament_detail_)
                     .Include(x => x.status_translation_)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Skip(10 * (queryNum - 1))
+                    .Skip(10 * (pageNum - 1))
                     .Take(10)
                     .ToList();
 
@@ -242,7 +242,7 @@ public class DepartamentDetailSqlRepository : IDepartamentDetailRepository
                     .Include(x => x.departament_translation_).ThenInclude(y => y.departament_type_translation_).Include(x => x.departament_detail_)
                     .Include(x => x.status_translation_)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Skip(queryNum * (queryNum - 1))
+                    .Skip(queryNum * (pageNum - 1))
                     .Take(queryNum)
                     .ToList();
 
@@ -280,7 +280,7 @@ public class DepartamentDetailSqlRepository : IDepartamentDetailRepository
                                         .Where(x => x.status_translation_.status != "Deleted")
 
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Skip(10 * (queryNum - 1))
+                    .Skip(10 * (pageNum - 1))
                     .Take(10)
                     .ToList();
 
@@ -294,7 +294,7 @@ public class DepartamentDetailSqlRepository : IDepartamentDetailRepository
                                         .Where(x => x.status_translation_.status != "Deleted")
 
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Skip(queryNum * (queryNum - 1))
+                    .Skip(queryNum * (pageNum - 1))
                     .Take(queryNum)
                     .ToList();
 

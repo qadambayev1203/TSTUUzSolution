@@ -73,7 +73,8 @@ public class BlogSqlRepository : IBlogRepository
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Take(queryNum);
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
 
             }
 
@@ -148,6 +149,7 @@ public class BlogSqlRepository : IBlogRepository
                     .Include(x => x.status_)
                     .Include(x => x.img_)
                     .Include(x => x.blog_category_).Where(x => x.status_.status != "Deleted")
+                    .OrderByDescending(b => b.event_date)
                     .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                     .Where((blog_category != null) ? x => x.blog_category_.title.Equals(blog_category) : x => x.blog_category_.title != null)
                     .Include(x => x.user_).ThenInclude(y => y.user_type_);
@@ -167,7 +169,8 @@ public class BlogSqlRepository : IBlogRepository
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Take(queryNum);
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
 
             }
 
@@ -390,7 +393,8 @@ public class BlogSqlRepository : IBlogRepository
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Take(queryNum);
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
 
             }
 
@@ -468,6 +472,7 @@ public class BlogSqlRepository : IBlogRepository
                     .Include(x => x.status_translation_)
                     .Include(x => x.blog_category_translation_)
                     .Include(x => x.blog_)
+                    .OrderBy(x => x.event_date)
                     .Include(x => x.img_translation_)
                     .Where((favorite == true) ? x => x.favorite == true : x => x != null)
                     .Where(x => x.status_translation_.status != "Deleted")

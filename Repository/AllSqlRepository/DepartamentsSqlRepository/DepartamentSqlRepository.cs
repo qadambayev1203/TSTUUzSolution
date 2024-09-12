@@ -474,13 +474,14 @@ public class DepartamentSqlRepository : IDepartamentRepository
 
             if (queryNum == 0 && pageNum != 0)
             {
-                query = query.Skip(10 * (queryNum - 1)).Take(10);
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
 
             }
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Take(queryNum);
+                query = query.Skip(queryNum * (pageNum - 1))
+                   .Take(queryNum);
             }
 
             QueryList<DepartamentTranslation> departamentTranslations = new QueryList<DepartamentTranslation>
@@ -515,14 +516,14 @@ public class DepartamentSqlRepository : IDepartamentRepository
 
             if (queryNum == 0 && pageNum != 0)
             {
-                query = query.Skip(10 * (queryNum - 1))
+                query = query.Skip(10 * (pageNum - 1))
                     .Take(10);
 
             }
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Skip(queryNum * (queryNum - 1))
+                query = query.Skip(queryNum * (pageNum - 1))
                     .Take(queryNum);
 
             }
@@ -765,7 +766,7 @@ public class DepartamentSqlRepository : IDepartamentRepository
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Skip(queryNum * (queryNum - 1))
+                query = query.Skip(queryNum * (pageNum - 1))
                     .Take(queryNum);
             }
 
@@ -804,13 +805,13 @@ public class DepartamentSqlRepository : IDepartamentRepository
 
             if (queryNum == 0 && pageNum != 0)
             {
-                query = query.Skip(10 * (queryNum - 1)).Take(10);
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
 
             }
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Skip(queryNum * (queryNum - 1))
+                query = query.Skip(queryNum * (pageNum - 1))
                     .Take(queryNum);
 
             }

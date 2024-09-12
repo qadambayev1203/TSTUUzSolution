@@ -92,12 +92,14 @@ public class PageSqlRepository : IPageRepository
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                pages = _context.pages_20ts24tu.Include(x => x.img_).Where(x => x.status_.status != "Deleted").Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
+                pages = _context.pages_20ts24tu.Include(x => x.img_).Where(x => x.status_.status != "Deleted").Include(x => x.user_).ThenInclude(y => y.user_type_)
+                .Include(x => x.status_).Skip(queryNum * (pageNum - 1)).Take(queryNum).ToList();
 
             }
             else
             {
-                pages = _context.pages_20ts24tu.Include(x => x.img_).Where(x => x.status_.status != "Deleted").Include(x => x.user_).ThenInclude(y => y.user_type_).Include(x => x.status_).ToList();
+                pages = _context.pages_20ts24tu.Include(x => x.img_).Where(x => x.status_.status != "Deleted").Include(x => x.user_).ThenInclude(y => y.user_type_)
+                .Include(x => x.status_).ToList();
 
             }
             return pages;

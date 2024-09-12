@@ -226,7 +226,7 @@ public class UserTypeSqlRepository : IUserTypeRepository
                 userTypesTranslation = _context.user_types_translations_20ts24tu.Include(x => x.user_types_)
                     .Include(x => x.language_).Include(x => x.status_translation_)
                     .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
-                    .Skip(10 * (queryNum - 1))
+                    .Skip(10 * (pageNum - 1))
                     .Take(10)
                     .ToList();
 

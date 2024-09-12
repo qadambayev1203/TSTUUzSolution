@@ -46,7 +46,8 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Take(queryNum);
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
 
             }
 
@@ -238,7 +239,8 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             if (queryNum != 0 && pageNum != 0)
             {
                 if (queryNum > 200) { queryNum = 200; }
-                query = query.Take(queryNum);
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
 
             }
 
