@@ -26,13 +26,9 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
     {
         try
         {
-            IQueryable<PersonBlog> query = _context.person_blog_20ts24tu;
+            IQueryable<PersonBlog> query = _context.person_blog_20ts24tu.Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -119,13 +115,9 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
         try
         {
             IQueryable<PersonBlog> query = _context.person_blog_20ts24tu
-                .Where(x => x.id.Equals(id));
+                .Where(x => x.id.Equals(id)).Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -155,10 +147,10 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             dbcheck.description = personBlog.description;
             dbcheck.text = personBlog.text;
             dbcheck.updated_at = DateTime.UtcNow;
+            dbcheck.status_id = personBlog.status_id;
 
             if (isAdmin)
             {
-                dbcheck.status_id = personBlog.status_id;
                 dbcheck.person_data_id = personBlog.person_data_id;
             }
             _context.SaveChanges();
@@ -216,14 +208,10 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
         try
         {
             IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
-                .Include(x => x.language_)
+                .Include(x => x.language_).Include(x => x.status_)
                 .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -256,13 +244,9 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
         {
             IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
                 .Where(x => x.id.Equals(id))
-                .Include(x => x.language_);
+                .Include(x => x.language_).Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -285,13 +269,9 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
                 .Where(x => x.person_blog_.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
-                .Include(x => x.language_);
+                .Include(x => x.language_).Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -345,10 +325,10 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             dbcheck.language_id = personBlog.language_id;
             dbcheck.person_blog_id = personBlog.person_blog_id;
             dbcheck.updated_at = DateTime.UtcNow;
+            dbcheck.status_id = personBlog.status_id;
 
             if (isAdmin)
             {
-                dbcheck.status_id = personBlog.status_id;
                 dbcheck.person_data_id = personBlog.person_data_id;
             }
             _context.SaveChanges();

@@ -26,13 +26,9 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
     {
         try
         {
-            IQueryable<PersonExperience> query = _context.person_experience_20ts24tu;
+            IQueryable<PersonExperience> query = _context.person_experience_20ts24tu.Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -119,13 +115,9 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         try
         {
             IQueryable<PersonExperience> query = _context.person_experience_20ts24tu
-                .Where(x => x.id.Equals(id));
+                .Where(x => x.id.Equals(id)).Include(x => x.status_);
 
             if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -155,10 +147,10 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
             dbcheck.description = personExperience.description;
             dbcheck.text = personExperience.text;
             dbcheck.updated_at = DateTime.UtcNow;
+            dbcheck.status_id = personExperience.status_id;
 
             if (isAdmin)
             {
-                dbcheck.status_id = personExperience.status_id;
                 dbcheck.person_data_id = personExperience.person_data_id;
             }
             _context.SaveChanges();
@@ -216,14 +208,10 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         try
         {
             IQueryable<PersonExperienceTranslation> query = _context.person_experience_translation_20ts24tu
-                .Include(x => x.language_)
+                .Include(x => x.language_).Include(x => x.status_)
                 .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -255,14 +243,10 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         try
         {
             IQueryable<PersonExperienceTranslation> query = _context.person_experience_translation_20ts24tu
-                .Where(x => x.id.Equals(id))
+                .Where(x => x.id.Equals(id)).Include(x => x.status_)
                 .Include(x => x.language_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -285,13 +269,9 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
             IQueryable<PersonExperienceTranslation> query = _context.person_experience_translation_20ts24tu
                 .Where(x => x.person_experience_.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
-                .Include(x => x.language_);
+                .Include(x => x.language_).Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -345,10 +325,10 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
             dbcheck.language_id = personExperience.language_id;
             dbcheck.person_experience_id = personExperience.person_experience_id;
             dbcheck.updated_at = DateTime.UtcNow;
+            dbcheck.status_id = personExperience.status_id;
 
             if (isAdmin)
             {
-                dbcheck.status_id = personExperience.status_id;
                 dbcheck.person_data_id = personExperience.person_data_id;
             }
             _context.SaveChanges();

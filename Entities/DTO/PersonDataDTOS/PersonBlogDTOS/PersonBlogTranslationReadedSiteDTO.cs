@@ -1,4 +1,5 @@
 ﻿using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
 
 namespace Entities.DTO.PersonDataDTOS.PersonBlogDTOS;
 
@@ -13,4 +14,5 @@ public class PersonBlogTranslationReadedSiteDTO
     public DateTime? updated_at { get; set; }
     public LanguageConfReadedDTO? language_ { get; set; }
     public int? person_blog_id { get; set; }
+    public StatusTranslationConfReadedDTO? status_ { get; set; }
 }

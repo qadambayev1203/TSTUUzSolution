@@ -6,4 +6,5 @@ public class PersonScientificActivityUpdatedDTO
     public int? until_when { get; set; }
     public required string whom { get; set; }
     public required string where { get; set; }
+    public required int status_id { get; set; }
 }

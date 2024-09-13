@@ -74,12 +74,12 @@ public class AppealToEmployeeController : ControllerBase
 
     [Authorize]
     [HttpGet("getallappealtoemployee")]
-    public IActionResult GetAllAppealToEmployee(int queryNum, int pageNum)
+    public IActionResult GetAllAppealToEmployee(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time)
     {
         queryNum = Math.Max(0, queryNum);
         pageNum = Math.Max(0, pageNum);
 
-        IEnumerable<AppealToEmployee> appealToEmployees = _repository.AllAppealToEmployee(queryNum, pageNum);
+        IEnumerable<AppealToEmployee> appealToEmployees = _repository.AllAppealToEmployee(queryNum, pageNum, start_time, end_time);
 
         var appealToEmployeesDTO = _mapper.Map<IEnumerable<AppealToEmployeeReadedDTO>>(appealToEmployees);
 
@@ -88,12 +88,12 @@ public class AppealToEmployeeController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("getallappealtoemployeeadmin")]
-    public IActionResult GetAllAppealToEmployeeAdmin(int queryNum, int pageNum)
+    public IActionResult GetAllAppealToEmployeeAdmin(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time)
     {
         queryNum = Math.Max(0, queryNum);
         pageNum = Math.Max(0, pageNum);
 
-        IEnumerable<AppealToEmployee> appealToEmployees = _repository.AllAppealToEmployeeAdmin(queryNum, pageNum);
+        IEnumerable<AppealToEmployee> appealToEmployees = _repository.AllAppealToEmployeeAdmin(queryNum, pageNum, start_time, end_time);
 
         var appealToEmployeesDTO = _mapper.Map<IEnumerable<AppealToEmployeeReadedAdminDTO>>(appealToEmployees);
 
@@ -212,12 +212,12 @@ public class AppealToEmployeeController : ControllerBase
 
     [Authorize]
     [HttpGet("getallappealtoemployeetranslation")]
-    public IActionResult GetAllAppealToEmployeeTranslation(int queryNum, int pageNum, string? language_code)
+    public IActionResult GetAllAppealToEmployeeTranslation(int queryNum, int pageNum, string? language_code, DateTime? start_time, DateTime? end_time)
     {
         queryNum = Math.Max(0, queryNum);
         pageNum = Math.Max(0, pageNum);
 
-        IEnumerable<AppealToEmployeeTranslation> appealToEmployeeTranslations = _repository.AllAppealToEmployeeTranslation(queryNum, pageNum, language_code);
+        IEnumerable<AppealToEmployeeTranslation> appealToEmployeeTranslations = _repository.AllAppealToEmployeeTranslation(queryNum, pageNum, language_code, start_time, end_time);
 
         var appealToEmployeeTranslationsDTO = _mapper.Map<IEnumerable<AppealToEmployeeTranslationReadedDTO>>(appealToEmployeeTranslations);
 
@@ -226,12 +226,12 @@ public class AppealToEmployeeController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("getallappealtoemployeetranslationadmin")]
-    public IActionResult GetAllAppealToEmployeeTranslationAdmin(int queryNum, int pageNum, string? language_code)
+    public IActionResult GetAllAppealToEmployeeTranslationAdmin(int queryNum, int pageNum, string? language_code, DateTime? start_time, DateTime? end_time)
     {
         queryNum = Math.Max(0, queryNum);
         pageNum = Math.Max(0, pageNum);
 
-        IEnumerable<AppealToEmployeeTranslation> appealToEmployeeTranslations = _repository.AllAppealToEmployeeTranslationAdmin(queryNum, pageNum, language_code);
+        IEnumerable<AppealToEmployeeTranslation> appealToEmployeeTranslations = _repository.AllAppealToEmployeeTranslationAdmin(queryNum, pageNum, language_code, start_time, end_time);
 
         var appealToEmployeeTranslationsDTO = _mapper.Map<IEnumerable<AppealToEmployeeTranslationReadedAdminDTO>>(appealToEmployeeTranslations);
 

@@ -116,7 +116,7 @@ public class PersonDataController : ControllerBase
     public IActionResult GetByIdpersonData(int id)
     {
 
-        PersonData personData1 = _repository.GetPersonDataById(id);
+        PersonData personData1 = _repository.GetPersonDataById(id, false);
         User user = _repository.GetPersonUserById(personData1.persons_id);
         var personData = _mapper.Map<PersonDataReadedDTO>(personData1);
         if (user != null)
@@ -253,7 +253,7 @@ public class PersonDataController : ControllerBase
                 };
             }
 
-            bool updatedcheck = _repository.UpdatePersonData(id, dbupdated, user);
+            bool updatedcheck = _repository.UpdatePersonData(id, dbupdated, user, false);
             if (!updatedcheck)
             {
                 return BadRequest();
@@ -271,6 +271,8 @@ public class PersonDataController : ControllerBase
         }
 
     }
+
+
 
 
 
@@ -336,7 +338,7 @@ public class PersonDataController : ControllerBase
     [HttpGet("getbyidpersondatatranslation/{id}")]
     public IActionResult GetByIdpersonDataTranslation(int id)
     {
-        PersonDataTranslation personDatatranslation1 = _repository.GetPersonDataTranslationById(id);
+        PersonDataTranslation personDatatranslation1 = _repository.GetPersonDataTranslationById(id, false, "");
         var personDatatranslation = _mapper.Map<PersonDataTranslationReadedDTO>(personDatatranslation1);
         if (personDatatranslation == null) { }
         return Ok(personDatatranslation);
@@ -441,7 +443,7 @@ public class PersonDataController : ControllerBase
 
             var dbupdated = _mapper.Map<PersonDataTranslation>(personDatatranslation1);
             dbupdated.persons_translation_.status_translation_id = dbupdated.status_translation_id;
-            bool updatedcheck = _repository.UpdatePersonDataTranslation(id, dbupdated);
+            bool updatedcheck = _repository.UpdatePersonDataTranslation(id, dbupdated, false, "");
             if (!updatedcheck)
             {
                 return BadRequest();
@@ -459,4 +461,134 @@ public class PersonDataController : ControllerBase
         }
 
     }
+
+
+
+
+
+
+
+
+
+    //Profile
+
+    // personData CRUD
+
+    [Authorize]
+    [HttpGet("getbyidpersondataprofile")]
+    public IActionResult GetByProfilepersonData()
+    {
+
+        PersonData personData1 = _repository.GetPersonDataById(0, true);
+        User user = _repository.GetPersonUserById(personData1.persons_id);
+        var personData = _mapper.Map<PersonDataReadedDTO>(personData1);
+        if (user != null)
+        {
+            personData.login = user.login;
+        }
+
+        return Ok(personData);
+    }
+
+    [Authorize]
+    [HttpPut("updatepersondataprofile")]
+    public IActionResult UpdateProfilepersonData(PersonDataProfileUpdatedDTO personDataUpdated)
+    {
+        try
+        {
+            PersonDataProfileUpdatedDTO personData1 = personDataUpdated;
+
+            if (personData1 == null)
+            {
+                return BadRequest();
+            }
+            var dbupdated = _mapper.Map<PersonData>(personData1);
+            dbupdated.persons_.status_id = dbupdated.status_id;
+
+
+            FileUploadRepository fileUpload = new FileUploadRepository();
+
+            var Url = fileUpload.SaveFileAsync(personData1.img_up);
+            if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+            {
+                return BadRequest("File created error!");
+            }
+            if (Url != null && Url.Length > 0)
+            {
+                dbupdated.persons_.img_ = new Files
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url
+                };
+            }
+
+            bool updatedcheck = _repository.UpdatePersonData(0, dbupdated, null, true);
+            if (!updatedcheck)
+            {
+                return BadRequest();
+            }
+            bool check = _repository.SaveChanges();
+            if (!check)
+            {
+                return BadRequest();
+            }
+            return Ok("Updated");
+        }
+        catch
+        {
+            return BadRequest();
+        }
+
+    }
+
+
+
+
+    //personDataTranslation CRUD
+
+
+    [Authorize]
+    [HttpPut("updatepersondatatranslationprofile/{language_code}")]
+    public IActionResult UpdateProfilepersonDataTranslation(PersonDataTranslationUpdatedDTO dataTranslationUpdatedDTO, string language_code)
+    {
+        try
+        {
+            PersonDataTranslationUpdatedDTO personDatatranslation1 = dataTranslationUpdatedDTO;
+
+            if (personDatatranslation1 == null)
+            {
+                return BadRequest();
+            }
+
+            var dbupdated = _mapper.Map<PersonDataTranslation>(personDatatranslation1);
+            dbupdated.persons_translation_.status_translation_id = dbupdated.status_translation_id;
+            bool updatedcheck = _repository.UpdatePersonDataTranslation(0, dbupdated, true, language_code);
+            if (!updatedcheck)
+            {
+                return BadRequest();
+            }
+            bool check = _repository.SaveChanges();
+            if (!check)
+            {
+                return BadRequest();
+            }
+            return Ok("Updated");
+        }
+        catch
+        {
+            return BadRequest();
+        }
+
+    }
+
+
+    [Authorize]
+    [HttpGet("getbyidpersondatatranslationprofile/{language_code}")]
+    public IActionResult GetByProfilepersonDataTranslation(string language_code)
+    {
+        PersonDataTranslation personDatatranslation1 = _repository.GetPersonDataTranslationById(0, true, language_code);
+        var personDatatranslation = _mapper.Map<PersonDataTranslationReadedDTO>(personDatatranslation1);
+        return Ok(personDatatranslation);
+    }
+
 }

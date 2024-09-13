@@ -1,4 +1,5 @@
 ﻿using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
+using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
 
 namespace Entities.DTO.PersonDataDTOS.PersonScientificActivityDTOS;
 
@@ -12,4 +13,5 @@ public class PersonScientificActivityTranslationReadedSiteDTO
     public int? person_scientific_activity_id { get; set; }
     public int? person_data_translation_id { get; set; }
     public LanguageConfReadedDTO? language_ { get; set; }
+    public StatusTranslationConfReadedDTO? status_translation_ { get; set; }
 }

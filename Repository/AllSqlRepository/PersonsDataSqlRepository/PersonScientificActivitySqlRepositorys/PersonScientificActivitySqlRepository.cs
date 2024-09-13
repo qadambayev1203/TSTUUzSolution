@@ -26,14 +26,11 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
     {
         try
         {
-            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu;
+            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu.Include(x => x.status_);
 
-            if (isAdmin)
+            if (!isAdmin)
             {
-                query = query.Include(x => x.status_);
-            }
-            else
-            {
+
                 query = query.Where(x => x.status_.status != "Deleted");
             }
 
@@ -120,14 +117,10 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
     {
         try
         {
-            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu
+            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu.Include(x => x.status_)
                 .Where(x => x.id.Equals(id));
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -157,11 +150,11 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             dbcheck.until_when = personScientificActivity.until_when;
             dbcheck.whom = personScientificActivity.whom;
             dbcheck.where = personScientificActivity.where;
+            dbcheck.status_id = personScientificActivity.status_id;
 
             if (isAdmin)
             {
                 dbcheck.person_data_id = personScientificActivity.person_data_id;
-                dbcheck.status_id = personScientificActivity.status_id;
             }
             _context.SaveChanges();
 
@@ -218,14 +211,10 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
         try
         {
             IQueryable<PersonScientificActivityTranslation> query = _context.person_scientific_activity_translation_20ts24tu
-                .Include(x => x.language_)
+                .Include(x => x.language_).Include(x => x.status_translation_)
                 .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_translation_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_translation_.status != "Deleted");
             }
@@ -259,13 +248,9 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
         {
             IQueryable<PersonScientificActivityTranslation> query = _context.person_scientific_activity_translation_20ts24tu
                 .Where(x => x.id.Equals(id))
-                .Include(x => x.language_);
+                .Include(x => x.language_).Include(x => x.status_translation_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_translation_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_translation_.status != "Deleted");
             }
@@ -288,13 +273,9 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             IQueryable<PersonScientificActivityTranslation> query = _context.person_scientific_activity_translation_20ts24tu
                 .Where(x => x.person_scientific_activity_.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
-                .Include(x => x.language_);
+                .Include(x => x.language_).Include(x => x.status_translation_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_translation_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_translation_.status != "Deleted");
             }
@@ -348,11 +329,11 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             dbcheck.where = personScientificActivity.where;
             dbcheck.person_scientific_activity_id = personScientificActivity.person_scientific_activity_id;
             dbcheck.language_id = personScientificActivity.language_id;
+            dbcheck.status_translation_id = personScientificActivity.status_translation_id;
 
             if (isAdmin)
             {
                 dbcheck.person_data_translation_id = personScientificActivity.person_data_translation_id;
-                dbcheck.status_translation_id = personScientificActivity.status_translation_id;
             }
             _context.SaveChanges();
 

@@ -90,6 +90,8 @@ using Contracts.AllRepository.PersonsDataRepository.PersonPortfolioRepository;
 using Contracts.AllRepository.PersonsDataRepository.PersonExperienceRepository;
 using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonExperienceSqlRepositorys;
 using TSTUWebAPI.Services;
+using Contracts.AllRepository.RectorGivensUpdatedRepository;
+using Repository.AllSqlRepository.RectorGivensSqlUpdatedRepository;
 
 #endregion
 
@@ -286,6 +288,9 @@ try
 
     //PersonExperience
     builder.Services.AddScoped<IPersonExperienceRepository, PersonExperienceSqlRepository>();
+
+    //RectorGiven
+    builder.Services.AddScoped<IRectorGivenUpdatedRepository, RectorGivenSqlUpdatedRepository>();
 
     #endregion
 

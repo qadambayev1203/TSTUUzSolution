@@ -1,4 +1,6 @@
-﻿namespace Entities.DTO.PersonDataDTOS.PersonScientificActivityDTOS;
+﻿using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
+
+namespace Entities.DTO.PersonDataDTOS.PersonScientificActivityDTOS;
 
 public class PersonScientificActivityReadedSiteDTO
 {
@@ -8,4 +10,5 @@ public class PersonScientificActivityReadedSiteDTO
     public string? whom { get; set; }
     public string? where { get; set; }
     public int? person_data_id { get; set; }
+    public StatusConfReadedDTO? status_ { get; set; }
 }

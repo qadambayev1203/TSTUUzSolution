@@ -27,14 +27,12 @@ public class AppealToRectorSqlRepository : IAppealToRectorRepository
             if (start_time.HasValue)
             {
                 var time = start_time.Value.ToUniversalTime();
-                time = time.AddDays(1);
                 start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
             }
 
             if (end_time.HasValue)
             {
                 var time = end_time.Value.ToUniversalTime();
-                time = time.AddDays(1);
                 end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
             }
 
@@ -187,14 +185,12 @@ public class AppealToRectorSqlRepository : IAppealToRectorRepository
             if (start_time.HasValue)
             {
                 var time = start_time.Value.ToUniversalTime();
-                time = time.AddDays(1);
                 start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
             }
 
             if (end_time.HasValue)
             {
                 var time = end_time.Value.ToUniversalTime();
-                time = time.AddDays(1);
                 end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
             }
 

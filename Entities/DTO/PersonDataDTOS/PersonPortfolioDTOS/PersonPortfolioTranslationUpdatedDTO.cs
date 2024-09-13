@@ -7,4 +7,5 @@ public class PersonPortfolioTranslationUpdatedDTO
     public string? text { get; set; }
     public int? language_id { get; set; }
     public int? person_portfolio_id { get; set; }
+    public int? status_id { get; set; }
 }

@@ -26,13 +26,9 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
     {
         try
         {
-            IQueryable<PersonPortfolio> query = _context.person_portfolio_20ts24tu;
+            IQueryable<PersonPortfolio> query = _context.person_portfolio_20ts24tu.Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -118,13 +114,9 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
         try
         {
             IQueryable<PersonPortfolio> query = _context.person_portfolio_20ts24tu
-                .Where(x => x.id.Equals(id));
+                .Where(x => x.id.Equals(id)).Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -154,10 +146,10 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
             dbcheck.description = personPortfolio.description;
             dbcheck.text = personPortfolio.text;
             dbcheck.updated_at = DateTime.UtcNow;
+            dbcheck.status_id = personPortfolio.status_id;
 
             if (isAdmin)
             {
-                dbcheck.status_id = personPortfolio.status_id;
                 dbcheck.person_data_id = personPortfolio.person_data_id;
             }
             _context.SaveChanges();
@@ -215,14 +207,10 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
         try
         {
             IQueryable<PersonPortfolioTranslation> query = _context.person_portfolio_translation_20ts24tu
-                .Include(x => x.language_)
+                .Include(x => x.language_).Include(x => x.status_)
                 .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -256,13 +244,9 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
         {
             IQueryable<PersonPortfolioTranslation> query = _context.person_portfolio_translation_20ts24tu
                 .Where(x => x.id.Equals(id))
-                .Include(x => x.language_);
+                .Include(x => x.language_).Include(x => x.status_);
 
-            if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -285,13 +269,9 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
             IQueryable<PersonPortfolioTranslation> query = _context.person_portfolio_translation_20ts24tu
                 .Where(x => x.person_portfolio_.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
-                .Include(x => x.language_);
+                .Include(x => x.language_).Include(x => x.status_);
 
             if (isAdmin)
-            {
-                query = query.Include(x => x.status_);
-            }
-            else
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
@@ -345,10 +325,10 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
             dbcheck.language_id = personPortfolio.language_id;
             dbcheck.person_portfolio_id = personPortfolio.person_portfolio_id;
             dbcheck.updated_at = DateTime.UtcNow;
+            dbcheck.status_id = personPortfolio.status_id;
 
             if (isAdmin)
             {
-                dbcheck.status_id = personPortfolio.status_id;
                 dbcheck.person_data_id = personPortfolio.person_data_id;
             }
             _context.SaveChanges();

@@ -1,6 +1,7 @@
 ﻿using Contracts.AllRepository.AppealToEmployeesRepository;
 using Entities;
 using Entities.Model.AnyClasses;
+using Entities.Model.AppealsToTheRectorsModel;
 using Entities.Model.AppealToEmployeeModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -21,14 +22,31 @@ public class AppealToEmployeeSqlRepository : IAppealToEmployeeRepository
 
 
     #region AppealToEmployee CRUD
-    public IEnumerable<AppealToEmployee> AllAppealToEmployee(int queryNum, int pageNum)
+    public IEnumerable<AppealToEmployee> AllAppealToEmployee(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time)
     {
         try
         {
+            if (start_time.HasValue)
+            {
+                var time = start_time.Value.ToUniversalTime();
+                start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
+            }
+
+            if (end_time.HasValue)
+            {
+                var time = end_time.Value.ToUniversalTime();
+                end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
+            }
+
             IQueryable<AppealToEmployee> query = _context.appeal_to_employee_20ts24tu
                 .Where(x => x.user_id == SessionClass.id)
                 .Where(x => x.status_.status != "Deleted")
                 .Include(x => x.status_);
+
+            if (start_time != null && end_time != null)
+            {
+                query = query.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+            }
 
             if (pageNum != 0)
             {
@@ -45,14 +63,31 @@ public class AppealToEmployeeSqlRepository : IAppealToEmployeeRepository
         }
     }
 
-    public IEnumerable<AppealToEmployee> AllAppealToEmployeeAdmin(int queryNum, int pageNum)
+    public IEnumerable<AppealToEmployee> AllAppealToEmployeeAdmin(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time)
     {
         try
         {
+            if (start_time.HasValue)
+            {
+                var time = start_time.Value.ToUniversalTime();
+                start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
+            }
+
+            if (end_time.HasValue)
+            {
+                var time = end_time.Value.ToUniversalTime();
+                end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
+            }
+
             IQueryable<AppealToEmployee> query = _context.appeal_to_employee_20ts24tu
                 .Include(x => x.status_)
-                .Include(x => x.user_).ThenInclude(y=>y.person_)
-                .Include(x => x.user_).ThenInclude(y=>y.user_type_);
+                .Include(x => x.user_).ThenInclude(y => y.person_)
+                .Include(x => x.user_).ThenInclude(y => y.user_type_);
+
+            if (start_time != null && end_time != null)
+            {
+                query = query.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+            }
 
             if (pageNum != 0)
             {
@@ -208,16 +243,33 @@ public class AppealToEmployeeSqlRepository : IAppealToEmployeeRepository
 
 
     #region AppealToEmployeeTranslation CRUD
-    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslation(int queryNum, int pageNum, string language_code)
+    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslation(int queryNum, int pageNum, string language_code, DateTime? start_time, DateTime? end_time)
     {
         try
         {
+            if (start_time.HasValue)
+            {
+                var time = start_time.Value.ToUniversalTime();
+                start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
+            }
+
+            if (end_time.HasValue)
+            {
+                var time = end_time.Value.ToUniversalTime();
+                end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
+            }
+
             IQueryable<AppealToEmployeeTranslation> query = _context.appeal_to_employee_translation_20ts24tu
                 .Where(x => language_code == null || x.language_.code.Equals(language_code))
                 .Where(x => x.user_id == SessionClass.id)
                 .Where(x => x.status_.status != "Deleted")
                 .Include(x => x.status_)
                 .Include(x => x.language_);
+
+            if (start_time != null && end_time != null)
+            {
+                query = query.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+            }
 
             if (pageNum != 0)
             {
@@ -234,16 +286,33 @@ public class AppealToEmployeeSqlRepository : IAppealToEmployeeRepository
         }
     }
 
-    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslationAdmin(int queryNum, int pageNum, string language_code)
+    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslationAdmin(int queryNum, int pageNum, string language_code, DateTime? start_time, DateTime? end_time)
     {
         try
         {
+            if (start_time.HasValue)
+            {
+                var time = start_time.Value.ToUniversalTime();
+                start_time = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind.Utc);
+            }
+
+            if (end_time.HasValue)
+            {
+                var time = end_time.Value.ToUniversalTime();
+                end_time = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59, DateTimeKind.Utc);
+            }
+
             IQueryable<AppealToEmployeeTranslation> query = _context.appeal_to_employee_translation_20ts24tu
                 .Where(x => language_code == null || x.language_.code.Equals(language_code))
                 .Include(x => x.status_)
                 .Include(x => x.user_).ThenInclude(y => y.person_)
                 .Include(x => x.user_).ThenInclude(y => y.user_type_)
                 .Include(x => x.language_);
+
+            if (start_time != null && end_time != null)
+            {
+                query = query.Where(x => x.created_at >= start_time && x.created_at <= end_time);
+            }
 
             if (pageNum != 0)
             {
@@ -415,5 +484,5 @@ public class AppealToEmployeeSqlRepository : IAppealToEmployeeRepository
             _logger.LogError($"Error" + ex.Message); return false;
         }
     }
-            
+
 }

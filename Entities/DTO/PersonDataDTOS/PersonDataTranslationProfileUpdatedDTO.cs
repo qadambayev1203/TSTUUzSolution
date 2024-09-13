@@ -1,12 +1,10 @@
 ﻿using Entities.DTO.PersonDTOS;
-using Microsoft.AspNetCore.Http;
 
 namespace Entities.DTO.PersonDataDTOS;
 
-public class PersonDataUpdatedDTO
+public class PersonDataTranslationProfileUpdatedDTO
 {
-    public IFormFile? img_up { get; set; }
-    public PersonUpdatedDataDTO? persons_ { get; set; }
+    public PersonTranslationRectorUpdatedDataDTO? persons_translation_ { get; set; }
     public string? biography_json { get; set; }
     public DateTime? birthday { get; set; }
     public string? degree { get; set; }
@@ -22,11 +20,6 @@ public class PersonDataUpdatedDTO
     public int? languages_ru { get; set; }
     public string? languages_any_title { get; set; }
     public int? languages_any { get; set; }
-    public int? status_id { get; set; }
-
-
-    // USER
-
-    public string? login { get; set; }
-    public string? password { get; set; }
+    public int? language_id { get; set; }
+    public int? status_translation_id { get; set; }
 }

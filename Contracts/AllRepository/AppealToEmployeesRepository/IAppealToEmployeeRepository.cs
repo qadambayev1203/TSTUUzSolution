@@ -5,10 +5,10 @@ namespace Contracts.AllRepository.AppealToEmployeesRepository;
 public interface IAppealToEmployeeRepository
 {
     //AppealToEmployee CRUD
-    public IEnumerable<AppealToEmployee> AllAppealToEmployee(int queryNum, int pageNum);
+    public IEnumerable<AppealToEmployee> AllAppealToEmployee(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time);
     public AppealToEmployee GetAppealToEmployeeById(int id);
 
-    public IEnumerable<AppealToEmployee> AllAppealToEmployeeAdmin(int queryNum, int pageNum);
+    public IEnumerable<AppealToEmployee> AllAppealToEmployeeAdmin(int queryNum, int pageNum, DateTime? start_time, DateTime? end_time);
     public AppealToEmployee GetAppealToEmployeeByIdAdmin(int id);
 
     public int CreateAppealToEmployee(AppealToEmployee appealToEmployee, int person_id);
@@ -18,10 +18,10 @@ public interface IAppealToEmployeeRepository
 
 
     //AppealToEmployeeTranslation CRUD
-    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslation(int queryNum, int pageNum, string language_code);
+    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslation(int queryNum, int pageNum, string language_code, DateTime? start_time, DateTime? end_time);
     public AppealToEmployeeTranslation GetAppealToEmployeeTranslationById(int id);
 
-    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslationAdmin(int queryNum, int pageNum, string language_code);
+    public IEnumerable<AppealToEmployeeTranslation> AllAppealToEmployeeTranslationAdmin(int queryNum, int pageNum, string language_code, DateTime? start_time, DateTime? end_time);
     public AppealToEmployeeTranslation GetAppealToEmployeeTranslationByIdAdmin(int id);
 
     public int CreateAppealToEmployeeTranslation(AppealToEmployeeTranslation appealToEmployeeTranslation, int person_id);

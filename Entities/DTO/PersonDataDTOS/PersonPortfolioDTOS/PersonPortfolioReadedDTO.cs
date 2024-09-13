@@ -6,7 +6,7 @@ namespace Entities.DTO.PersonDataDTOS.PersonPortfolioDTOS;
 public class PersonPortfolioReadedDTO
 {
     public int id { get; set; }
-    [MaxLength(500)] public string? title { get; set; }
+    public string? title { get; set; }
     public string? description { get; set; }
     public string? text { get; set; }
     public StatusConfReadedDTO? status_ { get; set; }

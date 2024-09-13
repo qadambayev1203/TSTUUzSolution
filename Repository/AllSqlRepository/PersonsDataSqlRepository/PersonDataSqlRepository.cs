@@ -7,6 +7,7 @@ using Contracts.AllRepository.PersonsDataRepository;
 using Entities.Model;
 using Entities.Model.AnyClasses;
 using Microsoft.Extensions.DependencyInjection;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository;
 
@@ -322,7 +323,7 @@ public class PersonDataSqlRepository : IPersonDataRepository
     {
         try
         {
-            var personData = GetPersonDataById(id);
+            var personData = GetPersonDataById(id, false);
             if (personData == null)
             {
                 return false;
@@ -366,20 +367,37 @@ public class PersonDataSqlRepository : IPersonDataRepository
             return null;
         }
     }
-    public PersonData GetPersonDataById(int id)
+    public PersonData GetPersonDataById(int id, bool profile)
     {
         try
         {
-            var personData = _context.persons_data_20ts24tu.Include(x => x.persons_).ThenInclude(y => y.img_).Include(x => x.persons_).ThenInclude(y => y.departament_)
+            IQueryable<PersonData> query = _context.persons_data_20ts24tu
+                    .Include(x => x.persons_).ThenInclude(y => y.img_)
+                    .Include(x => x.persons_).ThenInclude(y => y.departament_)
                     .Include(x => x.persons_).ThenInclude(y => y.gender_)
                     .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
-                    .Include(x => x.status_).FirstOrDefault(x => x.id.Equals(id));
-            return personData;
+                    .Include(x => x.status_);
+
+            if (profile)
+            {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+
+                if (user == null) return new PersonData();
+
+                query = query.Where(x => x.persons_id.Equals(user.person_id));
+
+            }
+            else
+            {
+                query = query.Where(x => x.id.Equals(id));
+            }
+
+            return query.FirstOrDefault() ?? new PersonData();
         }
         catch (Exception ex)
         {
             _logger.LogError("Error " + ex.Message);
-            return null;
+            return new PersonData();
         }
     }
 
@@ -419,18 +437,75 @@ public class PersonDataSqlRepository : IPersonDataRepository
         }
     }
 
-    public bool UpdatePersonData(int id, PersonData personData, User user)
+    public bool UpdatePersonData(int id, PersonData personData, User user, bool profile)
     {
         try
         {
-            var dbcheck = GetPersonDataById(id);
-            if (dbcheck is null) return false;
-
             if (personData.birthday != null)
             {
                 DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(personData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
                 personData.birthday = utcDateTime;
             }
+
+            PersonData dbcheck;
+
+            if (profile)
+            {
+                dbcheck = GetPersonDataById(id, true);
+                if (dbcheck is null) return false;
+            }
+
+            else
+            {
+                dbcheck = GetPersonDataById(id, false);
+                if (dbcheck is null) return false;
+
+                dbcheck.persons_.departament_id = personData.persons_.departament_id;
+                dbcheck.persons_.employee_type_id = personData.persons_.employee_type_id;
+                var userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
+                string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
+                if (user != null)
+                {
+
+                    if (userDB != null)
+                    {
+                        userDB.updated_at = DateTime.UtcNow;
+                        userDB.email = personData.persons_.email;
+                        userDB.login = user.login.Trim();
+                        userDB.password = user.password.Trim();
+                        userDB.active = true;
+                        userDB.removed = false;
+                        userDB.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id;
+                    }
+                    else
+                    {
+                        int num = personData.persons_.id + 2024;
+                        string login = $"{personData.persons_.firstName.Trim()}{num}@tstu";
+                        string password = PasswordManager.EncryptPassword(login + personData.persons_.firstName.Trim() + num);
+                        user = new User
+                        {
+                            login = login,
+                            password = password,
+                            user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id,
+                            person_id = personData.persons_id,
+                            status_id = personData.status_id,
+                            created_at = DateTime.UtcNow,
+                            active = true,
+                            removed = false,
+                            email = personData.persons_.email
+                        };
+                        _context.users_20ts24tu.Add(user);
+                    }
+                }
+                else
+                {
+                    userDB.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id;
+                    _context.users_20ts24tu.Update(userDB);
+                    _context.SaveChanges();
+                }
+
+            }
+
 
 
             dbcheck.persons_.firstName = personData.persons_.firstName;
@@ -441,10 +516,9 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.persons_.pinfl = personData.persons_.pinfl;
             dbcheck.persons_.passport_text = personData.persons_.passport_text;
             dbcheck.persons_.passport_number = personData.persons_.passport_number;
-            dbcheck.persons_.status_id = personData.persons_.status_id;
+            dbcheck.persons_.status_id = personData.status_id;
             if (personData.persons_.img_ != null) dbcheck.persons_.img_ = personData.persons_.img_;
-            dbcheck.persons_.departament_id = personData.persons_.departament_id;
-            dbcheck.persons_.employee_type_id = personData.persons_.employee_type_id;
+
 
             dbcheck.biography_json = personData.biography_json;
             dbcheck.birthday = personData.birthday;
@@ -463,47 +537,7 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.languages_any = personData.languages_any;
             dbcheck.status_id = personData.status_id;
 
-            var userDB = _context.users_20ts24tu.FirstOrDefault(x => x.person_id == dbcheck.persons_id);
-            string emp = _context.employee_types_20ts24tu.FirstOrDefault(x => x.id == personData.persons_.employee_type_id).title;
-            if (user != null)
-            {
 
-                if (userDB != null)
-                {
-                    userDB.updated_at = DateTime.UtcNow;
-                    userDB.email = personData.persons_.email;
-                    userDB.login = user.login.Trim();
-                    userDB.password = user.password.Trim();
-                    userDB.active = true;
-                    userDB.removed = false;
-                    userDB.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id;
-                }
-                else
-                {
-                    int num = personData.persons_.id + 2024;
-                    string login = $"{personData.persons_.firstName.Trim()}{num}@tstu";
-                    string password = PasswordManager.EncryptPassword(login + personData.persons_.firstName.Trim() + num);
-                    user = new User
-                    {
-                        login = login,
-                        password = password,
-                        user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id,
-                        person_id = personData.persons_id,
-                        status_id = personData.status_id,
-                        created_at = DateTime.UtcNow,
-                        active = true,
-                        removed = false,
-                        email = personData.persons_.email
-                    };
-                    _context.users_20ts24tu.Add(user);
-                }
-            }
-            else
-            {
-                userDB.user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id;
-                _context.users_20ts24tu.Update(userDB);
-                _context.SaveChanges();
-            }
 
             _logger.LogInformation($"Updated {JsonConvert.SerializeObject(dbcheck)}");
             return true;
@@ -860,7 +894,7 @@ public class PersonDataSqlRepository : IPersonDataRepository
     {
         try
         {
-            var personDataTranslation = GetPersonDataTranslationById(id);
+            var personDataTranslation = GetPersonDataTranslationById(id, false, "");
             if (personDataTranslation == null)
             {
                 return false;
@@ -901,24 +935,39 @@ public class PersonDataSqlRepository : IPersonDataRepository
             return null;
         }
     }
-    public PersonDataTranslation GetPersonDataTranslationById(int id)
+    public PersonDataTranslation GetPersonDataTranslationById(int id, bool profile, string language_code)
     {
         try
         {
-            var personDataTranslation = _context.persons_data_translations_20ts24tu
-                .Include(x => x.status_translation_)
+            IQueryable<PersonDataTranslation> query = _context.persons_data_translations_20ts24tu
+                    .Include(x => x.status_translation_)
                     .Include(x => x.language_)
-                    .Include(x => x.persons_data_).Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_).ThenInclude(z => z.employee_)
+                    .Include(x => x.persons_data_)
+                    .Include(x => x.persons_translation_).ThenInclude(y => y.employee_type_translation_).ThenInclude(z => z.employee_)
                     .Include(x => x.persons_translation_).ThenInclude(y => y.departament_translation_)
                     .Include(x => x.persons_translation_).ThenInclude(y => y.gender_)
-                    .Include(x => x.persons_translation_).ThenInclude(y => y.persons_).ThenInclude(x => x.img_)
-                                    .FirstOrDefault(x => x.id.Equals(id));
-            return personDataTranslation;
+                    .Include(x => x.persons_translation_).ThenInclude(y => y.persons_).ThenInclude(x => x.img_);
+
+
+            if (profile)
+            {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                if (user == null) return new PersonDataTranslation();
+                query = query.Where(x => x.persons_data_.persons_id.Equals(user.person_id) && x.language_.code.Equals(language_code));
+
+            }
+            else
+            {
+                query = query.Where(x => x.id.Equals(id));
+            }
+
+
+            return query.FirstOrDefault() ?? new PersonDataTranslation();
         }
         catch (Exception ex)
         {
             _logger.LogError("Error " + ex.Message);
-            return null;
+            return new PersonDataTranslation();
         }
     }
 
@@ -1012,17 +1061,11 @@ public class PersonDataSqlRepository : IPersonDataRepository
         }
     }
 
-    public bool UpdatePersonDataTranslation(int id, PersonDataTranslation personData)
+    public bool UpdatePersonDataTranslation(int id, PersonDataTranslation personData, bool profile, string language_code)
     {
 
         try
         {
-            var dbcheck = GetPersonDataTranslationById(id);
-            if (dbcheck is null)
-            {
-                return false;
-            }
-
             DateTime localDateTime = DateTime.Parse(personData.birthday.ToString());
             localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
             DateTime utcDateTime = localDateTime.ToUniversalTime();
@@ -1030,23 +1073,36 @@ public class PersonDataSqlRepository : IPersonDataRepository
             personData.birthday = utcDateTime;
             personData.persons_translation_.language_id = personData.language_id;
 
-            PersonData per_id_Obj = _context.persons_data_20ts24tu
-             .Where(x => x.id == personData.persons_data_id).Select(x => new PersonData { persons_id = x.persons_id }).FirstOrDefault();
-            personData.persons_translation_.persons_id = per_id_Obj.persons_id;
+            PersonDataTranslation dbcheck;
 
+            if (profile)
+            {
+                dbcheck = GetPersonDataTranslationById(id, true, language_code);
+                if (dbcheck is null) return false;
+            }
+            else
+            {
+                dbcheck = GetPersonDataTranslationById(id, false, "");
+                if (dbcheck is null) return false;
 
+                PersonData per_id_Obj = _context.persons_data_20ts24tu
+                     .Where(x => x.id == personData.persons_data_id)
+                     .Select(x => new PersonData { persons_id = x.persons_id }).FirstOrDefault();
+
+                personData.persons_translation_.persons_id = per_id_Obj.persons_id;
+                dbcheck.persons_translation_.departament_translation_id = personData.persons_translation_.departament_translation_id;
+                dbcheck.persons_translation_.employee_type_translation_id = personData.persons_translation_.employee_type_translation_id;
+                dbcheck.persons_data_id = personData.persons_data_id;
+
+            }
 
             dbcheck.persons_translation_.firstName = personData.persons_translation_.firstName;
             dbcheck.persons_translation_.lastName = personData.persons_translation_.lastName;
             dbcheck.persons_translation_.fathers_name = personData.persons_translation_.fathers_name;
             dbcheck.persons_translation_.gender_id = personData.persons_translation_.gender_id;
-            dbcheck.persons_translation_.persons_id = personData.persons_translation_.persons_id;
-            dbcheck.persons_translation_.language_id = personData.persons_translation_.language_id;
-            dbcheck.persons_translation_.status_translation_id = personData.persons_translation_.status_translation_id;
-            dbcheck.persons_translation_.departament_translation_id = personData.persons_translation_.departament_translation_id;
-            dbcheck.persons_translation_.employee_type_translation_id = personData.persons_translation_.employee_type_translation_id;
+            dbcheck.persons_translation_.language_id = personData.language_id;
+            dbcheck.persons_translation_.status_translation_id = personData.status_translation_id;
 
-            dbcheck.persons_data_id = personData.persons_data_id;
             dbcheck.biography_json = personData.biography_json;
             dbcheck.birthday = personData.birthday;
             dbcheck.degree = personData.degree;

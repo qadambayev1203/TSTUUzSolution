@@ -94,6 +94,7 @@ using Entities.DTO.PersonDataDTOS.PersonPortfolioDTOS;
 using Entities.Model.PersonDataModel.PersonPortfolioModel;
 using Entities.DTO.PersonDataDTOS.PersonExperienceDTOS;
 using Entities.Model.PersonDataModel.PersonExperienceModel;
+using Entities.DTO.RectorGivenDTOS;
 
 namespace TSTUWebAPI.Profiles;
 
@@ -154,12 +155,14 @@ public class MappingProfile : Profile
         CreateMap<PersonCreatedDataDTO, Person>();
         CreateMap<PersonUpdatedDTO, Person>();
         CreateMap<PersonUpdatedDataDTO, Person>();
+        CreateMap<PersonRectorUpdatedDataDTO, Person>();
         CreateMap<Person, PersonReadedDTO>();
         CreateMap<Person, PersonUserDTO>();
         CreateMap<Person, PersonReadedSiteDTO>();
         CreateMap<Person, PersonConfReadedDTO>();
         CreateMap<Person, PersonReadedConfigurDTO>();
         CreateMap<Person, PesonConfDTO>();
+        CreateMap<Person, PersonRectorConfReadedDTO>();
         CreateMap<Person, PesonSiteConfDTO>();
         CreateMap<Person, PersonUserReadedDTO>();
         CreateMap<PersonUserProfilUpdatedDTO, Person>();
@@ -169,9 +172,11 @@ public class MappingProfile : Profile
         CreateMap<PersonTranslationCreatedDataDTO, PersonTranslation>();
         CreateMap<PersonTranslationUpdatedDTO, PersonTranslation>();
         CreateMap<PersonTranslationUpdatedDataDTO, PersonTranslation>();
+        CreateMap<PersonTranslationRectorUpdatedDataDTO, PersonTranslation>();
         CreateMap<PersonTranslation, PersonTranslationReadedDTO>();
         CreateMap<PersonTranslation, PersonTranslationReadedSiteDTO>();
         CreateMap<PersonTranslation, PesonTranslationSiteConfDTO>();
+        CreateMap<PersonTranslation, PesonTranslationRectorSiteConfDTO>();
 
 
         #endregion
@@ -179,6 +184,7 @@ public class MappingProfile : Profile
         #region PersonData DTOS
         CreateMap<PersonDataCreatedDTO, PersonData>();
         CreateMap<PersonDataUpdatedDTO, PersonData>();
+        CreateMap<PersonDataProfileUpdatedDTO, PersonData>();
         CreateMap<PersonData, PersonDataReadedEmployeeTypeDTO>();
         CreateMap<PersonData, PersonDataReadedEmployeeTypeSiteDTO>();
         CreateMap<PersonData, PersonDataReadedDTO>();
@@ -188,6 +194,7 @@ public class MappingProfile : Profile
 
         CreateMap<PersonDataTranslationCreatedDTO, PersonDataTranslation>();
         CreateMap<PersonDataTranslationUpdatedDTO, PersonDataTranslation>();
+        CreateMap<PersonDataTranslationProfileUpdatedDTO, PersonDataTranslation>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeSiteDTO>();
@@ -713,6 +720,22 @@ public class MappingProfile : Profile
         CreateMap<DocumentTeacher110SetCreatedDTO, DocumentTeacher110Set>();
         CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetReadedDTO>>();
         CreateMap<DocumentTeacher110SetList, DocumentTeacher110SetListReadedDTO<DocumentTeacher110SetAdminReadedDTO>>();
+        #endregion
+
+        #region RectorGiven DTOS
+
+        //Departament
+        CreateMap<Departament, DocumentTeacher110Set>();
+        CreateMap<RectorGivenUpdateDTO, Departament>();
+        CreateMap<DepartamentTranslation, DocumentTeacher110Set>();
+        CreateMap<RectorGivenTranslationUpdateDTO, DepartamentTranslation>();
+
+        //PersonData
+        CreateMap<PersonData, RectorDataGetDTO>();
+        CreateMap<RectorDataUpdateDTO, PersonData>();
+        CreateMap<PersonDataTranslation, RectorDataTranslationReadedDTO>();
+        CreateMap<RectorDataTranslationUpdatedDTO, PersonDataTranslation>();
+
         #endregion
 
     }
