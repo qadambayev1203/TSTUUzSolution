@@ -6,6 +6,7 @@ namespace Entities.DTO.BlogsDTOS;
 public class BlogTranslationSearchDTO
 {
     public int id { get; set; }
+    public int? blog_id { get; set; }
     public string? title_short { get; set; }
     public string? title { get; set; }
     public string? description { get; set; }
