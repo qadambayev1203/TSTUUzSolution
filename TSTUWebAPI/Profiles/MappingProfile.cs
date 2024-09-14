@@ -735,9 +735,9 @@ public class MappingProfile : Profile
         #region RectorGiven DTOS
 
         //Departament
-        CreateMap<Departament, DocumentTeacher110Set>();
+        CreateMap<Departament, RectorGivenGetDTO>();
         CreateMap<RectorGivenUpdateDTO, Departament>();
-        CreateMap<DepartamentTranslation, DocumentTeacher110Set>();
+        CreateMap<DepartamentTranslation, RectorGivenTranslationGetDTO>();
         CreateMap<RectorGivenTranslationUpdateDTO, DepartamentTranslation>();
 
         //PersonData
