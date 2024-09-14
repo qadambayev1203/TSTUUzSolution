@@ -92,6 +92,8 @@ using Repository.AllSqlRepository.PersonsDataSqlRepository.PersonExperienceSqlRe
 using TSTUWebAPI.Services;
 using Contracts.AllRepository.RectorGivensUpdatedRepository;
 using Repository.AllSqlRepository.RectorGivensSqlUpdatedRepository;
+using Contracts.AllRepository.SearchRepository;
+using Repository.AllSqlRepository.SearchSqlRepositorys;
 
 #endregion
 
@@ -176,6 +178,9 @@ try
 
     //Gender AND GenderTranslation
     builder.Services.AddScoped<IGenderRepository, GenderSqlRepository>();
+    
+    //Search
+    builder.Services.AddScoped<ISearchRepository, SearchSqlRepository>();
 
     //File AND FileTranslation
     builder.Services.AddScoped<IFileRepository, FileSqlRepository>();

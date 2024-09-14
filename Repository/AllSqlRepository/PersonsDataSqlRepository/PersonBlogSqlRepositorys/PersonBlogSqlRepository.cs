@@ -267,7 +267,7 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
         try
         {
             IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
-                .Where(x => x.person_blog_.Equals(uz_id))
+                .Where(x => x.person_blog_id.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
                 .Include(x => x.language_).Include(x => x.status_);
 

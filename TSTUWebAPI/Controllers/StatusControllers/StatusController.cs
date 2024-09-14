@@ -10,7 +10,7 @@ namespace TSTUWebAPI.Controllers.StatusControllers;
 
 [Route("api/status")]
 [ApiController]
-[Authorize(Roles = "Admin")]
+[Authorize]
 
 public class StatusController : ControllerBase
 {
@@ -26,7 +26,7 @@ public class StatusController : ControllerBase
 
     // Status CRUD
 
-
+    [Authorize(Roles = "Admin")]
     [HttpPost("createstatus")]
     public IActionResult CreateStatus(StatusCreatedDTO status1)
     {
@@ -50,6 +50,7 @@ public class StatusController : ControllerBase
         return Ok(createdItemId);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("getallstatus")]
     public IActionResult GetAllStatus(int queryNum, int pageNum)
     {
@@ -60,6 +61,7 @@ public class StatusController : ControllerBase
         return Ok(statuses);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("getbyidstatus/{id}")]
     public IActionResult GetByIdStatus(int id)
     {
@@ -96,6 +98,7 @@ public class StatusController : ControllerBase
         return Ok(status);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("deletestatus/{id}")]
     public IActionResult DeleteStatus(int id)
     {
@@ -112,6 +115,7 @@ public class StatusController : ControllerBase
         return Ok("Deleted");
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("updatestatus/{id}")]
     public IActionResult UpdateStatus(StatusUpdatedDTO status1, int id)
     {
@@ -152,6 +156,7 @@ public class StatusController : ControllerBase
 
     //StatusTranslation CRUD
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("createstatustranslation")]
     public IActionResult CreateStatusTranslation(StatusTranslationCreatedDTO statustranslation1)
     {
@@ -171,6 +176,7 @@ public class StatusController : ControllerBase
         return Ok(createdItemId);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("getallstatustranslation")]
     public IActionResult GetAllStatusTranslation(int queryNum, int pageNum, string? language_code)
     {
@@ -181,6 +187,7 @@ public class StatusController : ControllerBase
         return Ok(statustranslationes);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("getbyiduzstatustranslation/{uz_id}")]
     public IActionResult GetByIdStatusTranslation(int uz_id, string language_code)
     {
@@ -191,6 +198,7 @@ public class StatusController : ControllerBase
         return Ok(statustranslation);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpGet("getbyiduzstatustranslationsite/{uz_id}")]
     public IActionResult GetByIdStatusTranslationSite(int uz_id, string language_code)
     {
@@ -201,6 +209,7 @@ public class StatusController : ControllerBase
         return Ok(statustranslation);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet("getbyidstatustranslation/{id}")]
     public IActionResult GetByIdStatusTranslation(int id)
     {
@@ -237,6 +246,7 @@ public class StatusController : ControllerBase
         return Ok(statustranslation);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete("deletestatustranslation/{id}")]
     public IActionResult DeleteStatusTranslation(int id)
     {
@@ -253,6 +263,7 @@ public class StatusController : ControllerBase
         return Ok("Deleted");
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("updatestatustranslation/{id}")]
     public IActionResult UpdateStatusTranslation(StatusTranslationUpdatedDTO statustranslation1, int id)
     {

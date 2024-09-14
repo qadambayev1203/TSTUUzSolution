@@ -267,7 +267,7 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
         try
         {
             IQueryable<PersonPortfolioTranslation> query = _context.person_portfolio_translation_20ts24tu
-                .Where(x => x.person_portfolio_.Equals(uz_id))
+                .Where(x => x.person_portfolio_id.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
                 .Include(x => x.language_).Include(x => x.status_);
 

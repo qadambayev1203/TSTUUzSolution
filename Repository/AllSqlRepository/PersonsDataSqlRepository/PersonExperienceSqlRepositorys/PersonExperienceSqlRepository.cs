@@ -267,7 +267,7 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         try
         {
             IQueryable<PersonExperienceTranslation> query = _context.person_experience_translation_20ts24tu
-                .Where(x => x.person_experience_.Equals(uz_id))
+                .Where(x => x.person_experience_id.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
                 .Include(x => x.language_).Include(x => x.status_);
 

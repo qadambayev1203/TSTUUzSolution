@@ -158,6 +158,7 @@ public class MappingProfile : Profile
         CreateMap<PersonRectorUpdatedDataDTO, Person>();
         CreateMap<Person, PersonReadedDTO>();
         CreateMap<Person, PersonUserDTO>();
+        CreateMap<Person, PersonfioDTO>();
         CreateMap<Person, PersonReadedSiteDTO>();
         CreateMap<Person, PersonConfReadedDTO>();
         CreateMap<Person, PersonReadedConfigurDTO>();
@@ -173,6 +174,7 @@ public class MappingProfile : Profile
         CreateMap<PersonTranslationUpdatedDTO, PersonTranslation>();
         CreateMap<PersonTranslationUpdatedDataDTO, PersonTranslation>();
         CreateMap<PersonTranslationRectorUpdatedDataDTO, PersonTranslation>();
+        CreateMap<PersonTranslation, PersonfioTranslationDTO>();
         CreateMap<PersonTranslation, PersonTranslationReadedDTO>();
         CreateMap<PersonTranslation, PersonTranslationReadedSiteDTO>();
         CreateMap<PersonTranslation, PesonTranslationSiteConfDTO>();
@@ -186,6 +188,7 @@ public class MappingProfile : Profile
         CreateMap<PersonDataUpdatedDTO, PersonData>();
         CreateMap<PersonDataProfileUpdatedDTO, PersonData>();
         CreateMap<PersonData, PersonDataReadedEmployeeTypeDTO>();
+        CreateMap<PersonData, PersonDataSearchDTO>();
         CreateMap<PersonData, PersonDataReadedEmployeeTypeSiteDTO>();
         CreateMap<PersonData, PersonDataReadedDTO>();
         CreateMap<PersonData, PersonDataReadedSiteDTO>();
@@ -195,6 +198,7 @@ public class MappingProfile : Profile
         CreateMap<PersonDataTranslationCreatedDTO, PersonDataTranslation>();
         CreateMap<PersonDataTranslationUpdatedDTO, PersonDataTranslation>();
         CreateMap<PersonDataTranslationProfileUpdatedDTO, PersonDataTranslation>();
+        CreateMap<PersonDataTranslation, PersonDataTranslationSearchDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeDTO>();
         CreateMap<PersonDataTranslation, PersonDataTranslationReadedEmployeeTypeSiteDTO>();
@@ -339,6 +343,7 @@ public class MappingProfile : Profile
         CreateMap<Departament, DepartamentReadedDTO>();
         CreateMap<Departament, DepartamentSelectedReadedDTO>();
         CreateMap<Departament, DepartamentReadedTypedDTO>();
+        CreateMap<Departament, DepartamentSearchDTO>();
         CreateMap<Departament, DepartamentReadedSiteDTO>();
         CreateMap<Departament, DepartamentChildReadedSiteDTO>();
         CreateMap<Departament, DepartamentConfReadedDTO>();
@@ -348,6 +353,7 @@ public class MappingProfile : Profile
 
         CreateMap<DepartamentTranslationCreatedDTO, DepartamentTranslation>();
         CreateMap<DepartamentTranslationUpdatedDTO, DepartamentTranslation>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationSearchDTO>();
         CreateMap<DepartamentTranslation, DepartamentTranslationReadedDTO>();
         CreateMap<DepartamentTranslation, DepartamentTranslationSelectedReadedDTO>();
         CreateMap<DepartamentTranslation, DepartamentTranslationReadedTypedDTO>();
@@ -380,6 +386,7 @@ public class MappingProfile : Profile
         #region Page DTOS
         CreateMap<PageCreatedDTO, Pages>();
         CreateMap<PageUpdatedDTO, Pages>();
+        CreateMap<Pages, PageSearchDTO>();
         CreateMap<Pages, PageReadedDTO>();
         CreateMap<Pages, PageReadedSelectDTO>();
         CreateMap<Pages, PageReadedSiteDTO>();
@@ -388,6 +395,7 @@ public class MappingProfile : Profile
 
         CreateMap<PageTranslationCreatedDTO, PageTranslation>();
         CreateMap<PageTranslationUpdatedDTO, PageTranslation>();
+        CreateMap<PageTranslation, PageTranslationSearchDTO>();
         CreateMap<PageTranslation, PageTranslationConfReadedDTO>();
         CreateMap<PageTranslation, PageTranslationReadedDTO>();
         CreateMap<PageTranslation, PageTranslationReadedSelectDTO>();
@@ -473,6 +481,7 @@ public class MappingProfile : Profile
         CreateMap<BlogUpdatedDTO, Blog>();
         CreateMap<BlogUpdatedModeratorDTO, Blog>();
         CreateMap<Blog, BlogReadedDTO>();
+        CreateMap<Blog, BlogSearchDTO>();
         CreateMap<Blog, BlogReadedSelectDTO>();
         CreateMap<Blog, BlogReadedSiteDTO>();
         CreateMap<Blog, BlogConfRededDTO>();
@@ -482,6 +491,7 @@ public class MappingProfile : Profile
         CreateMap<BlogTranslationUpdatedDTO, BlogTranslation>();
         CreateMap<BlogTranslationUpdatedModeratorDTO, BlogTranslation>();
         CreateMap<BlogTranslation, BlogTranslationReadedDTO>();
+        CreateMap<BlogTranslation, BlogTranslationSearchDTO>();
         CreateMap<BlogTranslation, BlogTranslationReadedSelectDTO>();
         CreateMap<BlogTranslation, BlogTranslationReadedSiteDTO>();
 
