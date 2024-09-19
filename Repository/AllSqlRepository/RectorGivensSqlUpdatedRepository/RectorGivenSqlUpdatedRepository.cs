@@ -22,138 +22,38 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
         _logger = logger;
     }
 
-
-    //RectorGiven CRUD
-    public Departament GetRectorGiven()
+    public List<PersonData> GetRectoratData()
     {
         try
         {
-            int rectorat_id = 1;
-            var departament = _context.departament_20ts24tu
-                .Where(x => x.status_.status != "Deleted")
-                .Include(x => x.img_)
-                .Include(x => x.img_icon_)
-                .FirstOrDefault(x => x.id.Equals(rectorat_id));
-
-            return departament ?? new Departament();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Error" + ex.Message);
-            return new Departament();
-        }
-    }
-    public bool UpdateRectorGiven(Departament departament)
-    {
-        try
-        {
-            var dbcheck = GetRectorGiven();
-            if (dbcheck is null)
-            {
-                return false;
-            }
-            dbcheck.title_short = departament.title_short;
-            dbcheck.title = departament.title;
-            dbcheck.description = departament.description;
-            dbcheck.text = departament.text;
-            dbcheck.updated_at = DateTime.UtcNow;
-            if (departament.img_ != null)
-            {
-                dbcheck.img_ = departament.img_;
-            }
-            if (departament.img_icon_ != null)
-            {
-                dbcheck.img_icon_ = departament.img_icon_;
-            }
-
-            dbcheck.favorite = departament.favorite;
-
-            _context.SaveChanges();
-
-            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Error" + ex.Message);
-            return false;
-        }
-    }
-
-    //RectorGivenTranslation CRUD
-    public DepartamentTranslation GetRectorGivenTranslation(string language_code)
-    {
-        try
-        {
-            int rectorat_uz_id = 1;
-
-            var departamentTranslation = _context.departament_translations_20ts24tu
-                    .Where(x => x.status_translation_.status != "Deleted")
-                    .Include(x => x.language_)
-                    .Include(x => x.img_)
-                    .Include(x => x.img_icon_)
-                    .FirstOrDefault(x =>
-                            x.departament_id.Equals(rectorat_uz_id) && x.language_.code.Equals(language_code));
-
-            return departamentTranslation ?? new DepartamentTranslation();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Error" + ex.Message);
-            return new DepartamentTranslation();
-        }
-    }
-    public bool UpdateRectorGivenTranslation(DepartamentTranslation departament, string language_code)
-    {
-        try
-        {
-            var dbcheck = GetRectorGivenTranslation(language_code);
-            if (dbcheck is null)
-            {
-                return false;
-            }
-            dbcheck.title_short = departament.title_short;
-            dbcheck.title = departament.title;
-            dbcheck.description = departament.description;
-            dbcheck.text = departament.text;
-            dbcheck.language_id = departament.language_id;
-            dbcheck.updated_at = departament.updated_at;
-            if (departament.img_ != null)
-            {
-                dbcheck.img_ = departament.img_;
-            }
-            if (departament.img_icon_ != null)
-            {
-                dbcheck.img_icon_ = departament.img_icon_;
-            }
-            dbcheck.favorite = departament.favorite;
-
-            _context.SaveChanges();
-
-            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Error" + ex.Message);
-            return false;
-        }
-    }
-
-
-
-    //RectorData CRUD
-    public PersonData GetRectorData()
-    {
-        try
-        {
-            int rector_id = 1;
-
             var personData = _context.persons_data_20ts24tu
                     .Where(x => x.status_.status != "Deleted")
+                    .Where(x => x.persons_.employee_type_.title == "Rektor" ||
+                                x.persons_.employee_type_.title == "Prorektor")
                     .Include(x => x.persons_).ThenInclude(y => y.img_)
+                    .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
                     .Include(x => x.persons_).ThenInclude(y => y.gender_)
-                    .FirstOrDefault(x => x.id.Equals(rector_id));
+                    .ToList();
+            return personData ?? new List<PersonData>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new List<PersonData>();
+        }
+    }
+    public PersonData GetByIdRectoratData(int id)
+    {
+        try
+        {
+            var personData = _context.persons_data_20ts24tu
+                    .Where(x => x.status_.status != "Deleted")
+                    .Where(x => x.persons_.employee_type_.title == "Rektor" ||
+                                x.persons_.employee_type_.title == "Prorektor")
+                    .Include(x => x.persons_).ThenInclude(y => y.img_)
+                    .Include(x => x.persons_).ThenInclude(y => y.employee_type_)
+                    .Include(x => x.persons_).ThenInclude(y => y.gender_)
+                    .FirstOrDefault(x => x.id.Equals(id));
             return personData ?? new PersonData();
         }
         catch (Exception ex)
@@ -162,11 +62,11 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
             return new PersonData();
         }
     }
-    public bool UpdateRectorData(PersonData rectorData)
+    public bool UpdateRectorData(PersonData rectorData, int id)
     {
         try
         {
-            var dbcheck = GetRectorData();
+            var dbcheck = GetByIdRectoratData(id);
             if (dbcheck is null) return false;
 
             if (rectorData.birthday != null)
@@ -214,19 +114,41 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
         }
     }
 
-    //PersonDataTranslation CRUD
-    public PersonDataTranslation GetRectorDataTranslation(string language_code)
+
+    public List<PersonDataTranslation> GetRectoratDataTranslation(string language_code)
     {
         try
         {
-            int rector_uz_id = 1;
             var personDataTranslation = _context.persons_data_translations_20ts24tu
                     .Where(x => x.status_translation_.status != "Deleted")
+                    .Where(x => x.language_.code.Equals(language_code))
+                    .Where(x => x.persons_data_.persons_.employee_type_.title == "Rektor" ||
+                                x.persons_data_.persons_.employee_type_.title == "Prorektor")
+                    .Include(x => x.language_)
+                    .Include(x => x.persons_data_)
+                    .Include(x => x.persons_translation_).ThenInclude(y => y.gender_).ToList();
+
+            return personDataTranslation ?? new List<PersonDataTranslation>();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new List<PersonDataTranslation>();
+        }
+    }
+    public PersonDataTranslation GetByIdRectoratDataTranslation(int uz_id, string language_code)
+    {
+        try
+        {
+            var personDataTranslation = _context.persons_data_translations_20ts24tu
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .Where(x => x.persons_data_.persons_.employee_type_.title == "Rektor" ||
+                                x.persons_data_.persons_.employee_type_.title == "Prorektor")
                     .Include(x => x.language_)
                     .Include(x => x.persons_data_)
                     .Include(x => x.persons_translation_).ThenInclude(y => y.gender_)
                                     .FirstOrDefault(x =>
-                                        x.persons_data_id.Equals(rector_uz_id) && x.language_.code.Equals(language_code));
+                                        x.persons_data_id.Equals(uz_id) && x.language_.code.Equals(language_code));
             return personDataTranslation ?? new PersonDataTranslation();
         }
         catch (Exception ex)
@@ -235,11 +157,12 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
             return new PersonDataTranslation();
         }
     }
-    public bool UpdateRectorDataTranslation(PersonDataTranslation rectorData, string language_code)
+
+    public bool UpdateRectoratDataTranslation(PersonDataTranslation rectorData, int id)
     {
         try
         {
-            var dbcheck = GetRectorDataTranslation(language_code);
+            var dbcheck = GetByIdRectoratDataTranslationCheck(id);
             if (dbcheck is null)
             {
                 return false;
@@ -284,6 +207,27 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
         {
             _logger.LogError("Error " + ex.Message);
             return false;
+        }
+    }
+
+    public PersonDataTranslation GetByIdRectoratDataTranslationCheck(int id)
+    {
+        try
+        {
+            var personDataTranslation = _context.persons_data_translations_20ts24tu
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .Where(x => x.persons_data_.persons_.employee_type_.title == "Rektor" ||
+                                x.persons_data_.persons_.employee_type_.title == "Prorektor")
+                    .Include(x => x.language_)
+                    .Include(x => x.persons_data_)
+                    .Include(x => x.persons_translation_).ThenInclude(y => y.gender_)
+                                    .FirstOrDefault(x => x.id.Equals(id));
+            return personDataTranslation ?? new PersonDataTranslation();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonDataTranslation();
         }
     }
 }

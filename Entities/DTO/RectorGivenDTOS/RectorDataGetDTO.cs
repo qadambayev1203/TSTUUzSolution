@@ -4,6 +4,7 @@ namespace Entities.DTO.RectorGivenDTOS;
 
 public class RectorDataGetDTO
 {
+    public int id { get; set; }
     public PersonRectorConfReadedDTO? persons_ { get; set; }
     public string? biography_json { get; set; }
     public DateTime? birthday { get; set; }

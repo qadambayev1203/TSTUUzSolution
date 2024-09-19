@@ -47,7 +47,7 @@ public class SearchController : ControllerBase
         SearchList<object> queryListBlog = new SearchList<object>
         {
             length = searchBlogs.Count,
-            type = "Bloglar",
+            type = "Blogs",
             query_list = new List<object>(),
         };
         queryListBlog.query_list.AddRange(searchBlogs);
@@ -60,7 +60,7 @@ public class SearchController : ControllerBase
         SearchList<object> queryListDep = new SearchList<object>
         {
             length = searchDepartaments.Count,
-            type = "Bo'limlar",
+            type = "Departaments",
             query_list = new List<object>(),
         };
         queryListDep.query_list.AddRange(searchDepartaments);
@@ -73,7 +73,7 @@ public class SearchController : ControllerBase
         SearchList<object> queryListEmp = new SearchList<object>
         {
             length = searchEmployes.Count,
-            type = "Xodimlar",
+            type = "Employees",
             query_list = new List<object>(),
         };
         queryListEmp.query_list.AddRange(searchEmployes);
@@ -87,7 +87,7 @@ public class SearchController : ControllerBase
         SearchList<object> queryListPage = new SearchList<object>
         {
             length = searchPages.Count,
-            type = "Pagelar",
+            type = "Pages",
             query_list = new List<object>(),
         };
         queryListPage.query_list.AddRange(searchPages);

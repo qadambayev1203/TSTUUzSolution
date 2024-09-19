@@ -9,4 +9,5 @@ public class PesonTranslationRectorSiteConfDTO
     public string? lastName { get; set; }
     public string? fathers_name { get; set; }
     public GenderTranslationConfReadedDTO? gender_ { get; set; }
+
 }

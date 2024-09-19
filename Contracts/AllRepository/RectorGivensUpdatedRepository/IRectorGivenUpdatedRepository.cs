@@ -6,23 +6,15 @@ namespace Contracts.AllRepository.RectorGivensUpdatedRepository;
 
 public interface IRectorGivenUpdatedRepository
 {
-    //RectorGiven CRUD
-    public Departament GetRectorGiven();
-    public bool UpdateRectorGiven(Departament departament);
-
-    //RectorGivenTranslation CRUD
-    public DepartamentTranslation GetRectorGivenTranslation(string language_code);
-    public bool UpdateRectorGivenTranslation(DepartamentTranslation departament, string language_code);
-
-
-
     //RectorData CRUD
-    public PersonData GetRectorData();
-    public bool UpdateRectorData(PersonData rectorData);
+    public List<PersonData> GetRectoratData();
+    public PersonData GetByIdRectoratData(int id);
+    public bool UpdateRectorData(PersonData rectorData, int id);
 
     //PersonDataTranslation CRUD
-    public PersonDataTranslation GetRectorDataTranslation(string language_code);
-    public bool UpdateRectorDataTranslation(PersonDataTranslation rectorData, string language_code);
+    public List<PersonDataTranslation> GetRectoratDataTranslation(string language_code);
+    public PersonDataTranslation GetByIdRectoratDataTranslation(int uz_id, string language_code);
+    public bool UpdateRectoratDataTranslation(PersonDataTranslation rectorData, int id);
 
 
 }

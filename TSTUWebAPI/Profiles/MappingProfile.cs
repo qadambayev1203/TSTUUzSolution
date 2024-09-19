@@ -163,6 +163,7 @@ public class MappingProfile : Profile
         CreateMap<Person, PersonConfReadedDTO>();
         CreateMap<Person, PersonReadedConfigurDTO>();
         CreateMap<Person, PesonConfDTO>();
+        CreateMap<Person, PersonRectorConfReadedDTOAll>();
         CreateMap<Person, PersonRectorConfReadedDTO>();
         CreateMap<Person, PesonSiteConfDTO>();
         CreateMap<Person, PersonUserReadedDTO>();
@@ -734,13 +735,8 @@ public class MappingProfile : Profile
 
         #region RectorGiven DTOS
 
-        //Departament
-        CreateMap<Departament, RectorGivenGetDTO>();
-        CreateMap<RectorGivenUpdateDTO, Departament>();
-        CreateMap<DepartamentTranslation, RectorGivenTranslationGetDTO>();
-        CreateMap<RectorGivenTranslationUpdateDTO, DepartamentTranslation>();
-
         //PersonData
+        CreateMap<PersonData, RectorDataGetAllDTO>();
         CreateMap<PersonData, RectorDataGetDTO>();
         CreateMap<RectorDataUpdateDTO, PersonData>();
         CreateMap<PersonDataTranslation, RectorDataTranslationReadedDTO>();
