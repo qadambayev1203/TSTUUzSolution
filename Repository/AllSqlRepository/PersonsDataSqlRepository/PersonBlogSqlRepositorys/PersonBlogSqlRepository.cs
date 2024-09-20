@@ -26,7 +26,19 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
     {
         try
         {
-            IQueryable<PersonBlog> query = _context.person_blog_20ts24tu.Include(x => x.status_);
+            if (person_data_id == null || person_data_id == 0)
+            {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                var person_data_ = _context.persons_data_20ts24tu.FirstOrDefault(x => x.persons_id == user.person_id);
+                if (person_data_ != null)
+                {
+                    person_data_id = person_data_.id;
+                }
+            }
+
+            IQueryable<PersonBlog> query = _context.person_blog_20ts24tu
+                .Where(x => x.person_data_id == person_data_id)
+                .Include(x => x.status_);
 
             if (!isAdmin)
             {
@@ -207,8 +219,19 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
     {
         try
         {
+            if (person_data_id == null || person_data_id == 0)
+            {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                var person_data_ = _context.persons_data_20ts24tu.FirstOrDefault(x => x.persons_id == user.person_id);
+                if (person_data_ != null)
+                {
+                    person_data_id = person_data_.id;
+                }
+            }
+
             IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
                 .Include(x => x.language_).Include(x => x.status_)
+                .Where(x => x.person_data_.persons_data_id == person_data_id)
                 .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
 
             if (!isAdmin)

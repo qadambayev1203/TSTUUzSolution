@@ -220,21 +220,21 @@ public class PersonExperienceController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("getallpersonexperiencetranslationadmin")]
-    public IActionResult GetAllPersonExperienceTranslation(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonExperienceTranslation(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonExperienceTranslation> personExperiencesMap = _repository.AllPersonExperienceTranslation(queryNum, pageNum, person_data_id, true, language_code);
+        IEnumerable<PersonExperienceTranslation> personExperiencesMap = _repository.AllPersonExperienceTranslation(queryNum, pageNum, person_data_uz_id, true, language_code);
         var personExperiences = _mapper.Map<IEnumerable<PersonExperienceTranslationReadedDTO>>(personExperiencesMap);
         return Ok(personExperiences);
     }
 
     [HttpGet("getallpersonexperiencetranslationsite")]
-    public IActionResult GetAllPersonExperienceTranslationSite(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonExperienceTranslationSite(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonExperienceTranslation> personExperiencesMap = _repository.AllPersonExperienceTranslation(queryNum, pageNum, person_data_id, false, language_code);
+        IEnumerable<PersonExperienceTranslation> personExperiencesMap = _repository.AllPersonExperienceTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
         var personExperiences = _mapper.Map<IEnumerable<PersonExperienceTranslationReadedSiteDTO>>(personExperiencesMap);
         return Ok(personExperiences);
     }

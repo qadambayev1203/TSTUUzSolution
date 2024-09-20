@@ -221,21 +221,21 @@ public class PersonBlogController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("getallpersonblogtranslationadmin")]
-    public IActionResult GetAllPersonBlogTranslation(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonBlogTranslation(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonBlogTranslation> personBlogsMap = _repository.AllPersonBlogTranslation(queryNum, pageNum, person_data_id, true, language_code);
+        IEnumerable<PersonBlogTranslation> personBlogsMap = _repository.AllPersonBlogTranslation(queryNum, pageNum, person_data_uz_id, true, language_code);
         var personBlogs = _mapper.Map<IEnumerable<PersonBlogTranslationReadedDTO>>(personBlogsMap);
         return Ok(personBlogs);
     }
 
     [HttpGet("getallpersonblogtranslationsite")]
-    public IActionResult GetAllPersonBlogTranslationSite(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonBlogTranslationSite(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonBlogTranslation> personBlogsMap = _repository.AllPersonBlogTranslation(queryNum, pageNum, person_data_id, false, language_code);
+        IEnumerable<PersonBlogTranslation> personBlogsMap = _repository.AllPersonBlogTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
         var personBlogs = _mapper.Map<IEnumerable<PersonBlogTranslationReadedSiteDTO>>(personBlogsMap);
         return Ok(personBlogs);
     }

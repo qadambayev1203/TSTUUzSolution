@@ -220,21 +220,21 @@ public class PersonPortfolioController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("getallpersonportfoliotranslationadmin")]
-    public IActionResult GetAllPersonPortfolioTranslation(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonPortfolioTranslation(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonPortfolioTranslation> personPortfoliosMap = _repository.AllPersonPortfolioTranslation(queryNum, pageNum, person_data_id, true, language_code);
+        IEnumerable<PersonPortfolioTranslation> personPortfoliosMap = _repository.AllPersonPortfolioTranslation(queryNum, pageNum, person_data_uz_id, true, language_code);
         var personPortfolios = _mapper.Map<IEnumerable<PersonPortfolioTranslationReadedDTO>>(personPortfoliosMap);
         return Ok(personPortfolios);
     }
 
     [HttpGet("getallpersonportfoliotranslationsite")]
-    public IActionResult GetAllPersonPortfolioTranslationSite(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonPortfolioTranslationSite(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonPortfolioTranslation> personPortfoliosMap = _repository.AllPersonPortfolioTranslation(queryNum, pageNum, person_data_id, false, language_code);
+        IEnumerable<PersonPortfolioTranslation> personPortfoliosMap = _repository.AllPersonPortfolioTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
         var personPortfolios = _mapper.Map<IEnumerable<PersonPortfolioTranslationReadedSiteDTO>>(personPortfoliosMap);
         return Ok(personPortfolios);
     }

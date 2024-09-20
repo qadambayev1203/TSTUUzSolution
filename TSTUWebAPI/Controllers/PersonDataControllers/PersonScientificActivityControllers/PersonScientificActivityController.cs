@@ -191,7 +191,7 @@ public class PersonScientificActivityController : ControllerBase
 
         return Ok(createdItemId);
     }
-    
+
     [Authorize(Roles = "Admin")]
     [HttpPost("createpersonscientificactivitytranslationadmin")]
     public IActionResult CreatePersonScientificActivityTranslationAdmin(PersonScientificActivityTranslationCreatedAdminDTO scientificActivity)
@@ -216,21 +216,21 @@ public class PersonScientificActivityController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("getallpersonscientificactivitytranslationadmin")]
-    public IActionResult GetAllPersonScientificActivityTranslation(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonScientificActivityTranslation(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonScientificActivityTranslation> personScientificsMap = _repository.AllPersonScientificActivityTranslation(queryNum, pageNum, person_data_id, true, language_code);
+        IEnumerable<PersonScientificActivityTranslation> personScientificsMap = _repository.AllPersonScientificActivityTranslation(queryNum, pageNum, person_data_uz_id, true, language_code);
         var personScientifics = _mapper.Map<IEnumerable<PersonScientificActivityTranslationReadedDTO>>(personScientificsMap);
         return Ok(personScientifics);
     }
 
     [HttpGet("getallpersonscientificactivitytranslationsite")]
-    public IActionResult GetAllPersonScientificActivityTranslationSite(int queryNum, int pageNum, int person_data_id, string language_code)
+    public IActionResult GetAllPersonScientificActivityTranslationSite(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonScientificActivityTranslation> personScientificsMap = _repository.AllPersonScientificActivityTranslation(queryNum, pageNum, person_data_id, false, language_code);
+        IEnumerable<PersonScientificActivityTranslation> personScientificsMap = _repository.AllPersonScientificActivityTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
         var personScientifics = _mapper.Map<IEnumerable<PersonScientificActivityTranslationReadedSiteDTO>>(personScientificsMap);
         return Ok(personScientifics);
     }

@@ -198,7 +198,7 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
             dbcheck.languages_any = rectorData.languages_any;
             dbcheck.language_id = rectorData.language_id;
 
-
+            _context.SaveChanges();
 
             _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
             return true;
