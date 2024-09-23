@@ -1,13 +1,9 @@
 ﻿using Contracts.AllRepository.RectorGivensUpdatedRepository;
-using Entities.Model.DepartamentsModel;
 using Entities.Model.PersonDataModel;
-using Entities.Model;
 using Microsoft.EntityFrameworkCore;
 using Entities;
 using Microsoft.Extensions.Logging;
-using Repository.AllSqlRepository.DepartamentsSqlRepository;
 using Newtonsoft.Json;
-using Entities.Model.AnyClasses;
 
 namespace Repository.AllSqlRepository.RectorGivensSqlUpdatedRepository;
 
@@ -169,12 +165,9 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
             }
             if (rectorData.birthday != null)
             {
-                DateTime localDateTime = DateTime.Parse(rectorData.birthday.ToString());
-                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
-                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(rectorData.birthday.ToString()), DateTimeKind.Local).ToUniversalTime();
                 rectorData.birthday = utcDateTime;
             }
-
 
             rectorData.persons_translation_.language_id = rectorData.language_id;
 
