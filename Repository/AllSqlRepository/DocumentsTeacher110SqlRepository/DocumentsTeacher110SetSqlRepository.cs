@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Linq;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository;
 
@@ -920,6 +921,84 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
+
     #endregion
 
+
+
+
+    public double? GetTeacherDocumentScoreAllDoc(int oldYear, int newYear, int person_id, int document_id, bool teacher)
+    {
+        try
+        {
+            if (teacher)
+            {
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            double score = 0;
+
+            var DocChildList = _context.document_teacher_110_20ts24tu
+                .Where(x => x.status_.status != "Deleted" && x.parent_id == document_id)
+                .ToList();
+
+            foreach (var docChild in DocChildList)
+            {
+                score += GetTeacherDocBall(oldYear, newYear, person_id, docChild) ?? 0;
+            }
+
+            return score;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
+
+    private double? GetTeacherDocBall(int oldYear, int newYear, int person_id, DocumentTeacher110? docChild)
+    {
+        try
+        {
+            double score = 0;
+
+            if (docChild.indicator == false)
+            {
+                var docSet = _context.document_teacher_110_set_20ts24tu
+                .Where(x => x.status_.status != "Deleted" && x.document_id == docChild.id)
+                .Where(x => x.old_year == oldYear && x.new_year == newYear)
+                .Where(x => x.person_id == person_id)
+                .ToList();
+                foreach (var item in docSet) { score += item.score ?? 0; }
+            }
+            else if (docChild.indicator == true)
+            {
+                var DocChildList = _context.document_teacher_110_20ts24tu
+                    .Where(x => x.status_.status != "Deleted" && x.parent_id == docChild.id)
+                    .ToList();
+
+                foreach (var docChild1 in DocChildList)
+                {
+                    score += GetTeacherDocBall(oldYear, newYear, person_id, docChild1) ?? 0;
+                }
+            }
+
+
+            return score;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return null;
+        }
+    }
 }

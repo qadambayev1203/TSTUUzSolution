@@ -8,6 +8,9 @@ public interface IDocumentTeacher110SetRepository
     //Teacher
     public IEnumerable<DocumentTeacher110Set> AllDocumentTeacher110Set(int oldYear, int newYear);
     public double? GetTeacherDocumentScore(int oldYear, int newYear, int person_id);
+
+    public double? GetTeacherDocumentScoreAllDoc(int oldYear, int newYear, int person_id, int document_id, bool teacher);
+
     public DocumentTeacher110Set GetDocumentTeacher110SetById(int id);
     public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int oldYear, int newYear, int document_id);
     public int CreateDocumentTeacher110Set(DocumentTeacher110Set documentTeacher110Set);

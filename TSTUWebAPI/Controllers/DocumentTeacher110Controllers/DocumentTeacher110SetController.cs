@@ -426,19 +426,33 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         #region Any
 
-        //[Authorize(Roles = "Teacher,Admin,HeadDepartment,FacultyCouncil,StudyDepartment")]
-        //[HttpGet("getteacherdocumentscoreallprofile")]
-        //public IActionResult GetTeacherDocumentScoreAllProfile(int oldYear, int newYear, int person_id)
-        //{
-        //    double? score = _repository.GetTeacherDocumentScore(oldYear, newYear, person_id);
+        [Authorize(Roles = "Teacher")]
+        [HttpGet("getteacherdocumentscorealldocteacher")]
+        public IActionResult GetTeacherDocumentScoreAllDocTeacher(int oldYear, int newYear, int document_id)
+        {
+            double? score = _repository.GetTeacherDocumentScoreAllDoc(oldYear, newYear, 0, document_id, true);
 
-        //    SummScoreTeacher110doc res = new SummScoreTeacher110doc()
-        //    {
-        //        summ_score = score
-        //    };
+            SummScoreTeacher110doc res = new SummScoreTeacher110doc()
+            {
+                summ_score = score
+            };
 
-        //    return Ok(res);
-        //}
+            return Ok(res);
+        }
+
+        [Authorize(Roles = "Admin,HeadDepartment,FacultyCouncil,StudyDepartment")]
+        [HttpGet("getteacherdocumentscorealldoc")]
+        public IActionResult GetTeacherDocumentScoreAllDoc(int oldYear, int newYear, int person_id, int document_id)
+        {
+            double? score = _repository.GetTeacherDocumentScoreAllDoc(oldYear, newYear, person_id, document_id, false);
+
+            SummScoreTeacher110doc res = new SummScoreTeacher110doc()
+            {
+                summ_score = score
+            };
+
+            return Ok(res);
+        }
 
         #endregion
 
