@@ -549,7 +549,7 @@ public class PersonDataController : ControllerBase
 
     [Authorize]
     [HttpPut("updatepersondatatranslationprofile/{language_code}")]
-    public IActionResult UpdateProfilepersonDataTranslation(PersonDataTranslationUpdatedDTO dataTranslationUpdatedDTO, string language_code)
+    public IActionResult UpdateProfilepersonDataTranslation(PersonDataTranslationProfileUpdatedDTO dataTranslationUpdatedDTO, string language_code)
     {
         try
         {
@@ -561,7 +561,6 @@ public class PersonDataController : ControllerBase
             }
 
             var dbupdated = _mapper.Map<PersonDataTranslation>(personDatatranslation1);
-            dbupdated.persons_translation_.status_translation_id = dbupdated.status_translation_id;
             bool updatedcheck = _repository.UpdatePersonDataTranslation(0, dbupdated, true, language_code);
             if (!updatedcheck)
             {
