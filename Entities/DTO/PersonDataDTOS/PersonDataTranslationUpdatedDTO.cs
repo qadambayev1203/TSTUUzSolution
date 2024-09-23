@@ -5,7 +5,6 @@ namespace Entities.DTO.PersonDataDTOS;
 public class PersonDataTranslationUpdatedDTO
 {
     public PersonTranslationUpdatedDataDTO? persons_translation_ { get; set; }
-    public int? persons_data_id { get; set; }
     public string? biography_json { get; set; }
     public DateTime? birthday { get; set; }
     public string? degree { get; set; }

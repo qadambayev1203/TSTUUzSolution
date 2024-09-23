@@ -7,7 +7,6 @@ using Contracts.AllRepository.PersonsDataRepository;
 using Entities.Model;
 using Entities.Model.AnyClasses;
 using Microsoft.Extensions.DependencyInjection;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository;
 
