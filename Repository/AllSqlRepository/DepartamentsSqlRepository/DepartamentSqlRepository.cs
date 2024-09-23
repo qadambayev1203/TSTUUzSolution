@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Entities.Model.AnyClasses;
+using Entities.Model.DepartamentsTypeModel;
 
 namespace Repository.AllSqlRepository.DepartamentsSqlRepository;
 
@@ -378,6 +379,11 @@ public class DepartamentSqlRepository : IDepartamentRepository
                    id = x.id,
                    title = x.title,
                    parent_id = x.parent_id,
+                   departament_type_ = new DepartamentType
+                   {
+                       id = x.departament_type_.id,
+                       type = x.departament_type_.type,
+                   }
                })
                .ToList();
 
@@ -919,7 +925,18 @@ public class DepartamentSqlRepository : IDepartamentRepository
                    id = x.id,
                    title = x.title,
                    parent_id = x.parent_id,
-                   departament_id = x.departament_id
+                   departament_id = x.departament_id,
+                   departament_type_translation_ = new DepartamentTypeTranslation
+                   {
+                       id = x.departament_type_translation_.id,
+                       type = x.departament_type_translation_.type,
+                       departament_type_id = x.departament_type_translation_.departament_type_id,
+                       departament_type_ = new DepartamentType
+                       {
+                           id = x.departament_type_translation_.departament_type_.id,
+                           type = x.departament_type_translation_.departament_type_.type
+                       }
+                   }
                })
                .ToList();
 

@@ -22,6 +22,5 @@ public class PersonDataProfileUpdatedDTO
     public int? languages_ru { get; set; }
     public string? languages_any_title { get; set; }
     public int? languages_any { get; set; }
-    public int? status_id { get; set; }
 
 }

@@ -488,12 +488,17 @@ public class PersonDataSqlRepository : IPersonDataRepository
                             password = password,
                             user_type_id = _context.user_types_20ts24tu.FirstOrDefault(x => x.type == SessionClass.UserTypeId(emp)).id,
                             person_id = personData.persons_id,
-                            status_id = personData.status_id,
+                            status_id = dbcheck.status_id,
                             created_at = DateTime.UtcNow,
                             active = true,
                             removed = false,
                             email = personData.persons_.email
                         };
+                        if (personData.status_id != null && personData.status_id != 0)
+                        {
+                            user.status_id = personData.status_id;
+                        }
+
                         _context.users_20ts24tu.Add(user);
                     }
                 }
@@ -516,7 +521,10 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.persons_.pinfl = personData.persons_.pinfl;
             dbcheck.persons_.passport_text = personData.persons_.passport_text;
             dbcheck.persons_.passport_number = personData.persons_.passport_number;
-            dbcheck.persons_.status_id = personData.status_id;
+            if (personData.status_id != null && personData.status_id != 0)
+            {
+                dbcheck.persons_.status_id = personData.status_id;
+            }
             if (personData.persons_.img_ != null) dbcheck.persons_.img_ = personData.persons_.img_;
 
 
@@ -535,8 +543,10 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.languages_ru = personData.languages_ru;
             dbcheck.languages_any_title = personData.languages_any_title;
             dbcheck.languages_any = personData.languages_any;
-            dbcheck.status_id = personData.status_id;
-
+            if (personData.status_id != null && personData.status_id != 0)
+            {
+                dbcheck.status_id = personData.status_id;
+            }
 
 
             _logger.LogInformation($"Updated {JsonConvert.SerializeObject(dbcheck)}");
@@ -865,12 +875,13 @@ public class PersonDataSqlRepository : IPersonDataRepository
             {
                 return 0;
             }
-
-            DateTime localDateTime = DateTime.Parse(personDataTranslation.birthday.ToString());
-            localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
-            DateTime utcDateTime = localDateTime.ToUniversalTime();
-
-            personDataTranslation.birthday = utcDateTime;
+            if (personDataTranslation.birthday != null)
+            {
+                DateTime localDateTime = DateTime.Parse(personDataTranslation.birthday.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                personDataTranslation.birthday = utcDateTime;
+            }
             personDataTranslation.persons_translation_.language_id = personDataTranslation.language_id;
 
             PersonData per_id_Obj = _context.persons_data_20ts24tu
@@ -1066,11 +1077,14 @@ public class PersonDataSqlRepository : IPersonDataRepository
 
         try
         {
-            DateTime localDateTime = DateTime.Parse(personData.birthday.ToString());
-            localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
-            DateTime utcDateTime = localDateTime.ToUniversalTime();
+            if (personData.birthday != null)
+            {
+                DateTime localDateTime = DateTime.Parse(personData.birthday.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                personData.birthday = utcDateTime;
+            }
 
-            personData.birthday = utcDateTime;
             personData.persons_translation_.language_id = personData.language_id;
 
             PersonDataTranslation dbcheck;
@@ -1101,7 +1115,11 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.persons_translation_.fathers_name = personData.persons_translation_.fathers_name;
             dbcheck.persons_translation_.gender_id = personData.persons_translation_.gender_id;
             dbcheck.persons_translation_.language_id = personData.language_id;
-            dbcheck.persons_translation_.status_translation_id = personData.status_translation_id;
+
+            if (personData.status_translation_id != null && personData.status_translation_id != 0)
+            {
+                dbcheck.persons_translation_.status_translation_id = personData.status_translation_id;
+            }
 
             dbcheck.biography_json = personData.biography_json;
             dbcheck.birthday = personData.birthday;
@@ -1119,8 +1137,11 @@ public class PersonDataSqlRepository : IPersonDataRepository
             dbcheck.languages_any_title = personData.languages_any_title;
             dbcheck.languages_any = personData.languages_any;
             dbcheck.language_id = personData.language_id;
-            dbcheck.status_translation_id = personData.status_translation_id;
 
+            if (personData.status_translation_id != null && personData.status_translation_id != 0)
+            {
+                dbcheck.status_translation_id = personData.status_translation_id;
+            }
 
 
             _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));

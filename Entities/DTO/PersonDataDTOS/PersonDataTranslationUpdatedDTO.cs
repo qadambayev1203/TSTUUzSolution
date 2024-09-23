@@ -22,5 +22,4 @@ public class PersonDataTranslationUpdatedDTO
     public string? languages_any_title { get; set; }
     public int? languages_any { get; set; }
     public int? language_id { get; set; }
-    public int? status_translation_id { get; set; }
 }
