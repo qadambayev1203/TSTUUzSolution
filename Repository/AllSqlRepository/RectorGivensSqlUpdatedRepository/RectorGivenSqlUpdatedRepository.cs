@@ -167,12 +167,15 @@ public class RectorGivenSqlUpdatedRepository : IRectorGivenUpdatedRepository
             {
                 return false;
             }
+            if (rectorData.birthday != null)
+            {
+                DateTime localDateTime = DateTime.Parse(rectorData.birthday.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                rectorData.birthday = utcDateTime;
+            }
 
-            DateTime localDateTime = DateTime.Parse(rectorData.birthday.ToString());
-            localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
-            DateTime utcDateTime = localDateTime.ToUniversalTime();
 
-            rectorData.birthday = utcDateTime;
             rectorData.persons_translation_.language_id = rectorData.language_id;
 
             dbcheck.persons_translation_.firstName = rectorData.persons_translation_.firstName;

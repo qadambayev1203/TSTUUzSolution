@@ -553,7 +553,7 @@ public class PersonDataController : ControllerBase
     {
         try
         {
-            PersonDataTranslationUpdatedDTO personDatatranslation1 = dataTranslationUpdatedDTO;
+            PersonDataTranslationProfileUpdatedDTO personDatatranslation1 = dataTranslationUpdatedDTO;
 
             if (personDatatranslation1 == null)
             {
