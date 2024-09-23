@@ -6,6 +6,7 @@ using Entities.Model.AnyClasses;
 using Entities.Model.DocumentTeacher110Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers;
 
@@ -14,12 +15,14 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers;
 public class DocumentTeacher110Controller : ControllerBase
 {
     private readonly IDocumentTeacher110Repository _repository;
+    private readonly IDocumentTeacher110SetRepository _repositorySet;
     private readonly IMapper _mapper;
     private readonly IStatusRepositoryStatic _status;
 
-    public DocumentTeacher110Controller(IDocumentTeacher110Repository repository, IMapper mapper, IStatusRepositoryStatic _status1)
+    public DocumentTeacher110Controller(IDocumentTeacher110Repository repository, IDocumentTeacher110SetRepository repositorySet, IMapper mapper, IStatusRepositoryStatic _status1)
     {
         _repository = repository;
+        _repositorySet = repositorySet;
         _mapper = mapper;
         _status = _status1;
     }
@@ -29,7 +32,7 @@ public class DocumentTeacher110Controller : ControllerBase
     public IActionResult CreateDocumentTeacher110(DocumentTeacher110CreatedDTO documentTeacher110)
     {
 
-        if (documentTeacher110.parent_id==0 || documentTeacher110.max_score==0)
+        if (documentTeacher110.parent_id == 0 || documentTeacher110.max_score == 0)
         {
             return BadRequest("parent_id and max_score cannot be 0");
         }
@@ -54,10 +57,25 @@ public class DocumentTeacher110Controller : ControllerBase
 
     [Authorize(Roles = "Admin,Teacher")]
     [HttpGet("getalldocumentteacher110")]
-    public IActionResult GetAllDocumentTeacher110(bool parent, int? parent_id)
+    public IActionResult GetAllDocumentTeacher110(bool parent, int? parent_id, int old_year, int new_year)
     {
         IEnumerable<DocumentTeacher110> documentTeacher110Map = _repository.AllDocumentTeacher110(parent_id, parent);
         var documentTeacher110 = _mapper.Map<IEnumerable<DocumentTeacher110ReadedDTO>>(documentTeacher110Map);
+
+        List<DocumentTeacher110ReadedDTO> res = new List<DocumentTeacher110ReadedDTO>();
+
+        foreach (var item in documentTeacher110)
+        {
+            if (item != null)
+            {
+                DocumentTeacher110ReadedDTO documentTeacher = item;
+                if (documentTeacher.id != 0 && documentTeacher != null)
+                {
+                    documentTeacher.score = _repositorySet.GetTeacherDocumentScoreAllDoc(old_year, new_year, 0, documentTeacher.id, true) ?? 0;
+                    res.Add(documentTeacher);
+                }
+            }
+        }
 
         return Ok(documentTeacher110);
     }
@@ -84,10 +102,12 @@ public class DocumentTeacher110Controller : ControllerBase
 
     [Authorize(Roles = "Admin,Teacher")]
     [HttpGet("getbyiddocumentteacher110/{id}")]
-    public IActionResult GetByIdDocumentTeacher110(int id)
+    public IActionResult GetByIdDocumentTeacher110(int id, int old_year, int new_year)
     {
         DocumentTeacher110 documentTeacher110Map = _repository.GetDocumentTeacher110ById(id);
         var documentTeacher110 = _mapper.Map<DocumentTeacher110ReadedDTO>(documentTeacher110Map);
+        documentTeacher110.score = _repositorySet.GetTeacherDocumentScoreAllDoc(old_year, new_year, 0, documentTeacher110.id, true) ?? 0;
+
         return Ok(documentTeacher110);
     }
 

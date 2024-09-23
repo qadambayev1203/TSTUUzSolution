@@ -941,19 +941,33 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 }
                 else
                 {
-                    return null;
+                    return 0;
                 }
             }
 
             double score = 0;
 
-            var DocChildList = _context.document_teacher_110_20ts24tu
-                .Where(x => x.status_.status != "Deleted" && x.parent_id == document_id)
-                .ToList();
+            var document = _context.document_teacher_110_20ts24tu
+                .Where(x => x.status_.status != "Deleted" && x.id == document_id)
+                .FirstOrDefault();
 
-            foreach (var docChild in DocChildList)
+            if (document != null)
             {
-                score += GetTeacherDocBall(oldYear, newYear, person_id, docChild) ?? 0;
+                if (document.indicator == true)
+                {
+                    var DocChildList = _context.document_teacher_110_20ts24tu
+                       .Where(x => x.status_.status != "Deleted" && x.parent_id == document_id)
+                       .ToList();
+
+                    foreach (var docChild in DocChildList)
+                    {
+                        score += GetTeacherDocBall(oldYear, newYear, person_id, docChild) ?? 0;
+                    }
+                }
+                else if (document.indicator == false)
+                {
+                    score += GetTeacherDocBall(oldYear, newYear, person_id, document) ?? 0;
+                }
             }
 
             return score;
@@ -961,7 +975,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         catch (Exception ex)
         {
             _logger.LogError("Error " + ex.Message);
-            return null;
+            return 0;
         }
     }
 
@@ -998,7 +1012,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         catch (Exception ex)
         {
             _logger.LogError("Error " + ex.Message);
-            return null;
+            return 0;
         }
     }
 }
