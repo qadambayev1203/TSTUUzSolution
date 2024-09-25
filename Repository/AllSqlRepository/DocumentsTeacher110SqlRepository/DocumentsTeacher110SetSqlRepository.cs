@@ -116,6 +116,11 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 return 0;
             }
 
+            if (documentTeacher110Set.fixed_date != null)
+            {
+                DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(documentTeacher110Set.fixed_date.ToString()), DateTimeKind.Local).ToUniversalTime();
+                documentTeacher110Set.fixed_date = utcDateTime;
+            }
 
             if (user.user_type_.type != "Teacher")
             {
@@ -133,7 +138,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             documentTeacher110Set.avtor = document.avtor;
 
-            if (documentTeacher110Set.avtor == false)
+            if (documentTeacher110Set.avtor == false || documentTeacher110Set.avtor == null)
             {
                 documentTeacher110Set.number_authors = null;
             }
@@ -287,7 +292,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             documentTeacher110.avtor = document.avtor;
 
-            if (documentTeacher110.avtor == false)
+            if (documentTeacher110.avtor == false || documentTeacher110.avtor == null)
             {
                 documentTeacher110.number_authors = null;
             }
