@@ -85,6 +85,8 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 personBlog.person_data_id = personData.id;
             }
 
+            personBlog.confirmed = 0;
+
             _context.person_blog_20ts24tu.Add(personBlog);
             _context.SaveChanges();
 
@@ -155,6 +157,7 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 return false;
             }
 
+            dbcheck.confirmed = 0;
             dbcheck.title = personBlog.title;
             dbcheck.description = personBlog.description;
             dbcheck.text = personBlog.text;
@@ -199,6 +202,8 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 if (personData == null) return 0;
                 personBlog.person_data_id = personData.id;
             }
+
+            personBlog.confirmed = 0;
 
             _context.person_blog_translation_20ts24tu.Add(personBlog);
             _context.SaveChanges();
@@ -342,6 +347,7 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 return false;
             }
 
+            dbcheck.confirmed = 0;
             dbcheck.title = personBlog.title;
             dbcheck.description = personBlog.description;
             dbcheck.text = personBlog.text;

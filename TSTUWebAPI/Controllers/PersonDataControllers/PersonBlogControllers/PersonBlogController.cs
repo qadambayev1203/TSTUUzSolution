@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-using Contracts.AllRepository.StatusesRepository;
+﻿using Contracts.AllRepository.StatusesRepository;
 using Entities.Model.AnyClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Entities.Model.PersonDataModel.PersonBlogModel;
 using Entities.DTO.PersonDataDTOS.PersonBlogDTOS;
 using Contracts.AllRepository.PersonsDataRepository.PersonBlogRepository;
-using Entities.Model.BlogsModel;
+using AutoMapper;
 
 namespace TSTUWebAPI.Controllers.PersonDataControllers.PersonBlogControllers;
 

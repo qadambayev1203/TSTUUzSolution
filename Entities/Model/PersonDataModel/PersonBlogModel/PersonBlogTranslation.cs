@@ -21,4 +21,5 @@ public class PersonBlogTranslation
     public Language? language_ { get; set; }
     [ForeignKey("PersonBlog")] public int? person_blog_id { get; set; }
     public PersonBlog? person_blog_ { get; set; }
+    public int? confirmed { get; set; }
 }
