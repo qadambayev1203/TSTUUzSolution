@@ -20,4 +20,8 @@ public class DocumentTeacher110SetAdminReadedDTO
     public UserFIODTO? assessor_ { get; set; }
     public DateTime? created_at { get; set; }
     public DateTime? updated_at { get; set; }
+    public DateTime? fixed_date { get; set; }
+    public bool? avtor { get; set; }
+    public int? number_authors { get; set; }
+
 }

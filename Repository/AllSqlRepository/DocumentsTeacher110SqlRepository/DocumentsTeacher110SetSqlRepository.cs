@@ -135,6 +135,11 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 return 0;
             }
 
+            if (documentTeacher110Set.avtor == false)
+            {
+                documentTeacher110Set.number_authors = null;
+            }
+
             _context.document_teacher_110_set_20ts24tu.Add(documentTeacher110Set);
             _context.SaveChanges();
             int id = documentTeacher110Set.id;
@@ -270,12 +275,26 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 return false;
             }
 
+            if (documentTeacher110.fixed_date != null)
+            {
+                DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(documentTeacher110.fixed_date.ToString()), DateTimeKind.Local).ToUniversalTime();
+                documentTeacher110.fixed_date = utcDateTime;
+            }
+
+            if (documentTeacher110.avtor == false)
+            {
+                documentTeacher110.number_authors = null;
+            }
+
             dbcheck.old_year = documentTeacher110.old_year;
             dbcheck.new_year = documentTeacher110.new_year;
             dbcheck.document_id = documentTeacher110.document_id;
             dbcheck.sequence_status = 2;
             dbcheck.rejection = false;
             dbcheck.reason_for_rejection = "";
+            dbcheck.fixed_date = documentTeacher110.fixed_date;
+            dbcheck.avtor = documentTeacher110.avtor;
+            dbcheck.number_authors = documentTeacher110.number_authors;
 
             if (documentTeacher110.file_ != null)
             {

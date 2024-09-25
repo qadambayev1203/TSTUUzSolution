@@ -2,6 +2,7 @@
 using Entities.Model.PersonModel;
 using Entities.Model.StatusModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Entities.Model.DocumentTeacher110Model;
 
@@ -27,4 +28,7 @@ public class DocumentTeacher110Set
     public User? assessor_ { get; set; }
     public DateTime? created_at { get; set; }
     public DateTime? updated_at { get; set; }
+    public DateTime? fixed_date { get; set; }
+    public bool? avtor { get; set; }
+    public int? number_authors { get; set; }
 }
