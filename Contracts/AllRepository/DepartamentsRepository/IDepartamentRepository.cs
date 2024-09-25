@@ -42,4 +42,15 @@ public interface IDepartamentRepository
     public bool DeleteDepartamentTranslation(int id);
     public bool SaveChanges();
 
+
+
+
+    // Departament Head
+    public Departament GetDepartamentByHeadDep();
+    public bool UpdateDepartamentHeadDep(Departament departament);
+
+
+    public DepartamentTranslation GetDepartamentTranslationByHeadDep(string language_code);
+    public bool UpdateDepartamentTranslationHeadDep(string language_code, DepartamentTranslation departament);
+
 }

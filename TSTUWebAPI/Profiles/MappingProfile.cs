@@ -341,9 +341,11 @@ public class MappingProfile : Profile
         #region Departament DTOS
         CreateMap<DepartamentCreatedDTO, Departament>();
         CreateMap<DepartamentUpdatedDTO, Departament>();
+        CreateMap<DepartamentUpdatedHeadDepDTO, Departament>();
         CreateMap<Departament, DepartamentReadedDTO>();
         CreateMap<Departament, DepartamentSelectedReadedDTO>();
         CreateMap<Departament, DepartamentReadedTypedDTO>();
+        CreateMap<Departament, DepartamentReadedHeadDepDTO>();
         CreateMap<Departament, DepartamentSearchDTO>();
         CreateMap<Departament, DepartamentReadedSiteDTO>();
         CreateMap<Departament, DepartamentChildReadedSiteDTO>();
@@ -354,8 +356,10 @@ public class MappingProfile : Profile
 
         CreateMap<DepartamentTranslationCreatedDTO, DepartamentTranslation>();
         CreateMap<DepartamentTranslationUpdatedDTO, DepartamentTranslation>();
+        CreateMap<DepartamentTranslationUpdatedHeadDepDTO, DepartamentTranslation>();
         CreateMap<DepartamentTranslation, DepartamentTranslationSearchDTO>();
         CreateMap<DepartamentTranslation, DepartamentTranslationReadedDTO>();
+        CreateMap<DepartamentTranslation, DepartamentTranslationReadedHeadDepDTO>();
         CreateMap<DepartamentTranslation, DepartamentTranslationSelectedReadedDTO>();
         CreateMap<DepartamentTranslation, DepartamentTranslationReadedTypedDTO>();
         CreateMap<DepartamentTranslation, DepartamentTranslationReadedSiteDTO>();

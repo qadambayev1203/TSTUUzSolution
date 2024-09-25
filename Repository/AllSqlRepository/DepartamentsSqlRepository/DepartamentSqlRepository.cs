@@ -950,4 +950,159 @@ public class DepartamentSqlRepository : IDepartamentRepository
 
 
     }
+
+
+
+
+    //Departament Head
+
+    public Departament GetDepartamentByHeadDep()
+    {
+        try
+        {
+            var user = _context.users_20ts24tu
+                .Include(x => x.person_)
+                .FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (user == null || user.person_.departament_id == null || user.person_.departament_id == 0)
+            {
+                return null;
+            }
+
+            var departament = _context.departament_20ts24tu
+                .Include(x => x.img_)
+                .Include(x => x.img_icon_)
+                .Where(x => x.status_.status != "Deleted")
+                .FirstOrDefault(x => x.id.Equals(user.person_.departament_id));
+
+            return departament;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error" + ex.Message);
+            return null;
+        }
+    }
+
+    public bool UpdateDepartamentHeadDep(Departament departament)
+    {
+        try
+        {
+            var user = _context.users_20ts24tu
+               .Include(x => x.person_)
+               .FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (user == null || user.person_.departament_id == null || user.person_.departament_id == 0)
+            {
+                return false;
+            }
+
+            var dbcheck = GetDepartamentById(user.person_.departament_id ?? 0);
+            if (dbcheck is null)
+            {
+                return false;
+            }
+
+            dbcheck.title_short = departament.title_short;
+            dbcheck.title = departament.title;
+            dbcheck.description = departament.description;
+            dbcheck.text = departament.text;
+            dbcheck.updated_at = DateTime.UtcNow;
+
+            if (departament.img_ != null)
+            {
+                dbcheck.img_ = departament.img_;
+            }
+
+            if (departament.img_icon_ != null)
+            {
+                dbcheck.img_icon_ = departament.img_icon_;
+            }
+
+            dbcheck.favorite = departament.favorite;
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error" + ex.Message);
+            return false;
+        }
+    }
+
+
+
+    public DepartamentTranslation GetDepartamentTranslationByHeadDep(string language_code)
+    {
+        try
+        {
+            var user = _context.users_20ts24tu
+                .Include(x => x.person_)
+                .FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (user == null || user.person_.departament_id == null || user.person_.departament_id == 0)
+            {
+                return null;
+            }
+
+            var departamentTranslation = _context.departament_translations_20ts24tu
+                    .Include(x => x.language_)
+                    .Include(x => x.img_).Include(x => x.img_icon_)
+                    .Where(x => x.status_translation_.status != "Deleted")
+                    .FirstOrDefault(x => x.departament_id.Equals(user.person_.departament_id) && x.language_.code.Equals(language_code));
+            return departamentTranslation;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error" + ex.Message);
+            return null;
+        }
+    }
+
+    public bool UpdateDepartamentTranslationHeadDep(string language_code, DepartamentTranslation departament)
+    {
+        try
+        {
+            var user = _context.users_20ts24tu
+                .Include(x => x.person_)
+                .FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (user == null || user.person_.departament_id == null || user.person_.departament_id == 0)
+            {
+                return false;
+            }
+
+            var dbcheck = GetDepartamentTranslationById(user.person_.departament_id ?? 0, language_code);
+
+            if (dbcheck is null)
+            {
+                return false;
+            }
+
+            dbcheck.title_short = departament.title_short;
+            dbcheck.title = departament.title;
+            dbcheck.description = departament.description;
+            dbcheck.text = departament.text;
+            dbcheck.updated_at = DateTime.UtcNow;
+
+            if (departament.img_ != null)
+            {
+                dbcheck.img_ = departament.img_;
+            }
+
+            if (departament.img_icon_ != null)
+            {
+                dbcheck.img_icon_ = departament.img_icon_;
+            }
+
+            dbcheck.favorite = departament.favorite;
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Error" + ex.Message);
+            return false;
+        }
+    }
 }

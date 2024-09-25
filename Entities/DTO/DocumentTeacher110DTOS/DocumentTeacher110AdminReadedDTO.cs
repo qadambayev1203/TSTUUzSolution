@@ -11,5 +11,6 @@ public class DocumentTeacher110AdminReadedDTO
     public double? max_score { get; set; }
     public string? description { get; set; }
     public List<DocumentSequenceItemDTO>? document_sequence { get; set; }
+    public bool? avtor { get; set; }
     public StatusConfReadedDTO? status_ { get; set; }
 }

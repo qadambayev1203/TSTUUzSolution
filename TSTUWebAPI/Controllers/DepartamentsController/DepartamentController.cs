@@ -317,6 +317,9 @@ public class DepartamentController : ControllerBase
 
 
 
+
+
+
     //DepartamentTranslation CRUD
     [Authorize(Roles = "Admin")]
     [HttpPost("createdepartamenttranslation")]
@@ -598,4 +601,162 @@ public class DepartamentController : ControllerBase
         }
 
     }
+
+
+
+    //Departament head
+
+
+    [Authorize(Roles = "Dean,DeputyDean,HeadDepartment,Director")]
+    [HttpGet("getbydepartamentheaddep")]
+    public IActionResult GetByIdDepartamentHeadDep()
+    {
+
+        Departament departament1 = _repository.GetDepartamentByHeadDep();
+
+        var departament = _mapper.Map<DepartamentReadedHeadDepDTO>(departament1);
+        if (departament == null) { }
+
+        return Ok(departament);
+    }
+
+
+    [Authorize(Roles = "Dean,DeputyDean,HeadDepartment,Director")]
+    [HttpPut("updatedepartamentheaddep")]
+    public IActionResult UpdateDepartamentHeadDep(DepartamentUpdatedHeadDepDTO departament1)
+    {
+
+        try
+        {
+            if (departament1 == null)
+            {
+                return BadRequest();
+            }
+
+            var dbupdated = _mapper.Map<Departament>(departament1);
+
+            FileUploadRepository fileUpload = new FileUploadRepository();
+
+            var Url = fileUpload.SaveFileAsync(departament1.img_up);
+            if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+            {
+                return BadRequest("File created error!");
+            }
+            if (Url != null && Url.Length > 0)
+            {
+                dbupdated.img_ = new Files
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url
+                };
+            }
+
+            var Url1 = fileUpload.SaveFileAsync(departament1.img_icon_up);
+            if (Url1 == "File not found or empty!" || Url1 == "Invalid file extension!" || Url1 == "Error!")
+            {
+                return BadRequest("File created error!");
+            }
+            if (Url1 != null && Url1.Length > 0)
+            {
+                dbupdated.img_icon_ = new Files
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url1
+                };
+            }
+
+            bool updatedcheck = _repository.UpdateDepartamentHeadDep(dbupdated);
+            if (!updatedcheck)
+            {
+                return BadRequest();
+            }
+            bool check = _repository.SaveChanges();
+            if (!check)
+            {
+                return BadRequest();
+            }
+            return Ok("Updated");
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+
+
+    [Authorize(Roles = "Dean,DeputyDean,HeadDepartment,Director")]
+    [HttpGet("getbydepartamenttranslationheaddep/{language_code}")]
+    public IActionResult GetByDepartamentTranslationHeadDep(string language_code)
+    {
+
+        DepartamentTranslation departamenttranslation1 = _repository.GetDepartamentTranslationByHeadDep(language_code);
+        var departamenttranslation = _mapper.Map<DepartamentTranslationReadedHeadDepDTO>(departamenttranslation1);
+        return Ok(departamenttranslation);
+    }
+
+    [Authorize(Roles = "Dean,DeputyDean,HeadDepartment,Director")]
+    [HttpPut("updatedepartamenttranslationheaddep/{language_code}")]
+    public IActionResult UpdateDepartamentTranslation(DepartamentTranslationUpdatedHeadDepDTO departamenttranslation1, string language_code)
+    {
+
+        try
+        {
+            if (departamenttranslation1 == null)
+            {
+                return BadRequest();
+            }
+
+            var dbupdated = _mapper.Map<DepartamentTranslation>(departamenttranslation1);
+
+            FileUploadRepository fileUpload = new FileUploadRepository();
+
+            var Url = fileUpload.SaveFileAsync(departamenttranslation1.img_up);
+            if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+            {
+                return BadRequest("File created error!");
+            }
+            if (Url != null && Url.Length > 0)
+            {
+                dbupdated.img_ = new FilesTranslation
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url
+                };
+            }
+
+            var Url1 = fileUpload.SaveFileAsync(departamenttranslation1.img_icon_up);
+            if (Url1 == "File not found or empty!" || Url1 == "Invalid file extension!" || Url1 == "Error!")
+            {
+                return BadRequest("File created error!");
+            }
+            if (Url1 != null && Url1.Length > 0)
+            {
+                dbupdated.img_icon_ = new FilesTranslation
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url1
+                };
+            }
+
+            bool updatedcheck = _repository.UpdateDepartamentTranslationHeadDep(language_code, dbupdated);
+            if (!updatedcheck)
+            {
+                return BadRequest();
+            }
+            bool check = _repository.SaveChanges();
+            if (!check)
+            {
+                return BadRequest();
+            }
+            return Ok("Updated");
+        }
+        catch
+        {
+            return BadRequest();
+        }
+
+    }
+
+
 }

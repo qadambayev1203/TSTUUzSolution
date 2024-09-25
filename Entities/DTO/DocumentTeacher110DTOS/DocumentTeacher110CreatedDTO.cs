@@ -8,5 +8,6 @@ public class DocumentTeacher110CreatedDTO
     public required double max_score { get; set; }
     public string? description { get; set; }
     public List<DocumentSequenceItemDTO>? document_sequence { get; set; }
+    public required bool avtor { get; set; }
 }
 

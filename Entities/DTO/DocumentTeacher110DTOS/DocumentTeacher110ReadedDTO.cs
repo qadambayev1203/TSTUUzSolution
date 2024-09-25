@@ -8,6 +8,7 @@ public class DocumentTeacher110ReadedDTO
     public bool? indicator { get; set; }
     public double? max_score { get; set; }
     public string? description { get; set; }
+    public bool? avtor { get; set; }
 
 
     public double? score { get; set; }

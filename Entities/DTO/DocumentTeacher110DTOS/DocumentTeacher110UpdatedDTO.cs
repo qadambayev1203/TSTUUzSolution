@@ -8,5 +8,6 @@ public class DocumentTeacher110UpdatedDTO
     public required double max_score { get; set; }
     public string? description { get; set; }
     public List<DocumentSequenceItemDTO>? document_sequence { get; set; }
+    public required bool avtor { get; set; }
     public int? status_id { get; set; }
 }

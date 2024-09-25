@@ -13,6 +13,7 @@ public class DocumentTeacher110
     public bool? indicator { get; set; }
     public double? max_score { get; set; }
     public string? description { get; set; }
+    public bool? avtor { get; set; }
     [ForeignKey("Status")] public int? status_id { get; set; }
     public Status? status_ { get; set; }
 

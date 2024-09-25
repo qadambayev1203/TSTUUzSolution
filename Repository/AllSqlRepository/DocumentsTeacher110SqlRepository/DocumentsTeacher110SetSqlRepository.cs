@@ -1,15 +1,11 @@
 ﻿using Contracts.AllRepository.DocumentTeacher110Repository;
 using Entities;
-using Entities.Model;
 using Entities.Model.AnyClasses;
-using Entities.Model.DepartamentsModel;
 using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.PersonModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Linq;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Repository.AllSqlRepository.DocumentsTeacher110SqlRepository;
 
@@ -134,6 +130,8 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             {
                 return 0;
             }
+
+            documentTeacher110Set.avtor = document.avtor;
 
             if (documentTeacher110Set.avtor == false)
             {
@@ -281,6 +279,14 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 documentTeacher110.fixed_date = utcDateTime;
             }
 
+            var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == dbcheck.document_id);
+            if (document.indicator == true)
+            {
+                return false;
+            }
+
+            documentTeacher110.avtor = document.avtor;
+
             if (documentTeacher110.avtor == false)
             {
                 documentTeacher110.number_authors = null;
@@ -302,11 +308,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             }
             dbcheck.comment = documentTeacher110.comment;
 
-            var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == dbcheck.document_id);
-            if (document.indicator == true)
-            {
-                return false;
-            }
 
             _context.Update(dbcheck);
             _context.SaveChanges();
