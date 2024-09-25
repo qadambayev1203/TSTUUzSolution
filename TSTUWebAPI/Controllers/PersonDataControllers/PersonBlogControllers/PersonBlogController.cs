@@ -6,10 +6,11 @@ using Entities.Model.PersonDataModel.PersonBlogModel;
 using Entities.DTO.PersonDataDTOS.PersonBlogDTOS;
 using Contracts.AllRepository.PersonsDataRepository.PersonBlogRepository;
 using AutoMapper;
+using Entities.Model.PersonDataModel;
+using Entities.DTO.PersonDataDTOS;
 
 namespace TSTUWebAPI.Controllers.PersonDataControllers.PersonBlogControllers;
 
-[Authorize]
 [Route("api/personblog")]
 [ApiController]
 public class PersonBlogController : ControllerBase
@@ -29,6 +30,7 @@ public class PersonBlogController : ControllerBase
 
     // PersonBlog CRUD
 
+    [Authorize]
     [HttpPost("createpersonblog")]
     public IActionResult CreatePersonBlog(PersonBlogCreatedDTO blog)
     {
@@ -85,15 +87,36 @@ public class PersonBlogController : ControllerBase
         return Ok(personBlogs);
     }
 
+    [Authorize]
+    [HttpGet("getallpersonblogprofil")]
+    public IActionResult GetAllPersonBlogProfil(int queryNum, int pageNum)
+    {
+        queryNum = Math.Abs(queryNum);
+        pageNum = Math.Abs(pageNum);
+        IEnumerable<PersonBlog> personBlogsMap = _repository.AllPersonBlog(queryNum, pageNum, 0, false);
+        var personBlogs = _mapper.Map<IEnumerable<PersonBlogReadedProfilDTO>>(personBlogsMap);
+        return Ok(personBlogs);
+    }
+
     [HttpGet("getallpersonblogsite")]
     public IActionResult GetAllPersonBlogSite(int queryNum, int pageNum, int person_data_id)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonBlog> personBlogsMap = _repository.AllPersonBlog(queryNum, pageNum, person_data_id, false);
+        IEnumerable<PersonBlog> personBlogsMap = _repository.AllPersonBlogSite(queryNum, pageNum, person_data_id);
         var personBlogs = _mapper.Map<IEnumerable<PersonBlogReadedSiteDTO>>(personBlogsMap);
         return Ok(personBlogs);
     }
+
+    [Authorize]
+    [HttpGet("getbyidpersonblogsite/{id}")]
+    public IActionResult GetByIdPersonBlogSite(int id)
+    {
+        PersonBlog personBlogsMap = _repository.GetByIdPersonBlogSite(id);
+        var personBlogs = _mapper.Map<PersonBlogReadedSiteDTO>(personBlogsMap);
+        return Ok(personBlogs);
+    }
+
 
     [Authorize(Roles = "Admin")]
     [HttpGet("getbyidpersonblogadmin/{id}")]
@@ -105,14 +128,16 @@ public class PersonBlogController : ControllerBase
         return Ok(personBlogs);
     }
 
+    [Authorize]
     [HttpGet("getbyidpersonblog/{id}")]
-    public IActionResult GetByIdPersonBlogSite(int id)
+    public IActionResult GetByIdPersonBlogProfil(int id)
     {
         PersonBlog personBlogsMap = _repository.GetByIdPersonBlog(id, false);
-        var personBlogs = _mapper.Map<PersonBlogReadedSiteDTO>(personBlogsMap);
+        var personBlogs = _mapper.Map<PersonBlogReadedProfilDTO>(personBlogsMap);
         return Ok(personBlogs);
     }
 
+    [Authorize]
     [HttpDelete("deletepersonblog/{id}")]
     public IActionResult DeletePersonBlog(int id)
     {
@@ -126,6 +151,7 @@ public class PersonBlogController : ControllerBase
         return Ok("Deleted");
     }
 
+    [Authorize]
     [HttpPut("updatepersonblog/{id}")]
     public IActionResult UpdatePersonBlog(PersonBlogUpdatedDTO blogUpdatedDTO, int id)
     {
@@ -173,6 +199,7 @@ public class PersonBlogController : ControllerBase
 
     // PersonBlogTranslation CRUD
 
+    [Authorize]
     [HttpPost("createpersonblogtranslation")]
     public IActionResult CreatePersonBlogTranslation(PersonBlogTranslationCreatedDTO blog)
     {
@@ -229,12 +256,23 @@ public class PersonBlogController : ControllerBase
         return Ok(personBlogs);
     }
 
+    [Authorize]
+    [HttpGet("getallpersonblogtranslationprofile")]
+    public IActionResult GetAllPersonBlogTranslationProfile(int queryNum, int pageNum, int person_data_uz_id, string language_code)
+    {
+        queryNum = Math.Abs(queryNum);
+        pageNum = Math.Abs(pageNum);
+        IEnumerable<PersonBlogTranslation> personBlogsMap = _repository.AllPersonBlogTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
+        var personBlogs = _mapper.Map<IEnumerable<PersonBlogTranslationReadedProfileDTO>>(personBlogsMap);
+        return Ok(personBlogs);
+    }
+
     [HttpGet("getallpersonblogtranslationsite")]
     public IActionResult GetAllPersonBlogTranslationSite(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonBlogTranslation> personBlogsMap = _repository.AllPersonBlogTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
+        IEnumerable<PersonBlogTranslation> personBlogsMap = _repository.AllPersonBlogTranslationSite(queryNum, pageNum, person_data_uz_id, language_code);
         var personBlogs = _mapper.Map<IEnumerable<PersonBlogTranslationReadedSiteDTO>>(personBlogsMap);
         return Ok(personBlogs);
     }
@@ -257,22 +295,41 @@ public class PersonBlogController : ControllerBase
         return Ok(personScientific);
     }
 
+    [Authorize]
     [HttpGet("getbyidpersonblogtranslation/{id}")]
-    public IActionResult GetByIdPersonBlogTranslationSite(int id)
+    public IActionResult GetByIdPersonBlogTranslationProfil(int id)
     {
         PersonBlogTranslation personScientificMap = _repository.GetByIdPersonBlogTranslation(id, false);
+        var personScientific = _mapper.Map<PersonBlogTranslationReadedProfileDTO>(personScientificMap);
+        return Ok(personScientific);
+    }
+
+    [HttpGet("getbyidpersonblogtranslationsite/{id}")]
+    public IActionResult GetByIdPersonBlogTranslationSite(int id)
+    {
+        PersonBlogTranslation personScientificMap = _repository.GetByIdPersonBlogTranslationSite(id);
         var personScientific = _mapper.Map<PersonBlogTranslationReadedSiteDTO>(personScientificMap);
         return Ok(personScientific);
     }
 
+    [Authorize]
     [HttpGet("getbyidpersonblogtranslationuzid/{uz_id}")]
-    public IActionResult GetByIdPersonBlogTranslationSite(int uz_id, string language_code)
+    public IActionResult GetByIdPersonBlogTranslationProfil(int uz_id, string language_code)
     {
         PersonBlogTranslation personScientificMap = _repository.GetByIdPersonBlogTranslation(uz_id, language_code, false);
+        var personScientific = _mapper.Map<PersonBlogTranslationReadedProfileDTO>(personScientificMap);
+        return Ok(personScientific);
+    }
+
+    [HttpGet("getbyidpersonblogtranslationuzidsite/{uz_id}")]
+    public IActionResult GetByIdPersonBlogTranslationSite(int uz_id, string language_code)
+    {
+        PersonBlogTranslation personScientificMap = _repository.GetByIdPersonBlogTranslationSite(uz_id, language_code);
         var personScientific = _mapper.Map<PersonBlogTranslationReadedSiteDTO>(personScientificMap);
         return Ok(personScientific);
     }
 
+    [Authorize]
     [HttpDelete("deletepersonblogtranslation/{id}")]
     public IActionResult DeletePersonBlogTranslation(int id)
     {
@@ -286,6 +343,7 @@ public class PersonBlogController : ControllerBase
         return Ok("Deleted");
     }
 
+    [Authorize]
     [HttpPut("updatepersonblogtranslation/{id}")]
     public IActionResult UpdatePersonBlogTranslation(PersonBlogTranslationUpdatedDTO blogUpdatedDTO, int id)
     {
@@ -327,6 +385,41 @@ public class PersonBlogController : ControllerBase
         return Ok("Updated");
 
 
+    }
+
+
+
+    // Confirm Department head
+
+    [Authorize(Roles = "HeadDepartment")]
+    [HttpGet("getallpersondatadepartment")]
+    public IActionResult GetAllPersonDataDepartment()
+    {
+        IEnumerable<PersonData> personsMap = _repository.AllPersonBlogCreated();
+        var persons = _mapper.Map<IEnumerable<PersonDataSearchDTO>>(personsMap);
+        return Ok(persons);
+    }
+
+    [Authorize(Roles = "HeadDepartment")]
+    [HttpGet("getallpersonblogdep/{person_data_id}")]
+    public IActionResult GetAllPersonBlogDep(int queryNum, int pageNum, int person_data_id)
+    {
+        queryNum = Math.Abs(queryNum);
+        pageNum = Math.Abs(pageNum);
+        IEnumerable<PersonBlog> personBlogsMap = _repository.AllPersonBlogDep(queryNum, pageNum, person_data_id);
+        var personBlogs = _mapper.Map<IEnumerable<PersonBlogReadedSiteDTO>>(personBlogsMap);
+        return Ok(personBlogs);
+    }
+
+    [Authorize(Roles = "HeadDepartment")]
+    [HttpPost("confirmed/{person_blog_id}")]
+    public IActionResult ConfirmAttribute(int person_blog_id, bool confirm)
+    {
+        var check = _repository.ConfirmDocumentTeacher110Set(person_blog_id, confirm);
+
+        if (!check) return BadRequest();
+
+        return Ok("Confirmed");
     }
 
 }

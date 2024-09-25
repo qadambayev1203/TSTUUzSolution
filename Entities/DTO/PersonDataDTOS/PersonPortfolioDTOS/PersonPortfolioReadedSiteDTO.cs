@@ -11,5 +11,5 @@ public class PersonPortfolioReadedSiteDTO
     public int? person_data_id { get; set; }
     public DateTime? crated_at { get; set; } 
     public DateTime? updated_at { get; set; }
-    public StatusConfReadedDTO? status_ { get; set; }
+    public int? confirmed { get; set; }
 }

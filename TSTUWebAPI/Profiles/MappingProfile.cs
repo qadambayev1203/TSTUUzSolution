@@ -213,6 +213,7 @@ public class MappingProfile : Profile
         CreateMap<PersonScientificActivityUpdatedDTO, PersonScientificActivity>();
         CreateMap<PersonScientificActivity, PersonScientificActivityReadedDTO>();
         CreateMap<PersonScientificActivity, PersonScientificActivityReadedSiteDTO>();
+        CreateMap<PersonScientificActivity, PersonScientificActivityReadedProfilDTO>();
 
         CreateMap<PersonScientificActivityTranslationCreatedDTO, PersonScientificActivityTranslation>();
         CreateMap<PersonScientificActivityTranslationCreatedAdminDTO, PersonScientificActivityTranslation>();
@@ -220,6 +221,7 @@ public class MappingProfile : Profile
         CreateMap<PersonScientificActivityTranslationUpdatedDTO, PersonScientificActivityTranslation>();
         CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedDTO>();
         CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedSiteDTO>();
+        CreateMap<PersonScientificActivityTranslation, PersonScientificActivityTranslationReadedProfilDTO>();
 
         #endregion
 
@@ -231,12 +233,14 @@ public class MappingProfile : Profile
         CreateMap<PersonBlogUpdatedDTO, PersonBlog>();
         CreateMap<PersonBlog, PersonBlogReadedDTO>();
         CreateMap<PersonBlog, PersonBlogReadedSiteDTO>();
+        CreateMap<PersonBlog, PersonBlogReadedProfilDTO>();
 
         CreateMap<PersonBlogTranslationCreatedDTO, PersonBlogTranslation>();
         CreateMap<PersonBlogTranslationCreatedAdminDTO, PersonBlogTranslation>();
         CreateMap<PersonBlogTranslationUpdatedAdminDTO, PersonBlogTranslation>();
         CreateMap<PersonBlogTranslationUpdatedDTO, PersonBlogTranslation>();
         CreateMap<PersonBlogTranslation, PersonBlogTranslationReadedDTO>();
+        CreateMap<PersonBlogTranslation, PersonBlogTranslationReadedProfileDTO>();
         CreateMap<PersonBlogTranslation, PersonBlogTranslationReadedSiteDTO>();
 
         #endregion
@@ -249,6 +253,7 @@ public class MappingProfile : Profile
         CreateMap<PersonPortfolioUpdatedDTO, PersonPortfolio>();
         CreateMap<PersonPortfolio, PersonPortfolioReadedDTO>();
         CreateMap<PersonPortfolio, PersonPortfolioReadedSiteDTO>();
+        CreateMap<PersonPortfolio, PersonPortfolioReadedProfilDTO>();
 
         CreateMap<PersonPortfolioTranslationCreatedDTO, PersonPortfolioTranslation>();
         CreateMap<PersonPortfolioTranslationCreatedAdminDTO, PersonPortfolioTranslation>();
@@ -256,6 +261,7 @@ public class MappingProfile : Profile
         CreateMap<PersonPortfolioTranslationUpdatedDTO, PersonPortfolioTranslation>();
         CreateMap<PersonPortfolioTranslation, PersonPortfolioTranslationReadedDTO>();
         CreateMap<PersonPortfolioTranslation, PersonPortfolioTranslationReadedSiteDTO>();
+        CreateMap<PersonPortfolioTranslation, PersonPortfolioTranslationReadedProfileDTO>();
 
         #endregion
 
@@ -267,6 +273,7 @@ public class MappingProfile : Profile
         CreateMap<PersonExperienceUpdatedDTO, PersonExperience>();
         CreateMap<PersonExperience, PersonExperienceReadedDTO>();
         CreateMap<PersonExperience, PersonExperienceReadedSiteDTO>();
+        CreateMap<PersonExperience, PersonExperienceReadedProfilDTO>();
 
         CreateMap<PersonExperienceTranslationCreatedDTO, PersonExperienceTranslation>();
         CreateMap<PersonExperienceTranslationCreatedAdminDTO, PersonExperienceTranslation>();
@@ -274,6 +281,7 @@ public class MappingProfile : Profile
         CreateMap<PersonExperienceTranslationUpdatedDTO, PersonExperienceTranslation>();
         CreateMap<PersonExperienceTranslation, PersonExperienceTranslationReadedDTO>();
         CreateMap<PersonExperienceTranslation, PersonExperienceTranslationReadedSiteDTO>();
+        CreateMap<PersonExperienceTranslation, PersonExperienceTranslationReadedProfileDTO>();
 
         #endregion
 

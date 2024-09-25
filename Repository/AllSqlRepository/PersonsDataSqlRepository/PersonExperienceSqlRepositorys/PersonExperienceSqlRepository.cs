@@ -7,6 +7,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Entities.Model.PersonModel;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository.PersonExperienceSqlRepositorys;
 
@@ -37,8 +38,8 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
             }
 
             IQueryable<PersonExperience> query = _context.person_experience_20ts24tu
-                .Include(x => x.status_)
-                .Where(x => x.person_data_id == person_data_id);
+                .Where(x => x.person_data_id == person_data_id)
+                .Include(x => x.status_);
 
             if (!isAdmin)
             {
@@ -68,28 +69,62 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         }
     }
 
-    public int CreatePersonExperience(PersonExperience personExperience)
+    public IEnumerable<PersonExperience> AllPersonExperienceSite(int queryNum, int pageNum, int person_data_id)
     {
         try
         {
-            if (personExperience == null)
+            IQueryable<PersonExperience> query = _context.person_experience_20ts24tu
+            .Where(x => x.person_data_id == person_data_id)
+            .Where(x => x.confirmed == 1)
+            .Where(x => x.status_.status != "Deleted");
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonExperience>();
+        }
+    }
+
+    public int CreatePersonExperience(PersonExperience PersonExperience)
+    {
+        try
+        {
+            if (PersonExperience == null)
             {
                 return 0;
             }
 
-            if (personExperience.person_data_id == 0 || personExperience.person_data_id is null)
+            if (PersonExperience.person_data_id == 0 || PersonExperience.person_data_id is null)
             {
                 User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
                 PersonData personData = _context.persons_data_20ts24tu.FirstOrDefault(x => x.persons_id == user.person_id);
                 if (personData == null) return 0;
-                personExperience.person_data_id = personData.id;
+                PersonExperience.person_data_id = personData.id;
             }
 
-            _context.person_experience_20ts24tu.Add(personExperience);
+            PersonExperience.confirmed = 0;
+
+            _context.person_experience_20ts24tu.Add(PersonExperience);
             _context.SaveChanges();
 
-            int id = personExperience.id;
-            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(personExperience));
+            int id = PersonExperience.id;
+            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(PersonExperience));
 
             return id;
         }
@@ -104,15 +139,15 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
     {
         try
         {
-            var personExperience = GetByIdPersonExperience(id, false);
-            if (personExperience == null)
+            var PersonExperience = GetByIdPersonExperience(id, false);
+            if (PersonExperience == null)
             {
                 return false;
             }
-            personExperience.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
-            _context.person_experience_20ts24tu.Update(personExperience);
+            PersonExperience.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+            _context.person_experience_20ts24tu.Update(PersonExperience);
             _context.SaveChanges();
-            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(personExperience));
+            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(PersonExperience));
             return true;
         }
         catch (Exception ex)
@@ -127,16 +162,18 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         try
         {
             IQueryable<PersonExperience> query = _context.person_experience_20ts24tu
-                .Where(x => x.id.Equals(id)).Include(x => x.status_);
+                .Where(x => x.id.Equals(id))
+                .Include(x => x.person_data_).ThenInclude(x => x.persons_)
+                .Include(x => x.status_);
 
-            if (isAdmin)
+            if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
 
-            PersonExperience personExperience = query.FirstOrDefault();
+            PersonExperience PersonExperience = query.FirstOrDefault();
 
-            return personExperience ?? new PersonExperience();
+            return PersonExperience ?? new PersonExperience();
         }
         catch (Exception ex)
         {
@@ -145,7 +182,26 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         }
     }
 
-    public bool UpdatePersonExperience(int id, PersonExperience personExperience, bool isAdmin)
+    public PersonExperience GetByIdPersonExperienceSite(int id)
+    {
+        try
+        {
+            var res = _context.person_experience_20ts24tu
+                .Where(x => x.status_.status != "Deleted")
+                .Where(x => x.id.Equals(id))
+                .Where(x => x.confirmed.Equals(1))
+                .FirstOrDefault();
+
+            return res ?? new PersonExperience();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonExperience();
+        }
+    }
+
+    public bool UpdatePersonExperience(int id, PersonExperience PersonExperience, bool isAdmin)
     {
         try
         {
@@ -155,15 +211,16 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
                 return false;
             }
 
-            dbcheck.title = personExperience.title;
-            dbcheck.description = personExperience.description;
-            dbcheck.text = personExperience.text;
+            dbcheck.confirmed = 0;
+            dbcheck.title = PersonExperience.title;
+            dbcheck.description = PersonExperience.description;
+            dbcheck.text = PersonExperience.text;
             dbcheck.updated_at = DateTime.UtcNow;
-            dbcheck.status_id = personExperience.status_id;
+            dbcheck.status_id = PersonExperience.status_id;
 
             if (isAdmin)
             {
-                dbcheck.person_data_id = personExperience.person_data_id;
+                dbcheck.person_data_id = PersonExperience.person_data_id;
             }
             _context.SaveChanges();
 
@@ -182,29 +239,31 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
 
     #region PersonExperienceTranslation CRUD
 
-    public int CreatePersonExperienceTranslation(PersonExperienceTranslation personExperience)
+    public int CreatePersonExperienceTranslation(PersonExperienceTranslation PersonExperience)
     {
         try
         {
-            if (personExperience == null)
+            if (PersonExperience == null)
             {
                 return 0;
             }
 
-            if (personExperience.person_data_id == 0 || personExperience.person_data_id is null)
+            if (PersonExperience.person_data_id == 0 || PersonExperience.person_data_id is null)
             {
                 User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
                 PersonDataTranslation personData = _context.persons_data_translations_20ts24tu
-                    .FirstOrDefault(x => x.persons_data_.persons_id == user.person_id && x.language_id == personExperience.language_id);
+                    .FirstOrDefault(x => x.persons_data_.persons_id == user.person_id && x.language_id == PersonExperience.language_id);
                 if (personData == null) return 0;
-                personExperience.person_data_id = personData.id;
+                PersonExperience.person_data_id = personData.id;
             }
 
-            _context.person_experience_translation_20ts24tu.Add(personExperience);
+            PersonExperience.person_experience_.confirmed = 0;
+
+            _context.person_experience_translation_20ts24tu.Add(PersonExperience);
             _context.SaveChanges();
 
-            int id = personExperience.id;
-            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(personExperience));
+            int id = PersonExperience.id;
+            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(PersonExperience));
 
             return id;
         }
@@ -260,23 +319,75 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
             return Enumerable.Empty<PersonExperienceTranslation>();
         }
     }
+    public IEnumerable<PersonExperienceTranslation> AllPersonExperienceTranslationSite(int queryNum, int pageNum, int person_data_id, string language_code)
+    {
+        try
+        {
+            IQueryable<PersonExperienceTranslation> query = _context.person_experience_translation_20ts24tu
+                .Include(x => x.language_)
+                .Where(x => x.person_data_.persons_data_id == person_data_id)
+                .Where(x => x.person_experience_.confirmed == 1)
+                .Where(x => x.status_.status != "Deleted")
+                .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonExperienceTranslation>();
+        }
+    }
 
     public PersonExperienceTranslation GetByIdPersonExperienceTranslation(int id, bool isAdmin)
     {
         try
         {
             IQueryable<PersonExperienceTranslation> query = _context.person_experience_translation_20ts24tu
-                .Where(x => x.id.Equals(id)).Include(x => x.status_)
-                .Include(x => x.language_);
+                .Where(x => x.id.Equals(id))
+                .Include(x => x.language_).Include(x => x.status_);
 
             if (!isAdmin)
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
 
-            PersonExperienceTranslation personExperience = query.FirstOrDefault();
+            PersonExperienceTranslation PersonExperience = query.FirstOrDefault();
 
-            return personExperience ?? new PersonExperienceTranslation();
+            return PersonExperience ?? new PersonExperienceTranslation();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonExperienceTranslation();
+        }
+    }
+
+    public PersonExperienceTranslation GetByIdPersonExperienceTranslationSite(int id)
+    {
+        try
+        {
+            var res = _context.person_experience_translation_20ts24tu
+                .Where(x => x.id.Equals(id))
+                .Where(x => x.person_experience_.confirmed.Equals(1))
+                .Where(x => x.status_.status != "Deleted")
+                .Include(x => x.language_)
+                .FirstOrDefault();
+
+            return res ?? new PersonExperienceTranslation();
         }
         catch (Exception ex)
         {
@@ -299,9 +410,28 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
                 query = query.Where(x => x.status_.status != "Deleted");
             }
 
-            PersonExperienceTranslation personExperience = query.FirstOrDefault();
+            PersonExperienceTranslation PersonExperience = query.FirstOrDefault();
 
-            return personExperience ?? new PersonExperienceTranslation();
+            return PersonExperience ?? new PersonExperienceTranslation();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonExperienceTranslation();
+        }
+    }
+    public PersonExperienceTranslation GetByIdPersonExperienceTranslationSite(int uz_id, string language_code)
+    {
+        try
+        {
+            var res = _context.person_experience_translation_20ts24tu
+                 .Where(x => x.person_experience_id.Equals(uz_id))
+                 .Where(x => x.person_experience_.confirmed.Equals(1))
+                 .Where(x => x.status_.status != "Deleted")
+                 .Include(x => x.language_)
+                 .FirstOrDefault();
+
+            return res ?? new PersonExperienceTranslation();
         }
         catch (Exception ex)
         {
@@ -314,15 +444,15 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
     {
         try
         {
-            var personExperience = GetByIdPersonExperienceTranslation(id, false);
-            if (personExperience == null)
+            var PersonExperience = GetByIdPersonExperienceTranslation(id, false);
+            if (PersonExperience == null)
             {
                 return false;
             }
-            personExperience.status_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
-            _context.person_experience_translation_20ts24tu.Update(personExperience);
+            PersonExperience.status_id = (_context.statuses_translations_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+            _context.person_experience_translation_20ts24tu.Update(PersonExperience);
             _context.SaveChanges();
-            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(personExperience));
+            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(PersonExperience));
             return true;
         }
         catch (Exception ex)
@@ -332,7 +462,7 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         }
     }
 
-    public bool UpdatePersonExperienceTranslation(int id, PersonExperienceTranslation personExperience, bool isAdmin)
+    public bool UpdatePersonExperienceTranslation(int id, PersonExperienceTranslation PersonExperience, bool isAdmin)
     {
         try
         {
@@ -342,20 +472,123 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
                 return false;
             }
 
-            dbcheck.title = personExperience.title;
-            dbcheck.description = personExperience.description;
-            dbcheck.text = personExperience.text;
-            dbcheck.language_id = personExperience.language_id;
-            dbcheck.person_experience_id = personExperience.person_experience_id;
+            dbcheck.person_experience_.confirmed = 0;
+            dbcheck.title = PersonExperience.title;
+            dbcheck.description = PersonExperience.description;
+            dbcheck.text = PersonExperience.text;
+            dbcheck.language_id = PersonExperience.language_id;
+            dbcheck.person_experience_id = PersonExperience.person_experience_id;
             dbcheck.updated_at = DateTime.UtcNow;
-            dbcheck.status_id = personExperience.status_id;
+            dbcheck.status_id = PersonExperience.status_id;
 
             if (isAdmin)
             {
-                dbcheck.person_data_id = personExperience.person_data_id;
+                dbcheck.person_data_id = PersonExperience.person_data_id;
             }
             _context.SaveChanges();
 
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return false;
+        }
+    }
+
+
+
+
+    public IEnumerable<PersonData> AllPersonExperienceCreated()
+    {
+        try
+        {
+            var user = _context.users_20ts24tu
+                .Include(x => x.person_)
+                .FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null)
+            {
+                List<PersonData> personsIdList = _context.persons_data_20ts24tu
+                .Where(x => x.persons_.departament_id == user.person_.departament_id)
+                .Where(x => x.persons_id != user.person_id)
+                .Where(x => x.status_.status != "Deleted")
+                .Include(x => x.persons_)
+                .ToList();
+                return personsIdList;
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonData>();
+        }
+    }
+
+    public IEnumerable<PersonExperience> AllPersonExperienceDep(int queryNum, int pageNum, int person_data_id)
+    {
+        try
+        {
+            IQueryable<PersonExperience> query = _context.person_experience_20ts24tu
+                .Where(x => x.person_data_id == person_data_id)
+                .Where(x => x.status_.status != "Deleted");
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonExperience>();
+        }
+    }
+
+    public bool ConfirmDocumentTeacher110Set(int id, bool confirm)
+    {
+        try
+        {
+            var dbcheck = GetByIdPersonExperience(id, false);
+
+            if (dbcheck is null || dbcheck.confirmed == 1)
+            {
+                return false;
+            }
+
+            var headDepartamentId = _context.users_20ts24tu
+               .Where(x => x.id == SessionClass.id)
+               .Select(x => x.person_.departament_id).FirstOrDefault();
+
+            if (dbcheck.person_data_.persons_.departament_id != headDepartamentId)
+            {
+                return false;
+            }
+
+            if (!confirm)
+            {
+                dbcheck.confirmed = 2;
+            }
+            else if (confirm)
+            {
+                dbcheck.confirmed = 1;
+
+            }
+            _context.Update(dbcheck);
+            _context.SaveChanges();
             _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
             return true;
         }

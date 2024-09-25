@@ -1,9 +1,9 @@
 ﻿using Entities.DTO.ReadedDTOSConfigurations.LanguageConfDTOS;
 using Entities.DTO.ReadedDTOSConfigurations.StatusConfDTOS;
 
-namespace Entities.DTO.PersonDataDTOS.PersonPortfolioDTOS;
+namespace Entities.DTO.PersonDataDTOS.PersonBlogDTOS;
 
-public class PersonPortfolioTranslationReadedSiteDTO
+public class PersonBlogTranslationReadedProfileDTO
 {
     public int id { get; set; }
     public string? title { get; set; }
@@ -13,5 +13,6 @@ public class PersonPortfolioTranslationReadedSiteDTO
     public DateTime? crated_at { get; set; }
     public DateTime? updated_at { get; set; }
     public LanguageConfReadedDTO? language_ { get; set; }
-    public int? person_portfolio_id { get; set; }
+    public int? person_blog_id { get; set; }
+    public StatusTranslationConfReadedDTO? status_ { get; set; }
 }

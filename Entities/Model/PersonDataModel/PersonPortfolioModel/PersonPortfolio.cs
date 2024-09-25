@@ -16,4 +16,5 @@ public class PersonPortfolio
     public PersonData? person_data_ { get; set; }
     public DateTime? crated_at { get; set; } = DateTime.UtcNow;
     public DateTime? updated_at { get; set; }
+    public int? confirmed { get; set; }
 }

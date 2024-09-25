@@ -69,6 +69,38 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
         }
     }
 
+    public IEnumerable<PersonScientificActivity> AllPersonScientificActivitySite(int queryNum, int pageNum, int person_data_id)
+    {
+        try
+        {
+            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu
+                .Where(x => x.person_data_id == person_data_id)
+                .Where(x => x.confirmed == 1)
+                .Where(x => x.status_.status != "Deleted");
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonScientificActivity>();
+        }
+    }
+
     public int CreatePersonScientificActivity(PersonScientificActivity personScientificActivity)
     {
         try
@@ -86,7 +118,7 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
                 personScientificActivity.person_data_id = personData.id;
             }
 
-
+            personScientificActivity.confirmed = 0;
 
             _context.person_scientific_activity_20ts24tu.Add(personScientificActivity);
             _context.SaveChanges();
@@ -148,6 +180,26 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
         }
     }
 
+    public PersonScientificActivity GetByIdPersonScientificActivitySite(int id)
+    {
+        try
+        {
+            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu
+                .Where(x => x.id.Equals(id))
+                .Where(x => x.confirmed == 1)
+                .Where(x => x.status_.status != "Deleted");
+
+            PersonScientificActivity personScientificActivity = query.FirstOrDefault();
+
+            return personScientificActivity ?? new PersonScientificActivity();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonScientificActivity();
+        }
+    }
+
     public bool UpdatePersonScientificActivity(int id, PersonScientificActivity personScientificActivity, bool isAdmin)
     {
         try
@@ -158,6 +210,7 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
                 return false;
             }
 
+            dbcheck.confirmed = 0;
             dbcheck.since_when = personScientificActivity.since_when;
             dbcheck.until_when = personScientificActivity.until_when;
             dbcheck.whom = personScientificActivity.whom;
@@ -202,6 +255,8 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
                 if (personData == null) return 0;
                 personScientificActivity.person_data_translation_id = personData.id;
             }
+
+            personScientificActivity.person_scientific_activity_.confirmed = 0;
 
             _context.person_scientific_activity_translation_20ts24tu.Add(personScientificActivity);
             _context.SaveChanges();
@@ -265,6 +320,40 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
         }
     }
 
+    public IEnumerable<PersonScientificActivityTranslation> AllPersonScientificActivityTranslationSite(int queryNum, int pageNum, int person_data_id, string language_code)
+    {
+        try
+        {
+            IQueryable<PersonScientificActivityTranslation> query = _context.person_scientific_activity_translation_20ts24tu
+                .Include(x => x.language_)
+                .Where(x => x.person_scientific_activity_.confirmed == 1)
+                .Where(x => x.person_data_translation_.persons_data_id == person_data_id)
+                .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null)
+                .Where(x => x.status_translation_.status != "Deleted");
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonScientificActivityTranslation>();
+        }
+    }
+
     public PersonScientificActivityTranslation GetByIdPersonScientificActivityTranslation(int id, bool isAdmin)
     {
         try
@@ -277,6 +366,27 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             {
                 query = query.Where(x => x.status_translation_.status != "Deleted");
             }
+
+            PersonScientificActivityTranslation personScientificActivity = query.FirstOrDefault();
+
+            return personScientificActivity ?? new PersonScientificActivityTranslation();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonScientificActivityTranslation();
+        }
+    }
+
+    public PersonScientificActivityTranslation GetByIdPersonScientificActivityTranslationSite(int id)
+    {
+        try
+        {
+            IQueryable<PersonScientificActivityTranslation> query = _context.person_scientific_activity_translation_20ts24tu
+                .Where(x => x.id.Equals(id))
+                .Where(x => x.person_scientific_activity_.confirmed == 1)
+                .Include(x => x.language_)
+                .Where(x => x.status_translation_.status != "Deleted");
 
             PersonScientificActivityTranslation personScientificActivity = query.FirstOrDefault();
 
@@ -302,6 +412,28 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             {
                 query = query.Where(x => x.status_translation_.status != "Deleted");
             }
+
+            PersonScientificActivityTranslation personScientificActivity = query.FirstOrDefault();
+
+            return personScientificActivity ?? new PersonScientificActivityTranslation();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonScientificActivityTranslation();
+        }
+    }
+
+    public PersonScientificActivityTranslation GetByIdPersonScientificActivityTranslationSite(int uz_id, string language_code)
+    {
+        try
+        {
+            IQueryable<PersonScientificActivityTranslation> query = _context.person_scientific_activity_translation_20ts24tu
+                .Where(x => x.person_scientific_activity_id.Equals(uz_id))
+                .Where(x => x.person_scientific_activity_.confirmed == 1)
+                .Where(x => x.language_.code.Equals(language_code))
+                .Include(x => x.language_)
+                .Where(x => x.status_translation_.status != "Deleted");
 
             PersonScientificActivityTranslation personScientificActivity = query.FirstOrDefault();
 
@@ -346,6 +478,7 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
                 return false;
             }
 
+            dbcheck.person_scientific_activity_.confirmed = 0;
             dbcheck.since_when = personScientificActivity.since_when;
             dbcheck.until_when = personScientificActivity.until_when;
             dbcheck.whom = personScientificActivity.whom;
@@ -369,6 +502,109 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             return false;
         }
     }
+
+
+
+    //Confirm
+    public IEnumerable<PersonData> AllPersonScientificActivityCreated()
+    {
+        try
+        {
+            var user = _context.users_20ts24tu
+                .Include(x => x.person_)
+                .FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null)
+            {
+                List<PersonData> personsIdList = _context.persons_data_20ts24tu
+                .Where(x => x.persons_.departament_id == user.person_.departament_id)
+                .Where(x => x.persons_id != user.person_id)
+                .Where(x => x.status_.status != "Deleted")
+                .Include(x => x.persons_)
+                .ToList();
+                return personsIdList;
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonData>();
+        }
+    }
+
+    public IEnumerable<PersonScientificActivity> AllPersonScientificActivityDep(int queryNum, int pageNum, int person_data_id)
+    {
+        try
+        {
+            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu
+                .Where(x => x.person_data_id == person_data_id)
+                .Where(x => x.status_.status != "Deleted");
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonScientificActivity>();
+        }
+    }
+
+    public bool ConfirmDocumentTeacher110Set(int id, bool confirm)
+    {
+        try
+        {
+            var dbcheck = GetByIdPersonScientificActivity(id, false);
+
+            if (dbcheck is null || dbcheck.confirmed == 1)
+            {
+                return false;
+            }
+
+            var headDepartamentId = _context.users_20ts24tu
+               .Where(x => x.id == SessionClass.id)
+               .Select(x => x.person_.departament_id).FirstOrDefault();
+
+            if (dbcheck.person_data_.persons_.departament_id != headDepartamentId)
+            {
+                return false;
+            }
+
+            if (!confirm)
+            {
+                dbcheck.confirmed = 2;
+            }
+            else if (confirm)
+            {
+                dbcheck.confirmed = 1;
+
+            }
+            _context.Update(dbcheck);
+            _context.SaveChanges();
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return false;
+        }
+    }
+
 
     #endregion
 

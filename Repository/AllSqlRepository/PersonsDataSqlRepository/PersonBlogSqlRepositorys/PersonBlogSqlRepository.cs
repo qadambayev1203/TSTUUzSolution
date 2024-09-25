@@ -7,6 +7,7 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Entities.Model.PersonModel;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository.PersonBlogSqlRepositorys;
 
@@ -44,6 +45,38 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             {
                 query = query.Where(x => x.status_.status != "Deleted");
             }
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonBlog>();
+        }
+    }
+
+    public IEnumerable<PersonBlog> AllPersonBlogSite(int queryNum, int pageNum, int person_data_id)
+    {
+        try
+        {
+            IQueryable<PersonBlog> query = _context.person_blog_20ts24tu
+            .Where(x => x.person_data_id == person_data_id)
+            .Where(x => x.confirmed == 1)
+            .Where(x => x.status_.status != "Deleted");
 
             if (queryNum == 0 && pageNum != 0)
             {
@@ -129,7 +162,9 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
         try
         {
             IQueryable<PersonBlog> query = _context.person_blog_20ts24tu
-                .Where(x => x.id.Equals(id)).Include(x => x.status_);
+                .Where(x => x.id.Equals(id))
+                .Include(x => x.person_data_).ThenInclude(x => x.persons_)
+                .Include(x => x.status_);
 
             if (!isAdmin)
             {
@@ -139,6 +174,25 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             PersonBlog personBlog = query.FirstOrDefault();
 
             return personBlog ?? new PersonBlog();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonBlog();
+        }
+    }
+
+    public PersonBlog GetByIdPersonBlogSite(int id)
+    {
+        try
+        {
+            var res = _context.person_blog_20ts24tu
+                .Where(x => x.status_.status != "Deleted")
+                .Where(x => x.id.Equals(id))
+                .Where(x => x.confirmed.Equals(1))
+                .FirstOrDefault();
+
+            return res ?? new PersonBlog();
         }
         catch (Exception ex)
         {
@@ -203,7 +257,7 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 personBlog.person_data_id = personData.id;
             }
 
-            personBlog.confirmed = 0;
+            personBlog.person_blog_.confirmed = 0;
 
             _context.person_blog_translation_20ts24tu.Add(personBlog);
             _context.SaveChanges();
@@ -265,6 +319,38 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             return Enumerable.Empty<PersonBlogTranslation>();
         }
     }
+    public IEnumerable<PersonBlogTranslation> AllPersonBlogTranslationSite(int queryNum, int pageNum, int person_data_id, string language_code)
+    {
+        try
+        {
+            IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
+                .Include(x => x.language_)
+                .Where(x => x.person_data_.persons_data_id == person_data_id)
+                .Where(x => x.person_blog_.confirmed == 1)
+                .Where(x => x.status_.status != "Deleted")
+                .Where((language_code != null) ? x => x.language_.code.Equals(language_code) : x => x.language_.code != null);
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonBlogTranslation>();
+        }
+    }
 
     public PersonBlogTranslation GetByIdPersonBlogTranslation(int id, bool isAdmin)
     {
@@ -290,6 +376,26 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
         }
     }
 
+    public PersonBlogTranslation GetByIdPersonBlogTranslationSite(int id)
+    {
+        try
+        {
+            var res = _context.person_blog_translation_20ts24tu
+                .Where(x => x.id.Equals(id))
+                .Where(x => x.person_blog_.confirmed.Equals(1))
+                .Where(x => x.status_.status != "Deleted")
+                .Include(x => x.language_)
+                .FirstOrDefault();
+
+            return res ?? new PersonBlogTranslation();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonBlogTranslation();
+        }
+    }
+
     public PersonBlogTranslation GetByIdPersonBlogTranslation(int uz_id, string language_code, bool isAdmin)
     {
         try
@@ -307,6 +413,25 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             PersonBlogTranslation personBlog = query.FirstOrDefault();
 
             return personBlog ?? new PersonBlogTranslation();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new PersonBlogTranslation();
+        }
+    }
+    public PersonBlogTranslation GetByIdPersonBlogTranslationSite(int uz_id, string language_code)
+    {
+        try
+        {
+            var res = _context.person_blog_translation_20ts24tu
+                 .Where(x => x.person_blog_id.Equals(uz_id))
+                 .Where(x => x.person_blog_.confirmed.Equals(1))
+                 .Where(x => x.status_.status != "Deleted")
+                 .Include(x => x.language_)
+                 .FirstOrDefault();
+
+            return res ?? new PersonBlogTranslation();
         }
         catch (Exception ex)
         {
@@ -347,7 +472,7 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 return false;
             }
 
-            dbcheck.confirmed = 0;
+            dbcheck.person_blog_.confirmed = 0;
             dbcheck.title = personBlog.title;
             dbcheck.description = personBlog.description;
             dbcheck.text = personBlog.text;
@@ -362,6 +487,108 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             }
             _context.SaveChanges();
 
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return false;
+        }
+    }
+
+
+
+
+    public IEnumerable<PersonData> AllPersonBlogCreated()
+    {
+        try
+        {
+            var user = _context.users_20ts24tu
+                .Include(x => x.person_)
+                .FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null)
+            {
+                List<PersonData> personsIdList = _context.persons_data_20ts24tu
+                .Where(x => x.persons_.departament_id == user.person_.departament_id)
+                .Where(x => x.persons_id != user.person_id)
+                .Where(x => x.status_.status != "Deleted")
+                .Include(x => x.persons_)
+                .ToList();
+                return personsIdList;
+            }
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonData>();
+        }
+    }
+
+    public IEnumerable<PersonBlog> AllPersonBlogDep(int queryNum, int pageNum, int person_data_id)
+    {
+        try
+        {
+            IQueryable<PersonBlog> query = _context.person_blog_20ts24tu
+                .Where(x => x.person_data_id == person_data_id)
+                .Where(x => x.status_.status != "Deleted");
+
+            if (queryNum == 0 && pageNum != 0)
+            {
+                query = query.Skip(10 * (pageNum - 1)).Take(10);
+
+            }
+
+            if (queryNum != 0 && pageNum != 0)
+            {
+                if (queryNum > 200) { queryNum = 200; }
+                query = query.Skip(queryNum * (pageNum - 1))
+                    .Take(queryNum);
+
+            }
+
+            return query.ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Enumerable.Empty<PersonBlog>();
+        }
+    }
+
+    public bool ConfirmDocumentTeacher110Set(int id, bool confirm)
+    {
+        try
+        {
+            var dbcheck = GetByIdPersonBlog(id, false);
+
+            if (dbcheck is null || dbcheck.confirmed == 1)
+            {
+                return false;
+            }
+
+            var headDepartamentId = _context.users_20ts24tu
+               .Where(x => x.id == SessionClass.id)
+               .Select(x => x.person_.departament_id).FirstOrDefault();
+
+            if (dbcheck.person_data_.persons_.departament_id != headDepartamentId)
+            {
+                return false;
+            }
+
+            if (!confirm)
+            {
+                dbcheck.confirmed = 2;
+            }
+            else if (confirm)
+            {
+                dbcheck.confirmed = 1;
+
+            }
+            _context.Update(dbcheck);
+            _context.SaveChanges();
             _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
             return true;
         }

@@ -14,4 +14,5 @@ public class PersonScientificActivity
     public PersonData? person_data_ { get; set; }
     [ForeignKey("Status")] public int? status_id { get; set; }
     public Status? status_ { get; set; }
+    public int? confirmed { get; set; }
 }

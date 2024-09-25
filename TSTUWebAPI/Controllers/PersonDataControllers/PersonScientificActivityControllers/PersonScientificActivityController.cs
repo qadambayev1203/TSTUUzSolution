@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Entities.Model.PersonDataModel.PersonScientificActivityModel;
 using Entities.DTO.PersonDataDTOS.PersonScientificActivityDTOS;
 using Contracts.AllRepository.PersonsDataRepository.PersonScientificActivityRepository;
+using Entities.DTO.PersonDataDTOS.PersonBlogDTOS;
+using Entities.DTO.PersonDataDTOS;
+using Entities.Model.PersonDataModel.PersonBlogModel;
+using Entities.Model.PersonDataModel;
 
 namespace TSTUWebAPI.Controllers.PersonDataControllers.PersonScientificActivityControllers;
 
-[Authorize]
 [Route("api/personscientificactivity")]
 [ApiController]
 public class PersonScientificActivityController : ControllerBase
@@ -29,6 +32,7 @@ public class PersonScientificActivityController : ControllerBase
 
     // PersonScientificActivity CRUD
 
+    [Authorize]
     [HttpPost("createpersonscientificactivity")]
     public IActionResult CreatePersonScientificActivity(PersonScientificActivityCreatedDTO scientificActivity)
     {
@@ -83,12 +87,23 @@ public class PersonScientificActivityController : ControllerBase
         return Ok(personScientifics);
     }
 
+    [Authorize]
+    [HttpGet("getallpersonscientificactivityprofil")]
+    public IActionResult GetAllPersonScientificActivityProfil(int queryNum, int pageNum, int person_data_id)
+    {
+        queryNum = Math.Abs(queryNum);
+        pageNum = Math.Abs(pageNum);
+        IEnumerable<PersonScientificActivity> personScientificsMap = _repository.AllPersonScientificActivity(queryNum, pageNum, person_data_id, false);
+        var personScientifics = _mapper.Map<IEnumerable<PersonScientificActivityReadedProfilDTO>>(personScientificsMap);
+        return Ok(personScientifics);
+    }
+
     [HttpGet("getallpersonscientificactivitysite")]
     public IActionResult GetAllPersonScientificActivitySite(int queryNum, int pageNum, int person_data_id)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonScientificActivity> personScientificsMap = _repository.AllPersonScientificActivity(queryNum, pageNum, person_data_id, false);
+        IEnumerable<PersonScientificActivity> personScientificsMap = _repository.AllPersonScientificActivitySite(queryNum, pageNum, person_data_id);
         var personScientifics = _mapper.Map<IEnumerable<PersonScientificActivityReadedSiteDTO>>(personScientificsMap);
         return Ok(personScientifics);
     }
@@ -103,14 +118,24 @@ public class PersonScientificActivityController : ControllerBase
         return Ok(personScientific);
     }
 
-    [HttpGet("getbyidpersonscientificactivity/{id}")]
-    public IActionResult GetByIdPersonScientificActivitySite(int id)
+    [Authorize]
+    [HttpGet("getbyidpersonscientificactivityprofil/{id}")]
+    public IActionResult GetByIdPersonScientificActivityProfil(int id)
     {
         PersonScientificActivity personScientificMap = _repository.GetByIdPersonScientificActivity(id, false);
+        var personScientific = _mapper.Map<PersonScientificActivityReadedProfilDTO>(personScientificMap);
+        return Ok(personScientific);
+    }
+
+    [HttpGet("getbyidpersonscientificactivitysite/{id}")]
+    public IActionResult GetByIdPersonScientificActivitySite(int id)
+    {
+        PersonScientificActivity personScientificMap = _repository.GetByIdPersonScientificActivitySite(id);
         var personScientific = _mapper.Map<PersonScientificActivityReadedSiteDTO>(personScientificMap);
         return Ok(personScientific);
     }
 
+    [Authorize]
     [HttpDelete("deletepersonscientificactivity/{id}")]
     public IActionResult DeletePersonScientificActivity(int id)
     {
@@ -124,6 +149,7 @@ public class PersonScientificActivityController : ControllerBase
         return Ok("Deleted");
     }
 
+    [Authorize]
     [HttpPut("updatepersonscientificactivity/{id}")]
     public IActionResult UpdatePersonScientificActivity(PersonScientificActivityUpdatedDTO scientificActivityUpdatedDTO, int id)
     {
@@ -171,6 +197,7 @@ public class PersonScientificActivityController : ControllerBase
 
     // PersonScientificActivityTranslation CRUD
 
+    [Authorize]
     [HttpPost("createpersonscientificactivitytranslation")]
     public IActionResult CreatePersonScientificActivityTranslation(PersonScientificActivityTranslationCreatedDTO scientificActivity)
     {
@@ -225,12 +252,23 @@ public class PersonScientificActivityController : ControllerBase
         return Ok(personScientifics);
     }
 
+    [Authorize]
+    [HttpGet("getallpersonscientificactivitytranslationprofil")]
+    public IActionResult GetAllPersonScientificActivityTranslationProfil(int queryNum, int pageNum, int person_data_uz_id, string language_code)
+    {
+        queryNum = Math.Abs(queryNum);
+        pageNum = Math.Abs(pageNum);
+        IEnumerable<PersonScientificActivityTranslation> personScientificsMap = _repository.AllPersonScientificActivityTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
+        var personScientifics = _mapper.Map<IEnumerable<PersonScientificActivityTranslationReadedProfilDTO>>(personScientificsMap);
+        return Ok(personScientifics);
+    }
+
     [HttpGet("getallpersonscientificactivitytranslationsite")]
     public IActionResult GetAllPersonScientificActivityTranslationSite(int queryNum, int pageNum, int person_data_uz_id, string language_code)
     {
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
-        IEnumerable<PersonScientificActivityTranslation> personScientificsMap = _repository.AllPersonScientificActivityTranslation(queryNum, pageNum, person_data_uz_id, false, language_code);
+        IEnumerable<PersonScientificActivityTranslation> personScientificsMap = _repository.AllPersonScientificActivityTranslationSite(queryNum, pageNum, person_data_uz_id, language_code);
         var personScientifics = _mapper.Map<IEnumerable<PersonScientificActivityTranslationReadedSiteDTO>>(personScientificsMap);
         return Ok(personScientifics);
     }
@@ -253,22 +291,41 @@ public class PersonScientificActivityController : ControllerBase
         return Ok(personScientific);
     }
 
-    [HttpGet("getbyidpersonscientificactivitytranslation/{id}")]
-    public IActionResult GetByIdPersonScientificActivityTranslationSite(int id)
+    [Authorize]
+    [HttpGet("getbyidpersonscientificactivitytranslationprofil/{id}")]
+    public IActionResult GetByIdPersonScientificActivityTranslationProfil(int id)
     {
         PersonScientificActivityTranslation personScientificMap = _repository.GetByIdPersonScientificActivityTranslation(id, false);
-        var personScientific = _mapper.Map<PersonScientificActivityTranslationReadedSiteDTO>(personScientificMap);
+        var personScientific = _mapper.Map<PersonScientificActivityTranslationReadedProfilDTO>(personScientificMap);
         return Ok(personScientific);
     }
 
-    [HttpGet("getbyidpersonscientificactivitytranslationuzid/{uz_id}")]
-    public IActionResult GetByIdPersonScientificActivityTranslationSite(int uz_id, string language_code)
+    [Authorize]
+    [HttpGet("getbyidpersonscientificactivitytranslationuzidprofil/{uz_id}")]
+    public IActionResult GetByIdPersonScientificActivityTranslationProfil(int uz_id, string language_code)
     {
         PersonScientificActivityTranslation personScientificMap = _repository.GetByIdPersonScientificActivityTranslation(uz_id, language_code, false);
+        var personScientific = _mapper.Map<PersonScientificActivityTranslationReadedProfilDTO>(personScientificMap);
+        return Ok(personScientific);
+    }
+
+    [HttpGet("getbyidpersonscientificactivitytranslationsite/{id}")]
+    public IActionResult GetByIdPersonScientificActivityTranslationSite(int id)
+    {
+        PersonScientificActivityTranslation personScientificMap = _repository.GetByIdPersonScientificActivityTranslationSite(id);
         var personScientific = _mapper.Map<PersonScientificActivityTranslationReadedSiteDTO>(personScientificMap);
         return Ok(personScientific);
     }
 
+    [HttpGet("getbyidpersonscientificactivitytranslationuzidsite/{uz_id}")]
+    public IActionResult GetByIdPersonScientificActivityTranslationSite(int uz_id, string language_code)
+    {
+        PersonScientificActivityTranslation personScientificMap = _repository.GetByIdPersonScientificActivityTranslationSite(uz_id, language_code);
+        var personScientific = _mapper.Map<PersonScientificActivityTranslationReadedSiteDTO>(personScientificMap);
+        return Ok(personScientific);
+    }
+
+    [Authorize]
     [HttpDelete("deletepersonscientificactivitytranslation/{id}")]
     public IActionResult DeletePersonScientificActivityTranslation(int id)
     {
@@ -282,6 +339,7 @@ public class PersonScientificActivityController : ControllerBase
         return Ok("Deleted");
     }
 
+    [Authorize]
     [HttpPut("updatepersonscientificactivitytranslation/{id}")]
     public IActionResult UpdatePersonScientificActivityTranslation(PersonScientificActivityTranslationUpdatedDTO scientificActivityUpdatedDTO, int id)
     {
@@ -325,5 +383,39 @@ public class PersonScientificActivityController : ControllerBase
 
     }
 
+
+
+    // Confirm Department head
+
+    [Authorize(Roles = "HeadDepartment")]
+    [HttpGet("getallpersondatadepartment")]
+    public IActionResult GetAllPersonDataDepartment()
+    {
+        IEnumerable<PersonData> personsMap = _repository.AllPersonScientificActivityCreated();
+        var persons = _mapper.Map<IEnumerable<PersonDataSearchDTO>>(personsMap);
+        return Ok(persons);
+    }
+
+    [Authorize(Roles = "HeadDepartment")]
+    [HttpGet("getallpersonscientificactivitydep/{person_data_id}")]
+    public IActionResult GetAllPersonBlogDep(int queryNum, int pageNum, int person_data_id)
+    {
+        queryNum = Math.Abs(queryNum);
+        pageNum = Math.Abs(pageNum);
+        IEnumerable<PersonScientificActivity> personBlogsMap = _repository.AllPersonScientificActivityDep(queryNum, pageNum, person_data_id);
+        var personBlogs = _mapper.Map<IEnumerable<PersonScientificActivityTranslationReadedSiteDTO>>(personBlogsMap);
+        return Ok(personBlogs);
+    }
+
+    [Authorize(Roles = "HeadDepartment")]
+    [HttpPost("confirmed/{person_scientific_activity_id}")]
+    public IActionResult ConfirmAttribute(int person_scientific_activity_id, bool confirm)
+    {
+        var check = _repository.ConfirmDocumentTeacher110Set(person_scientific_activity_id, confirm);
+
+        if (!check) return BadRequest();
+
+        return Ok("Confirmed");
+    }
 }
 

@@ -13,4 +13,5 @@ public class PersonExperienceReadedDTO
     public int? person_data_id { get; set; }
     public DateTime? crated_at { get; set; } 
     public DateTime? updated_at { get; set; }
+    public int? confirmed { get; set; }
 }

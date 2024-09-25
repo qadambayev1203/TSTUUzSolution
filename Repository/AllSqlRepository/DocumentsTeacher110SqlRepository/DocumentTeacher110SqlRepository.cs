@@ -168,6 +168,7 @@ public class DocumentTeacher110SqlRepository : IDocumentTeacher110Repository
                 return false;
             }
 
+            dbcheck.avtor = documentTeacher110.avtor;
             dbcheck.title = documentTeacher110.title;
             dbcheck.parent_id = documentTeacher110.parent_id;
             dbcheck.indicator = documentTeacher110.indicator;

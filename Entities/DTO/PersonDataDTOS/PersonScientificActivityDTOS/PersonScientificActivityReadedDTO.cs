@@ -11,4 +11,5 @@ public class PersonScientificActivityReadedDTO
     public string? where { get; set; }
     public int? person_data_id { get; set; }
     public StatusConfReadedDTO? status_ { get; set; }
+    public int? confirmed { get; set; }
 }
