@@ -208,7 +208,7 @@ public class MappingProfile : Profile
         #region PersonScientificActivity DTOS
 
         CreateMap<PersonScientificActivityCreatedDTO, PersonScientificActivity>();
-        CreateMap<PersonBlogCreatedAdminDTO, PersonScientificActivity>();
+        CreateMap<PersonScientificActivityCreatedAdminDTO, PersonScientificActivity>();
         CreateMap<PersonScientificActivityUpdatedAdminDTO, PersonScientificActivity>();
         CreateMap<PersonScientificActivityUpdatedDTO, PersonScientificActivity>();
         CreateMap<PersonScientificActivity, PersonScientificActivityReadedDTO>();
