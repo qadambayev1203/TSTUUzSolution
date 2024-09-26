@@ -3,7 +3,7 @@
 public class DocumentTeacher110UpdatedDTO
 {
     public required string title { get; set; }
-    public required int parent_id { get; set; }
+    public int parent_id { get; set; }
     public required bool indicator { get; set; }
     public required double max_score { get; set; }
     public string? description { get; set; }

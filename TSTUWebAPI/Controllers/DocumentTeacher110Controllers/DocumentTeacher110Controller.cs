@@ -144,9 +144,9 @@ public class DocumentTeacher110Controller : ControllerBase
                 return BadRequest();
             }
 
-            if (documentTeacher110.parent_id == 0 || documentTeacher110.max_score == 0)
+            if (documentTeacher110.max_score == 0)
             {
-                return BadRequest("parent_id and max_score cannot be 0");
+                return BadRequest("max_score cannot be 0");
             }
 
             var documentTeacher110Map = _mapper.Map<DocumentTeacher110>(documentTeacher110);
