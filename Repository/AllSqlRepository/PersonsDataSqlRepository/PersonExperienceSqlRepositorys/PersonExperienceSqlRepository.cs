@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Entities.Model.PersonModel;
+using Entities.Model.PersonDataModel.PersonPortfolioModel;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository.PersonExperienceSqlRepositorys;
 
@@ -257,7 +258,10 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
                 PersonExperience.person_data_id = personData.id;
             }
 
-            PersonExperience.person_experience_.confirmed = 0;
+            var person_experience_ = _context.person_experience_20ts24tu.FirstOrDefault(x => x.id == PersonExperience.person_experience_id);
+            person_experience_.confirmed = 0;
+
+            PersonExperience.person_experience_ = person_experience_;
 
             _context.person_experience_translation_20ts24tu.Add(PersonExperience);
             _context.SaveChanges();
@@ -358,7 +362,9 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
         {
             IQueryable<PersonExperienceTranslation> query = _context.person_experience_translation_20ts24tu
                 .Where(x => x.id.Equals(id))
-                .Include(x => x.language_).Include(x => x.status_);
+                .Include(x => x.language_)
+                .Include(x => x.person_experience_)
+                .Include(x => x.status_);
 
             if (!isAdmin)
             {

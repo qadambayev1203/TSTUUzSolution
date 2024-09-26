@@ -3,6 +3,7 @@ using Entities;
 using Entities.Model;
 using Entities.Model.AnyClasses;
 using Entities.Model.PersonDataModel;
+using Entities.Model.PersonDataModel.PersonPortfolioModel;
 using Entities.Model.PersonDataModel.PersonScientificActivityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -256,7 +257,11 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
                 personScientificActivity.person_data_translation_id = personData.id;
             }
 
-            personScientificActivity.person_scientific_activity_.confirmed = 0;
+            var person_scientific_activity_ = _context.person_scientific_activity_20ts24tu
+                .FirstOrDefault(x => x.id == personScientificActivity.person_scientific_activity_id);
+
+            person_scientific_activity_.confirmed = 0;
+            personScientificActivity.person_scientific_activity_ = person_scientific_activity_;
 
             _context.person_scientific_activity_translation_20ts24tu.Add(personScientificActivity);
             _context.SaveChanges();
@@ -360,7 +365,9 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
         {
             IQueryable<PersonScientificActivityTranslation> query = _context.person_scientific_activity_translation_20ts24tu
                 .Where(x => x.id.Equals(id))
-                .Include(x => x.language_).Include(x => x.status_translation_);
+                .Include(x => x.language_)
+                .Include(x => x.person_scientific_activity_)
+                .Include(x => x.status_translation_);
 
             if (!isAdmin)
             {

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Entities.Model.PersonModel;
+using Entities.Model.PersonDataModel.PersonPortfolioModel;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository.PersonBlogSqlRepositorys;
 
@@ -257,7 +258,10 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 personBlog.person_data_id = personData.id;
             }
 
-            personBlog.person_blog_.confirmed = 0;
+            var person_blog_ = _context.person_blog_20ts24tu.FirstOrDefault(x => x.id == personBlog.person_blog_id);
+            person_blog_.confirmed = 0;
+
+            personBlog.person_blog_ = person_blog_;
 
             _context.person_blog_translation_20ts24tu.Add(personBlog);
             _context.SaveChanges();
@@ -358,7 +362,9 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
         {
             IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
                 .Where(x => x.id.Equals(id))
-                .Include(x => x.language_).Include(x => x.status_);
+                .Include(x => x.language_)
+                .Include(x => x.person_blog_)
+                .Include(x => x.status_);
 
             if (!isAdmin)
             {

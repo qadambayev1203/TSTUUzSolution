@@ -257,7 +257,10 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
                 PersonPortfolio.person_data_id = personData.id;
             }
 
-            PersonPortfolio.person_portfolio_.confirmed = 0;
+            var person_portfolio_ = _context.person_portfolio_20ts24tu.FirstOrDefault(x => x.id == PersonPortfolio.person_portfolio_id);
+            person_portfolio_.confirmed = 0;
+
+            PersonPortfolio.person_portfolio_ = person_portfolio_;
 
             _context.person_portfolio_translation_20ts24tu.Add(PersonPortfolio);
             _context.SaveChanges();
@@ -358,7 +361,9 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
         {
             IQueryable<PersonPortfolioTranslation> query = _context.person_portfolio_translation_20ts24tu
                 .Where(x => x.id.Equals(id))
-                .Include(x => x.language_).Include(x => x.status_);
+                .Include(x => x.language_)
+                .Include(x => x.person_portfolio_)
+                .Include(x => x.status_);
 
             if (!isAdmin)
             {
@@ -473,6 +478,7 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
             }
 
             dbcheck.person_portfolio_.confirmed = 0;
+
             dbcheck.title = PersonPortfolio.title;
             dbcheck.description = PersonPortfolio.description;
             dbcheck.text = PersonPortfolio.text;
