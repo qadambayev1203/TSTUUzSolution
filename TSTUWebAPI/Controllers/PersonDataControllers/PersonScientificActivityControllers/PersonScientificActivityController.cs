@@ -403,7 +403,7 @@ public class PersonScientificActivityController : ControllerBase
         queryNum = Math.Abs(queryNum);
         pageNum = Math.Abs(pageNum);
         IEnumerable<PersonScientificActivity> personBlogsMap = _repository.AllPersonScientificActivityDep(queryNum, pageNum, person_data_id);
-        var personBlogs = _mapper.Map<IEnumerable<PersonScientificActivityTranslationReadedSiteDTO>>(personBlogsMap);
+        var personBlogs = _mapper.Map<IEnumerable<PersonScientificActivityReadedSiteDTO>>(personBlogsMap);
         return Ok(personBlogs);
     }
 
