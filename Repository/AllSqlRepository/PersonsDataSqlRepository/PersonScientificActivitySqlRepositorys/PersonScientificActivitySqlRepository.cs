@@ -162,7 +162,9 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
     {
         try
         {
-            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu.Include(x => x.status_)
+            IQueryable<PersonScientificActivity> query = _context.person_scientific_activity_20ts24tu
+                .Include(x => x.status_)
+                .Include(x => x.person_data_).ThenInclude(y => y.persons_)
                 .Where(x => x.id.Equals(id));
 
             if (!isAdmin)
