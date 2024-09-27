@@ -752,9 +752,49 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
                 if (summ > document.max_score) return Tuple.Create(false, "Bu turdagi hujjat limiti to'lgan");
 
+                //
+
+                DocumentTeacher110 documentParent = _context.document_teacher_110_20ts24tu
+                    .Include(x => x.status_)
+                    .Where(x => x.status_.status != "Deleted")
+                    .FirstOrDefault(x => x.id == document.parent_id);
+
+
+                List<DocumentTeacher110> documentParentList = _context.document_teacher_110_20ts24tu
+                    .Include(x => x.status_)
+                    .Where(x => x.status_.status != "Deleted")
+                    .Where(x => x.parent_id == document.parent_id)
+                    .ToList();
+
+                double summ2 = 0;
+
+                foreach (var item in documentParentList)
+                {
+                    if (item != null)
+                    {
+                        summ2 += GetTeacherDocumentScoreAllDoc(dbcheck.old_year ?? 0, dbcheck.new_year ?? 0, user.person_id ?? 0, item.id, false) ?? 0;
+                    }
+                }
+
+                if (summ2 > documentParent.max_score) return Tuple.Create(false, "Hujjatga ball qo'yish limiti to'lgan");
+
+                double differenceParent = documentParent.max_score.Value - summ2;
+
+                //
+
                 double difference = document.max_score.Value - summ;
 
-                if (teacher110Set.score > difference) return Tuple.Create(false, $"Bu turdagi hujjatga maksimal {difference} ball qo'yishingiz mumkin");
+                if (teacher110Set.score > difference) return Tuple.Create(
+                    false,
+                    $"Bu turdagi hujjatga maksimal " +
+                    $"{((differenceParent < difference) ? differenceParent : difference)} " +
+                    $"ball qo'yishingiz mumkin"
+                    );
+
+                if (teacher110Set.score > differenceParent) return Tuple.Create(false, $"Bu turdagi hujjatga maksimal {differenceParent} ball qo'yishingiz mumkin");
+
+
+
 
 
                 dbcheck.rejection = false;
