@@ -772,7 +772,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 {
                     if (item != null)
                     {
-                        summ2 += GetTeacherDocumentScoreAllDoc(dbcheck.old_year ?? 0, dbcheck.new_year ?? 0, user.person_id ?? 0, item.id, false) ?? 0;
+                        summ2 += GetTeacherDocumentScoreAllDoc(dbcheck.old_year ?? 0, dbcheck.new_year ?? 0, dbcheck.person_id ?? 0, item.id, false) ?? 0;
                     }
                 }
 
