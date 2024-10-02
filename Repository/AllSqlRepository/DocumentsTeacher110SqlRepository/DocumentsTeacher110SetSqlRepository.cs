@@ -1007,7 +1007,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             dbcheck.old_year = documentTeacher110.old_year;
             dbcheck.new_year = documentTeacher110.new_year;
             dbcheck.document_id = documentTeacher110.document_id;
-            dbcheck.sequence_status = 2;
+            dbcheck.sequence_status = 4;
             dbcheck.rejection = false;
             dbcheck.reason_for_rejection = "";
             dbcheck.fixed_date = documentTeacher110.fixed_date;
