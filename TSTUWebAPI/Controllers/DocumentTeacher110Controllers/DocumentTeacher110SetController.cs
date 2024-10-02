@@ -475,7 +475,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "StudyDepartment")]
         [HttpPut("updatedocumentteacher110setstudydep/{id}")]
         public IActionResult UpdateDocumentTeacher110SetStudyDep(DocumentTeacher110SetUpdatedDTO documentTeacher110Set, int id, double score)
         {

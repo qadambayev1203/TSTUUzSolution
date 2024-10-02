@@ -101,7 +101,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
     {
         try
         {
-            if (documentTeacher110Set == null && documentTeacher110Set.document_id != 89)
+            if (documentTeacher110Set == null || documentTeacher110Set.document_id == 89)
             {
                 return 0;
             }
@@ -272,7 +272,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         try
         {
             var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
-            if (dbcheck is null || dbcheck.document_id != 89)
+            if (dbcheck is null || dbcheck.document_id == 89)
             {
                 return false;
             }
