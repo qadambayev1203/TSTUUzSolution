@@ -6,7 +6,6 @@ using Entities.Model.AnyClasses;
 using Entities.Model.DocumentTeacher110Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers;
 

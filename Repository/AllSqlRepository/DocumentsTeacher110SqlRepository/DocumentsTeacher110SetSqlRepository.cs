@@ -1,6 +1,7 @@
 ﻿using Contracts.AllRepository.DocumentTeacher110Repository;
 using Entities;
 using Entities.Model.AnyClasses;
+using Entities.Model.BlogsModel;
 using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.PersonModel;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +48,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                .Include(x => x.assessor_).ThenInclude(y => y.user_type_)
                .Include(x => x.assessor_).ThenInclude(y => y.person_)
                .Where(x => x.person_id == person_id)
-               .Where(x => x.status_.status != "Deleted")
+               .Where(x => x.status_.status != "Deleted" && x.document_id != 89)
                .Where(x => x.old_year == oldYear && x.new_year == newYear);
 
 
@@ -100,7 +101,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
     {
         try
         {
-            if (documentTeacher110Set == null)
+            if (documentTeacher110Set == null && documentTeacher110Set.document_id != 89)
             {
                 return 0;
             }
@@ -118,9 +119,12 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             if (documentTeacher110Set.fixed_date != null)
             {
-                DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(documentTeacher110Set.fixed_date.ToString()), DateTimeKind.Local).ToUniversalTime();
-                documentTeacher110Set.fixed_date = utcDateTime;
+                DateTime localDateTime = DateTime.Parse(documentTeacher110Set.fixed_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                documentTeacher110Set.fixed_date = utcDateTime.AddDays(1);
             }
+
 
             if (user.user_type_.type != "Teacher")
             {
@@ -251,7 +255,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 .Include(x => x.person_)
                 .Include(x => x.file_)
                 .Include(x => x.document_)
-                .Where(x => x.status_.status != "Deleted" && x.person_id == person_id)
+                .Where(x => x.status_.status != "Deleted" && x.person_id == person_id && x.document_id != 89)
                 .FirstOrDefault(x => x.id.Equals(id));
 
             return documentTeacher110 ?? new DocumentTeacher110Set();
@@ -268,7 +272,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         try
         {
             var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
-            if (dbcheck is null)
+            if (dbcheck is null || dbcheck.document_id != 89)
             {
                 return false;
             }
@@ -280,8 +284,10 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             if (documentTeacher110.fixed_date != null)
             {
-                DateTime utcDateTime = DateTime.SpecifyKind(DateTime.Parse(documentTeacher110.fixed_date.ToString()), DateTimeKind.Local).ToUniversalTime();
-                documentTeacher110.fixed_date = utcDateTime;
+                DateTime localDateTime = DateTime.Parse(documentTeacher110.fixed_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                documentTeacher110.fixed_date = utcDateTime.AddDays(1);
             }
 
             var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == dbcheck.document_id);
@@ -524,7 +530,9 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
                 if (person == null) return new DocumentTeacher110SetList();
 
-                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 2).ToList();
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 2)
+                    .Where(x => x.document_id != 89)
+                    .ToList();
 
                 DocumentTeacher110SetList document = new DocumentTeacher110SetList()
                 {
@@ -670,7 +678,9 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
                 if (person == null) return new DocumentTeacher110SetList();
 
-                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 3).ToList();
+                List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 3)
+                    .Where(x => x.document_id != 89)
+                    .ToList();
 
                 DocumentTeacher110SetList document = new DocumentTeacher110SetList()
                 {
@@ -715,7 +725,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 return Tuple.Create(false, "Xato!");
             }
 
-            if (dbcheck.sequence_status != 3)
+            if (dbcheck.sequence_status != 3 || dbcheck.document_id == 89)
             {
                 return Tuple.Create(false, "Xato!");
             }
@@ -899,6 +909,129 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
+    public Tuple<bool, string> CreateDocumentTeacher110SetStudyDep(int person_id, DocumentTeacher110Set documentTeacher110Set)
+    {
+        try
+        {
+            if (documentTeacher110Set == null || documentTeacher110Set.document_id != 89)
+            {
+                return Tuple.Create(false, "Xato!");
+            }
+
+            if (documentTeacher110Set.fixed_date != null)
+            {
+                DateTime localDateTime = DateTime.Parse(documentTeacher110Set.fixed_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                documentTeacher110Set.fixed_date = utcDateTime.AddDays(1);
+            }
+
+
+            double scoreMax = GetTeacherDocumentScore(documentTeacher110Set.old_year ?? 0, documentTeacher110Set.new_year ?? 0, person_id) ?? 0;
+            double define = 110 - scoreMax;
+
+            if (documentTeacher110Set.score > define)
+            {
+                return Tuple.Create(false, $"Siz maksimal {define} ball qo'yishingiz mumkin");
+            }
+
+            documentTeacher110Set.person_id = person_id;
+
+            var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == documentTeacher110Set.document_id);
+            if (document.indicator == true)
+            {
+                return Tuple.Create(false, "Xato!");
+            }
+
+            documentTeacher110Set.avtor = document.avtor;
+
+            if (documentTeacher110Set.avtor == false || documentTeacher110Set.avtor == null)
+            {
+                documentTeacher110Set.number_authors = null;
+            }
+
+            _context.document_teacher_110_set_20ts24tu.Add(documentTeacher110Set);
+            _context.SaveChanges();
+            int id = documentTeacher110Set.id;
+            _logger.LogInformation($"Created " + JsonConvert.SerializeObject(documentTeacher110Set));
+            return Tuple.Create(true, id.ToString());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Tuple.Create(false, "Xato!");
+        }
+    }
+
+    public Tuple<bool, string> UpdateDocumentTeacher110SetStudyDep(int id, DocumentTeacher110Set documentTeacher110)
+    {
+        try
+        {
+            var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
+            if (dbcheck is null || documentTeacher110.document_id != 89)
+            {
+                return Tuple.Create(false, "Xato!");
+            }
+
+
+            if (documentTeacher110.fixed_date != null)
+            {
+                DateTime localDateTime = DateTime.Parse(documentTeacher110.fixed_date.ToString());
+                localDateTime = DateTime.SpecifyKind(localDateTime, DateTimeKind.Local);
+                DateTime utcDateTime = localDateTime.ToUniversalTime();
+                documentTeacher110.fixed_date = utcDateTime.AddDays(1);
+            }
+
+            double scoreMax = GetTeacherDocumentScore(documentTeacher110.old_year ?? 0, documentTeacher110.new_year ?? 0, dbcheck.person_id ?? 0) ?? 0;
+            scoreMax = scoreMax - dbcheck.score ?? 0;
+            double define = 110 - scoreMax;
+
+            if (scoreMax > define)
+            {
+                return Tuple.Create(false, $"Siz maksimal {define} ball qo'yishingiz mumkin");
+            }
+
+            var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == dbcheck.document_id);
+            if (document.indicator == true)
+            {
+                return Tuple.Create(false, "Xato!");
+            }
+
+            documentTeacher110.avtor = document.avtor;
+
+            if (documentTeacher110.avtor == false || documentTeacher110.avtor == null)
+            {
+                documentTeacher110.number_authors = null;
+            }
+            dbcheck.score = documentTeacher110.score;
+            dbcheck.old_year = documentTeacher110.old_year;
+            dbcheck.new_year = documentTeacher110.new_year;
+            dbcheck.document_id = documentTeacher110.document_id;
+            dbcheck.sequence_status = 2;
+            dbcheck.rejection = false;
+            dbcheck.reason_for_rejection = "";
+            dbcheck.fixed_date = documentTeacher110.fixed_date;
+            dbcheck.avtor = documentTeacher110.avtor;
+            dbcheck.number_authors = documentTeacher110.number_authors;
+
+            if (documentTeacher110.file_ != null)
+            {
+                dbcheck.file_ = documentTeacher110.file_;
+            }
+            dbcheck.comment = documentTeacher110.comment;
+
+
+            _context.Update(dbcheck);
+            _context.SaveChanges();
+            _logger.LogInformation($"Updated " + JsonConvert.SerializeObject(dbcheck));
+            return Tuple.Create(true, "");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return Tuple.Create(false, "Xato!");
+        }
+    }
 
     #endregion region
 

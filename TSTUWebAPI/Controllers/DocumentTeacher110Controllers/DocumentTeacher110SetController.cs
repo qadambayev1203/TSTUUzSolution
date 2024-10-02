@@ -420,6 +420,113 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(document);
         }
 
+        [Authorize(Roles = "StudyDepartment")]
+        [HttpPost("createdocumentteacher110setstudydep")]
+        public IActionResult CreateDocumentTeacher110SetStudyDep(int person_id, double score, DocumentTeacher110SetCreatedDTO documentTeacher110Set)
+        {
+
+            if (documentTeacher110Set.old_year == 0 || documentTeacher110Set.new_year == 0 || documentTeacher110Set.document_id != 89)
+            {
+                return BadRequest("Xato!");
+            }
+
+            Tuple<bool, string> ch = _repository.OptimizeDocument(documentTeacher110Set.document_id);
+
+            if (!ch.Item1) return BadRequest(ch.Item2);
+
+            var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
+            documentTeacher110SetMap.status_id = _status.GetStatusId("Active");
+            documentTeacher110SetMap.created_at = DateTime.UtcNow;
+            documentTeacher110SetMap.sequence_status = 4;
+            documentTeacher110SetMap.rejection = false;
+            documentTeacher110SetMap.reason_for_rejection = "";
+            documentTeacher110SetMap.score = score;
+
+            FileUploadRepository fileUpload = new FileUploadRepository();
+
+            var Url = fileUpload.SaveFileAsync(documentTeacher110Set.file_up);
+            if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+            {
+                return BadRequest("Xato!");
+            }
+            if (Url != null && Url.Length > 0)
+            {
+                documentTeacher110SetMap.file_ = new Files
+                {
+                    title = Guid.NewGuid().ToString(),
+                    url = Url
+                };
+            }
+
+
+            Tuple<bool, string> createCheck = _repository.CreateDocumentTeacher110SetStudyDep(person_id, documentTeacher110SetMap);
+            if (createCheck.Item1 == false)
+            {
+                fileUpload.DeleteFileAsync(Url);
+                return BadRequest(createCheck.Item2);
+            }
+
+            CreatedItemId createdItemId = new CreatedItemId()
+            {
+                id = Convert.ToInt32(createCheck.Item2),
+                StatusCode = 200
+            };
+
+            return Ok(createdItemId);
+        }
+
+        [Authorize(Roles = "Admin,Teacher")]
+        [HttpPut("updatedocumentteacher110setstudydep/{id}")]
+        public IActionResult UpdateDocumentTeacher110SetStudyDep(DocumentTeacher110SetUpdatedDTO documentTeacher110Set, int id, double score)
+        {
+            try
+            {
+                if (documentTeacher110Set == null || documentTeacher110Set.document_id != 89)
+                {
+                    return BadRequest();
+                }
+
+                if (documentTeacher110Set.old_year == 0 || documentTeacher110Set.new_year == 0 || documentTeacher110Set.document_id == 0)
+                {
+                    return BadRequest("old_year, new_year and document_id cannot be 0");
+                }
+
+                var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
+                documentTeacher110SetMap.score = score;
+
+
+                FileUploadRepository fileUpload = new FileUploadRepository();
+
+                var Url = fileUpload.SaveFileAsync(documentTeacher110Set.file_up);
+                if (Url == "File not found or empty!" || Url == "Invalid file extension!" || Url == "Error!")
+                {
+                    return BadRequest("File created error!");
+                }
+                if (Url != null && Url.Length > 0)
+                {
+                    documentTeacher110SetMap.file_ = new Files
+                    {
+                        title = Guid.NewGuid().ToString(),
+                        url = Url
+                    };
+                }
+
+
+                Tuple<bool, string> updatedcheck = _repository.UpdateDocumentTeacher110SetStudyDep(id, documentTeacher110SetMap);
+                if (!updatedcheck.Item1)
+                {
+                    return BadRequest(updatedcheck.Item2);
+                }
+
+                return Ok("Updated");
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
 
         #endregion region
 

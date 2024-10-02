@@ -44,7 +44,9 @@ public interface IDocumentTeacher110SetRepository
     public IEnumerable<Person> AllDocumentTeacher110SetConfirmationStudyDep(int oldYear, int newYear, int departament_id);
 
     public DocumentTeacher110SetList DocumentTeacher110SetConfirmStudyDep(int oldYear, int newYear, int person_id);
+    public Tuple<bool, string> CreateDocumentTeacher110SetStudyDep(int person_id, DocumentTeacher110Set documentTeacher110Set);
 
+    public Tuple<bool, string> UpdateDocumentTeacher110SetStudyDep(int id, DocumentTeacher110Set documentTeacher110Set);
 
 
 }

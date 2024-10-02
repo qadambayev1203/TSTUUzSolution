@@ -49,6 +49,7 @@ namespace Repository.AllSqlRepository.SearchSqlRepositorys
             {
                 var departamentResults = await _context.departament_20ts24tu
                     .Where(pd => pd.status_.status != "Deleted")
+                    .Include(x => x.departament_type_)
                     .Where(d =>
                         EF.Functions.ILike(d.title_short, $"%{query}%") ||
                         EF.Functions.ILike(d.title, $"%{query}%") ||
@@ -148,6 +149,7 @@ namespace Repository.AllSqlRepository.SearchSqlRepositorys
                 var departamentResults = await _context.departament_translations_20ts24tu
                     .Where(pd => pd.status_translation_.status != "Deleted")
                     .Include(pd => pd.language_)
+                    .Include(x => x.departament_type_translation_).ThenInclude(y => y.departament_type_)
                     .Where(pd => pd.language_.code == language_code)
                     .Where(d =>
                         EF.Functions.ILike(d.title_short, $"%{query}%") ||
