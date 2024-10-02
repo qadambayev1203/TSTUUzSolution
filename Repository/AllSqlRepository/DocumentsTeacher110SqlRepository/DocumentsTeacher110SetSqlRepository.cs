@@ -48,7 +48,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                .Include(x => x.assessor_).ThenInclude(y => y.user_type_)
                .Include(x => x.assessor_).ThenInclude(y => y.person_)
                .Where(x => x.person_id == person_id)
-               .Where(x => x.status_.status != "Deleted" && x.document_id != 89)
+               .Where(x => x.status_.status != "Deleted" && x.document_id != SessionClass.staticDocumentId)
                .Where(x => x.old_year == oldYear && x.new_year == newYear);
 
 
@@ -101,7 +101,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
     {
         try
         {
-            if (documentTeacher110Set == null || documentTeacher110Set.document_id == 89)
+            if (documentTeacher110Set == null || documentTeacher110Set.document_id == SessionClass.staticDocumentId)
             {
                 return 0;
             }
@@ -255,7 +255,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 .Include(x => x.person_)
                 .Include(x => x.file_)
                 .Include(x => x.document_)
-                .Where(x => x.status_.status != "Deleted" && x.person_id == person_id && x.document_id != 89)
+                .Where(x => x.status_.status != "Deleted" && x.person_id == person_id && x.document_id != SessionClass.staticDocumentId)
                 .FirstOrDefault(x => x.id.Equals(id));
 
             return documentTeacher110 ?? new DocumentTeacher110Set();
@@ -272,7 +272,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         try
         {
             var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
-            if (dbcheck is null || dbcheck.document_id == 89)
+            if (dbcheck is null || dbcheck.document_id == SessionClass.staticDocumentId)
             {
                 return false;
             }
@@ -531,7 +531,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 if (person == null) return new DocumentTeacher110SetList();
 
                 List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 2)
-                    .Where(x => x.document_id != 89)
+                    .Where(x => x.document_id != SessionClass.staticDocumentId)
                     .ToList();
 
                 DocumentTeacher110SetList document = new DocumentTeacher110SetList()
@@ -679,7 +679,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 if (person == null) return new DocumentTeacher110SetList();
 
                 List<DocumentTeacher110Set> docList = AllDocumentTeacher110SetDocList(oldYear, newYear, person_id, false, 3)
-                    .Where(x => x.document_id != 89)
+                    .Where(x => x.document_id != SessionClass.staticDocumentId)
                     .ToList();
 
                 DocumentTeacher110SetList document = new DocumentTeacher110SetList()
@@ -725,7 +725,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 return Tuple.Create(false, "Xato!");
             }
 
-            if (dbcheck.sequence_status != 3 || dbcheck.document_id == 89)
+            if (dbcheck.sequence_status != 3 || dbcheck.document_id == SessionClass.staticDocumentId)
             {
                 return Tuple.Create(false, "Xato!");
             }
@@ -913,7 +913,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
     {
         try
         {
-            if (documentTeacher110Set == null || documentTeacher110Set.document_id != 89)
+            if (documentTeacher110Set == null || documentTeacher110Set.document_id != SessionClass.staticDocumentId)
             {
                 return Tuple.Create(false, "Xato!");
             }
@@ -968,7 +968,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         try
         {
             var dbcheck = GetDocumentTeacher110SetByIdAdmin(id);
-            if (dbcheck is null || documentTeacher110.document_id != 89)
+            if (dbcheck is null || documentTeacher110.document_id != SessionClass.staticDocumentId)
             {
                 return Tuple.Create(false, "Xato!");
             }

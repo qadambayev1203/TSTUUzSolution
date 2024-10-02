@@ -11,6 +11,8 @@ public static class SessionClass
 
     public static int id { get; set; }
 
+    public static int staticDocumentId = 89;
+
     public static string tokenCheck = token1;
     public static string token { get; set; } = token1;
 

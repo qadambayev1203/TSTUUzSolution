@@ -425,7 +425,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         public IActionResult CreateDocumentTeacher110SetStudyDep(int person_id, double score, DocumentTeacher110SetCreatedDTO documentTeacher110Set)
         {
 
-            if (documentTeacher110Set.old_year == 0 || documentTeacher110Set.new_year == 0 || documentTeacher110Set.document_id != 89)
+            if (documentTeacher110Set.old_year == 0 || documentTeacher110Set.new_year == 0 || documentTeacher110Set.document_id != SessionClass.staticDocumentId)
             {
                 return BadRequest("Xato!");
             }
@@ -481,7 +481,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
         {
             try
             {
-                if (documentTeacher110Set == null || documentTeacher110Set.document_id != 89)
+                if (documentTeacher110Set == null || documentTeacher110Set.document_id != SessionClass.staticDocumentId)
                 {
                     return BadRequest();
                 }
