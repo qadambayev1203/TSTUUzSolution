@@ -441,6 +441,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             documentTeacher110SetMap.rejection = false;
             documentTeacher110SetMap.reason_for_rejection = "";
             documentTeacher110SetMap.score = score;
+            documentTeacher110SetMap.document_id=SessionClass.staticDocumentId;
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 
@@ -493,6 +494,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
                 var documentTeacher110SetMap = _mapper.Map<DocumentTeacher110Set>(documentTeacher110Set);
                 documentTeacher110SetMap.score = score;
+                documentTeacher110SetMap.document_id = SessionClass.staticDocumentId;
 
 
                 FileUploadRepository fileUpload = new FileUploadRepository();
