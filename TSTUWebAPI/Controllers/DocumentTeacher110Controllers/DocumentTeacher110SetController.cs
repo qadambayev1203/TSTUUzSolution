@@ -174,7 +174,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok("Deleted");
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,StudyDepartment")]
         [HttpGet("getbyiddocumentteacher110set/{id}")]
         public IActionResult GetByIdDocumentTeacher110Set(int id)
         {
