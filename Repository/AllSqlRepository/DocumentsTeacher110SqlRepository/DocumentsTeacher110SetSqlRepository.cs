@@ -1033,6 +1033,51 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
+    public DocumentTeacher110Set GetDocumentTeacher110SetByIdStudyDep(int id)
+    {
+        try
+        {
+
+            var documentTeacher110 = _context.document_teacher_110_set_20ts24tu
+                .Include(x => x.person_)
+                .Include(x => x.file_)
+                .Include(x => x.document_)
+                .Where(x => x.status_.status != "Deleted" && x.document_id == SessionClass.staticDocumentId)
+                .FirstOrDefault(x => x.id.Equals(id));
+
+            return documentTeacher110 ?? new DocumentTeacher110Set();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return new DocumentTeacher110Set();
+        }
+    }
+
+    public bool DeleteDocumentTeacher110SetStudyDep(int id)
+    {
+        try
+        {
+            var documentTeacher110 = GetDocumentTeacher110SetByIdStudyDep(id);
+            if (documentTeacher110 == null)
+            {
+                return false;
+            }
+           
+            documentTeacher110.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
+            _context.document_teacher_110_set_20ts24tu.Update(documentTeacher110);
+            _context.SaveChanges();
+            _logger.LogInformation($"Deleted " + JsonConvert.SerializeObject(documentTeacher110));
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error " + ex.Message);
+            return false;
+        }
+    }
+
     #endregion region
 
 

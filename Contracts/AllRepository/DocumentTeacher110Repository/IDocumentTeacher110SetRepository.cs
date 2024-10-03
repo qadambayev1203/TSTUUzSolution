@@ -38,6 +38,8 @@ public interface IDocumentTeacher110SetRepository
     public DocumentTeacher110SetList DocumentTeacher110SetConfirmFacultyCouncil(int oldYear, int newYear, int person_id);
 
     public Tuple<bool, string> ConfirmDocumentTeacher110SetFacultyCouncil(int id, bool confirm, DocumentTeacher110Set teacher110Set);
+    public DocumentTeacher110Set GetDocumentTeacher110SetByIdStudyDep(int id);
+    public bool DeleteDocumentTeacher110SetStudyDep(int id);
 
 
     //Study department

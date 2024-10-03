@@ -174,7 +174,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok("Deleted");
         }
 
-        [Authorize(Roles = "Teacher,StudyDepartment")]
+        [Authorize(Roles = "Teacher")]
         [HttpGet("getbyiddocumentteacher110set/{id}")]
         public IActionResult GetByIdDocumentTeacher110Set(int id)
         {
@@ -529,6 +529,26 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         }
 
+        [Authorize(Roles = "StudyDepartment")]
+        [HttpGet("getbyiddocumentteacher110setstudydep/{id}")]
+        public IActionResult GetByIdDocumentTeacher110SetStudyDep(int id)
+        {
+            DocumentTeacher110Set documentTeacher110SetMap = _repository.GetDocumentTeacher110SetByIdStudyDep(id);
+            var documentTeacher110Set = _mapper.Map<DocumentTeacher110SetReadedDTO>(documentTeacher110SetMap);
+            return Ok(documentTeacher110Set);
+        }
+
+        [Authorize(Roles = "StudyDepartment")]
+        [HttpDelete("deletedocumentteacher110setstudydep/{id}")]
+        public IActionResult DeleteDocumentTeacher110SetStudyDep(int id)
+        {
+            bool check = _repository.DeleteDocumentTeacher110SetStudyDep(id);
+            if (!check)
+            {
+                return BadRequest("Not Deleted");
+            }
+            return Ok("Deleted");
+        }
 
         #endregion region
 
