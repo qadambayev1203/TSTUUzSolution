@@ -986,7 +986,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             scoreMax = scoreMax - dbcheck.score ?? 0;
             double define = 110 - scoreMax;
 
-            if (scoreMax > define)
+            if (documentTeacher110.score > define)
             {
                 return Tuple.Create(false, $"Siz maksimal {define} ball qo'yishingiz mumkin");
             }
