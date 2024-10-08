@@ -160,19 +160,21 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
         }
     }
 
-    public Tuple<bool, string> OptimizeDocument(int document_id)
+    public Tuple<bool, string> OptimizeDocument(int document_id, int person_id)
     {
         try
         {
-            var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
-            int person_id;
-            if (user != null && user.person_id != 0 && user.person_id != null)
+            if (person_id == 0 || person_id == null)
             {
-                person_id = user.person_id ??= 0;
-            }
-            else
-            {
-                return null;
+                var user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                if (user != null && user.person_id != 0 && user.person_id != null)
+                {
+                    person_id = user.person_id ??= 0;
+                }
+                else
+                {
+                    return null;
+                }
             }
 
             DocumentTeacher110 document = _context.document_teacher_110_20ts24tu
@@ -1063,7 +1065,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             {
                 return false;
             }
-           
+
             documentTeacher110.status_id = (_context.statuses_20ts24tu.FirstOrDefault(x => x.status == "Deleted")).id;
             _context.document_teacher_110_set_20ts24tu.Update(documentTeacher110);
             _context.SaveChanges();

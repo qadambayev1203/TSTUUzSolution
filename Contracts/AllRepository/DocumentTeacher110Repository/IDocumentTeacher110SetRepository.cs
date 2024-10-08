@@ -14,7 +14,7 @@ public interface IDocumentTeacher110SetRepository
     public DocumentTeacher110Set GetDocumentTeacher110SetById(int id);
     public IEnumerable<DocumentTeacher110Set> GetDocumentTeacher110SetByDocumentId(int oldYear, int newYear, int document_id);
     public int CreateDocumentTeacher110Set(DocumentTeacher110Set documentTeacher110Set);
-    public Tuple<bool, string> OptimizeDocument(int document_id);
+    public Tuple<bool, string> OptimizeDocument(int document_id, int person_id);
     public bool UpdateDocumentTeacher110Set(int id, DocumentTeacher110Set documentTeacher110Set);
     public bool DeleteDocumentTeacher110Set(int id);
 

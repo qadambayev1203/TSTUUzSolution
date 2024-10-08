@@ -41,7 +41,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
                 return BadRequest("Xato!");
             }
 
-            Tuple<bool, string> ch = _repository.OptimizeDocument(documentTeacher110Set.document_id);
+            Tuple<bool, string> ch = _repository.OptimizeDocument(documentTeacher110Set.document_id, 0);
 
             if (!ch.Item1) return BadRequest(ch.Item2);
 
@@ -430,7 +430,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
                 return BadRequest("Xato!");
             }
 
-            Tuple<bool, string> ch = _repository.OptimizeDocument(documentTeacher110Set.document_id);
+            Tuple<bool, string> ch = _repository.OptimizeDocument(documentTeacher110Set.document_id, person_id);
 
             if (!ch.Item1) return BadRequest(ch.Item2);
 
@@ -441,7 +441,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             documentTeacher110SetMap.rejection = false;
             documentTeacher110SetMap.reason_for_rejection = "";
             documentTeacher110SetMap.score = score;
-            documentTeacher110SetMap.document_id=SessionClass.staticDocumentId;
+            documentTeacher110SetMap.document_id = SessionClass.staticDocumentId;
 
             FileUploadRepository fileUpload = new FileUploadRepository();
 
