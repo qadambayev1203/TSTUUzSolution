@@ -932,11 +932,13 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             double scoreMax = GetTeacherDocumentScore(documentTeacher110Set.old_year ?? 0, documentTeacher110Set.new_year ?? 0, person_id) ?? 0;
             double define = 110 - scoreMax;
 
+
             if (documentTeacher110Set.score > define)
             {
-                return Tuple.Create(false, $"Siz maksimal {define} ball qo'yishingiz mumkin");
+                string res = define == 0 ? "Bal qo'yish limiti to'lgan" : $"Siz maksimal {define} ball qo'yishingiz mumkin";
+                return Tuple.Create(false, res);
             }
-
+           
             documentTeacher110Set.person_id = person_id;
 
             var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == documentTeacher110Set.document_id);
