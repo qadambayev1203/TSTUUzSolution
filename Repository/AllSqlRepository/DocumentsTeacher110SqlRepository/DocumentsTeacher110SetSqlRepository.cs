@@ -1,7 +1,6 @@
 ﻿using Contracts.AllRepository.DocumentTeacher110Repository;
 using Entities;
 using Entities.Model.AnyClasses;
-using Entities.Model.BlogsModel;
 using Entities.Model.DocumentTeacher110Model;
 using Entities.Model.PersonModel;
 using Microsoft.EntityFrameworkCore;
@@ -126,9 +125,14 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             }
 
 
-            if (user.user_type_.type != "Teacher")
+            if (user.user_type_.type != "Teacher" && user.user_type_.type != "HeadDepartment")
             {
                 return 0;
+            }
+
+            if (user.user_type_.type == "HeadDepartment")
+            {
+                documentTeacher110Set.sequence_status = 3;
             }
 
 
@@ -308,7 +312,6 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             dbcheck.old_year = documentTeacher110.old_year;
             dbcheck.new_year = documentTeacher110.new_year;
             dbcheck.document_id = documentTeacher110.document_id;
-            dbcheck.sequence_status = 2;
             dbcheck.rejection = false;
             dbcheck.reason_for_rejection = "";
             dbcheck.fixed_date = documentTeacher110.fixed_date;
@@ -319,7 +322,21 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
             {
                 dbcheck.file_ = documentTeacher110.file_;
             }
+
             dbcheck.comment = documentTeacher110.comment;
+
+            dbcheck.sequence_status = 2;
+            var user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+            int person_id;
+            if (user != null)
+            {
+                return false;
+            }
+
+            if (user.user_type_.type == "HeadDepartment")
+            {
+                dbcheck.sequence_status = 3;
+            }
 
 
             _context.Update(dbcheck);
@@ -938,7 +955,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
                 string res = define == 0 ? "Bal qo'yish limiti to'lgan" : $"Siz maksimal {define} ball qo'yishingiz mumkin";
                 return Tuple.Create(false, res);
             }
-           
+
             documentTeacher110Set.person_id = person_id;
 
             var document = _context.document_teacher_110_20ts24tu.FirstOrDefault(x => x.id == documentTeacher110Set.document_id);

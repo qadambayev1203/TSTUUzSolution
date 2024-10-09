@@ -31,7 +31,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         #region Teacher
 
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher,HeadDepartment")]
         [HttpPost("createdocumentteacher110set")]
         public IActionResult CreateDocumentTeacher110Set(DocumentTeacher110SetCreatedDTO documentTeacher110Set)
         {
@@ -86,7 +86,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(createdItemId);
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,HeadDepartment")]
         [HttpGet("getalldocumentteacher110set")]
         public IActionResult GetAllDocumentTeacher110Set(int oldYear, int newYear)
         {
@@ -96,7 +96,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110Set);
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,HeadDepartment")]
         [HttpGet("getteacherdocumentscore")]
         public IActionResult GetTeacherDocumentScore(int oldYear, int newYear)
         {
@@ -110,7 +110,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(res);
         }
 
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher,HeadDepartment")]
         [HttpPut("updatedocumentteacher110set/{id}")]
         public IActionResult UpdateDocumentTeacher110Set(DocumentTeacher110SetUpdatedDTO documentTeacher110Set, int id)
         {
@@ -162,7 +162,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         }
 
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher,HeadDepartment")]
         [HttpDelete("deletedocumentteacher110set/{id}")]
         public IActionResult DeleteDocumentTeacher110Set(int id)
         {
@@ -174,7 +174,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok("Deleted");
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,HeadDepartment")]
         [HttpGet("getbyiddocumentteacher110set/{id}")]
         public IActionResult GetByIdDocumentTeacher110Set(int id)
         {
@@ -183,7 +183,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(documentTeacher110Set);
         }
 
-        [Authorize(Roles = "Teacher")]
+        [Authorize(Roles = "Teacher,HeadDepartment")]
         [HttpGet("getbydocumentiddocumentteacher110set/{document_id}")]
         public IActionResult GetByDocumentIdDocumentTeacher110Set(int oldYear, int newYear, int document_id)
         {
