@@ -8,7 +8,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5058"
+      "applicationUrl": "http://localhost:5058",
+      "nativeDebugging": true
     },
     "http": {
       "commandName": "Project",
