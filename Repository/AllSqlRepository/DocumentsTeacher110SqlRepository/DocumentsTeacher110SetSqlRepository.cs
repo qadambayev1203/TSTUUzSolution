@@ -327,8 +327,7 @@ public class DocumentsTeacher110SetSqlRepository : IDocumentTeacher110SetReposit
 
             dbcheck.sequence_status = 2;
             var user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
-            int person_id;
-            if (user != null)
+            if (user == null)
             {
                 return false;
             }
