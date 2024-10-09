@@ -14,6 +14,7 @@ public static class SessionClass
     public static int staticDocumentId = 89;
 
     public static string tokenCheck = token1;
+    public static List<string> userTypeConfirm = new List<string>() { "Dean", "Rector", "Vice-Rector", "DeputyDean", "HeadDepartment" };
     public static string token { get; set; } = token1;
 
     public static string fileUploadsUrl = @"";

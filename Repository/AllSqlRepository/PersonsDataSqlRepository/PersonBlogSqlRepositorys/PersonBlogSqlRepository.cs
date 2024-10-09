@@ -7,8 +7,6 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Entities.Model.PersonModel;
-using Entities.Model.PersonDataModel.PersonPortfolioModel;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository.PersonBlogSqlRepositorys;
 
@@ -16,6 +14,7 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
 {
     private readonly RepositoryContext _context;
     private readonly ILogger<PersonBlogSqlRepository> _logger;
+    private readonly List<string> userType = SessionClass.userTypeConfirm;
     public PersonBlogSqlRepository(RepositoryContext repositoryContext, ILogger<PersonBlogSqlRepository> logger)
     {
         _context = repositoryContext;
@@ -111,15 +110,19 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 return 0;
             }
 
+            personBlog.confirmed = 0;
             if (personBlog.person_data_id == 0 || personBlog.person_data_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonData personData = _context.persons_data_20ts24tu.FirstOrDefault(x => x.persons_id == user.person_id);
                 if (personData == null) return 0;
                 personBlog.person_data_id = personData.id;
+                if (userType.Contains(user.user_type_.type))
+                {
+                    personBlog.confirmed = 1;
+                }
             }
 
-            personBlog.confirmed = 0;
 
             _context.person_blog_20ts24tu.Add(personBlog);
             _context.SaveChanges();
@@ -213,6 +216,17 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             }
 
             dbcheck.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null && user.user_type_.type != null)
+            {
+                if (userType.Contains(user.user_type_.type))
+                {
+                    dbcheck.confirmed = 1;
+                }
+
+            }
+
             dbcheck.title = personBlog.title;
             dbcheck.description = personBlog.description;
             dbcheck.text = personBlog.text;
@@ -249,17 +263,23 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
                 return 0;
             }
 
+            int confirmed = 0;
             if (personBlog.person_data_id == 0 || personBlog.person_data_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonDataTranslation personData = _context.persons_data_translations_20ts24tu
                     .FirstOrDefault(x => x.persons_data_.persons_id == user.person_id && x.language_id == personBlog.language_id);
                 if (personData == null) return 0;
                 personBlog.person_data_id = personData.id;
+
+                if (userType.Contains(user.user_type_.type))
+                {
+                    confirmed = 1;
+                }
             }
 
             var person_blog_ = _context.person_blog_20ts24tu.FirstOrDefault(x => x.id == personBlog.person_blog_id);
-            person_blog_.confirmed = 0;
+            person_blog_.confirmed = confirmed;
 
             personBlog.person_blog_ = person_blog_;
 
@@ -409,7 +429,9 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             IQueryable<PersonBlogTranslation> query = _context.person_blog_translation_20ts24tu
                 .Where(x => x.person_blog_id.Equals(uz_id))
                 .Where(x => x.language_.code.Equals(language_code))
-                .Include(x => x.language_).Include(x => x.status_);
+                .Include(x => x.language_)
+                .Include(x => x.person_blog_)
+                .Include(x => x.status_);
 
             if (!isAdmin)
             {
@@ -479,6 +501,14 @@ public class PersonBlogSqlRepository : IPersonBlogRepository
             }
 
             dbcheck.person_blog_.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (userType.Contains(user.user_type_.type))
+            {
+                dbcheck.person_blog_.confirmed = 1;
+            }
+
             dbcheck.title = personBlog.title;
             dbcheck.description = personBlog.description;
             dbcheck.text = personBlog.text;

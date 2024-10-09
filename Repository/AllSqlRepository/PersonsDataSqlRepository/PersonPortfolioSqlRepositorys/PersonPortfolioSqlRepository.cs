@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Entities.Model.PersonModel;
+using Entities.Model.PersonDataModel.PersonBlogModel;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository.PersonPortfolioSqlRepositorys;
 
@@ -15,6 +16,7 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
 {
     private readonly RepositoryContext _context;
     private readonly ILogger<PersonPortfolioSqlRepository> _logger;
+    private readonly List<string> userType = SessionClass.userTypeConfirm;
     public PersonPortfolioSqlRepository(RepositoryContext repositoryContext, ILogger<PersonPortfolioSqlRepository> logger)
     {
         _context = repositoryContext;
@@ -109,16 +111,21 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
             {
                 return 0;
             }
+            PersonPortfolio.confirmed = 0;
 
             if (PersonPortfolio.person_data_id == 0 || PersonPortfolio.person_data_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonData personData = _context.persons_data_20ts24tu.FirstOrDefault(x => x.persons_id == user.person_id);
                 if (personData == null) return 0;
                 PersonPortfolio.person_data_id = personData.id;
+
+                if (userType.Contains(user.user_type_.type))
+                {
+                    PersonPortfolio.confirmed = 1;
+                }
             }
 
-            PersonPortfolio.confirmed = 0;
 
             _context.person_portfolio_20ts24tu.Add(PersonPortfolio);
             _context.SaveChanges();
@@ -212,6 +219,17 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
             }
 
             dbcheck.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null && user.user_type_.type != null)
+            {
+                if (userType.Contains(user.user_type_.type))
+                {
+                    dbcheck.confirmed = 1;
+                }
+
+            }
+
             dbcheck.title = PersonPortfolio.title;
             dbcheck.description = PersonPortfolio.description;
             dbcheck.text = PersonPortfolio.text;
@@ -248,17 +266,24 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
                 return 0;
             }
 
+            int confirmed = 0;
+
             if (PersonPortfolio.person_data_id == 0 || PersonPortfolio.person_data_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonDataTranslation personData = _context.persons_data_translations_20ts24tu
                     .FirstOrDefault(x => x.persons_data_.persons_id == user.person_id && x.language_id == PersonPortfolio.language_id);
                 if (personData == null) return 0;
                 PersonPortfolio.person_data_id = personData.id;
+
+                if (userType.Contains(user.user_type_.type))
+                {
+                    confirmed = 1;
+                }
             }
 
             var person_portfolio_ = _context.person_portfolio_20ts24tu.FirstOrDefault(x => x.id == PersonPortfolio.person_portfolio_id);
-            person_portfolio_.confirmed = 0;
+            person_portfolio_.confirmed = confirmed;
 
             PersonPortfolio.person_portfolio_ = person_portfolio_;
 
@@ -478,6 +503,13 @@ public class PersonPortfolioSqlRepository : IPersonPortfolioRepository
             }
 
             dbcheck.person_portfolio_.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (userType.Contains(user.user_type_.type))
+            {
+                dbcheck.person_portfolio_.confirmed = 1;
+            }
 
             dbcheck.title = PersonPortfolio.title;
             dbcheck.description = PersonPortfolio.description;

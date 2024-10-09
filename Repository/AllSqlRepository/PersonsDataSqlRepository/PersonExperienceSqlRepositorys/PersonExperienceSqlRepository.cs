@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Entities.Model.PersonModel;
 using Entities.Model.PersonDataModel.PersonPortfolioModel;
+using Entities.Model.PersonDataModel.PersonBlogModel;
 
 namespace Repository.AllSqlRepository.PersonsDataSqlRepository.PersonExperienceSqlRepositorys;
 
@@ -16,6 +17,7 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
 {
     private readonly RepositoryContext _context;
     private readonly ILogger<PersonExperienceSqlRepository> _logger;
+    private readonly List<string> userType = SessionClass.userTypeConfirm;
     public PersonExperienceSqlRepository(RepositoryContext repositoryContext, ILogger<PersonExperienceSqlRepository> logger)
     {
         _context = repositoryContext;
@@ -111,15 +113,20 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
                 return 0;
             }
 
+            PersonExperience.confirmed = 0;
             if (PersonExperience.person_data_id == 0 || PersonExperience.person_data_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonData personData = _context.persons_data_20ts24tu.FirstOrDefault(x => x.persons_id == user.person_id);
                 if (personData == null) return 0;
                 PersonExperience.person_data_id = personData.id;
+
+                if (userType.Contains(user.user_type_.type))
+                {
+                    PersonExperience.confirmed = 1;
+                }
             }
 
-            PersonExperience.confirmed = 0;
 
             _context.person_experience_20ts24tu.Add(PersonExperience);
             _context.SaveChanges();
@@ -213,6 +220,18 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
             }
 
             dbcheck.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null && user.user_type_.type != null)
+            {
+                if (userType.Contains(user.user_type_.type))
+                {
+                    dbcheck.confirmed = 1;
+                }
+
+            }
+
+
             dbcheck.title = PersonExperience.title;
             dbcheck.description = PersonExperience.description;
             dbcheck.text = PersonExperience.text;
@@ -249,13 +268,19 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
                 return 0;
             }
 
+            int confirmed = 0;
             if (PersonExperience.person_data_id == 0 || PersonExperience.person_data_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonDataTranslation personData = _context.persons_data_translations_20ts24tu
                     .FirstOrDefault(x => x.persons_data_.persons_id == user.person_id && x.language_id == PersonExperience.language_id);
                 if (personData == null) return 0;
                 PersonExperience.person_data_id = personData.id;
+
+                if (userType.Contains(user.user_type_.type))
+                {
+                    confirmed = 1;
+                }
             }
 
             var person_experience_ = _context.person_experience_20ts24tu.FirstOrDefault(x => x.id == PersonExperience.person_experience_id);
@@ -479,6 +504,14 @@ public class PersonExperienceSqlRepository : IPersonExperienceRepository
             }
 
             dbcheck.person_experience_.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (userType.Contains(user.user_type_.type))
+            {
+                dbcheck.person_experience_.confirmed = 1;
+            }
+
             dbcheck.title = PersonExperience.title;
             dbcheck.description = PersonExperience.description;
             dbcheck.text = PersonExperience.text;

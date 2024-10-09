@@ -3,6 +3,7 @@ using Entities;
 using Entities.Model;
 using Entities.Model.AnyClasses;
 using Entities.Model.PersonDataModel;
+using Entities.Model.PersonDataModel.PersonBlogModel;
 using Entities.Model.PersonDataModel.PersonPortfolioModel;
 using Entities.Model.PersonDataModel.PersonScientificActivityModel;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
 {
     private readonly RepositoryContext _context;
     private readonly ILogger<PersonScientificActivitySqlRepository> _logger;
+    private readonly List<string> userType = SessionClass.userTypeConfirm;
     public PersonScientificActivitySqlRepository(RepositoryContext repositoryContext, ILogger<PersonScientificActivitySqlRepository> logger)
     {
         _context = repositoryContext;
@@ -110,16 +112,21 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             {
                 return 0;
             }
+            personScientificActivity.confirmed = 0;
 
             if (personScientificActivity.person_data_id == 0 || personScientificActivity.person_data_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonData personData = _context.persons_data_20ts24tu.FirstOrDefault(x => x.persons_id == user.person_id);
                 if (personData == null) return 0;
                 personScientificActivity.person_data_id = personData.id;
+
+                if (userType.Contains(user.user_type_.type))
+                {
+                    personScientificActivity.confirmed = 1;
+                }
             }
 
-            personScientificActivity.confirmed = 0;
 
             _context.person_scientific_activity_20ts24tu.Add(personScientificActivity);
             _context.SaveChanges();
@@ -214,6 +221,17 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             }
 
             dbcheck.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+            if (user != null && user.user_type_.type != null)
+            {
+                if (userType.Contains(user.user_type_.type))
+                {
+                    dbcheck.confirmed = 1;
+                }
+
+            }
+
             dbcheck.since_when = personScientificActivity.since_when;
             dbcheck.until_when = personScientificActivity.until_when;
             dbcheck.whom = personScientificActivity.whom;
@@ -249,20 +267,25 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             {
                 return 0;
             }
-
+            int confirmed = 0;
             if (personScientificActivity.person_data_translation_id == 0 || personScientificActivity.person_data_translation_id is null)
             {
-                User user = _context.users_20ts24tu.FirstOrDefault(x => x.id == SessionClass.id);
+                User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
                 PersonDataTranslation personData = _context.persons_data_translations_20ts24tu
                     .FirstOrDefault(x => x.persons_data_.persons_id == user.person_id && x.language_id == personScientificActivity.language_id);
                 if (personData == null) return 0;
                 personScientificActivity.person_data_translation_id = personData.id;
+
+                if (userType.Contains(user.user_type_.type))
+                {
+                    confirmed = 1;
+                }
             }
 
             var person_scientific_activity_ = _context.person_scientific_activity_20ts24tu
                 .FirstOrDefault(x => x.id == personScientificActivity.person_scientific_activity_id);
 
-            person_scientific_activity_.confirmed = 0;
+            person_scientific_activity_.confirmed = confirmed;
             personScientificActivity.person_scientific_activity_ = person_scientific_activity_;
 
             _context.person_scientific_activity_translation_20ts24tu.Add(personScientificActivity);
@@ -488,6 +511,14 @@ public class PersonScientificActivitySqlRepository : IPersonScientificActivityRe
             }
 
             dbcheck.person_scientific_activity_.confirmed = 0;
+
+            User user = _context.users_20ts24tu.Include(x => x.user_type_).FirstOrDefault(x => x.id == SessionClass.id);
+
+            if (userType.Contains(user.user_type_.type))
+            {
+                dbcheck.person_scientific_activity_.confirmed = 1;
+            }
+
             dbcheck.since_when = personScientificActivity.since_when;
             dbcheck.until_when = personScientificActivity.until_when;
             dbcheck.whom = personScientificActivity.whom;
