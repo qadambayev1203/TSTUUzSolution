@@ -54,7 +54,7 @@ public class DocumentTeacher110Controller : ControllerBase
         return Ok(createdItemId);
     }
 
-    [Authorize(Roles = "Admin,Teacher")]
+    [Authorize(Roles = "Admin,Teacher,HeadDepartment")]
     [HttpGet("getalldocumentteacher110")]
     public IActionResult GetAllDocumentTeacher110(bool parent, int? parent_id, int old_year, int new_year)
     {
@@ -99,7 +99,7 @@ public class DocumentTeacher110Controller : ControllerBase
         return Ok(documentTeacher110);
     }
 
-    [Authorize(Roles = "Admin,Teacher")]
+    [Authorize(Roles = "Admin,Teacher,HeadDepartment")]
     [HttpGet("getbyiddocumentteacher110/{id}")]
     public IActionResult GetByIdDocumentTeacher110(int id, int old_year, int new_year)
     {
