@@ -311,7 +311,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
 
         #region Faculty Council
 
-        [Authorize(Roles = "FacultyCouncil")]
+        [Authorize(Roles = "FacultyCouncil,Dean")]
         [HttpGet("getalldocumentteacher110setfacultycouncil")]
         public IActionResult GetAllDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear, int departament_id)
         {
@@ -339,7 +339,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(personList);
         }
 
-        [Authorize(Roles = "FacultyCouncil")]
+        [Authorize(Roles = "FacultyCouncil,Dean")]
         [HttpGet("getdocumentteacher110setfacultycouncil")]
         public IActionResult GetDocumentTeacher110SetFacultyCouncil(int oldYear, int newYear, int person_id)
         {
@@ -348,7 +348,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(document);
         }
 
-        [Authorize(Roles = "Admin,FacultyCouncil")]
+        [Authorize(Roles = "Admin,FacultyCouncil,Dean")]
         [HttpPut("confirmfacultycouncildocument110/{id}")]
         public IActionResult ConfirmDocumentTeacher110FacultyCouncil(int id, DocumentTeacher110SetConfirmStudyDepDTO confirmStudyDepDTO)
         {
@@ -569,7 +569,7 @@ namespace TSTUWebAPI.Controllers.DocumentTeacher110Controllers
             return Ok(res);
         }
 
-        [Authorize(Roles = "Admin,HeadDepartment,FacultyCouncil,StudyDepartment")]
+        [Authorize(Roles = "Admin,HeadDepartment,FacultyCouncil,StudyDepartment,Dean")]
         [HttpGet("getteacherdocumentscorealldoc")]
         public IActionResult GetTeacherDocumentScoreAllDoc(int oldYear, int newYear, int person_id, int document_id)
         {
